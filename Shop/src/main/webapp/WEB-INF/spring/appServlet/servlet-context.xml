@@ -31,4 +31,5 @@
 	<context:component-scan base-package="pj.spring.service" />
 	<context:component-scan base-package="pj.spring.dao" />
 	
+	
 </beans:beans>

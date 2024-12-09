@@ -51,10 +51,47 @@
         </div>
         <div class="book-sales">
           <div class="quantity" name="quantity">수량
-            <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-              <span>1</span>
-            <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
+            <button onclick="cntUp()"><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
+              <span id="count">1</span>
+            <button onclick="cntDown()"><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
           </div>
+          <script>
+          	function cntUp() {
+          		let count = $("#count").text();
+          		let updateCount = count + 1;
+          		
+          		$.ajax({
+          			url: "list.do",
+          			method: "POST",
+          			data: {count : updateCount},
+          			success : function(data) {
+          				$("#count").text(updateCount);
+          			},
+          			error : function(xhr) {
+						console.log(xhr);
+					}
+          		});
+          	}
+          	
+          	function cntDown() {
+          		let count = $("#count").text();
+          		if(count > 1) {
+          			let updateCount = count - 1;
+          			
+	          		$.ajax({
+	          			url: "list.do",
+	          			method: "POST",
+	          			data: {count : updateCount},
+	          			success : function(data) {
+	          				$("#count").text(updateCount);
+	          			},
+	          			error : function(xhr) {
+							console.log(xhr);
+						}
+	          		});
+       			}
+          	}
+          </script>
           <div class="button-area-list">
             <div class="payment"><button>바로구매</button></div>
             <div class="cart"><button>장바구니</button></div>

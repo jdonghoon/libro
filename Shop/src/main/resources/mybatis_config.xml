@@ -6,5 +6,22 @@
 	<typeAliases><!-- vo 별칭 지정 -->
 		<!-- 별칭 지정시 반드시 클래스부터 선언 후 별칭 지정!! -->
 		<typeAlias type="pj.spring.vo.UserVO" alias="userVO" />
+		<typeAlias type="pj.spring.vo.AddressBookDetialVO" alias="addressbookdetailVO" />
+		<typeAlias type="pj.spring.vo.AttachmentDetailVO" alias="attachmentdetailVO" />
+		<typeAlias type="pj.spring.vo.AttachmentVO" alias="attachmentVO" />
+		<typeAlias type="pj.spring.vo.CartVO" alias="cartVO" />
+		<typeAlias type="pj.spring.vo.CategoryVO" alias="categoryVO" />
+		<typeAlias type="pj.spring.vo.ContactAlarmVO" alias="contactalarmVO" />
+		<typeAlias type="pj.spring.vo.ContactVO" alias="contactVO" />
+		<typeAlias type="pj.spring.vo.GuestVO" alias="guestVO" />
+		<typeAlias type="pj.spring.vo.NoticeBoardVO" alias="noticeboardVO" />
+		<typeAlias type="pj.spring.vo.OrderDetailVO" alias="orderdetailVO" />
+		<typeAlias type="pj.spring.vo.OrderVO" alias="orderVO" />
+		<typeAlias type="pj.spring.vo.PaymentVO" alias="paymentVO" />
+		<typeAlias type="pj.spring.vo.ProductVO" alias="productVO" />
+		<typeAlias type="pj.spring.vo.ReviewVO" alias="reviewVO" />
+		<typeAlias type="pj.spring.vo.ShippingVO" alias="shippingVO" />
+		<typeAlias type="pj.spring.vo.UserLoginHistoryVO" alias="userloginhistoryVO" />
+		<typeAlias type="pj.spring.vo.WishlistVO" alias="wishlistVO" />
 	</typeAliases>
 </configuration>

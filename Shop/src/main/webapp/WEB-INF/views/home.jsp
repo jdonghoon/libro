@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/menu.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -34,12 +34,17 @@
 							<div class="content-date">오늘 날짜</div>
 						</div>
 						<div>
-							<a href="#">
+							<a href="menu/product.do?">
 								<img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="12px;">
 							</a>
 						</div>
 					</div>
 					<div class="content-list">
+						<%-- 반복문
+						<c:forEach items="" var="">
+							 
+						</c:forEach> 
+						--%>
 						<div class="content-item">
 							<a href="">
 							<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
