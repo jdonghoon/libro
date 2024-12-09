@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN" 
+				"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases><!-- vo 별칭 지정 -->
+		<!-- 별칭 지정시 반드시 클래스부터 선언 후 별칭 지정!! -->
+		<typeAlias type="pj.spring.vo.UserVO" alias="userVO" />
+	</typeAliases>
+</configuration>

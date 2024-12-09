@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:http pattern="/resources/**" security="none" /><!-- 제외 url parrern -->
+	<security:http auto-config="true" use-expressions="true" create-session="never">
+		<security:intercept-url pattern="/" access="permitAll" /><!-- 모든 사용자 접근 가능 -->
+		<security:intercept-url pattern="/user/**" access="hasAnyRole('U', 'A')" /><!-- 일반유저 -->
+		<security:intercept-url pattern="/admin/**" access="hasRole('A')" /><!-- 한개의 권한 -->
+		<security:form-login login-page="/login.do" 
+							 login-processing-url="/loginOk.do" 
+							 authentication-success-handler-ref="userLoginSuccessHandler"
+							 authentication-failure-handler-ref="userLoginFailureHandler"
+							 username-parameter="user_id" password-parameter="user_password" />
+		<!-- 로그아웃 설정 -->
+		<security:logout logout-url="/logout.do" 
+						 logout-success-url="/" 
+						 invalidate-session="true" 
+						 delete-cookies="JSESSIONID, SPRING_SECURITY_REMEMBER_ME_COOKIE" /><!-- 세션 초기화 -->
+		<!-- 로그인은 했으나 경로 접근 권한 없을시 호출 객체 설정 -->
+		<security:access-denied-handler ref="userDeninedHandler" />
+	</security:http>
+	
+	<bean id="userLoginSuccessHandler" class="pj.spring.service.UserLoginSuccessHandler" />
+	<bean id="userLoginFailureHandler" class="pj.spring.service.UserLoginFailureHandler" />
+	<bean id="userDeninedHandler" class="pj.spring.service.UserDeninedHandler" />
+	<bean id="userService" class="pj.spring.service.UserAuthenticationService" >
+		<constructor-arg name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<!-- 비밀번호 비교할 암호화 객체 선언 -->
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	<!-- 
+	로그인 버튼 클릭시 security에서 어떤 userAuthenticationService를 사용할 지와 반환된 User객체에서 어떤 비밀번호
+	암호화를 사용하여 비교 할 것인지에 대한 정보를 설정 영역
+	 -->
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userService"><!-- userVO 반환 객체 참존 -->
+			<security:password-encoder ref="passwordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

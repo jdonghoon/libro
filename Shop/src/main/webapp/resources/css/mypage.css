@@ -1,0 +1,479 @@
+@charset "UTF-8";
+  
+.dh-btn {
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: black;
+}
+
+/* =========================================================================================== */
+/* addr.jsp */
+/* =========================================================================================== */
+.addr-container {
+    width: 900px; 
+    margin: 0 auto;
+    text-align: center;
+}
+.addr-info h2 {
+    margin-top: 0;
+}
+.addr-info {
+    text-align: left;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+
+}
+.m-d {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 5px;
+}
+
+/* =========================================================================================== */
+/* addrmodify.jsp, addrregister.jsp, join.jsp, memberinfo.jsp */
+/* =========================================================================================== */
+.addrform-container, .joinform-container, .memberinfoform-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.addrform-container h2, .joinform-container h2, .memberinfoform-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.addrform-group, .joinform-group, .memberinfoform-group {
+    margin-bottom: 15px;
+}
+.checkbox {
+    border: 1px solid black;
+    padding: 20px;
+}
+.addrform-group label, .joinform-group label, .memberinfoform-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.addrform-group input, 
+.joinform-group input, 
+.memberinfoform-group input, 
+.addrform-group select, 
+.joinform-group select,
+.memberinfoform-group select {
+    width: 478px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.joinform-group .checkbox-group {
+    display: flex;
+    align-items: center;
+}
+.joinform-group .checkbox-group input {
+    width: auto;
+    margin-right: 5px;
+}
+.joinform-group .checkbox-group label {
+    margin: 0;
+}
+.addrform-footer, .joinform-footer, .memberinfoform-footer {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.addrform-footer button,
+.joinform-footer button,
+.memberinfoform-footer button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 235px;
+    height: 45px;
+}
+.addrform-footer button:hover, 
+.joinform-footer button:hover,
+.memberinfoform-footer button:hover {
+    background-color: #555;
+}
+.addr_btn {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}
+
+/* =========================================================================================== */
+/* join.jsp */
+/* =========================================================================================== */
+/* 체크박스 숨기기 */
+.checkbox-group input[type="checkbox"] {
+    display: none;
+}
+/* 커스텀 체크박스 스타일 */
+.checkboxAll {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+.checkmark {
+    width: 13px;
+    height: 13px;
+    border: 1px solid black;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+}
+/* 체크된 상태 스타일 */
+.checkbox-group input[type="checkbox"]:checked + .checkmark {
+    background-color: white; /* 체크 시 배경색 */
+    border-color: black;
+}
+.checkmark::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    width: 2px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+/* 체크 표시 보이기 */
+input[type="checkbox"]:checked + .checkmark::after {
+    opacity: 1;
+}
+
+/* =========================================================================================== */
+/* login.jsp */
+/* =========================================================================================== */
+.login-container {
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
+}
+.login-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.login-info {
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+    border-radius: 50px;
+    width: fit-content;
+}
+.login-info a:hover {
+    font-weight: bold;
+}
+.form-container input[type="text"], 
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #e0e0e0;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.signup {
+    font-size: 14px;
+    margin-top: 20px;
+}
+.signup a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.text-button {
+    background-color: #f4f4f4;
+    color: #aaa;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.button-active {
+    background-color: #000 !important;
+    color: white !important;
+}
+.form-container {
+    display: none;
+}
+.form-container.active {
+     display: block;
+}
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #e0e0e0;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* =========================================================================================== */
+/* memberinfo.jsp */
+/* =========================================================================================== */
+.memberinfoform-footer button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 160px;
+    height: 45px;
+}
+.memberinfoform-footer button:hover {
+    background-color: #555;
+}
+
+/* =========================================================================================== */
+/* mypost.jsp */
+/* =========================================================================================== */
+.post-container {
+    width: 900px; 
+    margin: 0 auto;
+    text-align: center;
+}
+.post-container h2 {
+    margin-top: 0;
+}
+.post-search {
+    text-align: left;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+
+}
+.date-btn a {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 10px;
+    /* height: 40px; */
+}
+.post-search select, .post-search input {
+    padding: 5px;
+    border-radius: 0;
+    border: 1px solid black;
+}
+.date-btn input {
+    height: 28px; /* 원하는 높이로 설정 */
+}
+.review-type-button{
+    border: none;
+    background-color: white;
+    color: black;
+}
+.pbutton-active {
+    text-decoration: underline;
+    font-weight: bold;
+}
+.ask-list, .review-list-form {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.ask-list, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+.ask-list img, .review-list-form img{
+    width: 20px;
+}
+.review-possible-form {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    text-align: left;
+}
+.review-possible-form img {
+    width: 80px;
+    margin-right: 10PX;
+}
+.review-possible-form p {
+    margin: 0;
+}
+.review-register-btn {
+    border: 1px solid black;
+    padding: 15px;
+    background-color: white;
+    color: black;
+    margin: 20px 0 5px 0;
+    font-size: 16px;
+}
+.register-date {
+    font-size: 10px;
+}
+
+/* =========================================================================================== */
+/* orderhistory.jsp, orderhistorydetail.jsp */
+/* =========================================================================================== */
+.order-container {
+    width: 900px; 
+    margin: 0 auto;
+    text-align: center;
+}
+.order-container h2 {
+    margin-top: 0;
+}
+.order-search {
+    text-align: left;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.order-list, .order-detail {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.order-list, .order-detail, th, td {
+    border: 1px solid black;
+}
+.red {
+    color: red;
+}
+.order-search select, .order-search input {
+    padding: 5px;
+    border-radius: 0;
+    border: 1px solid black;
+}
+.order-type-button {
+    border: none;
+    background-color: white;
+    color: black;
+}
+.obutton-active {
+    text-decoration: underline;
+    font-weight: bold;
+}      
+
+/* =========================================================================================== */
+/* orderhistorydetail.jsp */
+/* =========================================================================================== */
+.order-detail th{
+    width: 200px;
+}
+
+/* =========================================================================================== */
+/* wishlist.jsp, recentlyproducts.jsp */
+/* =========================================================================================== */
+.wish-container, .recentlyproducts-container {
+    width: 900px; 
+    margin: 0 auto;
+    text-align: center;
+}
+.wish-list h2, .recentlyproducts-list h2 {
+    margin-top: 0;
+}
+.wish-list, .recentlyproducts-list{
+    text-align: left;
+    border: 1px solid black;
+    padding: 20px;
+}
+.wish-container .wish-list:last-of-type:not(:only-of-type),
+.recentlyproducts-container .recentlyproducts-list:last-of-type:not(:only-of-type) {
+    border-top: none;  /* border-top 제거 */
+}
+.wish-list:last-child,
+.recentlyproducts-list:last-child {
+    margin-bottom: 20px;         /* 아래쪽 여백 추가 */
+}
+.book-info{
+    width: 100%;
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between; 
+}
+.imgs{
+    display: flex;
+    justify-content: flex-end; 
+    gap: 5px;
+}
+.imgs img{
+    width: 40px;
+    height: 40px;
+}
+.wish-item, .recentlyproducts-item{
+    display: flex;
+    /* justify-content: space-between;  */
+    /* margin-bottom: 30px; */
+}
+
+/* =========================================================================================== */
+/* orderhistory.jsp, orderhistorydetail.jsp */
+/* =========================================================================================== */
+.review-container {
+    width: 900px; 
+    margin: 0 auto;
+    text-align: center;
+}
+.review-container label {
+    font-weight: bold;
+}
+.review-container input, .review-container textarea, .review-container select, .review-container button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+.review-container textarea {
+    resize: none; /* 크기 조정 불가 */
+}
+.review-possible-form {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    text-align: left;
+}
+.review-possible-form img {
+    width: 80px;
+    margin-right: 10PX;
+}
+.rating {
+    display: flex;
+    justify-content: center;
+}
+.rating input {
+    display: none; /* 라디오 버튼을 숨김 */
+}
+.rating label {
+    font-size: 2rem;
+    color: #ddd; /* 비활성화된 별 색상 */
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffcc00; /* 활성화된 별 색상 */
+}
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffcc00; /* 별 위에 마우스를 올릴 때 색상 */
+}
