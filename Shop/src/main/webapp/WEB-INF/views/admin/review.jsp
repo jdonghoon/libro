@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
 
-        <!-- main -->
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -11,7 +10,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">¸®ºä°ü¸®</h3>
+                            <h3 class="mb-0">ë¦¬ë·°ê´€ë¦¬</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -31,7 +30,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">¸®ºä Á¤º¸ ¸ñ·Ï</div>
+                                    <div class="card-title">ë¦¬ë·° ì •ë³´ ëª©ë¡</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
@@ -41,17 +40,17 @@
                                         <div class="row g-3">
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">»ó¼¼°Ë»ö</label>
+                                                <label for="validationCustom04">ìƒì„¸ê²€ìƒ‰</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="ÀüÃ¼" selected>ÀüÃ¼</option>
-                                                        <option value="»óÇ°ÁÖ¹®¹øÈ£">»óÇ°ÁÖ¹®¹øÈ£</option>
-                                                        <option value="ÁÖ¹®¹øÈ£">ÁÖ¹®¹øÈ£</option>
-                                                        <option value="»óÇ°¹øÈ£">»óÇ°¹øÈ£</option>
-                                                        <option value="»óÇ°¸í">»óÇ°¸í</option>
-                                                        <option value="»óÇ°°¡°Ý">º°Á¡</option>
-                                                        <option value="¼ö·®">³»¿ë</option>
-                                                        <option value="ÁÖ¹®ÀÚ¸í">ÀÛ¼ºÀÚ/ID</option>
+                                                        <option value="ì „ì²´" selected>ì „ì²´</option>
+                                                        <option value="ìƒí’ˆì£¼ë¬¸ë²ˆí˜¸">ìƒí’ˆì£¼ë¬¸ë²ˆí˜¸</option>
+                                                        <option value="ì£¼ë¬¸ë²ˆí˜¸">ì£¼ë¬¸ë²ˆí˜¸</option>
+                                                        <option value="ìƒí’ˆë²ˆí˜¸">ìƒí’ˆë²ˆí˜¸</option>
+                                                        <option value="ìƒí’ˆëª…">ìƒí’ˆëª…</option>
+                                                        <option value="ìƒí’ˆê°€ê²©">ë³„ì </option>
+                                                        <option value="ìˆ˜ëŸ‰">ë‚´ìš©</option>
+                                                        <option value="ì£¼ë¬¸ìžëª…">ìž‘ì„±ìž/ID</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -60,7 +59,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">¸®ºä ÀÛ¼ºÀÏ</label>
+                                                <label for="inputDate" class="col-sm-2 col-form-label">ë¦¬ë·° ìž‘ì„±ì¼</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                     <input type="date" class="form-control" id="inputDate">
@@ -94,55 +93,55 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th colspan='2'>»óÇ°Á¤º¸</th>
-                                                <th colspan='6'>¸®ºäÁ¤º¸</th>
-                                                <th>ÁÖ¹®Á¤º¸</th>
+                                                <th colspan='2'>ìƒí’ˆì •ë³´</th>
+                                                <th colspan='6'>ë¦¬ë·°ì •ë³´</th>
+                                                <th>ì£¼ë¬¸ì •ë³´</th>
                                             </tr>
                                             <tr>
-                                                <th>»óÇ°¹øÈ£</th>
-                                                <th>»óÇ°¸í</th>
-                                                <th>º°Á¡</th>
-                                                <th>»çÁø</th>
-                                                <th>³»¿ë</th>
-                                                <th>ÀÛ¼ºÀÏ</th>
-                                                <th>¼öÁ¤ÀÏ</th>
-                                                <th>ÀÛ¼ºÀÚ¸í/ID</th>
-                                                <th>»óÇ°ÁÖ¹®¹øÈ£</th>
+                                                <th>ìƒí’ˆë²ˆí˜¸</th>
+                                                <th>ìƒí’ˆëª…</th>
+                                                <th>ë³„ì </th>
+                                                <th>ì‚¬ì§„</th>
+                                                <th>ë‚´ìš©</th>
+                                                <th>ìž‘ì„±ì¼</th>
+                                                <th>ìˆ˜ì •ì¼</th>
+                                                <th>ìž‘ì„±ìžëª…/ID</th>
+                                                <th>ìƒí’ˆì£¼ë¬¸ë²ˆí˜¸</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td onclick="location.href='#';">¼Ò³âÀÌ¿Â´Ù</td>
+                                                <td onclick="location.href='#';">ì†Œë…„ì´ì˜¨ë‹¤</td>
                                                 <td>5</td>
-                                                <td>ÀÌ¹ÌÁö</td>
+                                                <td>ì´ë¯¸ì§€</td>
                                                 <td>
-                                                    <p>¼Ò¼³ ¼Ó µ¿È£´Â ½ÇÁ¦ ÀÎ¹°Àº ¾Æ´ÏÁö¸¸, »ó´çÈ÷ ÁøÂ¥ ÀÌ¾ß±â°¡ ¾Æ´Ò±î ½ÍÀ»Á¤µµ·Î Àß ½è´Ù.</p>
-                                                    <p>¹°·Ð, ±× ¸ðµ¨ÀÌ µÈ ÀÎ¹°ÀÌ 5.18´ç½Ã ¹®ÀçÇÐ±º.</p>
-                                                    <p>ÀÛº°ÇÏÁö ¾Ê´Â´Ù´Â È­·ÁÇÑ ¹®Ã¼¿Í È¯»óÀûÀÎ ÀÌ¹ÌÁöÀÇ ¼Ò¼³ÀÌ¶ó¸é, ¼Ò³âÀÌ ¿Â´Ù´Â Çö½ÇÀûÀÎ ´À³¦ÀÌ µå´Â ¼Ò¼³.</p>
-                                                    <p>ÀÎ°£ÀÇ °³ÀÎÀû ¾ÆÇÄÀÇ °üÁ¡¿¡¼­ »ç½Ç°¨ ÀÖ°Ô ½è´Ù.</p>
-                                                    <p>Æ¯È÷, ¸¶Áö¸· ºÎºÐ. ¾î¸Ó´ÏÀÇ °üÁ¡¿¡¼­ ¼­¼úÇÏ´Â ºÎºÐÀº ´«¹°¾øÀÌ ÀÐ±â ÈûµéÁ¤µµ ¤Ð</p>
+                                                    <p>ì†Œì„¤ ì† ë™í˜¸ëŠ” ì‹¤ì œ ì¸ë¬¼ì€ ì•„ë‹ˆì§€ë§Œ, ìƒë‹¹ížˆ ì§„ì§œ ì´ì•¼ê¸°ê°€ ì•„ë‹ê¹Œ ì‹¶ì„ì •ë„ë¡œ ìž˜ ì¼ë‹¤.</p>
+                                                    <p>ë¬¼ë¡ , ê·¸ ëª¨ë¸ì´ ëœ ì¸ë¬¼ì´ 5.18ë‹¹ì‹œ ë¬¸ìž¬í•™êµ°.</p>
+                                                    <p>ìž‘ë³„í•˜ì§€ ì•ŠëŠ”ë‹¤ëŠ” í™”ë ¤í•œ ë¬¸ì²´ì™€ í™˜ìƒì ì¸ ì´ë¯¸ì§€ì˜ ì†Œì„¤ì´ë¼ë©´, ì†Œë…„ì´ ì˜¨ë‹¤ëŠ” í˜„ì‹¤ì ì¸ ëŠë‚Œì´ ë“œëŠ” ì†Œì„¤.</p>
+                                                    <p>ì¸ê°„ì˜ ê°œì¸ì  ì•„í””ì˜ ê´€ì ì—ì„œ ì‚¬ì‹¤ê° ìžˆê²Œ ì¼ë‹¤.</p>
+                                                    <p>íŠ¹ížˆ, ë§ˆì§€ë§‰ ë¶€ë¶„. ì–´ë¨¸ë‹ˆì˜ ê´€ì ì—ì„œ ì„œìˆ í•˜ëŠ” ë¶€ë¶„ì€ ëˆˆë¬¼ì—†ì´ ì½ê¸° íž˜ë“¤ì •ë„ ã… </p>
                                                     </td>
                                                 <td>2024-12-04</td>
                                                 <td></td>
-                                                <td>È«±æµ¿</td>
+                                                <td>í™ê¸¸ë™</td>
                                                 <td onclick="location.href='#';">465128315</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td onclick="location.href='#';">¼Ò³âÀÌ¿Â´Ù</td>
+                                                <td onclick="location.href='#';">ì†Œë…„ì´ì˜¨ë‹¤</td>
                                                 <td>5</td>
-                                                <td>ÀÌ¹ÌÁö</td>
+                                                <td>ì´ë¯¸ì§€</td>
                                                 <td>
-                                                    <p>¼Ò¼³ ¼Ó µ¿È£´Â ½ÇÁ¦ ÀÎ¹°Àº ¾Æ´ÏÁö¸¸, »ó´çÈ÷ ÁøÂ¥ ÀÌ¾ß±â°¡ ¾Æ´Ò±î ½ÍÀ»Á¤µµ·Î Àß ½è´Ù.</p>
-                                                    <p>¹°·Ð, ±× ¸ðµ¨ÀÌ µÈ ÀÎ¹°ÀÌ 5.18´ç½Ã ¹®ÀçÇÐ±º.</p>
-                                                    <p>ÀÛº°ÇÏÁö ¾Ê´Â´Ù´Â È­·ÁÇÑ ¹®Ã¼¿Í È¯»óÀûÀÎ ÀÌ¹ÌÁöÀÇ ¼Ò¼³ÀÌ¶ó¸é, ¼Ò³âÀÌ ¿Â´Ù´Â Çö½ÇÀûÀÎ ´À³¦ÀÌ µå´Â ¼Ò¼³.</p>
-                                                    <p>ÀÎ°£ÀÇ °³ÀÎÀû ¾ÆÇÄÀÇ °üÁ¡¿¡¼­ »ç½Ç°¨ ÀÖ°Ô ½è´Ù.</p>
-                                                    <p>Æ¯È÷, ¸¶Áö¸· ºÎºÐ. ¾î¸Ó´ÏÀÇ °üÁ¡¿¡¼­ ¼­¼úÇÏ´Â ºÎºÐÀº ´«¹°¾øÀÌ ÀÐ±â ÈûµéÁ¤µµ ¤Ð</p>
+                                                    <p>ì†Œì„¤ ì† ë™í˜¸ëŠ” ì‹¤ì œ ì¸ë¬¼ì€ ì•„ë‹ˆì§€ë§Œ, ìƒë‹¹ížˆ ì§„ì§œ ì´ì•¼ê¸°ê°€ ì•„ë‹ê¹Œ ì‹¶ì„ì •ë„ë¡œ ìž˜ ì¼ë‹¤.</p>
+                                                    <p>ë¬¼ë¡ , ê·¸ ëª¨ë¸ì´ ëœ ì¸ë¬¼ì´ 5.18ë‹¹ì‹œ ë¬¸ìž¬í•™êµ°.</p>
+                                                    <p>ìž‘ë³„í•˜ì§€ ì•ŠëŠ”ë‹¤ëŠ” í™”ë ¤í•œ ë¬¸ì²´ì™€ í™˜ìƒì ì¸ ì´ë¯¸ì§€ì˜ ì†Œì„¤ì´ë¼ë©´, ì†Œë…„ì´ ì˜¨ë‹¤ëŠ” í˜„ì‹¤ì ì¸ ëŠë‚Œì´ ë“œëŠ” ì†Œì„¤.</p>
+                                                    <p>ì¸ê°„ì˜ ê°œì¸ì  ì•„í””ì˜ ê´€ì ì—ì„œ ì‚¬ì‹¤ê° ìžˆê²Œ ì¼ë‹¤.</p>
+                                                    <p>íŠ¹ížˆ, ë§ˆì§€ë§‰ ë¶€ë¶„. ì–´ë¨¸ë‹ˆì˜ ê´€ì ì—ì„œ ì„œìˆ í•˜ëŠ” ë¶€ë¶„ì€ ëˆˆë¬¼ì—†ì´ ì½ê¸° íž˜ë“¤ì •ë„ ã… </p>
                                                     </td>
                                                 <td>2024-12-04</td>
                                                 <td></td>
-                                                <td>È«±æµ¿</td>
+                                                <td>í™ê¸¸ë™</td>
                                                 <td onclick="location.href='#';">465128315</td>
                                             </tr>
                                             

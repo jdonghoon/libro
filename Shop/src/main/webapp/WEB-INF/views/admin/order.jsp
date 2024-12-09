@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
 
-        <!-- main -->
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -11,7 +10,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">¡÷πÆ∞¸∏Æ</h3>
+                            <h3 class="mb-0">Ï£ºÎ¨∏Í¥ÄÎ¶¨</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -31,7 +30,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">¡÷πÆ ¡§∫∏ ∏Ò∑œ</div>
+                                    <div class="card-title">Ï£ºÎ¨∏ Ï†ïÎ≥¥ Î™©Î°ù</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
@@ -41,17 +40,17 @@
                                         <div class="row g-3">
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">ªÛºº∞Àªˆ</label>
+                                                <label for="validationCustom04">ÏÉÅÏÑ∏Í≤ÄÏÉâ</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="ªÛ«∞¡÷πÆπ¯»£">ªÛ«∞¡÷πÆπ¯»£</option>
-                                                        <option value="¡÷πÆπ¯»£">¡÷πÆπ¯»£</option>
-                                                        <option value="ªÛ«∞π¯»£">ªÛ«∞π¯»£</option>
-                                                        <option value="ªÛ«∞∏Ì">ªÛ«∞∏Ì</option>
-                                                        <option value="ªÛ«∞∞°∞›">ªÛ«∞∞°∞›</option>
-                                                        <option value="ºˆ∑Æ">ºˆ∑Æ</option>
-                                                        <option value="¡÷πÆ¿⁄∏Ì">¡÷πÆ¿⁄∏Ì</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="ÏÉÅÌíàÏ£ºÎ¨∏Î≤àÌò∏">ÏÉÅÌíàÏ£ºÎ¨∏Î≤àÌò∏</option>
+                                                        <option value="Ï£ºÎ¨∏Î≤àÌò∏">Ï£ºÎ¨∏Î≤àÌò∏</option>
+                                                        <option value="ÏÉÅÌíàÎ≤àÌò∏">ÏÉÅÌíàÎ≤àÌò∏</option>
+                                                        <option value="ÏÉÅÌíàÎ™Ö">ÏÉÅÌíàÎ™Ö</option>
+                                                        <option value="ÏÉÅÌíàÍ∞ÄÍ≤©">ÏÉÅÌíàÍ∞ÄÍ≤©</option>
+                                                        <option value="ÏàòÎüâ">ÏàòÎüâ</option>
+                                                        <option value="Ï£ºÎ¨∏ÏûêÎ™Ö">Ï£ºÎ¨∏ÏûêÎ™Ö</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -60,7 +59,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">¡÷πÆ¿œ¿⁄</label>
+                                                <label for="inputDate" class="col-sm-2 col-form-label">Ï£ºÎ¨∏ÏùºÏûê</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                     <input type="date" class="form-control" id="inputDate">
@@ -69,21 +68,21 @@
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label for="validationCustom04">¡÷πÆªÛ≈¬</label>
+                                                <label for="validationCustom04">Ï£ºÎ¨∏ÏÉÅÌÉú</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="¡÷πÆøœ∑·">¡÷πÆøœ∑·</option>
-                                                        <option value="πËº€ ¡ÿ∫Ò ¡ﬂ">πËº€ ¡ÿ∫Ò ¡ﬂ</option>
-                                                        <option value="πËº€ ¡ﬂ">πËº€ ¡ﬂ</option>
-                                                        <option value="πËº€øœ∑·">πËº€øœ∑·</option>
-                                                        <option value="∞·¡¶øœ∑·">∞·¡¶øœ∑·</option>
-                                                        <option value="√Îº“¡¢ºˆ">√Îº“¥Î±‚</option>
-                                                        <option value="√Îº“øœ∑·">√Îº“øœ∑·</option>
-                                                        <option value="π›«∞¡¢ºˆ">π›«∞¥Î±‚</option>
-                                                        <option value="π›«∞øœ∑·">π›«∞øœ∑·</option>
-                                                        <option value="π›«∞√Îº“">π›«∞√Îº“</option>
-                                                        <option value="»Ø∫“øœ∑·">»Ø∫“øœ∑·</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="Ï£ºÎ¨∏ÏôÑÎ£å">Ï£ºÎ¨∏ÏôÑÎ£å</option>
+                                                        <option value="Î∞∞ÏÜ° Ï§ÄÎπÑ Ï§ë">Î∞∞ÏÜ° Ï§ÄÎπÑ Ï§ë</option>
+                                                        <option value="Î∞∞ÏÜ° Ï§ë">Î∞∞ÏÜ° Ï§ë</option>
+                                                        <option value="Î∞∞ÏÜ°ÏôÑÎ£å">Î∞∞ÏÜ°ÏôÑÎ£å</option>
+                                                        <option value="Í≤∞Ï†úÏôÑÎ£å">Í≤∞Ï†úÏôÑÎ£å</option>
+                                                        <option value="Ï∑®ÏÜåÏ†ëÏàò">Ï∑®ÏÜåÎåÄÍ∏∞</option>
+                                                        <option value="Ï∑®ÏÜåÏôÑÎ£å">Ï∑®ÏÜåÏôÑÎ£å</option>
+                                                        <option value="Î∞òÌíàÏ†ëÏàò">Î∞òÌíàÎåÄÍ∏∞</option>
+                                                        <option value="Î∞òÌíàÏôÑÎ£å">Î∞òÌíàÏôÑÎ£å</option>
+                                                        <option value="Î∞òÌíàÏ∑®ÏÜå">Î∞òÌíàÏ∑®ÏÜå</option>
+                                                        <option value="ÌôòÎ∂àÏôÑÎ£å">ÌôòÎ∂àÏôÑÎ£å</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -114,15 +113,15 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>ªÛ«∞¡÷πÆπ¯»£</th>
-                                                <th>¡÷πÆπ¯»£</th>
-                                                <th>ªÛ«∞π¯»£</th>
-                                                <th>ªÛ«∞∏Ì</th>
-                                                <th>¡÷πÆ¿œ¿⁄</th>
-                                                <th>¡÷πÆªÛ≈¬</th>
-                                                <th>ªÛ«∞∞°∞›</th>
-                                                <th>ºˆ∑Æ</th>
-                                                <th>¡÷πÆ¿⁄∏Ì</th>
+                                                <th>ÏÉÅÌíàÏ£ºÎ¨∏Î≤àÌò∏</th>
+                                                <th>Ï£ºÎ¨∏Î≤àÌò∏</th>
+                                                <th>ÏÉÅÌíàÎ≤àÌò∏</th>
+                                                <th>ÏÉÅÌíàÎ™Ö</th>
+                                                <th>Ï£ºÎ¨∏ÏùºÏûê</th>
+                                                <th>Ï£ºÎ¨∏ÏÉÅÌÉú</th>
+                                                <th>ÏÉÅÌíàÍ∞ÄÍ≤©</th>
+                                                <th>ÏàòÎüâ</th>
+                                                <th>Ï£ºÎ¨∏ÏûêÎ™Ö</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -130,122 +129,122 @@
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
                                                 <td onclick="location.href='#';">1648965</td>
                                                 <td>9849455</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
                                                 <td>2024-12-04</td>
-                                                <td>∞·¡¶øœ∑·</td>
-                                                <td>13,500ø¯</td>
+                                                <td>Í≤∞Ï†úÏôÑÎ£å</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>1</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                             </tr>
                                         </tbody>
                                     </table>

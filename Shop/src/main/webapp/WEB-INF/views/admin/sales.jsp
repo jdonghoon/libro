@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
-
-        <!-- main -->
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -11,7 +9,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">∏≈√‚∞¸∏Æ</h3>
+                            <h3 class="mb-0">Îß§Ï∂úÍ¥ÄÎ¶¨</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -31,7 +29,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">√— ∏≈√‚ «’∞Ë</div>
+                                    <div class="card-title">Ï¥ù Îß§Ï∂ú Ìï©Í≥Ñ</div>
                                 </div>
                                 <!--end::Header-->
 
@@ -43,9 +41,9 @@
                                                 <!--begin::Small Box Widget 1-->
                                                 <div class="small-box text-bg-primary">
                                                     <div class="inner">
-                                                        <h3>√— ∞≈∑°±›æ◊</h3>
+                                                        <h3>Ï¥ù Í±∞ÎûòÍ∏àÏï°</h3>
                                                         <div>
-                                                            <span>000,000,000ø¯</span>
+                                                            <span>000,000,000Ïõê</span>
                                                         </div>
                                                     </div>    
                                                 </div> <!--end::Small Box Widget 1-->
@@ -55,9 +53,9 @@
                                                 <!--begin::Small Box Widget 1-->
                                                 <div class="small-box text-bg-primary">
                                                     <div class="inner">
-                                                        <h3>√— ∞·¡¶±›æ◊</h3>
+                                                        <h3>Ï¥ù Í≤∞Ï†úÍ∏àÏï°</h3>
                                                         <div>
-                                                            <span>000,000,000ø¯</span>
+                                                            <span>000,000,000Ïõê</span>
                                                         </div>
                                                     </div>    
                                                 </div> <!--end::Small Box Widget 1-->
@@ -67,9 +65,9 @@
                                                 <!--begin::Small Box Widget 1-->
                                                 <div class="small-box text-bg-primary">
                                                     <div class="inner">
-                                                        <h3>∆«∏≈ºˆ∑Æ</h3>
+                                                        <h3>ÌåêÎß§ÏàòÎüâ</h3>
                                                         <div>
-                                                            <span>000,000,000∞≥</span>
+                                                            <span>000,000,000Í∞ú</span>
                                                         </div>
                                                     </div>    
                                                 </div> <!--end::Small Box Widget 1-->
@@ -95,7 +93,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">ªÛ«∞∫∞ ∏≈√‚ ≈Î∞Ë ∏Ò∑œ</div>
+                                    <div class="card-title">ÏÉÅÌíàÎ≥Ñ Îß§Ï∂ú ÌÜµÍ≥Ñ Î™©Î°ù</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Body-->
@@ -103,15 +101,15 @@
                                     <div class="row g-3">
 
                                         <div class="row g-2">
-                                            <label for="validationCustom04">ªÛºº∞Àªˆ</label>
+                                            <label for="validationCustom04">ÏÉÅÏÑ∏Í≤ÄÏÉâ</label>
                                             <div class="col-md-4">
                                                 <select class="form-select" id="validationCustom04">
-                                                    <option value="¿¸√º" selected>¿¸√º</option>
-                                                    <option value="ªÛ«∞∏Ì">ªÛ«∞∏Ì</option>
-                                                    <option value="π›«∞ªÁ¿Ø">∞≈∑°æ◊</option>
-                                                    <option value="∞·¡¶¿œ">∞·¡¶±›æ◊</option>
-                                                    <option value="»Ø∫“ªÛ≈¬">√—«’</option>
-                                                    <option value="»Ø∫“±›æ◊">∆«∏≈ºˆ∑Æ</option>
+                                                    <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                    <option value="ÏÉÅÌíàÎ™Ö">ÏÉÅÌíàÎ™Ö</option>
+                                                    <option value="Î∞òÌíàÏÇ¨Ïú†">Í±∞ÎûòÏï°</option>
+                                                    <option value="Í≤∞Ï†úÏùº">Í≤∞Ï†úÍ∏àÏï°</option>
+                                                    <option value="ÌôòÎ∂àÏÉÅÌÉú">Ï¥ùÌï©</option>
+                                                    <option value="ÌôòÎ∂àÍ∏àÏï°">ÌåêÎß§ÏàòÎüâ</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
@@ -120,7 +118,7 @@
                                         </div>
 
                                         <div class="row g-2">
-                                            <label for="inputDate" class="col-sm-2 col-form-label">¡∂»∏±‚∞£</label>
+                                            <label for="inputDate" class="col-sm-2 col-form-label">Ï°∞ÌöåÍ∏∞Í∞Ñ</label>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                 <input type="date" class="form-control" id="inputDate">
@@ -152,93 +150,93 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>¥Î«•ªÛ«∞ªÁ¡¯</th>
-                                                <th>ªÛ«∞∏Ì</th>
-                                                <th>∞≈∑°æ◊</th>
-                                                <th>∞·¡¶±›æ◊</th>
-                                                <th>√—«’</th>
-                                                <th>∆«∏≈ºˆ∑Æ</th>
+                                                <th>ÎåÄÌëúÏÉÅÌíàÏÇ¨ÏßÑ</th>
+                                                <th>ÏÉÅÌíàÎ™Ö</th>
+                                                <th>Í±∞ÎûòÏï°</th>
+                                                <th>Í≤∞Ï†úÍ∏àÏï°</th>
+                                                <th>Ï¥ùÌï©</th>
+                                                <th>ÌåêÎß§ÏàòÎüâ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>607,500ø¯</td>
-                                                <td>270,000ø¯</td>
-                                                <td>877,500ø¯</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>607,500Ïõê</td>
+                                                <td>270,000Ïõê</td>
+                                                <td>877,500Ïõê</td>
                                                 <td>20</td>
                                             </tr>
                                         </tbody>

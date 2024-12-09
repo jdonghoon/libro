@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
 
-        <!-- main -->
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -11,7 +10,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">ªÛ«∞µÓ∑œ</h3>
+                            <h3 class="mb-0">ÏÉÅÌíàÎì±Î°ù</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -36,38 +35,38 @@
                                         <div class="row g-3">
 
                                             <div class="row g-2">
-                                                <label>«•Ω√ø©∫Œ</label>
+                                                <label>ÌëúÏãúÏó¨Î∂Ä</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                                                        <label class="form-check-label" for="inlineRadio1">¡¯ø≠</label>
+                                                        <label class="form-check-label" for="inlineRadio1">ÏßÑÏó¥</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                        <label class="form-check-label" for="inlineRadio2">πÃ¡¯ø≠</label>
+                                                        <label class="form-check-label" for="inlineRadio2">ÎØ∏ÏßÑÏó¥</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                                        <label class="form-check-label" for="inlineRadio3">«∞¿˝</label>
+                                                        <label class="form-check-label" for="inlineRadio3">ÌíàÏ†à</label>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">ƒ´≈◊∞Ì∏Æ</label>
+                                                <label for="validationCustom04">Ïπ¥ÌÖåÍ≥†Î¶¨</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="" disabled selected>º±≈√</option>
-                                                        <option value="¿¸√º">Ω√</option>
-                                                        <option value="ªÛ«∞¡÷πÆπ¯»£">º“º≥</option>
-                                                        <option value="¡÷πÆπ¯»£">¿⁄±‚∞Ëπﬂº≠</option>
-                                                        <option value="ªÛ«∞π¯»£">∏∏»≠</option>
+                                                        <option value="" disabled selected>ÏÑ†ÌÉù</option>
+                                                        <option value="Ï†ÑÏ≤¥">Ïãú</option>
+                                                        <option value="ÏÉÅÌíàÏ£ºÎ¨∏Î≤àÌò∏">ÏÜåÏÑ§</option>
+                                                        <option value="Ï£ºÎ¨∏Î≤àÌò∏">ÏûêÍ∏∞Í≥ÑÎ∞úÏÑú</option>
+                                                        <option value="ÏÉÅÌíàÎ≤àÌò∏">ÎßåÌôî</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label for="inputPrice" class="col-sm-2 col-form-label">∞°∞›</label>
+                                                <label for="inputPrice" class="col-sm-2 col-form-label">Í∞ÄÍ≤©</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" id="inputPrice">
@@ -76,7 +75,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputStock" class="col-sm-2 col-form-label">¿Á∞Ì</label>
+                                                <label for="inputStock" class="col-sm-2 col-form-label">Ïû¨Í≥†</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" id="inputStock">
@@ -85,7 +84,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputProduct" class="col-sm-2 col-form-label">ªÛ«∞∏Ì</label>
+                                                <label for="inputProduct" class="col-sm-2 col-form-label">ÏÉÅÌíàÎ™Ö</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" id="inputProduct">
@@ -94,7 +93,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputISBN" class="col-sm-2 col-form-label">±π¡¶«•¡ÿµµº≠π¯»£</label>
+                                                <label for="inputISBN" class="col-sm-2 col-form-label">Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" id="inputISBN">
@@ -103,7 +102,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputpage" class="col-sm-2 col-form-label">¬ ºˆ</label>
+                                                <label for="inputpage" class="col-sm-2 col-form-label">Ï™ΩÏàò</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" id="inputpage">
@@ -112,7 +111,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputProductInfo" class="col-sm-2 col-form-label">ªÛ«∞º“∞≥</label>
+                                                <label for="inputProductInfo" class="col-sm-2 col-form-label">ÏÉÅÌíàÏÜåÍ∞ú</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <textarea class="form-control" id="inputProductInfo" aria-label="With textarea"></textarea>
@@ -121,7 +120,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputWriter" class="col-sm-2 col-form-label">¿˙¿⁄</label>
+                                                <label for="inputWriter" class="col-sm-2 col-form-label">Ï†ÄÏûê</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control" id="inputWriter">
@@ -130,7 +129,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputWriterInfo" class="col-sm-2 col-form-label">¿˙¿⁄º“∞≥</label>
+                                                <label for="inputWriterInfo" class="col-sm-2 col-form-label">Ï†ÄÏûêÏÜåÍ∞ú</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <textarea class="form-control" id="inputWriterInfo" aria-label="With textarea"></textarea>
@@ -139,7 +138,7 @@
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label for="topfile" class="col-sm-2 col-form-label">¥Î«•ªÛ«∞ªÁ¡¯</label>
+                                                <label for="topfile" class="col-sm-2 col-form-label">ÎåÄÌëúÏÉÅÌíàÏÇ¨ÏßÑ</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="file" class="form-control" id="topfile">
@@ -148,7 +147,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="files" class="col-sm-2 col-form-label">±‚≈∏ªÁ¡¯</label>
+                                                <label for="files" class="col-sm-2 col-form-label">Í∏∞ÌÉÄÏÇ¨ÏßÑ</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <input type="file" class="form-control" id="files">

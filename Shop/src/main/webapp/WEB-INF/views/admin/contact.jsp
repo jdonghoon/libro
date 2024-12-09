@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
 
-        <!-- main -->
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -11,7 +10,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">ªÛ«∞∞¸∏Æ</h3>
+                            <h3 class="mb-0">ÏÉÅÌíàÍ¥ÄÎ¶¨</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -31,7 +30,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">ªÛ«∞ ¡§∫∏ ∏Ò∑œ</div>
+                                    <div class="card-title">ÏÉÅÌíà Ï†ïÎ≥¥ Î™©Î°ù</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
@@ -41,13 +40,13 @@
                                         <div class="row g-3">
                                             
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">¡∂»∏±‚∞£</label>
+                                                <label for="inputDate" class="col-sm-2 col-form-label">Ï°∞ÌöåÍ∏∞Í∞Ñ</label>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <select class="form-select" id="validationCustom04">
-                                                            <option value="¿¸√º">¿¸√º</option>
-                                                            <option value="∞·¡¶¿œ">µÓ∑œ¿œ</option>
-                                                            <option value="√Îº“¡¢ºˆ¿œ">¥‰∫Øøœ∑·¿œ</option>
+                                                            <option value="Ï†ÑÏ≤¥">Ï†ÑÏ≤¥</option>
+                                                            <option value="Í≤∞Ï†úÏùº">Îì±Î°ùÏùº</option>
+                                                            <option value="Ï∑®ÏÜåÏ†ëÏàòÏùº">ÎãµÎ≥ÄÏôÑÎ£åÏùº</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
@@ -57,16 +56,16 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">ªÛºº∞Àªˆ</label>
+                                                <label for="validationCustom04">ÏÉÅÏÑ∏Í≤ÄÏÉâ</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="ªÛ«∞π¯»£">¿Ã∏ß</option>
-                                                        <option value="ªÛ«∞∏Ì">¿Ã∏ﬁ¿œ</option>
-                                                        <option value="±π¡¶«•¡ÿµµº≠π¯»£">πÆ¿«¡¶∏Ò</option>
-                                                        <option value="¿Á∞Ì">πÆ¿«≥ªøÎ</option>
-                                                        <option value="¿Á∞Ì">πÆ¿«¥‰∫Ø≥ªøÎ</option>
-                                                        <option value="¿Á∞Ì">¡÷πÆπ¯»£</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="ÏÉÅÌíàÎ≤àÌò∏">Ïù¥Î¶Ñ</option>
+                                                        <option value="ÏÉÅÌíàÎ™Ö">Ïù¥Î©îÏùº</option>
+                                                        <option value="Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏">Î¨∏ÏùòÏ†úÎ™©</option>
+                                                        <option value="Ïû¨Í≥†">Î¨∏ÏùòÎÇ¥Ïö©</option>
+                                                        <option value="Ïû¨Í≥†">Î¨∏ÏùòÎãµÎ≥ÄÎÇ¥Ïö©</option>
+                                                        <option value="Ïû¨Í≥†">Ï£ºÎ¨∏Î≤àÌò∏</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -75,31 +74,31 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">πÆ¿«¿Ø«¸</label>
+                                                <label for="validationCustom04">Î¨∏ÏùòÏú†Ìòï</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="ªÛ«∞π¯»£">¡÷πÆπÆ¿«</option>
-                                                        <option value="ªÛ«∞∏Ì">πËº€πÆ¿«</option>
-                                                        <option value="±π¡¶«•¡ÿµµº≠π¯»£">±‚≈∏πÆ¿«</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="ÏÉÅÌíàÎ≤àÌò∏">Ï£ºÎ¨∏Î¨∏Ïùò</option>
+                                                        <option value="ÏÉÅÌíàÎ™Ö">Î∞∞ÏÜ°Î¨∏Ïùò</option>
+                                                        <option value="Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏">Í∏∞ÌÉÄÎ¨∏Ïùò</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label>¡¯ø≠ªÛ≈¬</label>
+                                                <label>ÏßÑÏó¥ÏÉÅÌÉú</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                                                        <label class="form-check-label" for="inlineRadio1">¿¸√º</label>
+                                                        <label class="form-check-label" for="inlineRadio1">Ï†ÑÏ≤¥</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                        <label class="form-check-label" for="inlineRadio2">πÃ¥‰∫Ø</label>
+                                                        <label class="form-check-label" for="inlineRadio2">ÎØ∏ÎãµÎ≥Ä</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                                        <label class="form-check-label" for="inlineRadio3">¥‰∫Øøœ∑·</label>
+                                                        <label class="form-check-label" for="inlineRadio3">ÎãµÎ≥ÄÏôÑÎ£å</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,145 +129,145 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>¥‰∫Øø©∫Œ</th>
-                                                <th>πÆ¿«¿Ø«¸</th>
-                                                <th>µÓ∑œ¿œ</th>
-                                                <th>¿Ã∏ß</th>
-                                                <th>¿Ã∏ﬁ¿œ</th>
-                                                <th>πÆ¿«¡¶∏Ò</th>
-                                                <th>πÆ¿«≥ªøÎ</th>
-                                                <th>√∑∫Œ∆ƒ¿œ</th>
-                                                <th>¥‰∫Øøœ∑·¿œ</th>
-                                                <th>πÆ¿«¥‰∫Ø≥ªøÎ</th>
-                                                <th>¡÷πÆπ¯»£</th>
+                                                <th>ÎãµÎ≥ÄÏó¨Î∂Ä</th>
+                                                <th>Î¨∏ÏùòÏú†Ìòï</th>
+                                                <th>Îì±Î°ùÏùº</th>
+                                                <th>Ïù¥Î¶Ñ</th>
+                                                <th>Ïù¥Î©îÏùº</th>
+                                                <th>Î¨∏ÏùòÏ†úÎ™©</th>
+                                                <th>Î¨∏ÏùòÎÇ¥Ïö©</th>
+                                                <th>Ï≤®Î∂ÄÌååÏùº</th>
+                                                <th>ÎãµÎ≥ÄÏôÑÎ£åÏùº</th>
+                                                <th>Î¨∏ÏùòÎãµÎ≥ÄÎÇ¥Ïö©</th>
+                                                <th>Ï£ºÎ¨∏Î≤àÌò∏</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>16846598</td>
                                             </tr>
                                             <tr>
-                                                <td>πÃ¥‰∫Ø</td>
-                                                <td>πËº€πÆ¿«</td>
+                                                <td>ÎØ∏ÎãµÎ≥Ä</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
                                                 <td>2024-12-06</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>ezen@ezen.com</td>
-                                                <td>πËº€πÆ¿«</td>
-                                                <td>πËº€¿Ã æÛ∏∂≥™ ∞…∏Æ≥™ø‰?</td>
+                                                <td>Î∞∞ÏÜ°Î¨∏Ïùò</td>
+                                                <td>Î∞∞ÏÜ°Ïù¥ ÏñºÎßàÎÇò Í±∏Î¶¨ÎÇòÏöî?</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>

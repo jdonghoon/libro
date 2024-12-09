@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
 
-        <!-- main -->
         <main class="app-main">
             <!--begin::App Content Header-->
             <div class="app-content-header">
@@ -11,7 +10,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">»∏ø¯∞¸∏Æ</h3>
+                            <h3 class="mb-0">ÌöåÏõêÍ¥ÄÎ¶¨</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -31,7 +30,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">»∏ø¯ ¡§∫∏ ∏Ò∑œ</div>
+                                    <div class="card-title">ÌöåÏõê Ï†ïÎ≥¥ Î™©Î°ù</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
@@ -41,15 +40,15 @@
                                         <div class="row g-3">
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">ªÛºº∞Àªˆ</label>
+                                                <label for="validationCustom04">ÏÉÅÏÑ∏Í≤ÄÏÉâ</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="æ∆¿Ãµ">æ∆¿Ãµ</option>
-                                                        <option value="¿Ã∏ß">¿Ã∏ß</option>
-                                                        <option value="¿¸»≠π¯»£">¿¸»≠π¯»£</option>
-                                                        <option value="¿Ã∏ﬁ¿œ">¿Ã∏ﬁ¿œ</option>
-                                                        <option value="±‚≈∏ªÁ«◊">±‚≈∏ªÁ«◊</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="ÏïÑÏù¥Îîî">ÏïÑÏù¥Îîî</option>
+                                                        <option value="Ïù¥Î¶Ñ">Ïù¥Î¶Ñ</option>
+                                                        <option value="Ï†ÑÌôîÎ≤àÌò∏">Ï†ÑÌôîÎ≤àÌò∏</option>
+                                                        <option value="Ïù¥Î©îÏùº">Ïù¥Î©îÏùº</option>
+                                                        <option value="Í∏∞ÌÉÄÏÇ¨Ìï≠">Í∏∞ÌÉÄÏÇ¨Ìï≠</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -58,7 +57,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">∞°¿‘¿œ</label>
+                                                <label for="inputDate" class="col-sm-2 col-form-label">Í∞ÄÏûÖÏùº</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                     <input type="date" class="form-control" id="inputDate">
@@ -67,19 +66,19 @@
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label>»∏ø¯ªÛ≈¬</label>
+                                                <label>ÌöåÏõêÏÉÅÌÉú</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                                                        <label class="form-check-label" for="inlineRadio1">¿¸√º</label>
+                                                        <label class="form-check-label" for="inlineRadio1">Ï†ÑÏ≤¥</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                        <label class="form-check-label" for="inlineRadio2">»∞º∫</label>
+                                                        <label class="form-check-label" for="inlineRadio2">ÌôúÏÑ±</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                                        <label class="form-check-label" for="inlineRadio3">∫Ò»∞º∫</label>
+                                                        <label class="form-check-label" for="inlineRadio3">ÎπÑÌôúÏÑ±</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,18 +110,18 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>¿Ã∏ß</th>
-                                                <th>»ﬁ¥Î∆˘π¯»£</th>
-                                                <th>¿Ã∏ﬁ¿œ</th>
-                                                <th>ªÛ≈¬</th>
-                                                <th>∞°¿‘¿œ</th>
-                                                <th>ºˆ¡§¿œ</th>
+                                                <th>Ïù¥Î¶Ñ</th>
+                                                <th>Ìú¥ÎåÄÌè∞Î≤àÌò∏</th>
+                                                <th>Ïù¥Î©îÏùº</th>
+                                                <th>ÏÉÅÌÉú</th>
+                                                <th>Í∞ÄÏûÖÏùº</th>
+                                                <th>ÏàòÏ†ïÏùº</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr onclick="location.href='membershipInfo.html';">
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -131,7 +130,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -140,7 +139,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -149,7 +148,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -158,7 +157,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -167,7 +166,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -176,7 +175,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -185,7 +184,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -194,7 +193,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>
@@ -203,7 +202,7 @@
                                             </tr>
                                             <tr>
                                                 <td>hong</td>
-                                                <td>»´±Êµø</td>
+                                                <td>ÌôçÍ∏∏Îèô</td>
                                                 <td>01000000000</td>
                                                 <td>hong@ezen.com</td>
                                                 <td>E</td>

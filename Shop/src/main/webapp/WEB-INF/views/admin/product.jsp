@@ -10,7 +10,7 @@
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">ªÛ«∞∞¸∏Æ</h3>
+                            <h3 class="mb-0">ÏÉÅÌíàÍ¥ÄÎ¶¨</h3>
                         </div>
                     </div>
                     <!--end::Row-->
@@ -30,7 +30,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">ªÛ«∞ ¡§∫∏ ∏Ò∑œ</div>
+                                    <div class="card-title">ÏÉÅÌíà Ï†ïÎ≥¥ Î™©Î°ù</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
@@ -40,27 +40,27 @@
                                         <div class="row g-3">
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">ƒ´≈◊∞Ì∏Æ</label>
+                                                <label for="validationCustom04">Ïπ¥ÌÖåÍ≥†Î¶¨</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="ªÛ«∞π¯»£">Ω√</option>
-                                                        <option value="ªÛ«∞∏Ì">º“º≥</option>
-                                                        <option value="±π¡¶«•¡ÿµµº≠π¯»£">¿⁄±‚∞Ëπﬂº≠</option>
-                                                        <option value="¿Á∞Ì">∏∏»≠</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="ÏÉÅÌíàÎ≤àÌò∏">Ïãú</option>
+                                                        <option value="ÏÉÅÌíàÎ™Ö">ÏÜåÏÑ§</option>
+                                                        <option value="Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏">ÏûêÍ∏∞Í≥ÑÎ∞úÏÑú</option>
+                                                        <option value="Ïû¨Í≥†">ÎßåÌôî</option>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">ªÛºº∞Àªˆ</label>
+                                                <label for="validationCustom04">ÏÉÅÏÑ∏Í≤ÄÏÉâ</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04">
-                                                        <option value="¿¸√º" selected>¿¸√º</option>
-                                                        <option value="ªÛ«∞π¯»£">ªÛ«∞π¯»£</option>
-                                                        <option value="ªÛ«∞∏Ì">ªÛ«∞∏Ì</option>
-                                                        <option value="±π¡¶«•¡ÿµµº≠π¯»£">±π¡¶«•¡ÿµµº≠π¯»£</option>
-                                                        <option value="¿Á∞Ì">¿Á∞Ì</option>
+                                                        <option value="Ï†ÑÏ≤¥" selected>Ï†ÑÏ≤¥</option>
+                                                        <option value="ÏÉÅÌíàÎ≤àÌò∏">ÏÉÅÌíàÎ≤àÌò∏</option>
+                                                        <option value="ÏÉÅÌíàÎ™Ö">ÏÉÅÌíàÎ™Ö</option>
+                                                        <option value="Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏">Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏</option>
+                                                        <option value="Ïû¨Í≥†">Ïû¨Í≥†</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -69,7 +69,7 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">ªÛ«∞ µÓ∑œ¿œ</label>
+                                                <label for="inputDate" class="col-sm-2 col-form-label">ÏÉÅÌíà Îì±Î°ùÏùº</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                     <input type="date" class="form-control" id="inputDate">
@@ -78,19 +78,19 @@
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label>¡¯ø≠ªÛ≈¬</label>
+                                                <label>ÏßÑÏó¥ÏÉÅÌÉú</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                                                        <label class="form-check-label" for="inlineRadio1">¿¸√º</label>
+                                                        <label class="form-check-label" for="inlineRadio1">Ï†ÑÏ≤¥</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                        <label class="form-check-label" for="inlineRadio2">¡¯ø≠</label>
+                                                        <label class="form-check-label" for="inlineRadio2">ÏßÑÏó¥</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                                        <label class="form-check-label" for="inlineRadio3">πÃ¡¯ø≠</label>
+                                                        <label class="form-check-label" for="inlineRadio3">ÎØ∏ÏßÑÏó¥</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,206 +121,206 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>ªÛ«∞π¯»£</th>
-                                                <th>¥Î«•ªÛ«∞ªÁ¡¯</th>
-                                                <th>ƒ´≈◊∞Ì∏Æ</th>
-                                                <th>ªÛ«∞∏Ì</th>
-                                                <th>¿˙¿⁄</th>
-                                                <th>±π¡¶«•¡ÿµµº≠π¯»£</th>
-                                                <th>∆«∏≈∞°</th>
-                                                <th>ºˆ∑Æ</th>
-                                                <th>¡¯ø≠ªÛ≈¬</th>
-                                                <th>µÓ∑œ¿œ</th>
-                                                <th>ºˆ¡§¿œ</th>
-                                                <th>ºˆ¡§/ªË¡¶</th>
+                                                <th>ÏÉÅÌíàÎ≤àÌò∏</th>
+                                                <th>ÎåÄÌëúÏÉÅÌíàÏÇ¨ÏßÑ</th>
+                                                <th>Ïπ¥ÌÖåÍ≥†Î¶¨</th>
+                                                <th>ÏÉÅÌíàÎ™Ö</th>
+                                                <th>Ï†ÄÏûê</th>
+                                                <th>Íµ≠Ï†úÌëúÏ§ÄÎèÑÏÑúÎ≤àÌò∏</th>
+                                                <th>ÌåêÎß§Í∞Ä</th>
+                                                <th>ÏàòÎüâ</th>
+                                                <th>ÏßÑÏó¥ÏÉÅÌÉú</th>
+                                                <th>Îì±Î°ùÏùº</th>
+                                                <th>ÏàòÏ†ïÏùº</th>
+                                                <th>ÏàòÏ†ï/ÏÇ≠Ï†ú</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td onclick="location.href='#';">465128315</td>
-                                                <td>¿ÃπÃ¡ˆ</td>
-                                                <td>º“º≥</td>
-                                                <td>º“≥‚¿Ãø¬¥Ÿ</td>
-                                                <td>«—∞≠</td>
+                                                <td>Ïù¥ÎØ∏ÏßÄ</td>
+                                                <td>ÏÜåÏÑ§</td>
+                                                <td>ÏÜåÎÖÑÏù¥Ïò®Îã§</td>
+                                                <td>ÌïúÍ∞ï</td>
                                                 <td>2334234</td>
-                                                <td>13,500ø¯</td>
+                                                <td>13,500Ïõê</td>
                                                 <td>10</td>
-                                                <td>¡¯ø≠</td>
+                                                <td>ÏßÑÏó¥</td>
                                                 <td>2024-12-01</td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-primary">ºˆ¡§</button>
-                                                    <button class="btn btn-primary">ªË¡¶</button>
+                                                    <button class="btn btn-primary">ÏàòÏ†ï</button>
+                                                    <button class="btn btn-primary">ÏÇ≠Ï†ú</button>
                                                 </td>
                                             </tr>
                                             
