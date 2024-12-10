@@ -1,5 +1,14 @@
 package pj.spring.service;
 
-public interface HomeService {
+import java.util.List;
 
+import pj.spring.vo.ProductVO;
+
+public interface HomeService {
+	
+	public List<ProductVO> selectTodayBook();
+	
+	public List<ProductVO> selectBestSellerBook();
+	
+	public List<ProductVO> selectHotBook();
 }

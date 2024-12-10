@@ -40,19 +40,18 @@
 						</div>
 					</div>
 					<div class="content-list">
-						<%-- 반복문
-						<c:forEach items="" var="">
-							 
+						
+						<c:forEach items="${tvo}" var="tvo">
+							<div class="content-item">
+								<a href="">
+									<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
+									<div class="title" name="title">${tvo.product_name}</div>
+									<div class="writer" name="writer">${tvo.product_author}</div>
+								</a>
+							</div>	 
 						</c:forEach> 
-						--%>
-						<div class="content-item">
-							<a href="">
-							<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-							<div class="title" name="title">제목</div>
-							<div class="writer" name="writer">저자</div>
-							</a>
-						</div>
-						<div class="content-item">
+
+						<!-- <div class="content-item">
 							<a href="">
 								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
 								<div class="title" name="title">제목</div>
@@ -72,7 +71,7 @@
 								<div class="title" name="title">제목</div>
 								<div class="writer" name="writer">저자</div>
 							</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			
@@ -89,7 +88,18 @@
 						</div>
 					</div>
 					<div class="content-list">
-						<div class="content-item">
+					
+						<c:forEach items="${bsvo}" var="bsvo">
+							<div class="content-item">
+							<a href="">
+								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
+								<div class="title" name="title">${bsvo.product_name}</div>
+								<div class="writer" name="writer">${bsvo.product_author}</div>
+							</a>
+						</div>
+						</c:forEach>
+						
+						<!-- <div class="content-item">
 							<a href="">
 								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
 								<div class="title" name="title">제목</div>
@@ -109,14 +119,7 @@
 								<div class="title" name="title">제목</div>
 								<div class="writer" name="writer">저자</div>
 							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			
@@ -133,34 +136,38 @@
 						</div>
 					</div>
 					<div class="content-list">
+					
+					<c:forEach items="${hvo}" var="hvo">
 						<div class="content-item">
 							<a href="">
 								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div>제목</div>
-								<div>저자</div>
+								<div class="title" name="title">${hvo.product_name}</div>
+								<div class="writer" name="writer">${hvo.product_author}</div>
+							</a>
+						</div>
+					</c:forEach>
+						
+						<!-- <div class="content-item">
+							<a href="">
+								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
+								<div class="title" name="title">제목</div>
+								<div class="writer" name="writer">작가</div>
 							</a>
 						</div>
 						<div class="content-item">
 							<a href="">
 								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div>제목</div>
-								<div>저자</div>
+								<div class="title" name="title">제목</div>
+								<div class="writer" name="writer">작가</div>
 							</a>
 						</div>
 						<div class="content-item">
 							<a href="">
 								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div>제목</div>
-								<div>저자</div>
+								<div class="title" name="title">제목</div>
+								<div class="writer" name="writer">작가</div>
 							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div>제목</div>
-								<div>저자</div>
-							</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</section>

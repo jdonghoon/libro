@@ -6,6 +6,7 @@ public class AttachmentVO {
 	private String attachment_notice_no;	// 공지사항 번호
 	private String attachment_contact_no;	// 문의 번호
 	private String attachment_review_no;	// 리뷰 번호
+	private String attachment_product_no; 	// 상품 번호
 	
 	public String getAttachment_no() {
 		return attachment_no;

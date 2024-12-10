@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class ProductVO {
+public class ProductVO extends AttachmentDetailVO {
 	private String product_no;					// 상품번호
 	private String product_name; 				// 상품명
 	private String product_description;			// 상품소개
