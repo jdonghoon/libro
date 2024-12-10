@@ -25,7 +25,9 @@
     border: 1px solid black;
     padding: 20px;
     margin-bottom: 20px;
-
+}
+.addr-info p {
+	margin: 0;
 }
 .m-d {
     display: flex;

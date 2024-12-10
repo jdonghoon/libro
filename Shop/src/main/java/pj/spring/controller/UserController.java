@@ -16,6 +16,14 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
+	// 로그인
+	@RequestMapping(value="/login.do", method = RequestMethod.GET)
+	public String login() {
+		
+		return "user/account/login";
+	}
+	
+	//	회원가입
 	@RequestMapping(value = "/join.do", method = RequestMethod.GET)
 	public String join() {
 		
@@ -46,12 +54,8 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/login.do", method = RequestMethod.GET)
-	public String login() {
-		
-		return "user/account/login";
-	}
-		
+	
+	// 아이디 중복 체크
 	@ResponseBody
 	@RequestMapping(value = "/ajax/checkID.do", method = RequestMethod.GET)
 	public String checkID(String user_id) {
@@ -76,5 +80,26 @@ public class UserController {
 		}
 		
 		return msg;
+	}
+	
+	// 회원 정보
+	@RequestMapping(value="/memberinfo.do", method = RequestMethod.GET)
+	public String memberinfo() {
+		
+		return "user/account/memberinfo";
+	}
+	
+	// 주소록
+	@RequestMapping(value="/addr.do", method = RequestMethod.GET)
+	public String addr() {
+		
+		return "user/account/addr";
+	}
+	
+	// 주소록
+	@RequestMapping(value="/addrregister.do", method = RequestMethod.GET)
+	public String addrregister() {
+		
+		return "user/account/addrregister";
 	}
 }

@@ -104,8 +104,7 @@
         </section>
     </main>
 
-    <script>		 
-
+    <script>
 		 
 		function DojoinUp() {
 			

@@ -57,15 +57,22 @@
 			<!-- 비회원 -->
 			<sec:authorize access="isAnonymous()"><!-- 로그인 안됨 -->
 				<a href="login.do">로그인</a>
+				<a href="orderhistory.do">주문조회</a>
+				<a href="wishlist.do">읽고 싶은 책</a>
+				<a href="recentlyproducts.do">최근 본 도서</a>
+				<a href="memberinfo.do">회원정보</a>
+				<a href="mypost.do">내 게시물</a>
+				<a href="addr.do">배송주소록</a>
 			</sec:authorize>
-			<a href="orderhistory.do">주문조회</a>
-			<a href="wishlist.do">읽고 싶은 책</a>
-			<a href="recentlyproducts.do">최근 본 도서</a>
-			<a href="memberinfo.do">회원정보</a>
-			<a href="mypost.do">내 게시물</a>
-			<a href="addr.do">배송주소록</a>
 			<!-- 회원 -->
 			<sec:authorize access="isAuthenticated()"><!-- 로그인 O -->
+				<a href="#"><sec:authentication property="principal.username" />님 환영합니다!</a>
+				<a href="orderhistory.do">주문조회</a>
+				<a href="wishlist.do">읽고 싶은 책</a>
+				<a href="recentlyproducts.do">최근 본 도서</a>
+				<a href="memberinfo.do">회원정보</a>
+				<a href="mypost.do">내 게시물</a>
+				<a href="addr.do">배송주소록</a>
 				<a href="logout.do">로그아웃</a>
 			</sec:authorize>
 		</div>

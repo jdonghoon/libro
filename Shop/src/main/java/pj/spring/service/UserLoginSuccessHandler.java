@@ -18,8 +18,16 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 		// 로그인 성공 시 호출!!
 		System.out.println("로그인 성공!");
 		
-		response.sendRedirect(request.getContextPath()); // 메인페이지 이동
-		
-		
+	    // 사용자의 권한 확인
+	    boolean isAdmin = authentication.getAuthorities().stream()
+	        .anyMatch(authority -> authority.getAuthority().equals("A")); // ROLE_A 권한 체크
+
+	    if (isAdmin) {
+	        // Admin 권한이 있을 경우
+	        response.sendRedirect(request.getContextPath() + "/admin/index.do");
+	    } else {
+	        // 기본 메인 페이지로 이동
+	        response.sendRedirect(request.getContextPath());
+	    }
 	}
 }
