@@ -6,7 +6,7 @@
 	<typeAliases><!-- vo 별칭 지정 -->
 		<!-- 별칭 지정시 반드시 클래스부터 선언 후 별칭 지정!! -->
 		<typeAlias type="pj.spring.vo.UserVO" alias="userVO" />
-		<typeAlias type="pj.spring.vo.AddressBookDetialVO" alias="addressbookdetailVO" />
+		<typeAlias type="pj.spring.vo.AddressBookVO" alias="addressbookVO" />
 		<typeAlias type="pj.spring.vo.AttachmentDetailVO" alias="attachmentdetailVO" />
 		<typeAlias type="pj.spring.vo.AttachmentVO" alias="attachmentVO" />
 		<typeAlias type="pj.spring.vo.CartVO" alias="cartVO" />

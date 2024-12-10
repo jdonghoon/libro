@@ -1,4 +1,4 @@
-package pj.spring.cotroller;
+package pj.spring.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -21,5 +21,4 @@ public class HomeController {
 
 		return "home";
 	}
-	
 }

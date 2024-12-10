@@ -1,4 +1,4 @@
-package pj.spring.cotroller;
+package pj.spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

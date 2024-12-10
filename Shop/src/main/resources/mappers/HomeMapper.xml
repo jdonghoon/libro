@@ -4,9 +4,9 @@
 <mapper namespace="pj.spring.mapper.userMapper"> <!-- 수정 필요 -->
 
 	<!-- index 오늘의 책 -->
-	<select id="">
+	<!-- <select id="selectTodayBook" resultType="">
 		
-	</select>
+	</select> -->
 </mapper>
 
 

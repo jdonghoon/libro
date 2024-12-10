@@ -27,7 +27,7 @@
 		<!-- 첨부파일용 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 	
-	<context:component-scan base-package="pj.spring.cotroller" />
+	<context:component-scan base-package="pj.spring.controller" />
 	<context:component-scan base-package="pj.spring.service" />
 	<context:component-scan base-package="pj.spring.dao" />
 	
