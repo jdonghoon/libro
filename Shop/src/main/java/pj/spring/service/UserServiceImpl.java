@@ -31,13 +31,11 @@ public class UserServiceImpl implements UserService {
 		
 		return userDAO.selectLogin(username);
 	}
-//
-//	// 회원 정보 수정
-//	@Override
-//	public int update(UserVO userVO){
-//		
-//		return userDAO.update(userVO);
-//		
-//	}
+
+	@Override
+	public int selectCntByUid(String user_id) {
+
+		return userDAO.selectCntByUid(user_id);
+	}
 
   }

@@ -147,7 +147,7 @@ header {
     position: fixed;
     top: 0;
     left: -250px; /* 처음에는 왼쪽으로 숨김 */
-    width: 250px;
+    width: 400px;
     height: 100%;
     background-color: white;
     color: white;
@@ -185,7 +185,7 @@ header {
     position: fixed;
     top: 0;
     right: -250px; /* 처음에는 오른쪽으로 숨김 */
-    width: 250px;
+    width: 400px;
     height: 100%;
     background-color: white;
     color: white;

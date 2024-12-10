@@ -1,14 +1,11 @@
 package pj.spring.cotroller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.UserService;
 import pj.spring.vo.UserVO;
@@ -54,5 +51,30 @@ public class UserController {
 		
 		return "user/account/login";
 	}
-	
+		
+	@ResponseBody
+	@RequestMapping(value = "/ajax/checkID.do", method = RequestMethod.GET)
+	public String checkID(String user_id) {
+		
+		String msg = "";
+		
+		int isId = userService.selectCntByUid(user_id);
+		
+		/*
+			ajax 요청시 컨트롤러에서는 response 문자셋을 지정할 수 없으므로 주로 응답값은 영문으로 작성하여 
+			화면에서 제어합니다.
+		*/
+		
+		if(isId > 0){
+			// ID 중복
+			
+			msg = "fail";
+		}else {
+			// ID 중복 X
+			
+			msg = "success";
+		}
+		
+		return msg;
+	}
 }

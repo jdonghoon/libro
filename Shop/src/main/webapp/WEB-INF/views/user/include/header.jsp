@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Libro</title>
+		<script src="<%= request.getContextPath() %>/javascript/jquery-3.7.1.min.js"></script>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/styles.css">
 	</head>
 	<body>

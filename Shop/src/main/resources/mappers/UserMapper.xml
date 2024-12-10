@@ -10,12 +10,16 @@
 			, user_name
 			, user_phone
 			, user_email
+			, user_create_id
+			, user_update_id
 		)VALUES(
 			#{user_id}
-			,#{user_password}
-			,#{user_name}
-			,#{user_phone}
-			,#{user_email}
+			, #{user_password}
+			, #{user_name}
+			, #{user_phone}
+			, #{user_email}
+			, #{user_id}
+			, #{user_id}
 		)
 	</insert>
 	
@@ -28,6 +32,13 @@
 		 FROM user
 		WHERE user_id = #{user_id}
 	</select>
+	
+	<select id="selectCntByUid" parameterType="String" resultType="int">
+		SELECT COUNT(*) AS cnt 
+			FROM user 
+		WHERE user_id = #{user_id}
+	</select>
+	
 </mapper>
 
 

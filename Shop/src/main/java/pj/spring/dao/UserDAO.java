@@ -24,13 +24,15 @@ public class UserDAO {
 		
 	}
 
-//	public int update(UserVO userVO) {
-//		return sqlSession.update("pj.spring.mapper.userMapper.userUpdate", userVO);
-//	}
-
 	public UserVO selectLogin(String username) {
 		
 		return sqlSession.selectOne("pj.spring.mapper.userMapper.selectUserByLogin", username);
 		
+	}
+	
+	public int selectCntByUid(String user_id) {
+		
+		return sqlSession.selectOne("pj.spring.mapper.userMapper.selectCntByUid", user_id);
+	
 	}
 }
