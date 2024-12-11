@@ -18,7 +18,7 @@ public class HomeController {
 	public HomeService homeService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String selectTodayBook(Model model) { // 화면에 뿌려주기 위한 model 선언
+	public String index(Model model) { // 화면에 뿌려주기 위한 model 선언
 		
 		List<ProductVO> tvo = homeService.selectTodayBook();
 		List<ProductVO> bsvo = homeService.selectBestSellerBook();
@@ -29,5 +29,11 @@ public class HomeController {
 		model.addAttribute("hvo", hvo);
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
+	public String newList() {
+		
+		return "user/menu/new_list";
 	}
 }

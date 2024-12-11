@@ -8,6 +8,7 @@
 		<meta charset="UTF-8">
 		<title>Libro</title>
 		<script src="<%= request.getContextPath() %>/javascript/jquery-3.7.1.min.js"></script>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/styles.css">
 	</head>
 	<body>
@@ -44,9 +45,9 @@
 		<!-- 서브 메뉴 (왼쪽에서 나오는 메뉴) -->
 		<div id="sub-menu" class="side-menu-left">
 			<button class="left-close-btn" onclick="closeMenu()">닫기</button>
-			<a href="list.do">신간 도서</a>
-			<a href="list.do">베스트셀러</a>
-			<a href="list.do">전체 도서</a>
+			<a href="new_list.do">신간 도서</a>
+			<a href="bestseller_list.do">베스트셀러</a>
+			<a href="total_list.do">전체 도서</a>
 			<a href="#">구매 가이드</a>
 			<a href="#">문의하기</a>
 		</div>
