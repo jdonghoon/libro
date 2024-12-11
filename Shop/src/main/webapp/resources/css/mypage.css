@@ -479,3 +479,77 @@ th, td {
 .rating label:hover ~ label {
     color: #ffcc00; /* 별 위에 마우스를 올릴 때 색상 */
 }
+
+/* =========================================================================================== */
+/* inquiry.jsp */
+/* =========================================================================================== */
+.inquiryform-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.inquiryform-group h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.inquiryform-group {
+    margin-bottom: 15px;
+}
+.checkbox {
+    border: 1px solid black;
+    padding: 20px;
+}
+.addrform-group label, .joinform-group label, .memberinfoform-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.addrform-group input, 
+.joinform-group input, 
+.memberinfoform-group input, 
+.addrform-group select, 
+.joinform-group select,
+.memberinfoform-group select {
+    width: 478px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.joinform-group .checkbox-group {
+    display: flex;
+    align-items: center;
+}
+.joinform-group .checkbox-group input {
+    width: auto;
+    margin-right: 5px;
+}
+.joinform-group .checkbox-group label {
+    margin: 0;
+}
+.addrform-footer, .joinform-footer, .memberinfoform-footer {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.addrform-footer button,
+.joinform-footer button,
+.memberinfoform-footer button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 235px;
+    height: 45px;
+}
+.addrform-footer button:hover, 
+.joinform-footer button:hover,
+.memberinfoform-footer button:hover {
+    background-color: #555;
+}
+.addr_btn {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}

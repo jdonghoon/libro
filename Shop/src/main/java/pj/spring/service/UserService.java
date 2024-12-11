@@ -21,4 +21,19 @@ public interface UserService {
 	
 	// 주소록 등록
 	public int addrinsert(AddressBookVO addressbookVO);
+	
+	// 주소록 삭제
+	public int addrdelete(String address_book_no);
+
+	// 주소록 수정
+	public AddressBookVO addrmodify(String address_book_no);
+
+	// 주소록 업데이트
+	public int addrmodifyOk(AddressBookVO addressbookVO);
+	
+	// 회원 정보
+	public UserVO memberinfoselect(String user_id);
+
+	// 회원 정보 업데이트
+	public int memberinfomodify(UserVO userVO);
 }

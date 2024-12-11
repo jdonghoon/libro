@@ -13,8 +13,8 @@
 	                    <p>[${vo.address_book_postcode}] ${vo.address_book_address} ${vo.address_book_detailaddress}</p>
 	                    <p>${vo.address_book_phone}-${vo.address_book_phone}-${vo.address_book_phone}</p>
 	                    <div class="m-d">
-	                        <button onclick="location.href='addrmodify.do'" class="dh-btn">수정</button>
-	                        <button style="background-color: white; color: black;" class="dh-btn">삭제</button>
+	                        <button onclick="location.href='addrmodify.do?address_book_no=${vo.address_book_no}'" class="dh-btn">수정</button>
+	                        <button onclick="location.href='addrdelete.do?address_book_no=${vo.address_book_no}'" style="background-color: white; color: black;" class="dh-btn">삭제</button>
 	                    </div>
 	                </div>
 				</c:forEach> 

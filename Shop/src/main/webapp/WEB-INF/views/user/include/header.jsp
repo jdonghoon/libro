@@ -47,8 +47,8 @@
 			<a href="new_list.do">신간 도서</a>
 			<a href="bestseller_list.do">베스트셀러</a>
 			<a href="total_list.do">전체 도서</a>
-			<a href="#">구매 가이드</a>
-			<a href="#">문의하기</a>
+			<a href="notice.do">공지사항</a>
+			<a href="inquiry.do">문의하기</a>
 		</div>
 		
 		<!-- 로그인 메뉴 (오른쪽에서 나오는 메뉴) -->

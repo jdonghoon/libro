@@ -91,10 +91,35 @@ public class UserController {
 	}
 	
 	// 회원 정보
-	@RequestMapping(value="/memberinfo.do", method = RequestMethod.GET)
-	public String memberinfo() {
+	@RequestMapping(value="memberinfo.do", method=RequestMethod.GET)
+	public String memberinfo(Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		UserVO vo = userService.memberinfoselect(username);
+		
+		model.addAttribute("vo", vo);
 		
 		return "user/account/memberinfo";
+	}
+	
+	@RequestMapping(value="memberinfoOk.do", method=RequestMethod.POST)
+	public String addrmodify(UserVO vo, HttpServletRequest request) {
+		
+		BCryptPasswordEncoder epwe = new BCryptPasswordEncoder(); // 복호화가 안되는 
+		
+		vo.setUser_password(epwe.encode(vo.getUser_password()));
+		
+		int result = userService.memberinfomodify(vo);
+		
+		if(result > 0) {
+			System.out.println("수정 완료");
+		}else {
+			System.out.println("수정 실패");
+		}
+
+		return "redirect:memberinfo.do";
 	}
 	
 	// 주소록 목록
@@ -126,22 +151,14 @@ public class UserController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		System.out.println("username : " + username);
-		System.out.println((String)request.getParameter("address_book_addressname"));
-		System.out.println((String)request.getParameter("address_book_name"));
-		System.out.println((String)request.getParameter("address_book_postcode"));
-		System.out.println((String)request.getParameter("address_book_address"));
-		System.out.println((String)request.getParameter("address_book_detailaddress"));
-		System.out.println((String)request.getParameter("address_book_phone"));
-		
 		vo.setUser_id(username);
 		
-		vo.setAddress_book_addressname((String)request.getParameter("address_book_addressname"));
-		vo.setAddress_book_name((String)request.getParameter("address_book_name"));
-		vo.setAddress_book_postcode((String)request.getParameter("address_book_postcode"));
-		vo.setAddress_book_address((String)request.getParameter("address_book_address"));
-		vo.setAddress_book_detailaddress((String)request.getParameter("address_book_detailaddress"));
-		vo.setAddress_book_phone((String)request.getParameter("address_book_phone"));
+		vo.setAddress_book_addressname(vo.getAddress_book_addressname());
+		vo.setAddress_book_name(vo.getAddress_book_name());
+		vo.setAddress_book_postcode(vo.getAddress_book_postcode());
+		vo.setAddress_book_address(vo.getAddress_book_address());
+		vo.setAddress_book_detailaddress(vo.getAddress_book_detailaddress());
+		vo.setAddress_book_phone(vo.getAddress_book_phone());
 		
 		int result = userService.addrinsert(vo);
 		
@@ -153,4 +170,54 @@ public class UserController {
 
 		return "redirect:/addr.do";
 	}
+	
+	// 주소록 삭제
+	@RequestMapping(value="/addrdelete.do")
+	public String addrdelete(String address_book_no) {
+		
+		int result = userService.addrdelete(address_book_no);
+		
+		if(result > 0) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
+		return "redirect:/addr.do";
+	}
+	
+	// 주소록 수정
+	@RequestMapping(value="addrmodify.do", method=RequestMethod.GET)
+	public String addrmodify(String address_book_no, Model model) {
+		
+		AddressBookVO vo = userService.addrmodify(address_book_no);
+		
+		model.addAttribute("vo", vo);
+
+		return "user/account/addrmodify";
+	}
+	
+	@RequestMapping(value="addrmodifyOk.do", method=RequestMethod.POST)
+	public String addrmodify(AddressBookVO vo) {
+		
+		int result = userService.addrmodifyOk(vo);
+		
+		if(result > 0) {
+			System.out.println("수정 완료");
+
+			return "redirect:/addr.do";
+		}else {
+			System.out.println("수정 실패");
+			
+			return "redirect:addrmodify.do?address_book_no=" + vo.getAddress_book_no();
+		}
+	}
+	
+	// 문의하기
+	@RequestMapping(value="inquiry.do", method=RequestMethod.GET)
+	public String inquiry() {
+		
+		return "user/account/inquiry";
+	}
+
 }

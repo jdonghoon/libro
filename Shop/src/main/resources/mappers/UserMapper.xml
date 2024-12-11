@@ -31,6 +31,7 @@
 			, user_status
 		 FROM user
 		WHERE user_id = #{user_id}
+		AND user_status = 'E'
 	</select>
 	
 	<!-- 아이디 중복 체크 -->
@@ -42,7 +43,8 @@
 	
 	<!-- 주소록 조회 -->
 	<select id="addrlistSelect" parameterType="String" resultType="addressbookVO" >
-		SELECT address_book_addressname 
+		SELECT address_book_no
+			, address_book_addressname
 			, address_book_name
 			, address_book_postcode
 			, address_book_address
@@ -77,6 +79,56 @@
 		);
 	</insert>
 	
+	<!-- 주소록 삭제 -->
+	<delete id="addrDelete" parameterType="String">
+		DELETE FROM address_book WHERE address_book_no =  #{address_book_no}
+	</delete>
+	
+	<!-- 주소록 수정 -->
+	<select id="addrModify" parameterType="String" resultType="addressbookVO" >
+		SELECT address_book_no
+			, address_book_addressname
+			, address_book_name
+			, address_book_postcode
+			, address_book_address
+			, address_book_detailaddress
+			, address_book_phone
+		 FROM address_book
+		WHERE address_book_no =  #{address_book_no}
+	</select>
+	
+	<!-- 주소록 업데이트 -->
+	<update id="addrModifyOk" parameterType="addressbookVO">
+		UPDATE address_book 
+			SET 
+		address_book_addressname   = #{address_book_addressname}
+		, address_book_name          = #{address_book_name} 
+		, address_book_postcode      = #{address_book_postcode} 
+		, address_book_address       = #{address_book_address} 
+		, address_book_detailaddress = #{address_book_detailaddress} 
+		, address_book_phone         = #{address_book_phone} 
+		WHERE address_book_no =  #{address_book_no}
+	</update>
+	
+	<!-- 회원정보 조회 -->
+ 	<select id="memberinfoSelect" parameterType="String" resultType="userVO" >
+		SELECT user_id 
+			, user_name
+			, user_phone
+		 FROM user 
+		WHERE user_id = #{user_id}
+		AND user_status = 'E'
+	</select> 
+	
+	<!-- 회원정보 업데이트 -->
+	<update id="memberinfoModify" parameterType="userVO">
+		UPDATE user
+			SET 
+		user_password   = #{user_password}
+		, user_phone          = #{user_phone} 
+		WHERE user_id = #{user_id}
+		 AND user_status = 'E'
+	</update>
 </mapper>
 
 

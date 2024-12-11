@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class UserVO{
+public class UserVO extends AddressBookVO {
 	
 	private String user_no;         // 회원 번호
 	private String user_id;         // 아이디

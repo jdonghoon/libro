@@ -7,14 +7,14 @@
         <section>
             <div class="memberinfoform-container">
                 <h2>회원정보</h2>
-                <form>
+                <form action="memberinfoOk.do" method="post">
                     <!-- 기본 정보 -->
                     <div>
                         <p>*필수입력사항</p>
                     </div>
 
                     <div class="memberinfoform-group">
-                        <input type="text" id="user_id" name="user_id" value="hong">
+                        <input type="text" id="user_id" name="user_id" value="${vo.user_id}">
                     </div>
                     <div class="memberinfoform-group">
                         <input type="password" id="user_password" name="user_password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
@@ -23,33 +23,34 @@
                         <input type="password" id="password_Confirm" name="password_Confirm" placeholder="비밀번호 확인*">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="text" id="name" name="user_name" value="홍길동">
+                        <input type="text" id="name" name="${vo.user_name}" value="${vo.user_name}">
                     </div>
 
-                     <div class="memberinfoform-group">
+<%--                      <div class="memberinfoform-group">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                            <input type="text" id="userPostCode" name="address_book_postcode" placeholder="주소" style="width: 50%;">
+                            <input type="text" id="userPostCode" name="address_book_postcode" value="${vo.address_book_postcode}" placeholder="주소" style="width: 50%;">
                             <button type="button" onclick="searchAddress();" class="addr_btn">우편번호</button>
                             <button type="button" onclick="cancelAddress();" class="addr_btn">취소</button>
                         </div>
-                        <input type="text" id="userAddress" name="address_book_address" placeholder="기본주소" style="margin-bottom: 15px;">
-                        <input type="text" id="userDtlAddress" name="address_book_detailaddress" placeholder="나머지주소(선택입력가능)">
-                    </div>
-						
-                    <div class="memberinfoform-group">
+                        <input type="text" id="userAddress" name="address_book_address" value="${vo.address_book_address}" placeholder="기본주소" style="margin-bottom: 15px;">
+                        <input type="text" id="userDtlAddress" name="address_book_detailaddress" value="${vo.address_book_detailaddress}" placeholder="나머지주소(선택입력가능)">
+                    </div> --%>
+
+                    <div class="addrform-group">
                         <div style="display: flex; justify-content: space-between;">
-                            <select id="phonePrefix" name="phonePrefix" style="width: 30%;">
-                                <option value="010">010</option>
-                                <option value="011">011</option>
-                                <option value="016">016</option>
-                                <option value="016">017</option>
-                                <option value="016">018</option>
-                                <option value="016">019</option>
+                            <select id="phonePrefix" name="user_phone" style="width: 30%;">
+                                <option value="010" <c:if test="${vo.user_phone == '010'}">checked</c:if>>010</option>
+                                <option value="011" <c:if test="${vo.user_phone == '011'}">checked</c:if>>011</option>
+                                <option value="016" <c:if test="${vo.user_phone == '016'}">checked</c:if>>016</option>
+                                <option value="017" <c:if test="${vo.user_phone == '017'}">checked</c:if>>017</option>
+                                <option value="018" <c:if test="${vo.user_phone == '018'}">checked</c:if>>018</option>
+                                <option value="019" <c:if test="${vo.user_phone == '019'}">checked</c:if>>019</option>
                             </select>&nbsp;_&nbsp;
-                            <input type="text" id="phoneMiddle" name="phoneMiddle" style="width: 35%;" value="1234">&nbsp;_&nbsp;
-                            <input type="text" id="phoneLast" name="phoneLast" style="width: 35%;" value="5678">
+                            <input type="text" id="phoneMiddle" name="user_phone" style="width: 35%;" placeholder="휴대전화" value="${vo.user_phone}">&nbsp;_&nbsp;
+                            <input type="text" id="phoneLast" name="user_phone" style="width: 35%;" value="${vo.user_phone}">
                         </div>
                     </div>
+
                     <div class="memberinfoform-group">
                         <input type="email" id="email" name="email" value="hong@naver.com">
                     </div>
@@ -57,15 +58,15 @@
                     <!-- 버튼 -->
                     <div class="memberinfoform-footer">
                         <button type="submit">회원정보수정</button>
-                        <button type="">취소</button>
-                        <button type="">회원탈퇴</button>
+                        <button>취소</button>
+                        <button>회원탈퇴</button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
     
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		function searchAddress() {
 			new daum.Postcode({
@@ -87,6 +88,6 @@
 			inputDtlAddr.value = "" // 상세주소란 초기화
 			inputDtlAddr.readOnly = true; // 상세주소란 읽기전용 해제
 		}
-	</script>
+	</script> -->
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

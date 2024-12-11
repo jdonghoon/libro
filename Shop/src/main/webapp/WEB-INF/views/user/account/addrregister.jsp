@@ -30,9 +30,9 @@
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                                 <option value="016">016</option>
-                                <option value="016">017</option>
-                                <option value="016">018</option>
-                                <option value="016">019</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
                             </select>&nbsp;_&nbsp;
                             <input type="text" id="phoneMiddle" name="address_book_phone" style="width: 35%;" placeholder="휴대전화">&nbsp;_&nbsp;
                             <input type="text" id="phoneLast" name="address_book_phone" style="width: 35%;">

@@ -18,36 +18,61 @@ public class UserServiceImpl implements UserService {
 	// 회원가입
 	@Override
 	public int insert(UserVO userVO){
-		
 		return userDAO.insert(userVO);
 	}
 
 	// 로그인
 	@Override
 	public UserVO selectLogin(String username){
-		
 		return userDAO.selectLogin(username);
 	}
 
 	// 아이디 중복 체크
 	@Override
 	public int selectCntByUid(String user_id) {
-
 		return userDAO.selectCntByUid(user_id);
 	}
 	
 	// 주소록 목록
 	@Override
 	public List<AddressBookVO> list(String user_id) {
-		
 		return userDAO.list(user_id);
 	}
 
 	// 주소록 등록
 	@Override
 	public int addrinsert(AddressBookVO addressbookVO) {
-
 		return userDAO.addrinsert(addressbookVO);
+	}
+
+	// 주소록 삭제
+	@Override
+	public int addrdelete(String address_book_no) {
+		return userDAO.addrdelete(address_book_no);
+	}
+
+	// 주소록 수정
+	@Override
+	public AddressBookVO addrmodify(String address_book_no) {
+		return userDAO.addrmodify(address_book_no);
+	}
+
+	// 주소록 업데이트
+	@Override
+	public int addrmodifyOk(AddressBookVO addressbookVO) {
+		return userDAO.addrmodifyOk(addressbookVO);
+	}
+
+	// 회원 정보
+	@Override
+	public UserVO memberinfoselect(String user_id) {
+		return userDAO.memberinfoselect(user_id);
+	}
+
+	// 회원 정보 업데이트
+	@Override
+	public int memberinfomodify(UserVO userVO) {
+		return userDAO.memberinfomodify(userVO);
 	}
 
   }
