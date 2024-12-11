@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pj.spring.dao.HomeDAO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.SearchVO;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -14,18 +15,36 @@ public class HomeServiceImpl implements HomeService {
 	@Autowired
 	public HomeDAO homeDAO;
 	
+	@Override
 	public List<ProductVO> selectTodayBook() {
 		
 		return homeDAO.selectTodayBook();
 	}
 	
+	@Override
 	public List<ProductVO> selectBestSellerBook() {
 		
 		return homeDAO.selectBestSellerBook();
 	}
 	
+	@Override
 	public List<ProductVO> selectHotBook() {
 		
 		return homeDAO.selectHotBook();
 	}
+	
+	@Override
+	public int selectProductTotal(SearchVO searchVO) {
+		
+		return homeDAO.selectProductTotal(searchVO);
+	}
+	
+	
+	@Override
+	public List<ProductVO> selectIndexSearch(SearchVO searchVO) {
+		
+		return homeDAO.selectIndexSearch(searchVO);
+	}
+
+	
 }

@@ -20,6 +20,7 @@
 		<typeAlias type="pj.spring.vo.PaymentVO" alias="paymentVO" />
 		<typeAlias type="pj.spring.vo.ProductVO" alias="productVO" />
 		<typeAlias type="pj.spring.vo.ReviewVO" alias="reviewVO" />
+		<typeAlias type="pj.spring.vo.SearchVO" alias="searchVO" />
 		<typeAlias type="pj.spring.vo.ShippingVO" alias="shippingVO" />
 		<typeAlias type="pj.spring.vo.UserLoginHistoryVO" alias="userloginhistoryVO" />
 		<typeAlias type="pj.spring.vo.WishlistVO" alias="wishlistVO" />

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.SearchVO;
 
 @Repository
 public class HomeDAO {
@@ -29,5 +30,15 @@ public class HomeDAO {
 	public List<ProductVO> selectHotBook() {
 		
 		return sqlsession.selectList(namespace + ".selectHotBook");
+	}
+	
+	public int selectProductTotal(SearchVO searchVO) {
+		
+		return sqlsession.selectOne(namespace + ".selectProductTotal");
+	}
+	
+	public List<ProductVO> selectIndexSearch(SearchVO searchVO) {
+		
+		return sqlsession.selectList(namespace + ".selectIndexSearch", searchVO); 
 	}
 }

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="pj.spring.mapper.homeMapper"> <!-- 수정 필요 -->
+<mapper namespace="pj.spring.mapper.homeMapper">
 
 	<!-- index 오늘의 책 -->
 	<select id="selectTodayBook" resultType="productVO">
 		SELECT attachment_detail_new_name
-	 		 , product_name
+			 , product_name
      		 , product_author
   		  FROM product p
-  		  JOIN attachment a, attachment_detail d
- 		 WHERE p.product_no = a.attachment_product_no
-   		   AND a.attachment_no = d.attachment_no
-   		   ORDER BY  p.product_created_at DESC
+  		  JOIN attachment a
+    		ON p.product_no = a.attachment_product_no
+  		  JOIN attachment_detail d
+    		ON a.attachment_no = d.attachment_no
+   	  ORDER BY  p.product_created_at DESC
    		 LIMIT 0, 4;
    	</select>
    	
@@ -23,31 +24,64 @@
 	 		 , product_name
      		 , product_author
      		 , COUNT(od.product_no) AS order_count
-  		 FROM product p
-  		 JOIN attachment a, attachment_detail d, ordered_detail od
- 		WHERE p.product_no = a.attachment_product_no
-   		  AND a.attachment_no = d.attachment_no
-   		  AND p.product_no = od.product_no
-   	 GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author
-   	 ORDER BY order_count DESC
-   		LIMIT 0, 4;
+  		  FROM product p
+  		  JOIN attachment a
+    		ON p.product_no = a.attachment_product_no
+  		  JOIN attachment_detail d
+    		ON a.attachment_no = d.attachment_no 
+  		  JOIN ordered_detail od
+    		ON p.product_no = od.product_no
+   	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author
+   	  ORDER BY order_count DESC
+   		 LIMIT 0, 4;
    	</select>
    	
    	<!-- 화제의 신작 -->
    	<!-- 신작 중  판매량이 많은 순 -->
-   	<select id="selectHotBook" parameterType="int" resultType="productVO">
+   	<select id="selectHotBook" resultType="productVO">
 		SELECT attachment_detail_new_name
 	 		 , product_name
      		 , product_author
      		 , COUNT(od.product_no) AS order_count
-  		 FROM product p
-  		 JOIN attachment a, attachment_detail d, ordered_detail od
- 		WHERE p.product_no = a.attachment_product_no
-   		  AND a.attachment_no = d.attachment_no
-   		  AND p.product_no = od.product_no
-   	 GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author
-   	 ORDER BY order_count, product_created_at DESC
-   		LIMIT 0, 4;
+  		  FROM product p
+  		  JOIN attachment a
+    		ON p.product_no = a.attachment_product_no
+  		  JOIN attachment_detail d
+    		ON a.attachment_no = d.attachment_no 
+  		  JOIN ordered_detail od
+    		ON p.product_no = od.product_no
+   	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author
+   	  ORDER BY order_count, product_created_at DESC
+   		 LIMIT 0, 4;
+   	</select>
+   	
+   	<!-- paging total 조회 -->
+   	<select id="selectProductTotal" parameterType="searchVO" resultType="int">
+   		SELECT COUNT(*)
+   		  FROM product
+   		 WHERE product_name LIKE CONCAT('%', #{searchValue}, '%')
+		    OR product_author LIKE CONCAT('%', #{searchValue}, '%');
+   	</select>
+   	
+   	
+   	<!-- index_search -->
+   	<!-- SearchVO에 PagingUtil을 extends 시켜줌 -->
+   	<select id="selectIndexSearch" parameterType="searchVO" resultType="productVO">
+   		 SELECT attachment_detail_new_name
+	 		  , product_name
+     		  , product_author
+     		  , product_price
+     		  , category_name
+  		  FROM product p
+  		  JOIN attachment a
+		    ON p.product_no = a.attachment_product_no
+		  JOIN attachment_detail d
+		    ON a.attachment_no = d.attachment_no
+		  JOIN category c
+		    ON p.category_no = c.category_no
+ 		 WHERE (p.product_name LIKE CONCAT('%', #{searchValue}, '%')
+		    OR p.product_author LIKE CONCAT('%', #{searchValue}, '%'))
+   	  ORDER BY product_created_at DESC;
    	</select>
 </mapper>
 

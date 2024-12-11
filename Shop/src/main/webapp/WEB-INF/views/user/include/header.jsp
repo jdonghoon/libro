@@ -30,7 +30,7 @@
 						<button id="search-btn" onclick="toggleSearch()" class="btn">검색</button>
 						<div id="search-container" class="hidden">
 							<form action="index_search.do" method="get">
-								<input type="text" id="search-input" placeholder="검색어 입력">
+								<input type="text" id="search-input" name="searchValue" placeholder="검색어 입력">
 							</form>
 						</div>
 					</div>
