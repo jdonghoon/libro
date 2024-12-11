@@ -33,11 +33,49 @@
 		WHERE user_id = #{user_id}
 	</select>
 	
+	<!-- 아이디 중복 체크 -->
 	<select id="selectCntByUid" parameterType="String" resultType="int">
 		SELECT COUNT(*) AS cnt 
 			FROM user 
 		WHERE user_id = #{user_id}
 	</select>
+	
+	<!-- 주소록 조회 -->
+	<select id="addrlistSelect" parameterType="String" resultType="addressbookVO" >
+		SELECT address_book_addressname 
+			, address_book_name
+			, address_book_postcode
+			, address_book_address
+			, address_book_detailaddress
+			, address_book_phone
+		 FROM address_book
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<!-- 주소록 등록 -->
+	<insert id="addrInsert" parameterType="addressbookVO">
+		INSERT INTO address_book(
+			address_book_addressname 
+			, address_book_name
+			, address_book_postcode
+			, address_book_address
+			, address_book_detailaddress
+			, address_book_phone
+			, address_book_create_id
+			, address_book_update_id
+			, user_id
+		)VALUES(
+			#{address_book_addressname}
+			, #{address_book_name}
+			, #{address_book_postcode}
+			, #{address_book_address}
+			, #{address_book_detailaddress}
+			, #{address_book_phone}
+			, #{user_id}
+			, #{user_id}
+			, #{user_id}
+		);
+	</insert>
 	
 </mapper>
 

@@ -34,7 +34,7 @@
 							</form>
 						</div>
 					</div>
-					<button onclick="location.href='<%=request.getContextPath()%>/admin/index.do'" class="btn">관리자</button>
+					<%-- <button onclick="location.href='<%=request.getContextPath()%>/admin/index.do'" class="btn">관리자</button> --%>
 					<button onclick="toggleSideMenu('login')" class="btn">로그인</button>
 					<button onclick="toggleSideMenu('cart')" class="btn">장바구니</button>
 				</div>

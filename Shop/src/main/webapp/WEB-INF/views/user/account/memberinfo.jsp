@@ -14,26 +14,26 @@
                     </div>
 
                     <div class="memberinfoform-group">
-                        <input type="text" id="userId" name="userId" value="hong">
+                        <input type="text" id="user_id" name="user_id" value="hong">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="password" id="password" name="password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
+                        <input type="password" id="user_password" name="user_password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 확인*">
+                        <input type="password" id="password_Confirm" name="password_Confirm" placeholder="비밀번호 확인*">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="text" id="name" name="name" value="홍길동">
+                        <input type="text" id="name" name="user_name" value="홍길동">
                     </div>
 
                      <div class="memberinfoform-group">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                            <input type="text" id="userPostCode" name="addr" placeholder="주소" style="width: 50%;">
+                            <input type="text" id="userPostCode" name="address_book_postcode" placeholder="주소" style="width: 50%;">
                             <button type="button" onclick="searchAddress();" class="addr_btn">우편번호</button>
                             <button type="button" onclick="cancelAddress();" class="addr_btn">취소</button>
                         </div>
-                        <input type="text" id="userAddress" name="addr" placeholder="기본주소" style="margin-bottom: 15px;">
-                        <input type="text" id="userDtlAddress" name="addr" placeholder="나머지주소(선택입력가능)">
+                        <input type="text" id="userAddress" name="address_book_address" placeholder="기본주소" style="margin-bottom: 15px;">
+                        <input type="text" id="userDtlAddress" name="address_book_detailaddress" placeholder="나머지주소(선택입력가능)">
                     </div>
 						
                     <div class="memberinfoform-group">

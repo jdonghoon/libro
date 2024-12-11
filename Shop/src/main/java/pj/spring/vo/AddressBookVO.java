@@ -2,8 +2,11 @@ package pj.spring.vo;
 
 public class AddressBookVO {
 	private String address_book_no;
+	private String address_book_addressname;
 	private String address_book_name;
-	private String address_book_info;
+	private String address_book_postcode;
+	private String address_book_address;
+	private String address_book_detailaddress;
 	private String address_book_phone;
 	private String address_book_top;
 	private String address_book_create_at;			// 등록일
@@ -12,7 +15,32 @@ public class AddressBookVO {
 	private String address_book_update_at;			// 수정일
 	private String address_book_update_id;			// 수정id
 	private String address_book_update_ip;			// 수정ip
+	private String user_id;			                
 	
+	public String getAddress_book_addressname() {
+		return address_book_addressname;
+	}
+	public void setAddress_book_addressname(String address_book_addressname) {
+		this.address_book_addressname = address_book_addressname;
+	}
+	public String getAddress_book_postcode() {
+		return address_book_postcode;
+	}
+	public String getAddress_book_address() {
+		return address_book_address;
+	}
+	public String getAddress_book_detailaddress() {
+		return address_book_detailaddress;
+	}
+	public void setAddress_book_postcode(String address_book_postcode) {
+		this.address_book_postcode = address_book_postcode;
+	}
+	public void setAddress_book_address(String address_book_address) {
+		this.address_book_address = address_book_address;
+	}
+	public void setAddress_book_detailaddress(String address_book_detailaddress) {
+		this.address_book_detailaddress = address_book_detailaddress;
+	}
 	public String getAddress_book_no() {
 		return address_book_no;
 	}
@@ -24,12 +52,6 @@ public class AddressBookVO {
 	}
 	public void setAddress_book_name(String address_book_name) {
 		this.address_book_name = address_book_name;
-	}
-	public String getAddress_book_info() {
-		return address_book_info;
-	}
-	public void setAddress_book_info(String address_book_info) {
-		this.address_book_info = address_book_info;
 	}
 	public String getAddress_book_phone() {
 		return address_book_phone;
@@ -48,6 +70,12 @@ public class AddressBookVO {
 	}
 	public void setAddress_book_create_at(String address_book_create_at) {
 		this.address_book_create_at = address_book_create_at;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	public String getAddress_book_create_id() {
 		return address_book_create_id;

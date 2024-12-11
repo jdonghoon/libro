@@ -1,13 +1,21 @@
 package pj.spring.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.UserService;
+import pj.spring.vo.AddressBookVO;
 import pj.spring.vo.UserVO;
 
 @Controller
@@ -89,17 +97,60 @@ public class UserController {
 		return "user/account/memberinfo";
 	}
 	
-	// 주소록
+	// 주소록 목록
 	@RequestMapping(value="/addr.do", method = RequestMethod.GET)
-	public String addr() {
+	public String addr(Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		List<AddressBookVO> list = userService.list(username);
+		
+		System.out.println("주소록 갯수 : " + list.size());
+		
+		model.addAttribute("list", list);
 		
 		return "user/account/addr";
 	}
-	
-	// 주소록
+
+	// 주소록 등록
 	@RequestMapping(value="/addrregister.do", method = RequestMethod.GET)
 	public String addrregister() {
 		
 		return "user/account/addrregister";
+	}
+
+	@RequestMapping(value="/addrregisterOk.do", method = RequestMethod.POST)
+	public String addrregister(AddressBookVO vo, HttpServletRequest request) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		System.out.println("username : " + username);
+		System.out.println((String)request.getParameter("address_book_addressname"));
+		System.out.println((String)request.getParameter("address_book_name"));
+		System.out.println((String)request.getParameter("address_book_postcode"));
+		System.out.println((String)request.getParameter("address_book_address"));
+		System.out.println((String)request.getParameter("address_book_detailaddress"));
+		System.out.println((String)request.getParameter("address_book_phone"));
+		
+		vo.setUser_id(username);
+		
+		vo.setAddress_book_addressname((String)request.getParameter("address_book_addressname"));
+		vo.setAddress_book_name((String)request.getParameter("address_book_name"));
+		vo.setAddress_book_postcode((String)request.getParameter("address_book_postcode"));
+		vo.setAddress_book_address((String)request.getParameter("address_book_address"));
+		vo.setAddress_book_detailaddress((String)request.getParameter("address_book_detailaddress"));
+		vo.setAddress_book_phone((String)request.getParameter("address_book_phone"));
+		
+		int result = userService.addrinsert(vo);
+		
+		if(result > 0) {
+			System.out.println("등록 완료");
+		}else {
+			System.out.println("등록 실패");
+		}
+
+		return "redirect:/addr.do";
 	}
 }
