@@ -40,7 +40,7 @@
 	                                        <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">전체 문의 보기</a>
 	                        </div>
 	                    </li>
-	                    <li class="user-body"><a href="#" class="btn btn-default btn-flat float-end">Sign out</a></li>
+	                    <li class="user-body"><a href="<%=request.getContextPath()%>/logout.do" class="btn btn-default btn-flat float-end">Sign out</a></li>
 	            </div> 
 	        </nav> 
 	        
