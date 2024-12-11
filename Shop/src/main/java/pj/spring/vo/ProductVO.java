@@ -18,6 +18,9 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_update_id;			// 수정id
 	private String product_update_ip;			// 수정ip
 	
+	private String category_name;				// 카테고리 이름
+	
+	
 	public String getProduct_no() {
 		return product_no;
 	}
@@ -115,6 +118,11 @@ public class ProductVO extends AttachmentDetailVO {
 		this.product_update_ip = product_update_ip;
 	}
 	
-		
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}	
 	
 }

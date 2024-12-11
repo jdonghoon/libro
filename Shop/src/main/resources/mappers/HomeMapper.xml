@@ -59,10 +59,11 @@
    	<select id="selectProductTotal" parameterType="searchVO" resultType="int">
    		SELECT COUNT(*)
    		  FROM product
+   		  <if test="searchValue != null">
    		 WHERE product_name LIKE CONCAT('%', #{searchValue}, '%')
 		    OR product_author LIKE CONCAT('%', #{searchValue}, '%');
+		  </if>
    	</select>
-   	
    	
    	<!-- index_search -->
    	<!-- SearchVO에 PagingUtil을 extends 시켜줌 -->
@@ -79,9 +80,12 @@
 		    ON a.attachment_no = d.attachment_no
 		  JOIN category c
 		    ON p.category_no = c.category_no
+		    <if test="searchValue != null">
  		 WHERE (p.product_name LIKE CONCAT('%', #{searchValue}, '%')
-		    OR p.product_author LIKE CONCAT('%', #{searchValue}, '%'))
-   	  ORDER BY product_created_at DESC;
+		    OR p.product_author LIKE CONCAT('%', #{searchValue}, '%'))		    
+		    </if>
+   	  ORDER BY product_created_at DESC
+   	  	 LIMIT #{start}, #{perPage};
    	</select>
 </mapper>
 

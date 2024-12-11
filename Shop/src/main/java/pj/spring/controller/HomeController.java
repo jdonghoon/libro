@@ -29,28 +29,33 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) { // 화면에 뿌려주기 위한 model 선언
 		
-		List<ProductVO> tvo = homeService.selectTodayBook();
-		List<ProductVO> bsvo = homeService.selectBestSellerBook();
-		List<ProductVO> hvo = homeService.selectHotBook();
+		List<ProductVO> today = homeService.selectTodayBook();
+		List<ProductVO> bestseller = homeService.selectBestSellerBook();
+		List<ProductVO> hot = homeService.selectHotBook();
 		
-		model.addAttribute("tvo", tvo);
-		model.addAttribute("bsvo", bsvo);
-		model.addAttribute("hvo", hvo);
+		model.addAttribute("today", today);
+		model.addAttribute("bestseller", bestseller);
+		model.addAttribute("hot", hot);
 		
 		return "home";
 	}
 	
 	@RequestMapping(value="/index_search.do", method= RequestMethod.GET)
-	public String indexSearch(Model model, SearchVO searchVO, @RequestParam(value="nowpage", required = false, defaultValue="1") int nowpage, HttpServletRequest request) {
+	public String indexSearch(Model model, SearchVO searchVO, @RequestParam(value="nowPage", required = false, defaultValue="1") int nowpage, HttpServletRequest request) {
 		
 		int total = homeService.selectProductTotal(searchVO);
 		
-		PagingUtil paging = new PagingUtil(nowpage, total, 10);
+		PagingUtil paging = new PagingUtil(nowpage, total, 5);
 		
 		searchVO.setStart(paging.getStart());
 		searchVO.setPerPage(paging.getPerPage());
 		
-		List<ProductVO> isvo = homeService.selectIndexSearch(searchVO); 
+		List<ProductVO> search = homeService.selectIndexSearch(searchVO);
+		model.addAttribute("search", search);
+		model.addAttribute("paging", paging);
+		
+		// 검색어를 불러오기 위함
+		model.addAttribute("searchVo", searchVO);
 		
 		return "user/menu/index_search";
 	}

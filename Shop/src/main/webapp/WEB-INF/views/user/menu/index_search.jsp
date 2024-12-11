@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/menu.css">
 
@@ -7,120 +8,80 @@
 <main class="main-container-search">
   <div class="search-result-container">
     <div class="result-container">
-      <div class="result-ment-area"><b>(searchValue)</b>에 대한 검색 결과입니다.</div>
+      <div class="result-ment-area"><b>(${searchVo.searchValue})</b>에 대한 검색 결과입니다.</div>
       <div class="menu-area">
         <ul>
-          <li><a href="">판매순</a></li>
-          <span>|</span>
-          <li><a href="">신상품순</a></li>
-          <span>|</span>
-          <li><a href="">높은 가격순</a></li>
-          <span>|</span>
-          <li><a href="">낮은 가격순</a></li>
+          <li><a href="bestseller_list.do">판매순</a></li>
+          	<span>|</span>
+          <li><a href="new_list.do">신상품순</a></li>
+          	<span>|</span>
+          <li><a href="pricehigh_list.do">높은 가격순</a></li>
+          	<span>|</span>
+          <li><a href="pricelow_list.do">낮은 가격순</a></li>
         </ul>
       </div>
+      
       <!-- 도서 리스트 -->
-      <div class="book-info-container-search">
-        <div class="book-image">
-          <a href="#">
-            <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-          </a>
-        </div>
-        <div class="book-detail">
-          <div class="category" name="category">카테고리</div>
-          <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-          <div class="writer" name="writer">저자</div>
-          <div class="price" name="price">가격</div>
-        </div>
-        <div class="book-sales">
-          <div class="quantity" name="quantity">수량
-            <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-              <span>1</span>
-            <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
+      <c:forEach items="${search}" var="vo">
+      
+      <!-- 점검 필요 -->
+      	<c:if test="${empty vo.product_name}">
+      	  <div class="book-info-container-search">
+      		<div>검색된 상품이 없습니다.</div>
+      	  </div>
+      	</c:if>
+      	
+      	<c:if test="${not empty vo.product_name}">
+      	  <div class="book-info-container-search">
+			<div class="book-image">
+	    	  <a href="#">
+            	<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+          	  </a>
+        	</div>
+          	<div class="book-detail">
+        	  <div class="category" name="category">${vo.category_name}</div>
+        	  <div class="title" name="title">${vo.product_name}</div>
+        	  <div class="writer" name="writer">${vo.product_author}</div>
+        	  <div class="price" name="price">${vo.product_price}</div>
+          	</div>
+          	<div class="book-sales">
+        	  <div class="quantity" name="quantity">수량
+                <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
+                <span>1</span>
+              	<button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
+          	  </div>
+	          <div class="button-area-search">
+	            <div class="payment"><button>바로구매</button></div>
+	            <div class="cart"><button>장바구니</button></div>
+	            <div class="wishlist"><button>위시리스트</button></div>
+	          </div>
+            </div>
           </div>
-          <div class="button-area-search">
-            <div class="payment"><button>바로구매</button></div>
-            <div class="cart"><button>장바구니</button></div>
-            <div class="wishlist"><button>위시리스트</button></div>
-          </div>
-        </div>
-      </div>
-      <div class="book-info-container-search">
-        <div class="book-image">
-          <a href="#">
-            <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-          </a>
-        </div>
-        <div class="book-detail">
-          <div class="category" name="category">카테고리</div>
-          <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-          <div class="writer" name="writer">저자</div>
-          <div class="price" name="price">가격</div>
-        </div>
-        <div class="book-sales">
-          <div class="quantity" name="quantity">수량
-            <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-              <span>1</span>
-            <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-          </div>
-          <div class="button-area-search">
-            <div class="payment"><button>바로구매</button></div>
-            <div class="cart"><button>장바구니</button></div>
-            <div class="wishlist"><button>위시리스트</button></div>
-          </div>
-        </div>
-      </div>
-      <div class="book-info-container-search">
-        <div class="book-image">
-          <a href="#">
-            <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-          </a>
-        </div>
-        <div class="book-detail">
-          <div class="category" name="category">카테고리</div>
-          <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-          <div class="writer" name="writer">저자</div>
-          <div class="price" name="price">가격</div>
-        </div>
-        <div class="book-sales">
-          <div class="quantity" name="quantity">수량
-            <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-              <span>1</span>
-            <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-          </div>
-          <div class="button-area-search">
-            <div class="payment"><button>바로구매</button></div>
-            <div class="cart"><button>장바구니</button></div>
-            <div class="wishlist"><button>위시리스트</button></div>
-          </div>
-        </div>
-      </div>
-      <div class="book-info-container-search">
-        <div class="book-image">
-          <a href="#">
-            <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-          </a>
-        </div>
-        <div class="book-detail">
-          <div class="category" name="category">카테고리</div>
-          <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-          <div class="writer" name="writer">저자</div>
-          <div class="price" name="price">가격</div>
-        </div>
-        <div class="book-sales">
-          <div class="quantity" name="quantity">수량
-            <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-              <span>1</span>
-            <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-          </div>
-          <div class="button-area-search">
-            <div class="payment"><button>바로구매</button></div>
-            <div class="cart"><button>장바구니</button></div>
-            <div class="wishlist"><button>위시리스트</button></div>
-          </div>
-        </div>
-      </div>
-    </div>
+	    </c:if>
+	  </c:forEach>
+	  
+	  <div class="pagination">
+		<c:if test="${paging.startPage > 1}">
+		  <a href="index_search.do?nowPage=${paging.startPage - 1}">&lt;</a>
+		</c:if>	
+		
+		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="cnt">
+			<c:if test="${paging.nowPage eq cnt}">
+				<b>${paging.nowPage}</b>
+			</c:if>
+			<c:if test="${paging.nowPage ne cnt}">
+				<a href="index_search.do?nowpage=${cnt}">${cnt}</a>
+			</c:if>
+		</c:forEach>
+			
+		<c:if test="${paging.endPage < paging.lastPage}">
+		  <a href="index_search.do?nowPage=${paging.endPage + 1}">&gt;</a>
+		</c:if>
+	  </div>
+   	</div>
+
+    
+    <!-- 추천도서 배너 -->
     <div class="recommend-container-search">
       <div class="banner-container">
         <div class="banner-title">추천 도서</div>
