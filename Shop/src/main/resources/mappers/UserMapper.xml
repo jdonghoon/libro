@@ -115,6 +115,7 @@
 		SELECT user_id 
 			, user_name
 			, user_phone
+			, user_email
 		 FROM user 
 		WHERE user_id = #{user_id}
 		AND user_status = 'E'
@@ -124,12 +125,61 @@
 	<update id="memberinfoModify" parameterType="userVO">
 		UPDATE user
 			SET 
-		user_password   = #{user_password}
-		, user_phone          = #{user_phone} 
+		user_password = #{user_password}
+		, user_phone  = #{user_phone} 
+		, user_email  = #{user_email} 
 		WHERE user_id = #{user_id}
 		 AND user_status = 'E'
 	</update>
 	
+    <!-- 문의하기 -->
+    <insert id="insertContact" parameterType="addressbookVO" useGeneratedKeys="true" keyProperty="contact_no">
+        INSERT INTO contact (
+            contact_type,
+            contact_content,
+            contact_title,
+            contact_password,
+            contact_create_id,
+            contact_update_id,
+            user_id,
+            product_no
+        ) VALUES (
+            #{contact_type},
+            #{contact_content},
+            #{contact_title},
+            #{contact_password},
+            #{user_id},
+            #{user_id},
+            #{user_id},
+            #{product_no}
+        )
+    </insert>
+
+    <!-- 문의하기 첨부파일 -->
+    <insert id="insertAttachment">
+        INSERT INTO attachment (
+            attachment_type,
+            attachment_contact_no
+        ) VALUES (
+            'C',
+            #{contact_no}
+        )
+    </insert>
+
+    <!-- 문의하기 첨부파일 상세 -->
+    <insert id="insertAttachmentDetail">
+        INSERT INTO attachment_detail (
+            attachment_detail_name,
+            attachment_detail_create_id,
+            attachment_detail_update_id,
+            attachment_no
+        ) VALUES (
+            #{attachment_detail_name},
+            #{user_id},
+            #{user_id},
+            #{attachment_no}  <!-- insertAttachment로 반환된 attachment_no 사용 -->
+        )
+    </insert>
 	
 </mapper>
 

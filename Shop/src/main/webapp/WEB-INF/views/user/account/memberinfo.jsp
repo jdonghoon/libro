@@ -23,7 +23,7 @@
                         <input type="password" id="password_Confirm" name="password_Confirm" placeholder="비밀번호 확인*">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="text" id="name" name="${vo.user_name}" value="${vo.user_name}">
+                        <input type="text" id="name" name="user_name" value="${vo.user_name}">
                     </div>
 
 <%--                      <div class="memberinfoform-group">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="memberinfoform-group">
-                        <input type="email" id="email" name="email" value="hong@naver.com">
+                        <input type="email" id="email" name="user_email" value="${vo.user_email}">
                     </div>
         
                     <!-- 버튼 -->
