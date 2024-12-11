@@ -3,5 +3,27 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pj.spring.mapper.adminMapper">
 	
+	<!-- 대시보드 주문 관리  건 수 -->
+	<select id="orderCount" resultType="java.util.Map" >
+		select (select count(*) from ordered where ordered_status = 'D' and ordered_date = CURRENT_DATE) as d_cnt
+      		  ,(select count(*) from ordered where ordered_status = 'O' and ordered_date = CURRENT_DATE) as o_cnt
+      		  ,(select count(*) from payment where payment_type = 'PC' and payment_date = CURRENT_DATE) as pc_cnt ;
+	</select>
 	
+	<!-- 대시보드 취소 관리  건 수  -->
+	<select id="cancelCount" resultType="java.util.Map" >
+		select (select count(*) from ordered where ordered_status = 'CW' and ordered_date = CURRENT_DATE) as cw_cnt
+      		  ,(select count(*) from ordered where ordered_status = 'CC' and ordered_date = CURRENT_DATE) as cc_cnt
+      		  ,(select count(*) from payment where payment_type = 'RW' and payment_date = CURRENT_DATE) as rw_cnt
+      		  ,(select count(*) from payment where payment_type = 'RC' and payment_date = CURRENT_DATE) as rc_cnt ;
+	</select>
+	
+	 <!-- 대시보드 리뷰/문의 관리  건 수  -->
+	<select id="contentCount" resultType="java.util.Map" >
+		select (select count(review_no) from review where review_create_at = CURRENT_DATE) as review_cnt
+      		  ,(select count(*) from contact where contact_type = '주문문의' and contact_create_at = CURRENT_DATE) as contactO_cnt
+      		  ,(select count(*) from contact where contact_type = '상품문의' and contact_create_at = CURRENT_DATE) as contactP_cnt
+      		  ,(select count(*) from contact where contact_type = '기타문의' and contact_create_at = CURRENT_DATE) as contactM_cnt ;
+	</select>
+	 
 </mapper>
