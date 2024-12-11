@@ -129,6 +129,8 @@
 		WHERE user_id = #{user_id}
 		 AND user_status = 'E'
 	</update>
+	
+	
 </mapper>
 
 

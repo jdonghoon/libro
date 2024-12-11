@@ -487,69 +487,62 @@ th, td {
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-}
-.inquiryform-group h2 {
     text-align: center;
-    margin-bottom: 20px;
 }
+.inquiryform-container span {
+	font-weight: bold;
+	font-size: 8.2pt;
+}
+.inquiryform-container form {
+	margin-top: 15px;
+}
+
 .inquiryform-group {
     margin-bottom: 15px;
 }
-.checkbox {
-    border: 1px solid black;
-    padding: 20px;
-}
-.addrform-group label, .joinform-group label, .memberinfoform-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-.addrform-group input, 
-.joinform-group input, 
-.memberinfoform-group input, 
-.addrform-group select, 
-.joinform-group select,
-.memberinfoform-group select {
+.inquiryform-group input[type="password"],
+.inquiryform-group textarea {
     width: 478px;
     padding: 10px;
     border: 1px solid black;
 }
-.joinform-group .checkbox-group {
-    display: flex;
-    align-items: center;
+.inquiryform-group textarea {
+	height: 650px;
+	font-size: 8.2pt;
 }
-.joinform-group .checkbox-group input {
-    width: auto;
-    margin-right: 5px;
+.inquiryform-group select {
+	width: 500px; 
+    padding: 10px;
+    border: 1px solid black;
 }
-.joinform-group .checkbox-group label {
-    margin: 0;
-}
-.addrform-footer, .joinform-footer, .memberinfoform-footer {
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-}
-.addrform-footer button,
-.joinform-footer button,
-.memberinfoform-footer button {
+.inquiryform-footer button {
     padding: 10px 20px;
     background-color: black;
     color: white;
     border: none;
     cursor: pointer;
-    width: 235px;
+    width: 500px;
     height: 45px;
 }
-.addrform-footer button:hover, 
-.joinform-footer button:hover,
-.memberinfoform-footer button:hover {
+.inquiryform-footer button:hover {
     background-color: #555;
 }
-.addr_btn {
+.inquiryform-group input[type="text"] {
+	width: 420px;
+    padding: 10px;
+    border: 1px solid black;
+    margin-right: 4px;
+}
+.custom-file-input {
+    display: none;
+}
+.custom-file-label {
     padding: 10px 20px;
     background-color: black;
     color: white;
     border: none;
     cursor: pointer;
-    width: 100px;
+}
+.custom-file-label:hover {
+    background-color: #0056b3;
 }

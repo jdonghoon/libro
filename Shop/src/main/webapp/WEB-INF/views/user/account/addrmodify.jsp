@@ -28,12 +28,12 @@
                     <div class="addrform-group">
                         <div style="display: flex; justify-content: space-between;">
                             <select id="phonePrefix" name="address_book_phone" style="width: 30%;">
-                                <option value="010" <c:if test="${vo.address_book_phone == '010'}">checked</c:if>>010</option>
-                                <option value="011" <c:if test="${vo.address_book_phone == '011'}">checked</c:if>>011</option>
-                                <option value="016" <c:if test="${vo.address_book_phone == '016'}">checked</c:if>>016</option>
-                                <option value="017" <c:if test="${vo.address_book_phone == '017'}">checked</c:if>>017</option>
-                                <option value="018" <c:if test="${vo.address_book_phone == '018'}">checked</c:if>>018</option>
-                                <option value="019" <c:if test="${vo.address_book_phone == '019'}">checked</c:if>>019</option>
+                                <option value="010" <c:if test="${vo.address_book_phone == '010'}">selected</c:if>>010</option>
+                                <option value="011" <c:if test="${vo.address_book_phone == '011'}">selected</c:if>>011</option>
+                                <option value="016" <c:if test="${vo.address_book_phone == '016'}">selected</c:if>>016</option>
+                                <option value="017" <c:if test="${vo.address_book_phone == '017'}">selected</c:if>>017</option>
+                                <option value="018" <c:if test="${vo.address_book_phone == '018'}">selected</c:if>>018</option>
+                                <option value="019" <c:if test="${vo.address_book_phone == '019'}">selected</c:if>>019</option>
                             </select>&nbsp;_&nbsp;
                             <input type="text" id="phoneMiddle" name="address_book_phone" style="width: 35%;" placeholder="휴대전화" value="${vo.address_book_phone}">&nbsp;_&nbsp;
                             <input type="text" id="phoneLast" name="address_book_phone" style="width: 35%;" value="${vo.address_book_phone}">
