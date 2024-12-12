@@ -50,28 +50,6 @@
 								</a>
 							</div>	 
 						</c:forEach> 
-
-						<!-- <div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div> -->
 					</div>
 				</div>
 			
@@ -98,28 +76,6 @@
 							</a>
 						</div>
 						</c:forEach>
-						
-						<!-- <div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">저자</div>
-							</a>
-						</div> -->
 					</div>
 				</div>
 			
@@ -146,28 +102,6 @@
 							</a>
 						</div>
 					</c:forEach>
-						
-						<!-- <div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">작가</div>
-							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">작가</div>
-							</a>
-						</div>
-						<div class="content-item">
-							<a href="">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
-								<div class="title" name="title">제목</div>
-								<div class="writer" name="writer">작가</div>
-							</a>
-						</div> -->
 					</div>
 				</div>
 			</section>

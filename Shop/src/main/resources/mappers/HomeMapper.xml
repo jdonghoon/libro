@@ -87,6 +87,20 @@
    	  ORDER BY product_created_at DESC
    	  	 LIMIT #{start}, #{perPage};
    	</select>
+   	
+   	<!-- index_search banner 조회 -->
+   	<select id="selectRecommend" resultType="productVO">
+   		SELECT attachment_detail_new_name
+			 , product_name
+     		 , product_author
+  		  FROM product p
+  		  JOIN attachment a
+    		ON p.product_no = a.attachment_product_no
+  		  JOIN attachment_detail d
+    		ON a.attachment_no = d.attachment_no
+   	  ORDER BY p.product_created_at
+   		 LIMIT 0, 4;
+   	</select>
 </mapper>
 
 

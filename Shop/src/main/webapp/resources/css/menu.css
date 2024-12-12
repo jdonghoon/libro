@@ -232,6 +232,7 @@
     height: 55%;
     border: 1px solid rgb(190, 190, 190);
     margin-left: 10px;
+    width: 200px;
 }
 
 .banner-title {
@@ -256,6 +257,14 @@
     font-weight: bold;
     font-size: 0.8rem;
     margin-left: 5px;
+}
+
+.recommend-title {
+	/* 말줄임 */
+	width: 85px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;	
 }
 
 /* list.css */

@@ -40,7 +40,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/index_search.do", method= RequestMethod.GET)
+	@RequestMapping(value="/indexSearch.do", method= RequestMethod.GET)
 	public String indexSearch(Model model, SearchVO searchVO, @RequestParam(value="nowPage", required = false, defaultValue="1") int nowpage, HttpServletRequest request) {
 		
 		int total = homeService.selectProductTotal(searchVO);
@@ -51,13 +51,15 @@ public class HomeController {
 		searchVO.setPerPage(paging.getPerPage());
 		
 		List<ProductVO> search = homeService.selectIndexSearch(searchVO);
+		List<ProductVO> recommend = homeService.selectRecommend();
+		
 		model.addAttribute("search", search);
 		model.addAttribute("paging", paging);
-		
 		// 검색어를 불러오기 위함
 		model.addAttribute("searchVo", searchVO);
+		model.addAttribute("recommend", recommend);
 		
-		return "user/menu/index_search";
+		return "user/menu/indexSearch";
 	}
 	
 	

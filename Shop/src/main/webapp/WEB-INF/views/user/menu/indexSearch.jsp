@@ -10,17 +10,26 @@
     <div class="result-container">
       <div class="result-ment-area"><b>(${searchVo.searchValue})</b>에 대한 검색 결과입니다.</div>
       <div class="menu-area">
-        <ul>
-          <li><a href="bestseller_list.do">판매순</a></li>
+        <!-- <ul>
+          <li><a href="#" onclick="bestSeller()">판매순</a></li>
           	<span>|</span>
-          <li><a href="new_list.do">신상품순</a></li>
+          <li><a href="#" onclick="newList()">신상품순</a></li>
           	<span>|</span>
-          <li><a href="pricehigh_list.do">높은 가격순</a></li>
+          <li><a href="#" onclick="priceHigh()">높은 가격순</a></li>
           	<span>|</span>
-          <li><a href="pricelow_list.do">낮은 가격순</a></li>
-        </ul>
+          <li><a href="#" onclick="low()">낮은 가격순</a></li>
+        </ul> -->
       </div>
       
+      <script>
+      	function bestSeller() {
+      		
+      		$.ajax({
+      			url: "list.do",
+      			
+      		});
+      	}
+      </script>
       <!-- 도서 리스트 -->
       <c:forEach items="${search}" var="vo">
       
@@ -62,7 +71,7 @@
 	  
 	  <div class="pagination">
 		<c:if test="${paging.startPage > 1}">
-		  <a href="index_search.do?nowPage=${paging.startPage - 1}">&lt;</a>
+		  <a href="indexSearch.do?nowPage=${paging.startPage - 1}">&lt;</a>
 		</c:if>	
 		
 		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="cnt">
@@ -70,12 +79,12 @@
 				<b>${paging.nowPage}</b>
 			</c:if>
 			<c:if test="${paging.nowPage ne cnt}">
-				<a href="index_search.do?nowpage=${cnt}">${cnt}</a>
+				<a href="indexSearch.do?nowpage=${cnt}">${cnt}</a>
 			</c:if>
 		</c:forEach>
 			
 		<c:if test="${paging.endPage < paging.lastPage}">
-		  <a href="index_search.do?nowPage=${paging.endPage + 1}">&gt;</a>
+		  <a href="indexSearch.do?nowPage=${paging.endPage + 1}">&gt;</a>
 		</c:if>
 	  </div>
    	</div>
@@ -85,46 +94,18 @@
     <div class="recommend-container-search">
       <div class="banner-container">
         <div class="banner-title">추천 도서</div>
-        <div class="recommend-books">
-          <div>
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
-              <div class="recommend-info">
-                <div class="recommend-title">제목</div>
-                <div class="recommend-writer">저자</div>
-              </div>
-            </a>
-        </div>
-        <div class="recommend-books">
-          <div>
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
-              <div class="recommend-info">
-                <div class="recommend-title">제목</div>
-                <div class="recommend-writer">저자</div>
-              </div>
-            </a>
-        </div>
-        <div class="recommend-books">
-          <div>
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
-              <div class="recommend-info">
-                <div class="recommend-title">제목</div>
-                <div class="recommend-writer">저자</div>
-              </div>
-            </a>
-        </div>
-        <div class="recommend-books">
-          <div>
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
-              <div class="recommend-info">
-                <div class="recommend-title">제목</div>
-                <div class="recommend-writer">저자</div>
-              </div>
-            </a>
-        </div>
+        <c:forEach items="${recommend}" var="vo">
+	        <div class="recommend-books">
+	          <div>
+	            <a href="#">
+	              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
+	              <div class="recommend-info">
+	                <div class="recommend-title">${vo.product_name}</div>
+	                <div class="recommend-writer">${vo.product_author}</div>
+	              </div>
+	            </a>
+	        </div>        
+        </c:forEach>
       </div>
     </div>
   </div>

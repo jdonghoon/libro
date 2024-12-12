@@ -16,4 +16,6 @@ public interface HomeService {
 	public int selectProductTotal(SearchVO searchVO);
 	
 	public List<ProductVO> selectIndexSearch(SearchVO searchVO);
+	
+	public List<ProductVO> selectRecommend();
 }

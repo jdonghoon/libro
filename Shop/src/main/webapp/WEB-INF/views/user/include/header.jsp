@@ -29,7 +29,7 @@
 					<div class="search-box">
 						<button id="search-btn" onclick="toggleSearch()" class="btn">검색</button>
 						<div id="search-container" class="hidden">
-							<form action="index_search.do?searchValue=${searchValue}" method="get">
+							<form action="indexSearch.do?searchValue=${searchValue}" method="get">
 								<input type="text" id="search-input" name="searchValue" placeholder="검색어 입력">
 							</form>
 						</div>
@@ -44,9 +44,9 @@
 		<!-- 서브 메뉴 (왼쪽에서 나오는 메뉴) -->
 		<div id="sub-menu" class="side-menu-left">
 			<button class="left-close-btn" onclick="closeMenu()">닫기</button>
-			<a href="new_list.do">신간 도서</a>
-			<a href="bestseller_list.do">베스트셀러</a>
-			<a href="total_list.do">전체 도서</a>
+			<a href="newList.do">신간 도서</a>
+			<a href="bestsellerList.do">베스트셀러</a>
+			<a href="totalList.do">전체 도서</a>
 			<a href="notice.do">공지사항</a>
 			<a href="inquiry.do">문의하기</a>
 		</div>

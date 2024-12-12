@@ -46,5 +46,11 @@ public class HomeServiceImpl implements HomeService {
 		return homeDAO.selectIndexSearch(searchVO);
 	}
 
+	@Override
+	public List<ProductVO> selectRecommend() {
+		
+		return homeDAO.selectRecommend();
+	}
+
 	
 }

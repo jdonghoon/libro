@@ -8,20 +8,24 @@
   <div class="category-title">Category</div>
   <div class="category-container">
     <div>
-      <a href="#">시</a>
-      <a href="#">소설</a>
-      <a href="#">자기개발서</a>
+      <a class="category-item" href="#">시</a>
+      <a class="category-item" href="#">소설</a>
+      <a  class="category-item" href="#">자기개발서</a>
     </div>
     <div>
-      <a href="#">만화</a>
-      <a href="#">예술</a>
-      <a href="#">자연/과학</a>
+      <a class="category-item" href="#">만화</a>
+      <a class="category-item" href="#">예술</a>
+      <a class="category-item" href="#">자연/과학</a>
     </div>
     <div>
-      <a href="#">학습</a>
-      <a href="#">기술/공학</a>
-      <a href="#">수험서</a>
+      <a class="category-item" href="#">학습</a>
+      <a class="category-item" href="#">기술/공학</a>
+      <a class="category-item" href="#">수험서</a>
     </div>
+    <script>
+    	let item = $(".category-item").val();
+    	console.log(item);
+    </script>
   </div>
   <div class="search-result-container">
     <div class="result-container">

@@ -41,4 +41,9 @@ public class HomeDAO {
 		
 		return sqlsession.selectList(namespace + ".selectIndexSearch", searchVO); 
 	}
+	
+	public List<ProductVO> selectRecommend() {
+		
+		return sqlsession.selectList(namespace + ".selectRecommend");
+	}
 }
