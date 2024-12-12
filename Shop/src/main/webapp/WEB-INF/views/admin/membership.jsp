@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
         <main class="app-main">
             <!--begin::App Content Header-->
@@ -34,7 +35,7 @@
                                     <div class="card-title">회원 정보 목록</div>
                                 </div>
                                 <!--end::Header-->
-                                <!--begin::Search-->
+                                <!--begin::Search Form-->
                                 <form action="membership.do" method="get">
                                     <!--begin::Body-->
                                     <div class="card-body">
@@ -43,17 +44,17 @@
                                             <div class="row g-2">
                                                 <label for="validationCustom04">상세검색</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-select" id="validationCustom04">
-                                                        <option value="전체" selected>전체</option>
-                                                        <option value="아이디">아이디</option>
-                                                        <option value="이름">이름</option>
-                                                        <option value="전화번호">전화번호</option>
-                                                        <option value="이메일">이메일</option>
-                                                        <option value="기타사항">기타사항</option>
+                                                    <select class="form-select" id="validationCustom04" name="searchType">
+                                                        <option value="all" selected>전체</option>
+                                                        <option value="id">아이디</option>
+                                                        <option value="name">이름</option>
+                                                        <option value="phone">전화번호</option>
+                                                        <option value="email">이메일</option>
+                                                        <option value="note">기타사항</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" id="inputDetail">
+                                                    <input type="text" class="form-control" id="inputDetail" name="searchValue">
                                                 </div>
                                             </div>
 
@@ -61,10 +62,10 @@
                                                 <label for="startDate">가입일</label>
                                                 <div class="row">
                                                 	<div class="col-md-5">
-                                                   		<input type="date" class="form-control" id="startDate">
+                                                   		<input type="date" class="form-control" id="startDate" name="startDate">
                                                 	</div>
                                                    	<div class="col-md-5">
-                                                   		<input type="date" class="form-control" id="endDate">
+                                                   		<input type="date" class="form-control" id="endDate" name="endDate">
                                                 	</div>
                                                 </div>
                                             </div>
@@ -73,15 +74,15 @@
                                                 <label>회원상태</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                                                        <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="all" checked>
                                                         <label class="form-check-label" for="inlineRadio1">전체</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="E">
                                                         <label class="form-check-label" for="inlineRadio2">활성</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                        <input class="form-check-input" type="radio" name="status" id="inlineRadio3" value="D">
                                                         <label class="form-check-label" for="inlineRadio3">비활성</label>
                                                     </div>
                                                 </div>
@@ -92,11 +93,11 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="button" class="btn btn-primary" onclick="filterReports()" >검색</button>
+                                        <button type="button" class="btn btn-primary">검색</button>
                                         <button type="reset" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>
-                                <!--end::Search-->
+                                <!--end::Search Form-->
                             </div>
                             <!--end::Quick Example-->
                         </div>
@@ -128,7 +129,7 @@
 	                                            <tr onclick="location.href='membershipInfo.do';">
 	                                                <td>${vo.user_id}</td>
 	                                                <td>${vo.user_name}</td>
-	                                                <td>${vo.user_phone}</td>
+	                                                <td>${fn:replace(vo.user_phone, ',', '-')}</td>
 	                                                <td>${vo.user_email}</td>
 	                                                <td>${vo.user_note}</td>
 	                                                <td>${vo.user_status}</td>

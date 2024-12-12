@@ -3,6 +3,7 @@ package pj.spring.service;
 import java.util.List;
 import java.util.Map;
 
+import pj.spring.vo.SearchVO;
 import pj.spring.vo.UserVO;
 
 public interface AdminService {

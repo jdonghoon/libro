@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
+import pj.spring.vo.SearchVO;
 import pj.spring.vo.UserVO;
 
 @Service
