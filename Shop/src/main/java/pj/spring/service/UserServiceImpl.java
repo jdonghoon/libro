@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pj.spring.dao.UserDAO;
 import pj.spring.vo.AddressBookVO;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.UserVO;
 
 @Service // 업무로직을 담당하는 구현 객체를 스프링이 생성하여 관리
@@ -73,6 +74,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int memberinfomodify(UserVO userVO) {
 		return userDAO.memberinfomodify(userVO);
+	}
+
+	// 문의하기
+	@Override
+	public int insertcontact(ContactVO contactVO) {
+		return userDAO.insertcontact(contactVO);
+	}
+
+	// 문의하기 첨부파일
+	@Override
+	public int insertattachment(String attachment_contact_no) {
+		return userDAO.insertattachment(attachment_contact_no);
+	}
+
+	// 문의하기 첨부파일 상세
+	@Override
+	public int insertattachmentdetail(ContactVO contactVO) {
+		return userDAO.insertattachmentdetail(contactVO);
 	}
 
   }

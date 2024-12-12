@@ -133,11 +133,11 @@
 	</update>
 	
     <!-- 문의하기 -->
-    <insert id="insertContact" parameterType="addressbookVO" useGeneratedKeys="true" keyProperty="contact_no">
+    <insert id="insertContact" parameterType="contactVO" useGeneratedKeys="true" keyProperty="contact_no">
         INSERT INTO contact (
             contact_type,
-            contact_content,
             contact_title,
+            contact_content,
             contact_password,
             contact_create_id,
             contact_update_id,
@@ -145,8 +145,8 @@
             product_no
         ) VALUES (
             #{contact_type},
+            #{contact_type},
             #{contact_content},
-            #{contact_title},
             #{contact_password},
             #{user_id},
             #{user_id},
@@ -156,7 +156,7 @@
     </insert>
 
     <!-- 문의하기 첨부파일 -->
-    <insert id="insertAttachment">
+    <insert id="insertAttachment" parameterType="string">
         INSERT INTO attachment (
             attachment_type,
             attachment_contact_no
@@ -167,7 +167,7 @@
     </insert>
 
     <!-- 문의하기 첨부파일 상세 -->
-    <insert id="insertAttachmentDetail">
+    <insert id="insertAttachmentDetail" parameterType="contactVO">
         INSERT INTO attachment_detail (
             attachment_detail_name,
             attachment_detail_create_id,

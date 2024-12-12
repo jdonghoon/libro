@@ -17,9 +17,9 @@
     margin: 0 auto;
     text-align: center;
 }
-.addr-info h2 {
+/* .addr-info h2 {
     margin-top: 0;
-}
+} */
 .addr-info {
     text-align: left;
     border: 1px solid black;
@@ -43,10 +43,10 @@
     margin: 0 auto;
     padding: 20px;
 }
-.addrform-container h2, .joinform-container h2, .memberinfoform-container h2 {
+/* .addrform-container h2, .joinform-container h2, .memberinfoform-container h2 {
     text-align: center;
     margin-bottom: 20px;
-}
+} */
 .addrform-group, .joinform-group, .memberinfoform-group {
     margin-bottom: 15px;
 }
@@ -162,10 +162,10 @@ input[type="checkbox"]:checked + .checkmark::after {
     text-align: center;
     margin: 0 auto;
 }
-.login-container h2 {
+/* .login-container h2 {
     font-size: 24px;
     margin-bottom: 20px;
-}
+} */
 .login-info {
     font-size: 14px;
     margin-bottom: 20px;
@@ -257,9 +257,9 @@ input[type="checkbox"]:checked + .checkmark::after {
     margin: 0 auto;
     text-align: center;
 }
-.post-container h2 {
+/* .post-container h2 {
     margin-top: 0;
-}
+} */
 .post-search {
     text-align: left;
     border: 1px solid black;
@@ -295,10 +295,10 @@ input[type="checkbox"]:checked + .checkmark::after {
     border-collapse: collapse;
     margin-top: 20px;
 }
-.ask-list, th, td {
+.ask-list, .ask-list th, .ask-list td {
     border: 1px solid black;
 }
-th, td {
+.ask-list th, .ask-list td {
     padding: 10px;
     text-align: center;
 }
@@ -339,9 +339,9 @@ th, td {
     margin: 0 auto;
     text-align: center;
 }
-.order-container h2 {
+/* .order-container h2 {
     margin-top: 0;
-}
+} */
 .order-search {
     text-align: left;
     border: 1px solid black;
@@ -353,7 +353,9 @@ th, td {
     border-collapse: collapse;
     margin-top: 20px;
 }
-.order-list, .order-detail, th, td {
+.order-list, .order-detail, 
+.order-list th, .order-list td,
+.order-detail th, .order-detail td {
     border: 1px solid black;
 }
 .red {
@@ -389,9 +391,9 @@ th, td {
     margin: 0 auto;
     text-align: center;
 }
-.wish-list h2, .recentlyproducts-list h2 {
+/* .wish-list h2, .recentlyproducts-list h2 {
     margin-top: 0;
-}
+} */
 .wish-list, .recentlyproducts-list{
     text-align: left;
     border: 1px solid black;
@@ -545,4 +547,113 @@ th, td {
 }
 .custom-file-label:hover {
     background-color: #0056b3;
+}
+
+/* =========================================================================================== */
+/* inquirydetail.jsp */
+/* =========================================================================================== */
+.inquirydetail-container {
+    width: 900px; 
+    margin: 0 auto;
+    text-align: center;
+}
+.inquirydetail-group {
+    margin-bottom: 15px;
+    border: 1px solid black;
+    text-align: left;
+    /* font-size: 10pt; */
+}
+.product-inquiry {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    text-align: left;
+    font-size: 10pt;
+}
+.product-inquiry p {
+	margin: 0;
+}
+.product-inquiry img {
+    width: 80px;
+    margin-right: 20PX;
+}
+.product-detail-btn {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 120px;
+    margin-top: 45px;
+	font-size: 7.5pt;
+}
+.inquirydetail-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+.inquirydetail-footer button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 80px;
+}
+.left-button {
+    margin-right: auto; /* 왼쪽에 위치 */
+}
+.right-buttons {
+    display: flex;
+    gap: 10px; /* 버튼 간 간격 */
+}
+.inquirydetail-title {
+    font-size: 10pt;
+	border: none;
+}
+.inquirydetail-title th, .inquirydetail-title td {
+	border: none;
+	text-align: left;
+	padding: 5px;
+}
+.inquirydetail-content {
+	font-size: 10pt;
+	padding: 20px;
+}
+.inquirydetail-group input[type="password"] {
+	border: 1px solid black;
+    padding: 10px 20px;
+}
+
+/* =========================================================================================== */
+/* notice.jsp */
+/* =========================================================================================== */
+.notice {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+.notice-table {
+	width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.notice-table th, .notice-table td {
+    border-bottom: 1px solid #000; /* 가로줄만 표시 */
+    padding: 10px;
+    text-align: left;
+}
+.notice-table th {
+    font-weight: bold;
+}
+.notice-table tr:first-child {
+    border-top: 1px solid #000;
+}
+/* .notice {
+    font-size: 24px;
+    margin-bottom: 20px;
+} */
+.pagination {
+    margin-top: 20px;
 }

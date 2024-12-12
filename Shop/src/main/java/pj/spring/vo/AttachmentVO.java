@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class AttachmentVO {
+public class AttachmentVO extends AttachmentDetailVO {
 	private String attachment_no;			// 첨부파일번호
 	private String attachment_type;			// 첨부파일구분
 	private String attachment_notice_no;	// 공지사항 번호

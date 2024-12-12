@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pj.spring.vo.AddressBookVO;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.UserVO;
 
 @Repository
@@ -65,5 +66,18 @@ public class UserDAO {
 	// 회원 정보  업데이트
 	public int memberinfomodify(UserVO userVO) {
 		return sqlSession.update(namespace + ".memberinfoModify", userVO);
+	}
+
+	// 문의하기
+	public int insertcontact(ContactVO contactVO) {
+		return sqlSession.insert(namespace + ".insertContact", contactVO);
+	}
+	// 문의하기 첨부파일
+	public int insertattachment(String attachment_contact_no) {
+		return sqlSession.insert(namespace + ".insertAttachment", attachment_contact_no);
+	}
+	// 문의하기 첨부파일 상세
+	public int insertattachmentdetail(ContactVO contactVO) {
+		return sqlSession.insert(namespace + ".insertAttachmentDetail", contactVO);
 	}
 }

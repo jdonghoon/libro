@@ -1,6 +1,9 @@
 package pj.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.UserService;
 import pj.spring.vo.AddressBookVO;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.UserVO;
 
 @Controller
@@ -220,4 +226,86 @@ public class UserController {
 		return "user/account/inquiry";
 	}
 
+	@RequestMapping(value="inquiryOk.do", method=RequestMethod.GET)
+	public String inquiry(ContactVO vo, String attachment_contact_no, @RequestParam(value = "multiFile")List<MultipartFile> multiFile, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		vo.setUser_id(username);
+		vo.setContact_no(vo.getContact_no());
+		vo.setContact_type(vo.getContact_type());
+		vo.setContact_title(vo.getContact_type());
+		vo.setContact_content(vo.getContact_content());
+		vo.setContact_password(vo.getContact_password());
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+		System.out.println("upload path : " + path);
+		
+		File dir = new File(path);
+		
+		if(!dir.exists()) { 
+			dir.mkdirs(); 
+		}
+		
+		StringBuilder fileNames = new StringBuilder();
+		
+		for(MultipartFile file : multiFile) {
+			
+			if(!file.getOriginalFilename().isEmpty()) {
+			
+			UUID uuid = UUID.randomUUID();
+			
+			String fileRealName = uuid.toString() + file.getOriginalFilename();
+			
+			file.transferTo(new File(path, fileRealName));
+			
+			// 파일명을 StringBuilder에 추가 (콤마로 구분)
+            if (fileNames.length() > 0) {
+                fileNames.append(","); // 콤마로 구분
+            }
+            fileNames.append(fileRealName);
+			}
+		}
+		
+		// vo에 파일명 설정
+	    vo.setAttachment_detail_name(fileNames.toString());
+		
+	    try {
+	        // Insert data into the database
+	        userService.insertcontact(vo);
+	        userService.insertattachment(attachment_contact_no);
+	        userService.insertattachmentdetail(vo);
+
+	        // 성공
+	        System.out.println("등록 성공");
+	        return "redirect:inquirydetail.do?contact_no=" + vo.getContact_no();
+
+	    } catch (Exception e) {
+	        // 실패 처리
+	        System.err.println("등록 실패: " + e.getMessage());
+	        return "redirect:inquiry.do";
+	    }
+	}
+
+	// 내 게시물
+	@RequestMapping(value="mypost.do", method=RequestMethod.GET)
+	public String myposting() {
+		
+		return "user/account/mypost";
+	}
+
+	// 내 게시물
+	@RequestMapping(value="inquirydetail.do", method=RequestMethod.GET)
+	public String inquirydetail() {
+		
+		return "user/account/inquirydetail";
+	}
+
+	// 내 게시물
+	@RequestMapping(value="notice.do", method=RequestMethod.GET)
+	public String notice() {
+		
+		return "user/account/notice";
+	}
 }

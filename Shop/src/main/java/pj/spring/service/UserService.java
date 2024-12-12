@@ -3,6 +3,7 @@ package pj.spring.service;
 import java.util.List;
 
 import pj.spring.vo.AddressBookVO;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.UserVO;
 
 public interface UserService {
@@ -36,4 +37,13 @@ public interface UserService {
 
 	// 회원 정보 업데이트
 	public int memberinfomodify(UserVO userVO);
+	
+	// 문의하기
+	public int insertcontact(ContactVO contactVO);
+
+	// 문의하기 첨부파일
+	public int insertattachment(String attachment_contact_no);
+
+	// 문의하기 첨부파일 상세
+	public int insertattachmentdetail(ContactVO contactVO);
 }
