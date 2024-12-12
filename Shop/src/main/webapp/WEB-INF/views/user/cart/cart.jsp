@@ -36,6 +36,43 @@
           </div>
         </div>
       </div>
+      <script>
+          	function cntUp() {
+          		let count = $("#count").text();
+          		let updateCount = count + 1;
+          		
+          		$.ajax({
+          			url: "newlist.do",
+          			method: "POST",
+          			data: {count : updateCount},
+          			success : function(data) {
+          				$("#count").text(updateCount);
+          			},
+          			error : function(xhr) {
+						console.log(xhr);
+					}
+          		});
+          	}
+          	
+          	function cntDown() {
+          		let count = $("#count").text();
+          		if(count > 1) {
+          			let updateCount = count - 1;
+          			
+	          		$.ajax({
+	          			url: "newlist.do",
+	          			method: "POST",
+	          			data: {count : updateCount},
+	          			success : function(data) {
+	          				$("#count").text(updateCount);
+	          			},
+	          			error : function(xhr) {
+							console.log(xhr);
+						}
+	          		});
+       			}
+          	}
+          </script>
     </label>
     <input type="radio" id="option2" value="2">
     <label for="option2">

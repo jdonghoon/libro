@@ -21,15 +21,6 @@
         </ul> -->
       </div>
       
-      <script>
-      	function bestSeller() {
-      		
-      		$.ajax({
-      			url: "list.do",
-      			
-      		});
-      	}
-      </script>
       <!-- 도서 리스트 -->
       <c:forEach items="${search}" var="vo">
       
@@ -54,11 +45,7 @@
         	  <div class="price" name="price">${vo.product_price}</div>
           	</div>
           	<div class="book-sales">
-        	  <div class="quantity" name="quantity">수량
-                <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-                <span>1</span>
-              	<button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-          	  </div>
+        	  <div class="quantity" name="quantity"></div>
 	          <div class="button-area-search">
 	            <div class="payment"><button>바로구매</button></div>
 	            <div class="cart"><button>장바구니</button></div>
