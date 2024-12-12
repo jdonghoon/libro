@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
         <main class="app-main">
             <!--begin::App Content Header-->
@@ -33,8 +34,8 @@
                                     <div class="card-title">회원 정보 목록</div>
                                 </div>
                                 <!--end::Header-->
-                                <!--begin::Form-->
-                                <form>
+                                <!--begin::Search-->
+                                <form action="membership.do" method="get">
                                     <!--begin::Body-->
                                     <div class="card-body">
                                         <div class="row g-3">
@@ -52,16 +53,19 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" id="inputCity">
+                                                    <input type="text" class="form-control" id="inputDetail">
                                                 </div>
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">가입일</label>
+                                                <label for="startDate">가입일</label>
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                    <input type="date" class="form-control" id="inputDate">
-                                                    </div>
+                                                	<div class="col-md-5">
+                                                   		<input type="date" class="form-control" id="startDate">
+                                                	</div>
+                                                   	<div class="col-md-5">
+                                                   		<input type="date" class="form-control" id="endDate">
+                                                	</div>
                                                 </div>
                                             </div>
                                             
@@ -88,11 +92,11 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="button" class="btn btn-primary">Search</button>
-                                        <button type="button" class="btn float-end">Reset</button>
+                                        <button type="button" class="btn btn-primary" onclick="filterReports()" >검색</button>
+                                        <button type="reset" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>
-                                <!--end::Form-->
+                                <!--end::Search-->
                             </div>
                             <!--end::Quick Example-->
                         </div>
@@ -113,112 +117,54 @@
                                                 <th>이름</th>
                                                 <th>휴대폰번호</th>
                                                 <th>이메일</th>
+                                                <th>기타사항</th>
                                                 <th>상태</th>
                                                 <th>가입일</th>
                                                 <th>수정일</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr onclick="location.href='membershipInfo.html';">
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>hong</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                                <td>hong@ezen.com</td>
-                                                <td>E</td>
-                                                <td>2024-12-05</td>
-                                                <td></td>
-                                            </tr>
+											<c:forEach items="${list}" var="vo">
+	                                            <tr onclick="location.href='membershipInfo.do';">
+	                                                <td>${vo.user_id}</td>
+	                                                <td>${vo.user_name}</td>
+	                                                <td>${vo.user_phone}</td>
+	                                                <td>${vo.user_email}</td>
+	                                                <td>${vo.user_note}</td>
+	                                                <td>${vo.user_status}</td>
+	                                                <td>${vo.user_created_at}</td>
+	                                                <td>${vo.user_update_at}</td>
+	                                            </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                     <!--begin::Pagination-->
                                     <div aria-label="Page navigation example">
                                         <ul class="pagination">
-                                            <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>
+                                            <li class="page-item">
+                                             	<c:if test="${paging.startPage > 1 }">
+	                                            	<a class="page-link" href="membership.do?nowPage=${paging.startPage-1}" aria-label="Previous">
+	                                            		<span aria-hidden="true">&laquo;</span>
+	                                            	</a>
+                                            	</c:if>
+                                           	</li>
+                                            <li class="page-item">
+                                            	<c:forEach begin="${paging.startPage }" end="${paging.endPage}" var="cnt">
+													<c:if test="${paging.nowPage eq cnt }">
+														<b>${cnt}</b>
+													</c:if>
+													<c:if test="${paging.nowPage ne cnt }">
+                                            			<a class="page-link" href="membership.do?nowPage=${cnt}">${cnt}</a>
+													</c:if>
+												</c:forEach>
+                                           	</li>
+                                            <li class="page-item">
+                                            	<c:if test="${paging.endPage < paging.lastPage }">
+		                                            <a class="page-link" href="membership.do?nowPage=${paging.endPage+1}" aria-label="Next">
+		                                            	<span aria-hidden="true">&raquo;</span>
+		                                            </a>
+	                                            </c:if>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!--end::Pagination-->

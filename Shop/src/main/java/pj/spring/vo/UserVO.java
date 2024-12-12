@@ -12,7 +12,7 @@ public class UserVO extends AddressBookVO {
 	private String user_note;       // 기타 사항
 	private String user_status;     // 상태
 	private String user_type;       // 회원구분
-	
+	private String user_update_at;  // 수정일
 	
 	public String getUser_no() {
 		return user_no;
@@ -44,7 +44,10 @@ public class UserVO extends AddressBookVO {
 	public String getUser_type() {
 		return user_type;
 	}
-	
+	public String getUser_update_at() {
+		return user_update_at;
+	}
+
 	
 	public void setUser_no(String user_no) {
 		this.user_no = user_no;
@@ -76,6 +79,8 @@ public class UserVO extends AddressBookVO {
 	public void setUser_type(String user_type) {
 		this.user_type = user_type;
 	}
-	
+	public void setUser_update_at(String user_update_at) {
+		this.user_update_at = user_update_at;
+	}
 	
 }

@@ -1,11 +1,13 @@
 package pj.spring.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
+import pj.spring.vo.UserVO;
 
 @Service
 public class AdminServiceServiceImpl implements AdminService {
@@ -26,6 +28,16 @@ public class AdminServiceServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> contentCount() {
 		return adminDAO.contentCount();
+	}
+
+	@Override
+	public List<UserVO> userList(Map<String, Integer> pagingParam) {
+		return adminDAO.userList(pagingParam);
+	}
+	
+	@Override
+	public int selectTotal() {
+		return adminDAO.selectTotal();
 	}
 	
 	
