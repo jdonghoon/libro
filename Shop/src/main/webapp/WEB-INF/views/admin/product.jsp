@@ -42,12 +42,17 @@
                                             <div class="row g-2">
                                                 <label for="validationCustom04">카테고리</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-select" id="validationCustom04">
-                                                        <option value="전체" selected>전체</option>
-                                                        <option value="상품번호">시</option>
-                                                        <option value="상품명">소설</option>
-                                                        <option value="국제표준도서번호">자기계발서</option>
-                                                        <option value="재고">만화</option>
+                                                    <select class="form-select" id="category_name" name="category_name">
+                                                        <option value="" disabled selected>선택</option>
+                                                        <option value="시">시</option>
+                                                        <option value="소설">소설</option>
+                                                        <option value="자기계발서">자기계발서</option>
+                                                        <option value="만화">만화</option>
+                                                        <option value="예술">예술</option>
+                                                        <option value="자연/과학">자연/과학</option>
+                                                        <option value="학습">학습</option>
+                                                        <option value="기술/공학">기술/공학</option>
+                                                        <option value="수험서">수험서</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -69,11 +74,14 @@
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="inputDate" class="col-sm-2 col-form-label">상품 등록일</label>
+                                                <label for="startDate" class="col-sm-2 col-form-label">상품 등록일</label>
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                    <input type="date" class="form-control" id="inputDate">
-                                                    </div>
+                                                	<div class="col-md-5">
+                                                   		<input type="date" class="form-control" id="startDate" name="startDate">
+                                                	</div>
+                                                   	<div class="col-md-5">
+                                                   		<input type="date" class="form-control" id="endDate" name="endDate">
+                                                	</div>
                                                 </div>
                                             </div>
                                             

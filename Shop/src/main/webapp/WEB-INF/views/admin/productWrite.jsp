@@ -29,7 +29,7 @@
                             <!--begin::Quick Example-->
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Form-->
-                                <form>
+                                <form action="productWrite.do" method="post" enctype="multipart/form-data">
                                     <!--begin::Body-->
                                     <div class="card-body">
                                         <div class="row g-3">
@@ -38,29 +38,34 @@
                                                 <label>표시여부</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio1" value="E" checked>
                                                         <label class="form-check-label" for="inlineRadio1">진열</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio2" value="D">
                                                         <label class="form-check-label" for="inlineRadio2">미진열</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio3" value="S">
                                                         <label class="form-check-label" for="inlineRadio3">품절</label>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row g-2">
-                                                <label for="validationCustom04">카테고리</label>
+                                                <label for="category_name">카테고리</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-select" id="validationCustom04">
+                                                    <select class="form-select" id="category_name" name="category_name">
                                                         <option value="" disabled selected>선택</option>
-                                                        <option value="전체">시</option>
-                                                        <option value="상품주문번호">소설</option>
-                                                        <option value="주문번호">자기계발서</option>
-                                                        <option value="상품번호">만화</option>
+                                                        <option value="시">시</option>
+                                                        <option value="소설">소설</option>
+                                                        <option value="자기계발서">자기계발서</option>
+                                                        <option value="만화">만화</option>
+                                                        <option value="예술">예술</option>
+                                                        <option value="자연/과학">자연/과학</option>
+                                                        <option value="학습">학습</option>
+                                                        <option value="기술/공학">기술/공학</option>
+                                                        <option value="수험서">수험서</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -69,7 +74,7 @@
                                                 <label for="inputPrice" class="col-sm-2 col-form-label">가격</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="inputPrice">
+                                                        <input type="text" class="form-control" id="inputPrice" name="product_price">
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +83,7 @@
                                                 <label for="inputStock" class="col-sm-2 col-form-label">재고</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="inputStock">
+                                                        <input type="text" class="form-control" id="inputStock" name="product_stock">
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,7 +92,7 @@
                                                 <label for="inputProduct" class="col-sm-2 col-form-label">상품명</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="inputProduct">
+                                                        <input type="text" class="form-control" id="inputProduct" name="product_name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,7 +101,7 @@
                                                 <label for="inputISBN" class="col-sm-2 col-form-label">국제표준도서번호</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="inputISBN">
+                                                        <input type="text" class="form-control" id="inputISBN" name="product_isbn">
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +110,7 @@
                                                 <label for="inputpage" class="col-sm-2 col-form-label">쪽수</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="inputpage">
+                                                        <input type="text" class="form-control" id="inputpage" name="product_page">
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +119,7 @@
                                                 <label for="inputProductInfo" class="col-sm-2 col-form-label">상품소개</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <textarea class="form-control" id="inputProductInfo" aria-label="With textarea"></textarea>
+                                                        <textarea class="form-control" id="inputProductInfo" aria-label="With textarea" name="product_description"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,7 +128,7 @@
                                                 <label for="inputWriter" class="col-sm-2 col-form-label">저자</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="inputWriter">
+                                                        <input type="text" class="form-control" id="inputWriter" name="product_author">
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +137,7 @@
                                                 <label for="inputWriterInfo" class="col-sm-2 col-form-label">저자소개</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <textarea class="form-control" id="inputWriterInfo" aria-label="With textarea"></textarea>
+                                                        <textarea class="form-control" id="inputWriterInfo" aria-label="With textarea" name="product_author_description"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +146,7 @@
                                                 <label for="topfile" class="col-sm-2 col-form-label">대표상품사진</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="file" class="form-control" id="topfile">
+                                                        <input type="file" class="form-control" id="topfile" name="topFile">
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,7 +155,7 @@
                                                 <label for="files" class="col-sm-2 col-form-label">기타사진</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <input type="file" class="form-control" id="files">
+                                                        <input type="file" class="form-control" id="files" name="multiFile" multiple>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,8 +165,8 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="button" class="btn btn-primary">Register</button>
-                                        <button type="button" class="btn float-end">Reset</button>
+                                        <button class="btn btn-primary">Register</button>
+                                        <button type="reset" class="btn float-end">Reset</button>
                                     </div> <!--end::Footer-->
                                 </form>
                                 <!--end::Form-->

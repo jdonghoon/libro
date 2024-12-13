@@ -40,5 +40,73 @@
 		  FROM user
 	</select>
 	
+	
+	<!-- 상품 등록 -->
+	<insert id="insertProduct" parameterType="ProductVO">
+		INSERT INTO product(
+			 product_status
+			,category_no
+			,product_price
+			,product_stock
+			,product_name
+			,product_isbn
+			,product_page
+			,product_description
+			,product_author
+			,product_author_description
+			,product_create_id
+		)VALUES(
+			 #{product_status}
+			,(SELECT category_no FROM category WHERE category_name = #{category_name})
+			,#{product_price}
+			,#{product_stock}
+			,#{product_name}
+			,#{product_isbn}
+			,#{product_page}
+			,#{product_description}
+			,#{product_author}
+			,#{product_author_description}
+			,#{user_id}
+		)
+		<selectKey order="AFTER" resultType="String" keyProperty="product_no">
+			SELECT MAX(product_no) AS product_no FROM product
+		</selectKey>
+	</insert>
+	
+	<!-- 첨부파일 -->
+	<insert id="insertAttachment" parameterType="ProductVO">
+	    INSERT INTO attachment (
+	        attachment_type, 
+	        attachment_product_no <!-- 상품 번호 -->
+	    ) 
+	    VALUES (
+	        'P', 
+	        #{product_no}
+	    )
+	    <selectKey order="AFTER" resultType="String" keyProperty="attachment_no">
+			SELECT MAX(attachment_no) AS attachment_no FROM attachment
+		</selectKey>
+	</insert>
+	
+	<!-- 첨부파일 상세 -->
+	 <insert id="insertAttachmentDetail" parameterType="ProductVO">
+        INSERT INTO attachment_detail (
+            attachment_detail_name,
+            attachment_detail_new_name,
+            attachment_detail_path,
+            attachment_detail_size,
+            attachment_detail_create_id,
+            attachment_no
+        )
+        VALUES (
+            #{attachment_detail_name},
+            #{attachment_detail_new_name},
+            #{attachment_detail_path},
+            #{attachment_detail_size},
+            #{attachment_detail_create_id},
+            #{attachment_no}  <!-- attachment 테이블에서 생성된 attachment_no -->
+        )
+    </insert>
+	
 	 
 </mapper>

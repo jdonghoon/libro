@@ -17,8 +17,9 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_update_at;			// 수정일
 	private String product_update_id;			// 수정id
 	private String product_update_ip;			// 수정ip
-	
+	private String user_id;                     // ID
 	private String category_name;				// 카테고리 이름
+	
 	
 	
 	public String getProduct_no() {
@@ -84,6 +85,14 @@ public class ProductVO extends AttachmentDetailVO {
 	public String getProduct_create_at() {
 		return product_create_at;
 	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public String getCategory_name() {
+		return category_name;
+	}
+	
+	
 	public void setProduct_create_at(String product_create_at) {
 		this.product_create_at = product_create_at;
 	}
@@ -117,12 +126,12 @@ public class ProductVO extends AttachmentDetailVO {
 	public void setProduct_update_ip(String product_update_ip) {
 		this.product_update_ip = product_update_ip;
 	}
-	
-	public String getCategory_name() {
-		return category_name;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}	
+	
 	
 }
