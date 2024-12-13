@@ -219,6 +219,13 @@ public class UserController {
 		}
 	}
 	
+	// 내 게시물
+	@RequestMapping(value="mypost.do", method=RequestMethod.GET)
+	public String myposting() {
+		
+		return "user/account/mypost";
+	}
+	
 	// 문의하기
 	@RequestMapping(value="inquiry.do", method=RequestMethod.GET)
 	public String inquiry() {
@@ -226,8 +233,8 @@ public class UserController {
 		return "user/account/inquiry";
 	}
 
-	@RequestMapping(value="inquiryOk.do", method=RequestMethod.GET)
-	public String inquiry(ContactVO vo, String attachment_contact_no, @RequestParam(value = "multiFile")List<MultipartFile> multiFile, HttpServletRequest request) throws IllegalStateException, IOException {
+	@RequestMapping(value="inquiryOk.do", method=RequestMethod.POST)
+	public String inquiry(ContactVO vo, @RequestParam(value = "multiFile")List<MultipartFile> multiFile, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -235,7 +242,6 @@ public class UserController {
 		vo.setUser_id(username);
 		vo.setContact_no(vo.getContact_no());
 		vo.setContact_type(vo.getContact_type());
-		vo.setContact_title(vo.getContact_type());
 		vo.setContact_content(vo.getContact_content());
 		vo.setContact_password(vo.getContact_password());
 		
@@ -272,9 +278,8 @@ public class UserController {
 	    vo.setAttachment_detail_name(fileNames.toString());
 		
 	    try {
-	        // Insert data into the database
-	        userService.insertcontact(vo);
-	        userService.insertattachment(attachment_contact_no);
+	    	userService.insertcontact(vo);
+	    	userService.insertattachment(vo);
 	        userService.insertattachmentdetail(vo);
 
 	        // 성공
@@ -288,16 +293,16 @@ public class UserController {
 	    }
 	}
 
-	// 내 게시물
-	@RequestMapping(value="mypost.do", method=RequestMethod.GET)
-	public String myposting() {
-		
-		return "user/account/mypost";
-	}
-
-	// 내 게시물
+	// 내 문의하기 상세
 	@RequestMapping(value="inquirydetail.do", method=RequestMethod.GET)
-	public String inquirydetail() {
+	public String inquirydetail(Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		ContactVO vo = userService.selectcontact(username);
+		
+		model.addAttribute("vo", vo);
 		
 		return "user/account/inquirydetail";
 	}

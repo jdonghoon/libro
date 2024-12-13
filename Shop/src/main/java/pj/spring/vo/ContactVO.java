@@ -2,7 +2,6 @@ package pj.spring.vo;
 
 public class ContactVO extends AttachmentVO {
 	private String contact_no;			// 문의번호
-	private String contact_title;		// 제목
 	private String contact_content;		// 내용
 	private String contact_status;		// 상태
 	private String contact_type;		// 문의유형
@@ -16,7 +15,14 @@ public class ContactVO extends AttachmentVO {
 	private String contact_update_id;	// 수정id
 	private String contact_update_ip;	// 수정ip
 	private String user_id;	            // 
+	private String product_no;					// 상품번호
 	
+	public String getProduct_no() {
+		return product_no;
+	}
+	public void setProduct_no(String product_no) {
+		this.product_no = product_no;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -28,12 +34,6 @@ public class ContactVO extends AttachmentVO {
 	}
 	public void setContact_no(String contact_no) {
 		this.contact_no = contact_no;
-	}
-	public String getContact_title() {
-		return contact_title;
-	}
-	public void setContact_title(String contact_title) {
-		this.contact_title = contact_title;
 	}
 	public String getContact_content() {
 		return contact_content;

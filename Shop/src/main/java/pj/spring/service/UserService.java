@@ -42,8 +42,11 @@ public interface UserService {
 	public int insertcontact(ContactVO contactVO);
 
 	// 문의하기 첨부파일
-	public int insertattachment(String attachment_contact_no);
+	public int insertattachment(ContactVO contactVO);
 
 	// 문의하기 첨부파일 상세
 	public int insertattachmentdetail(ContactVO contactVO);
+	
+	// 문의하기 상세
+	public ContactVO selectcontact(String user_id);
 }

@@ -84,14 +84,19 @@ public class UserServiceImpl implements UserService {
 
 	// 문의하기 첨부파일
 	@Override
-	public int insertattachment(String attachment_contact_no) {
-		return userDAO.insertattachment(attachment_contact_no);
+	public int insertattachment(ContactVO contactVO) {
+		return userDAO.insertattachment(contactVO);
 	}
 
 	// 문의하기 첨부파일 상세
 	@Override
 	public int insertattachmentdetail(ContactVO contactVO) {
 		return userDAO.insertattachmentdetail(contactVO);
+	}
+
+	@Override
+	public ContactVO selectcontact(String user_id) {
+		return userDAO.selectcontact(user_id);
 	}
 
   }

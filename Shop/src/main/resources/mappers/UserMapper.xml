@@ -133,10 +133,9 @@
 	</update>
 	
     <!-- 문의하기 -->
-    <insert id="insertContact" parameterType="contactVO" useGeneratedKeys="true" keyProperty="contact_no">
+    <insert id="insertContact" parameterType="contactVO">
         INSERT INTO contact (
             contact_type,
-            contact_title,
             contact_content,
             contact_password,
             contact_create_id,
@@ -145,7 +144,6 @@
             product_no
         ) VALUES (
             #{contact_type},
-            #{contact_type},
             #{contact_content},
             #{contact_password},
             #{user_id},
@@ -153,10 +151,13 @@
             #{user_id},
             #{product_no}
         )
+		<selectKey order="AFTER" resultType="String" keyProperty="contact_no">
+			SELECT MAX(contact_no) AS contact_no FROM contact
+		</selectKey>
     </insert>
 
     <!-- 문의하기 첨부파일 -->
-    <insert id="insertAttachment" parameterType="string">
+    <insert id="insertAttachment" parameterType="contactVO">
         INSERT INTO attachment (
             attachment_type,
             attachment_contact_no
@@ -164,6 +165,9 @@
             'C',
             #{contact_no}
         )
+		<selectKey order="AFTER" resultType="String" keyProperty="attachment_no">
+			SELECT MAX(attachment_no) AS attachment_no FROM attachment
+		</selectKey>
     </insert>
 
     <!-- 문의하기 첨부파일 상세 -->
@@ -180,7 +184,26 @@
             #{attachment_no}  <!-- insertAttachment로 반환된 attachment_no 사용 -->
         )
     </insert>
-	
+    
+	<!-- 문의하기 상세 -->
+	<select id="selectContact" parameterType="String" resultType="contactVO" >
+		SELECT
+		    contact_type,
+		    contact_content,
+		    contact_password,
+		    contact_create_at,
+		    u.user_id,
+		    u.user_name,
+		    c.product_no,
+		    attachment_detail_name
+		FROM contact c
+		LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
+		LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
+		LEFT JOIN user u ON u.user_id = c.user_id
+		LEFT JOIN product p ON c.product_no = p.product_no
+		WHERE (c.product_no = p.product_no OR c.product_no IS NULL)
+		AND u.user_id = ${user_id}
+	</select>
 </mapper>
 
 

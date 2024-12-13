@@ -12,7 +12,14 @@ public class AttachmentDetailVO {
 	private String attachment_detail_update_at;		// 수정일
 	private String attachment_detail_update_id;		// 수정id
 	private String attachment_detail_update_ip;		// 수정ip
-	
+//	private String attachment_no;
+//	
+//	public String getAttachment_no() {
+//		return attachment_no;
+//	}
+//	public void setAttachment_no(String attachment_no) {
+//		this.attachment_no = attachment_no;
+//	}
 	public String getAttachment_detail_no() {
 		return attachment_detail_no;
 	}

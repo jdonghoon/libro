@@ -72,12 +72,19 @@ public class UserDAO {
 	public int insertcontact(ContactVO contactVO) {
 		return sqlSession.insert(namespace + ".insertContact", contactVO);
 	}
+	
 	// 문의하기 첨부파일
-	public int insertattachment(String attachment_contact_no) {
-		return sqlSession.insert(namespace + ".insertAttachment", attachment_contact_no);
+	public int insertattachment(ContactVO contactVO) {
+		return sqlSession.insert(namespace + ".insertAttachment", contactVO);
 	}
+	
 	// 문의하기 첨부파일 상세
 	public int insertattachmentdetail(ContactVO contactVO) {
 		return sqlSession.insert(namespace + ".insertAttachmentDetail", contactVO);
+	}
+	
+	// 문의하기 상세
+	public ContactVO selectcontact(String user_id) {
+		return sqlSession.selectOne(namespace + ".selectContact", user_id);
 	}
 }
