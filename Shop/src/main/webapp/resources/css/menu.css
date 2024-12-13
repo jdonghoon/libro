@@ -456,6 +456,12 @@
     margin-left: 5px;
 }
 
+.emptyData {
+	text-align: center;
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin: 10px 0;
+}
 
 /* product_detail.css */
 .main-container-detail {
