@@ -146,6 +146,7 @@ public class AdminController {
 		productVO.setAttachment_detail_new_name(topNewFileName.toString());
 		productVO.setAttachment_detail_name(multiFile.toString());
 		productVO.setAttachment_detail_new_name(newFileName.toString());
+		productVO.setAttachment_detail_create_id(productVO.getUser_id());
 		
 		try {
 			adminService.insertProduct(productVO);
