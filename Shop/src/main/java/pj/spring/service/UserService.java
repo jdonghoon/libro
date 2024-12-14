@@ -47,6 +47,12 @@ public interface UserService {
 	// 문의하기 첨부파일 상세
 	public int insertattachmentdetail(ContactVO contactVO);
 	
+	// 문의하기 목록
+	public List<ContactVO> selectcontactlist(String user_id);
+	
 	// 문의하기 상세
-	public ContactVO selectcontact(String user_id);
+	public ContactVO selectcontact(String contact_no);
+	
+	// 문의하기 삭제
+	public int deletetcontact(String contact_no);
 }

@@ -94,9 +94,22 @@ public class UserServiceImpl implements UserService {
 		return userDAO.insertattachmentdetail(contactVO);
 	}
 
+	// 문의하기 목록
 	@Override
-	public ContactVO selectcontact(String user_id) {
-		return userDAO.selectcontact(user_id);
+	public List<ContactVO> selectcontactlist(String user_id) {
+		return userDAO.selectcontactlist(user_id);
+	}
+
+	// 문의하기 상세
+	@Override
+	public ContactVO selectcontact(String contact_no) {
+		return userDAO.selectcontact(contact_no);
+	}
+
+	// 문의하기 삭제
+	@Override
+	public int deletetcontact(String contact_no) {
+		return userDAO.deletecontact(contact_no);
 	}
 
   }

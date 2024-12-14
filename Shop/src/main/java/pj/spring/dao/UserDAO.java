@@ -83,8 +83,18 @@ public class UserDAO {
 		return sqlSession.insert(namespace + ".insertAttachmentDetail", contactVO);
 	}
 	
+	// 문의하기 목록
+	public List<ContactVO> selectcontactlist(String user_id) {
+		return sqlSession.selectList(namespace + ".selectContactList", user_id);
+	}
+
 	// 문의하기 상세
-	public ContactVO selectcontact(String user_id) {
-		return sqlSession.selectOne(namespace + ".selectContact", user_id);
+	public ContactVO selectcontact(String contact_no) {
+		return sqlSession.selectOne(namespace + ".selectContact", contact_no);
+	}
+	
+	// 문의하기 삭제
+	public int deletecontact(String contact_no) {
+		return sqlSession.delete(namespace + ".deleteContact", contact_no);
 	}
 }

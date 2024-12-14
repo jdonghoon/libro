@@ -20,7 +20,7 @@
                             <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
                         </div>
                     </div>
-                    
+
                     <div class="ask">
                         <h3>1:1 문의내역</h3>
                         <table class="ask-list">
@@ -34,26 +34,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+<!--                                 <tr>
                                     <td>2</td>
                                     <td>상품문의</td>
                                     <td>
                                         <img src="http://img0001.echosting.cafe24.com/front/type_b/image/common/icon_re.gif" alt="답변" class="ec-common-rwd-image">
-                                        <!-- <img src="http://img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif" alt="비밀글" class="ec-common-rwd-image"> -->
+                                        <img src="http://img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif" alt="비밀글" class="ec-common-rwd-image">
                                         <img src="https://img.icons8.com/?size=100&id=5hmx7LpaoQeJ&format=png&color=000000"> 답변완료
                                     </td>
                                     <td>홍길동</td>
                                     <td>2024.12.03</td>
-                                </tr>
+                                </tr> -->
+                                <c:forEach items="${list}" var="vo">
                                 <tr>
-                                    <td>1</td>
-                                    <td>상품문의</td>
+                                    <td>${vo.contact_no}</td>
+                                    <td>${vo.contact_type}</td>
                                     <td>
-                                        <img src="https://img.icons8.com/?size=100&id=5hmx7LpaoQeJ&format=png&color=000000"> [상품문의]
+                                    	<a href="inquirydetail.do?contact_no=${vo.contact_no}">
+                                        	<img src="https://img.icons8.com/?size=100&id=5hmx7LpaoQeJ&format=png&color=000000"> [${vo.contact_type}]
+                                        </a>
                                     </td>
-                                    <td>홍길동</td>
-                                    <td>2024.12.03</td>
+                                    <td>${vo.user_name}</td>
+                                    <td>${vo.contact_create_at}</td>
                                 </tr>
+                                </c:forEach> 
                             </tbody>
                         </table>
                     </div>
