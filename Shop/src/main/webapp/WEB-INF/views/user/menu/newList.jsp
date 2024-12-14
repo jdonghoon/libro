@@ -71,7 +71,7 @@
 		            });
 		            $('#category-content').html(productHtml);
 
-		            // 페이징 렌더링
+		            // 페이징 처리
 		            const paging = response.paging;
 		            let pagingHtml = "";
 
