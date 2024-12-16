@@ -92,6 +92,31 @@ public class UserDAO {
 	public ContactVO selectcontact(String contact_no) {
 		return sqlSession.selectOne(namespace + ".selectContact", contact_no);
 	}
+
+	// 문의하기 수정
+	public ContactVO updatecontact(String contact_no) {
+		return sqlSession.selectOne(namespace + ".updateContact", contact_no);
+	}
+	
+	// 문의하기 없데이트
+	public int updateokcontact(ContactVO contactVO) {
+		return sqlSession.update(namespace + ".updateOkContact", contactVO);
+	}
+	
+	// 문의하기 첨부파일 없데이트
+	public List<ContactVO> selectattachment(String contact_no) {
+		return sqlSession.selectList(namespace + ".selectAttachment", contact_no);
+	}
+	
+	// 문의하기 첨부파일 삭제
+	public int deleteAttachment(String attachment_no) {
+		return sqlSession.delete(namespace + ".deleteAttachment", attachment_no);
+	}
+	
+	// 문의하기 첨부파일 상세 삭제
+	public int deleteAttachmentDetail(String attachment_no) {
+		return sqlSession.delete(namespace + ".deleteAttachmentDetail", attachment_no);
+	}
 	
 	// 문의하기 삭제
 	public int deletecontact(String contact_no) {

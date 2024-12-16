@@ -264,11 +264,12 @@ public class UserController {
 	    try {
 	    	userService.insertcontact(vo);
 	    	
-			for(MultipartFile file : multiFile) {
+	    	if (multiFile != null && !multiFile.isEmpty()) {
 				
+	    		for(MultipartFile file : multiFile) {
+	    			
 					if(!file.getOriginalFilename().isEmpty()) {
-
-						UUID uuid = UUID.randomUUID();
+					UUID uuid = UUID.randomUUID();
 					String originalFileName = file.getOriginalFilename();
 					String newFileName  = uuid.toString() + "_" + originalFileName;
 					
@@ -290,9 +291,9 @@ public class UserController {
 					System.out.println("newFileName" + vo.getAttachment_detail_new_name());
 					System.out.println("path" + vo.getAttachment_detail_path());
 	                userService.insertattachmentdetail(vo); // 첨부파일 상세 저장
+					}
 				}
-			}
-
+	    	}
 	        // 성공
 	        System.out.println("등록 성공");
 	        return "redirect:inquirydetail.do?contact_no=" + vo.getContact_no();
@@ -303,16 +304,103 @@ public class UserController {
 	        return "redirect:inquiry.do";
 	    }
 	}
+	
+	// 문의하기 수정
+	@RequestMapping(value="inquirymodify.do", method=RequestMethod.GET)
+	public String inquirymodify(String contact_no, Model model) {
+			
+		ContactVO vo = userService.updateContact(contact_no);
+			
+			model.addAttribute("vo", vo);
+			
+		return "user/account/inquirymodify";
+	}
+	
+	@RequestMapping(value="inquirymodifyOk.do", method=RequestMethod.POST)
+	public String inquirymodify(ContactVO vo, @RequestParam(value = "multiFile")List<MultipartFile> multiFile, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		System.out.println("수정중");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		vo.setContact_update_id(username);
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+		System.out.println("upload path : " + path);
+		
+		File dir = new File(path);
+		
+		if(!dir.exists()) { 
+			dir.mkdirs(); 
+		}
+		
+		try {
+			
+			userService.updateokcontact(vo);
+			
+			System.out.println("updateokcontact 실행");
+			
+	    	if (multiFile != null && !multiFile.isEmpty()) {
+	    		
+	    		List<ContactVO> attachmentList  = userService.selectattachment(vo.getContact_no());
+	    		if (attachmentList != null && !attachmentList.isEmpty()) {
+		    		for (ContactVO attachment : attachmentList) {
+		    			userService.deletetattachmentdetail(attachment.getAttachment_no());
+		    			userService.deletetattachment(attachment.getAttachment_no());
+		    		}
+		    		System.out.println("삭제 완료");
+	    		}else {
+		    		for(MultipartFile file : multiFile) {
+		    			
+						if(!file.getOriginalFilename().isEmpty()) {
+						UUID uuid = UUID.randomUUID();
+						String originalFileName = file.getOriginalFilename();
+						String newFileName  = uuid.toString() + "_" + originalFileName;
+						
+						file.transferTo(new File(path, newFileName ));
+						
+						// 첨부파일 기본 정보 저장
+						vo.setAttachment_type("C"); // 문의 첨부파일 유형
+						vo.setAttachment_contact_no(vo.getContact_no());
+		                userService.insertattachment(vo); // 첨부파일 정보 저장 (PK 생성)
+						
+		             // 첨부파일 상세 정보 저장
+						vo.setAttachment_detail_name(originalFileName); // 원본 파일명
+						vo.setAttachment_detail_new_name(newFileName); // 새 파일명
+						vo.setAttachment_detail_path(path); // 경로
+						vo.setAttachment_no(vo.getAttachment_no()); // 첨부파일 번호
+						vo.setAttachment_detail_create_id(username); // 생성자 ID
+						vo.setAttachment_detail_update_id(username); // 수정자 ID
+						
+						System.out.println("newFileName" + vo.getAttachment_detail_new_name());
+						System.out.println("path" + vo.getAttachment_detail_path());
+		                userService.insertattachmentdetail(vo); // 첨부파일 상세 저장
+						}
+					}
+		    		System.out.println("사진 등록 완료");
+	    		}
+	    	}
+	    	
+			System.out.println("수정 성공");
+			return "redirect:inquirydetail.do?contact_no=" + vo.getContact_no();
+
+		} catch (Exception e) {
+			// 실패 처리
+			System.err.println("등록 실패: " + e.getMessage());
+			return "redirect:inquiry.do";
+		}
+	}
 
 	// 문의하기 상세
 	@RequestMapping(value="inquirydetail.do")
 	public String inquirydetail(String contact_no, Model model) {
 		
-		System.out.println("contact_no " + contact_no);
+//		System.out.println("contact_no " + contact_no);
 		
 		ContactVO vo = userService.selectcontact(contact_no);
 		
-		System.out.println("컨택트 " + vo.getContact_no());
+//		System.out.println("컨택트 " + vo.getContact_no());
 		
 		model.addAttribute("vo", vo);
 		

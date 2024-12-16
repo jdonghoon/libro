@@ -132,6 +132,7 @@
 		 AND user_status = 'E'
 	</update>
 	
+	<!-- 문의하기 등록 -->
     <!-- 문의하기 -->
     <insert id="insertContact" parameterType="contactVO">
         INSERT INTO contact (
@@ -199,11 +200,8 @@
 		    contact_create_at,
 		    u.user_id,
 		    u.user_name,
-		    c.product_no,
-		    attachment_detail_name
+		    c.product_no
 		FROM contact c
-		LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
-		LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
 		LEFT JOIN user u ON u.user_id = c.user_id
 		LEFT JOIN product p ON c.product_no = p.product_no
 		WHERE (c.product_no = p.product_no OR c.product_no IS NULL)
@@ -215,25 +213,70 @@
 	<select id="selectContact" parameterType="String" resultType="contactVO" >
 		SELECT
 			c.contact_no,
-		    contact_type,
-		    contact_content,
-		    contact_password,
-		    contact_create_at,
-		    u.user_id,
-		    u.user_name,
-		    c.product_no,
-		    attachment_detail_name,
-		    attachment_detail_new_name
+			contact_type,
+			contact_content,
+			contact_password,
+			contact_create_at,
+			u.user_id,
+			u.user_name,
+			c.product_no,
+			GROUP_CONCAT(ad.attachment_detail_new_name SEPARATOR ', ') AS attachment_detail_new_name
 		FROM contact c
-		LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
-		LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
-		LEFT JOIN user u ON u.user_id = c.user_id
-		LEFT JOIN product p ON c.product_no = p.product_no
+			LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
+			LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
+			LEFT JOIN user u ON u.user_id = c.user_id
+			LEFT JOIN product p ON c.product_no = p.product_no
 		WHERE (c.product_no = p.product_no OR c.product_no IS NULL)
-		AND contact_no = #{contact_no}
+		AND c.contact_no = #{contact_no}
 	</select>
 	
-	<!-- 주소록 삭제 -->
+	<!-- 문의하기 수정 -->
+	<select id="updateContact" parameterType="String" resultType="contactVO" >
+		SELECT
+			c.contact_no,
+			contact_type,
+			contact_content,
+			contact_password,
+			u.user_name,
+			c.product_no,
+			GROUP_CONCAT(ad.attachment_detail_name SEPARATOR ', ') AS attachment_detail_name
+		FROM contact c
+			LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
+			LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
+			LEFT JOIN user u ON u.user_id = c.user_id
+			LEFT JOIN product p ON c.product_no = p.product_no
+		WHERE (c.product_no = p.product_no OR c.product_no IS NULL)
+		AND c.contact_no = #{contact_no}
+	</select>
+	
+	<!-- 문의하기 업데이트 -->
+	<update id="updateOkContact" parameterType="contactVO">
+		UPDATE contact 
+			SET 
+		contact_type      = #{contact_type}
+		, contact_content = #{contact_content} 
+		, contact_update_id = #{user_id} 
+		WHERE contact_no =  #{contact_no}
+	</update>
+	
+    <!-- 문의하기 첨부파일 업데이트 -->
+    <select id="selectAttachment" parameterType="String" resultType="contactVO" >
+		SELECT attachment_no 
+			FROM libro.attachment 
+		WHERE attachment_contact_no = #{attachment_contact_no};
+    </select>
+
+    <!-- 문의하기 첨부파일 삭제 -->
+   	<delete id="deleteAttachment" parameterType="String">
+		DELETE FROM attachment WHERE attachment_no =  #{attachment_no}
+	</delete>
+
+    <!-- 문의하기 첨부파일 상세 삭제 -->
+   	<delete id="deleteAttachmentDetail" parameterType="String">
+		DELETE FROM attachment_detail WHERE attachment_no =  #{attachment_no}
+	</delete>
+	
+	<!-- 문의하기 삭제 -->
 	<delete id="deleteContact" parameterType="String">
 		DELETE FROM contact WHERE contact_no =  #{contact_no}
 	</delete>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mypage.css">
 
     <main>
@@ -42,8 +43,12 @@
 
 					<div class="inquirydetail-group">
 						<div class="inquirydetail-content">
-							<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}"/>
-							${vo.contact_content}
+							<c:if test="${vo.attachment_detail_new_name != null}">
+								<c:forEach var="image" items="${fn:split(vo.attachment_detail_new_name, ',')}">
+									<img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment"/>
+								</c:forEach>
+							</c:if>
+								${vo.contact_content}
 						</div>
 					</div>
 
@@ -55,7 +60,7 @@
                         <button class="left-button">등록</button>
                         <div class="right-buttons">
 	                        <button onclick="location.href='contactdelete.do?contact_no=${vo.contact_no}'">삭제</button>
-	                        <button onclick="location.href='contactmodify.do?contact_no=${vo.contact_no}'">수정</button>
+	                        <button onclick="location.href='inquirymodify.do?contact_no=${vo.contact_no}'">수정</button>
                         </div>
                     </div>
             </div>

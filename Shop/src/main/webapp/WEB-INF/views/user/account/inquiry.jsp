@@ -30,12 +30,21 @@
                         <input type="password" name="contact_password" placeholder="비밀번호">
                     </div>
 
-                    <div class="inquiryform-group">
+<!--                     <div class="inquiryform-group">
                         <input type="file" id="file-upload" class="custom-file-input" name="multiFile" multiple>
                         <input type="text" id="file-name" value="파일선택" readonly>
                     	<label for="file-upload" class="custom-file-label">+</label>
+					</div> -->
+
+					<div id="file-upload-container">
 					</div>
 					
+					<div class="inquiryform-group">
+						<input type="file" id="file-upload" class="custom-file-input" name="multiFile" multiple>
+						<input type="text" id="file-name" value="파일선택" readonly>
+						<label for="file-upload" class="custom-file-label">+</label>
+					</div>
+
                     <div class="inquiryform-footer">
                         <button>등록</button>
                     </div>
@@ -45,19 +54,52 @@
     </main>
     
     <script>
-	    // 파일 선택 시 텍스트 필드에 파일명 표시
 	    document.getElementById('file-upload').addEventListener('change', function(event) {
-	        var fileName = event.target.files[0] ? event.target.files[0].name : '파일선택';
-	        document.getElementById('file-name').value = fileName;
+	        var container = document.getElementById('file-upload-container');
+	        var files = event.target.files;
+	        
+	        // 기존의 항목들 삭제
+	        container.innerHTML = "";
+	
+	        // 파일 개수만큼 새로운 inquiryform-group 생성
+	        for (var i = 0; i < files.length; i++) {
+	            var div = document.createElement('div');
+	            div.classList.add('inquiryform-group');
+	            
+	            // 파일 이름 표시
+	            var fileName = document.createElement('input');
+	            fileName.type = 'text';
+	            fileName.value = files[i].name;
+	            fileName.readOnly = true;
+	            div.appendChild(fileName);
+	
+	            // 파일 삭제 버튼 추가 (옵션)
+	            var deleteButton = document.createElement('button');
+	            deleteButton.textContent = '-';
+	            deleteButton.addEventListener('click', function() {
+	                this.parentElement.remove();
+	            });
+	            
+	            // 삭제 버튼에 클래스 추가
+	            deleteButton.classList.add('delete-button');
+	            
+	            div.appendChild(deleteButton);
+	            container.appendChild(div);
+	        }
+	        // 선택한 파일들의 이름을 쉼표로 구분하여 'file-name' 텍스트 필드에 표시
+	        updateFileNames();
 	    });
-	    
-	    function updateContactTitle() {
-	        // 문의 유형 select 요소와 hidden input 요소를 가져오기
-	        const contactType = document.getElementById('contactType');
-	        const contactTitle = document.getElementById('contactTitle');
+	 // 파일들이 선택될 때마다 'file-name'에 파일 이름들을 표시
+	    function updateFileNames() {
+	        var files = document.getElementById('file-upload').files;
+	        var fileNames = [];
 
-	        // contact_type의 선택된 값을 contact_title에 동적으로 설정
-	        contactTitle.value = contactType.value;
+	        for (var i = 0; i < files.length; i++) {
+	            fileNames.push(files[i].name);
+	        }
+
+	        // 쉼표로 구분하여 표시
+	        document.getElementById('file-name').value = fileNames.join(', ');
 	    }
 	</script>
 

@@ -1,5 +1,7 @@
 package pj.spring.vo;
 
+import java.util.List;
+
 public class ContactVO extends AttachmentVO {
 	private String contact_no;			// 문의번호
 	private String contact_content;		// 내용

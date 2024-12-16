@@ -106,10 +106,39 @@ public class UserServiceImpl implements UserService {
 		return userDAO.selectcontact(contact_no);
 	}
 
+	// 문의하기 수정
+	@Override
+	public ContactVO updateContact(String contact_no) {
+		return userDAO.updatecontact(contact_no);
+	}
+
+	// 문의하기 업데이트
+	@Override
+	public int updateokcontact(ContactVO contactVO) {
+		return userDAO.updateokcontact(contactVO);
+	}
+	
+	// 문의하기 첨부파일 업데이트
+	@Override
+	public List<ContactVO> selectattachment(String contact_no) {
+		return userDAO.selectattachment(contact_no);
+	}
+	
+	// 문의하기 첨부파일 상세 업데이트
+	@Override
+	public int deletetattachment(String attachment_no) {
+		return userDAO.deleteAttachment(attachment_no);
+	}
+	
+	// 문의하기 첨부파일 상세 업데이트
+	@Override
+	public int deletetattachmentdetail(String attachment_no) {
+		return userDAO.deleteAttachmentDetail(attachment_no);
+	}
+	
 	// 문의하기 삭제
 	@Override
 	public int deletetcontact(String contact_no) {
 		return userDAO.deletecontact(contact_no);
 	}
-
-  }
+}

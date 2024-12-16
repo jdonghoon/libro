@@ -52,6 +52,21 @@ public interface UserService {
 	
 	// 문의하기 상세
 	public ContactVO selectcontact(String contact_no);
+
+	// 문의하기 수정
+	public ContactVO updateContact(String contact_no);
+	
+	// 문의하기 없데이트
+	public int updateokcontact(ContactVO contactVO);
+	
+	// 문의하기 첨부파일 없데이트
+	public List<ContactVO> selectattachment(String contact_no);
+	
+	// 문의하기 첨부파일 삭제
+	public int deletetattachment(String attachment_no);
+	
+	// 문의하기 첨부파일 상세 삭제
+	public int deletetattachmentdetail(String attachment_no);
 	
 	// 문의하기 삭제
 	public int deletetcontact(String contact_no);

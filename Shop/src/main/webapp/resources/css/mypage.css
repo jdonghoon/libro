@@ -548,7 +548,16 @@ input[type="checkbox"]:checked + .checkmark::after {
 .custom-file-label:hover {
     background-color: #0056b3;
 }
-
+.delete-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 49.4px;
+    height: 37px;
+    margin-left: 4.5px;
+}
 /* =========================================================================================== */
 /* inquirydetail.jsp */
 /* =========================================================================================== */
