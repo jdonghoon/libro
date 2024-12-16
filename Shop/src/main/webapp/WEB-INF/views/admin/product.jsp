@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
         <main class="app-main">
             <!--begin::App Content Header-->
@@ -89,16 +90,20 @@
                                                 <label>진열상태</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio1" value="all" checked>
                                                         <label class="form-check-label" for="inlineRadio1">전체</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio2" value="E">
                                                         <label class="form-check-label" for="inlineRadio2">진열</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio3" value="D">
                                                         <label class="form-check-label" for="inlineRadio3">미진열</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="product_status" id="inlineRadio4" value="S">
+                                                        <label class="form-check-label" for="inlineRadio3">품절</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,44 +141,69 @@
                                                 <th>저자</th>
                                                 <th>국제표준도서번호</th>
                                                 <th>판매가</th>
-                                                <th>수량</th>
+                                                <th>재고</th>
                                                 <th>진열상태</th>
                                                 <th>등록일</th>
+                                                <th>등록id</th>
                                                 <th>수정일</th>
+                                                <th>수정id</th>
                                                 <th>수정/삭제</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        
-                                            <tr>
-                                                <td onclick="location.href='#';">465128315</td>
-                                                <td>이미지</td>
-                                                <td>소설</td>
-                                                <td>소년이온다</td>
-                                                <td>한강</td>
-                                                <td>2334234</td>
-                                                <td>13,500원</td>
-                                                <td>10</td>
-                                                <td>진열</td>
-                                                <td>2024-12-01</td>
-                                                <td></td>
-                                                <td>
-                                                    <button class="btn btn-primary">수정</button>
-                                                    <button class="btn btn-primary">삭제</button>
-                                                </td>
-                                            </tr>
-                                            
-
+                                        	<c:forEach items="${list}" var="vo">
+	                                            <tr>
+	                                                <td onclick="location.href='productDetail.do';">${vo.product_no}</td>
+	                                                <td>이미지</td>
+	                                                <td>${vo.category_name}</td>
+	                                                <td>${vo.product_name}</td>
+	                                                <td>${vo.product_author}</td>
+	                                                <td>${vo.product_isbn}</td>
+	                                                <td>${vo.product_price}원</td>
+	                                                <td>${vo.product_stock}</td>
+	                                                <td>${vo.product_status}</td>
+	                                                <td>${vo.product_created_at}</td>
+	                                                <td>${vo.product_create_id}</td>
+	                                                <td>${vo.product_update_at}</td>
+	                                                <td>${vo.product_update_id}</td>
+	                                                <td>
+	                                                    <button class="btn btn-primary" onclick="location.href='productModify.do?product_no=${vo.product_no}'">수정</button>
+	                                                    <button class="btn btn-primary" onclick="document.deletefrm.submit();">삭제</button>
+	                                                    <form name="deletefrm" action="productDelete.do" method="post">
+															<input type="hidden" name="product_no" value="${vo.product_no}">
+														</form>
+	                                                </td>
+	                                            </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                     <!--begin::Pagination-->
                                     <div aria-label="Page navigation example">
                                         <ul class="pagination">
-                                            <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>
+                                            <li class="page-item">
+                                             	<c:if test="${paging.startPage > 1 }">
+	                                            	<a class="page-link" href="product.do?nowPage=${paging.startPage-1}" aria-label="Previous">
+	                                            		<span aria-hidden="true">&laquo;</span>
+	                                            	</a>
+                                            	</c:if>
+                                           	</li>
+                                            <li class="page-item">
+                                            	<c:forEach begin="${paging.startPage }" end="${paging.endPage}" var="cnt">
+													<c:if test="${paging.nowPage eq cnt }">
+														<b>${cnt}</b>
+													</c:if>
+													<c:if test="${paging.nowPage ne cnt }">
+                                            			<a class="page-link" href="product.do?nowPage=${cnt}">${cnt}</a>
+													</c:if>
+												</c:forEach>
+                                           	</li>
+                                            <li class="page-item">
+                                            	<c:if test="${paging.endPage < paging.lastPage }">
+		                                            <a class="page-link" href="product.do?nowPage=${paging.endPage+1}" aria-label="Next">
+		                                            	<span aria-hidden="true">&raquo;</span>
+		                                            </a>
+	                                            </c:if>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!--end::Pagination-->

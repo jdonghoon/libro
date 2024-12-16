@@ -107,6 +107,35 @@
             #{attachment_no}  <!-- attachment 테이블에서 생성된 attachment_no -->
         )
     </insert>
+    
+    <!-- 상품 관리 list -->
+    <select id="productList" parameterType="java.util.Map" resultType="ProductVO">
+    	SELECT p.*, c.category_name
+		  FROM product p
+		  JOIN category c 
+		    ON p.category_no = c.category_no
+		 LIMIT #{start}, #{perPage}
+    </select>
 	
+	<!-- 상품 전체 수 -->
+	<select id="productTotal" resultType="int">
+		SELECT count(*)
+		  FROM product
+	</select>
+	
+	<!-- 상품 수정 -->
+	<select id="productModify" parameterType="int" resultType="ProductVO" >
+		SELECT p.*, c.category_name
+		  FROM product p
+		  JOIN category c 
+		    ON p.category_no = c.category_no
+		 WHERE product_no = #{product_no}
+	</select>
+	
+	<!-- 상품 삭제 -->
+	<delete id="productDelete" parameterType="int">
+		DELETE FROM product
+			  WHERE product_no = #{product_no}
+	</delete>
 	 
 </mapper>

@@ -32,5 +32,16 @@ public interface AdminService {
 	// 상품 첨부파일 상세
 	public int insertAttachmentDetail(ProductVO productVO);
 	
+	// 상품 관리 list
+	public List<ProductVO> productList(Map<String,Integer> pagingParam);
+	
+	// 상품 전체 수
+	public int productTotal();
+	
+	// 상품 수정
+	public ProductVO productModify(int product_no);
+	
+	//상품 삭제
+	public int productDelete(int product_no);
 	
 }

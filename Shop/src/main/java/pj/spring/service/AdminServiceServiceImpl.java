@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
 import pj.spring.vo.ProductVO;
-import pj.spring.vo.SearchVO;
 import pj.spring.vo.UserVO;
 
 @Service
@@ -64,6 +63,31 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int insertAttachmentDetail(ProductVO productVO) {
 		return adminDAO.insertAttachmentDetail(productVO);
 	}
+
+	// 상품 관리 list
+	@Override
+	public List<ProductVO> productList(Map<String, Integer> pagingParam) {
+		return adminDAO.productList(pagingParam);
+	}
+
+	// 상품 전체 수
+	@Override
+	public int productTotal() {
+		return adminDAO.productTotal();
+	}
+
+	// 상품 수정
+	@Override
+	public ProductVO productModify(int product_no) {
+		return adminDAO.productModify(product_no);
+	}
+	
+	// 상품 삭제
+	@Override
+	public int productDelete(int product_no) {
+		return adminDAO.productDelete(product_no);
+	}
+
 	
 	
 

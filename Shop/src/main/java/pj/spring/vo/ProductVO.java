@@ -11,7 +11,7 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_page;				// 쪽수
 	private String product_stock;				// 재고
 	private String product_status;				// 상태
-	private String product_create_at;			// 등록일
+	private String product_created_at;			// 등록일
 	private String product_create_id;			// 등록id
 	private String product_create_ip;			// 등록ip
 	private String product_update_at;			// 수정일
@@ -82,8 +82,8 @@ public class ProductVO extends AttachmentDetailVO {
 	public void setProduct_status(String product_status) {
 		this.product_status = product_status;
 	}
-	public String getProduct_create_at() {
-		return product_create_at;
+	public String getProduct_created_at() {
+		return product_created_at;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -96,8 +96,8 @@ public class ProductVO extends AttachmentDetailVO {
 	}
 	
 	
-	public void setProduct_create_at(String product_create_at) {
-		this.product_create_at = product_create_at;
+	public void setProduct_created_at(String product_create_at) {
+		this.product_created_at = product_create_at;
 	}
 	public String getProduct_create_id() {
 		return product_create_id;

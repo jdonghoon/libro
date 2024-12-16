@@ -165,8 +165,8 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button class="btn btn-primary">Register</button>
-                                        <button type="reset" class="btn float-end">Reset</button>
+                                        <button class="btn btn-primary">등록</button>
+                                        <button type="reset" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>
                                 <!--end::Form-->

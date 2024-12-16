@@ -71,7 +71,23 @@ public class AdminController {
 	
 	// 상품 관리
 	@RequestMapping(value = "/product.do", method = RequestMethod.GET)
-	public String product() {
+	public String product(Model model
+			, @RequestParam(value="nowPage", required=false, defaultValue ="1")int nowPage) {
+		
+		int total = adminService.productTotal();
+		
+		PagingUtil paging = new PagingUtil(nowPage, total, 10);
+		
+		Map<String,Integer> pagingParam =new HashMap<String,Integer>();
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("perPage", paging.getPerPage());
+		
+		//비지니스 로직 : DB에 있는 전체 회원 목록 데이터가져오기
+		 List<ProductVO> list= adminService.productList(pagingParam);
+		
+		//모델 객체 사용하여 조회 데이터 화면으로 포워딩
+		model.addAttribute("list", list);
+		model.addAttribute("paging",paging);
 		
 		return "admin/product";
 	}
@@ -95,7 +111,7 @@ public class AdminController {
 		productVO.setCategory_name(productVO.getCategory_name());
 		productVO.setProduct_price(productVO.getProduct_price());
 		productVO.setProduct_stock(productVO.getProduct_stock());
-		productVO.setProduct_name(productVO.getCategory_name());
+		productVO.setProduct_name(productVO.getProduct_name());
 		productVO.setProduct_isbn(productVO.getProduct_isbn());
 		productVO.setProduct_page(productVO.getProduct_page());
 		productVO.setProduct_description(productVO.getProduct_description());
@@ -161,6 +177,26 @@ public class AdminController {
 			return "redirect:productWrite.do";
 		}
 		
+	}
+	
+	// 상품 등록 수정
+	@RequestMapping(value = "/productModify.do", method = RequestMethod.GET)
+	public String productModify(Model model, @RequestParam(value = "product_no")int product_no) {
+		
+		ProductVO vo = adminService.productModify(product_no);
+		
+		model.addAttribute("vo", vo);
+		
+		return "admin/productModify";
+	}
+	
+	// 상품 삭제
+	@RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
+	public String productDelete(int product_no) {
+		
+		int result = adminService.productDelete(product_no);
+		
+		return "redirect:product.do";
 	}
 	
 	// 주문 관리
