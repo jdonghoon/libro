@@ -12,6 +12,50 @@ public class ReviewVO {
 	private String review_update_id;	// 수정id
 	private String review_update_ip;	// 수정ip
 	
+	private String review_five_score;	// 5점 비율
+	private String review_four_score;	// 4점 비율
+	private String review_three_score;	// 3점 비율
+	private String review_two_score;	// 2점 비율
+	private String review_one_score;	// 1점 비율
+	private String user_id;				// 유저 번호 (id로 변경 필요)
+	
+	
+	public String getReview_five_score() {
+		return review_five_score;
+	}
+	public void setReview_five_score(String review_five_score) {
+		this.review_five_score = review_five_score;
+	}
+	public String getReview_four_score() {
+		return review_four_score;
+	}
+	public void setReview_four_score(String review_four_score) {
+		this.review_four_score = review_four_score;
+	}
+	public String getReview_three_score() {
+		return review_three_score;
+	}
+	public void setReview_three_score(String review_three_score) {
+		this.review_three_score = review_three_score;
+	}
+	public String getReview_two_score() {
+		return review_two_score;
+	}
+	public void setReview_two_score(String review_two_score) {
+		this.review_two_score = review_two_score;
+	}
+	public String getReview_one_score() {
+		return review_one_score;
+	}
+	public void setReview_one_score(String review_one_score) {
+		this.review_one_score = review_one_score;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public String getReview_no() {
 		return review_no;
 	}

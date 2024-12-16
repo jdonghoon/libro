@@ -6,6 +6,7 @@
 	<!-- index 오늘의 책 -->
 	<select id="selectTodayBook" resultType="productVO">
 		SELECT attachment_detail_new_name
+			 , p.product_no
 			 , product_name
      		 , product_author
   		  FROM product p
@@ -21,6 +22,7 @@
    	<!-- 가장 많이 팔린  -->
    	<select id="selectBestSellerBook" resultType="productVO">
 		SELECT attachment_detail_new_name
+			 , p.product_no
 	 		 , product_name
      		 , product_author
      		 , COUNT(od.product_no) AS order_count
@@ -40,6 +42,7 @@
    	<!-- 신작 중  판매량이 많은 순 -->
    	<select id="selectHotBook" resultType="productVO">
 		SELECT attachment_detail_new_name
+			 , p.product_no
 	 		 , product_name
      		 , product_author
      		 , COUNT(od.product_no) AS order_count
@@ -69,6 +72,7 @@
    	<!-- SearchVO에 PagingUtil을 extends 시켜줌 -->
    	<select id="selectIndexSearch" parameterType="searchVO" resultType="productVO">
    		 SELECT attachment_detail_new_name
+   		 	  , p.product_no
 	 		  , product_name
      		  , product_author
      		  , product_price
@@ -91,6 +95,7 @@
    	<!-- index_search banner 조회 -->
    	<select id="selectRecommend" resultType="productVO">
    		SELECT attachment_detail_new_name
+   			 , p.product_no
 			 , product_name
      		 , product_author
   		  FROM product p

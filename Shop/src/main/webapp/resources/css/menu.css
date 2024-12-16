@@ -523,6 +523,16 @@
     font-weight: bold;
   }
   
+  .shipping-item{
+  	display: flex;
+  	justify-content: flex-start;
+  	align-items: center;
+  }
+  
+  .shipping-item div {
+  	margin: 0 10px 0 0;
+  }
+  
   .quantity-info {
     display: flex;
     justify-content: space-between;
@@ -657,6 +667,7 @@
   }
   
   .review-title {
+  	margin-left: -190px;
     font-size: 0.9rem;
     font-weight: bold;
     color: grey;
@@ -664,6 +675,8 @@
   }
   
   .review-container {
+  	width: 800px;
+  	margin-left: -190px;
     border: 1px solid rgb(190, 190, 190);
     padding: 10px;
   }

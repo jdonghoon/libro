@@ -62,11 +62,4 @@ public class HomeController {
 		return "user/menu/indexSearch";
 	}
 	
-	
-	/*
-	 * @RequestMapping(value = "/list.do", method = RequestMethod.GET) public String
-	 * newList() {
-	 * 
-	 * return "user/menu/new_list"; }
-	 */
 }

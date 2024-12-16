@@ -21,7 +21,23 @@ public class ProductVO extends AttachmentDetailVO {
 	private String category_name;				// 카테고리 이름
 	private String attachment_no;               // 첨부파일 번호
 	
+	private String review_starrating_avg;		// 별점 평균 (한 상품에 기준)
+	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
 	
+	
+	
+	public String getReview_starrating_avg() {
+		return review_starrating_avg;
+	}
+	public void setReview_starrating_avg(String review_starrating_avg) {
+		this.review_starrating_avg = review_starrating_avg;
+	}
+	public String getReview_cnt() {
+		return review_cnt;
+	}
+	public void setReview_cnt(String review_cnt) {
+		this.review_cnt = review_cnt;
+	}
 	public String getProduct_no() {
 		return product_no;
 	}
