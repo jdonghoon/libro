@@ -221,16 +221,7 @@ public class UserController {
 	
 	// 내 게시물
 	@RequestMapping(value="mypost.do", method=RequestMethod.GET)
-	public String myposting(Model model) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		
-		List<ContactVO> list = userService.selectcontactlist(username);
-		
-		System.out.println("주소록 갯수 : " + list.size());
-		
-		model.addAttribute("list", list);
+	public String myposting() {
 		
 		return "user/account/mypost";
 	}
@@ -248,9 +239,11 @@ public class UserController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		System.out.println("username" + username);
 		vo.setUser_id(username);
-		System.out.println("username 성공");
+		vo.setContact_no(vo.getContact_no());
+		vo.setContact_type(vo.getContact_type());
+		vo.setContact_content(vo.getContact_content());
+		vo.setContact_password(vo.getContact_password());
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 		System.out.println("upload path : " + path);
@@ -261,37 +254,33 @@ public class UserController {
 			dir.mkdirs(); 
 		}
 		
+		StringBuilder fileNames = new StringBuilder();
+		
+		for(MultipartFile file : multiFile) {
+			
+			if(!file.getOriginalFilename().isEmpty()) {
+			
+			UUID uuid = UUID.randomUUID();
+			
+			String fileRealName = uuid.toString() + file.getOriginalFilename();
+			
+			file.transferTo(new File(path, fileRealName));
+			
+			// 파일명을 StringBuilder에 추가 (콤마로 구분)
+            if (fileNames.length() > 0) {
+                fileNames.append(","); // 콤마로 구분
+            }
+            fileNames.append(fileRealName);
+			}
+		}
+		
+		// vo에 파일명 설정
+	    vo.setAttachment_detail_name(fileNames.toString());
+		
 	    try {
 	    	userService.insertcontact(vo);
-	    	
-			for(MultipartFile file : multiFile) {
-				
-					if(!file.getOriginalFilename().isEmpty()) {
-
-						UUID uuid = UUID.randomUUID();
-					String originalFileName = file.getOriginalFilename();
-					String newFileName  = uuid.toString() + "_" + originalFileName;
-					
-					file.transferTo(new File(path, newFileName ));
-					
-					// 첨부파일 기본 정보 저장
-					vo.setAttachment_type("C"); // 문의 첨부파일 유형
-					vo.setAttachment_contact_no(vo.getContact_no());
-	                userService.insertattachment(vo); // 첨부파일 정보 저장 (PK 생성)
-					
-	             // 첨부파일 상세 정보 저장
-					vo.setAttachment_detail_name(originalFileName); // 원본 파일명
-					vo.setAttachment_detail_new_name(newFileName); // 새 파일명
-					vo.setAttachment_detail_path(path); // 경로
-					vo.setAttachment_no(vo.getAttachment_no()); // 첨부파일 번호
-					vo.setAttachment_detail_create_id(username); // 생성자 ID
-					vo.setAttachment_detail_update_id(username); // 수정자 ID
-					
-					System.out.println("newFileName" + vo.getAttachment_detail_new_name());
-					System.out.println("path" + vo.getAttachment_detail_path());
-	                userService.insertattachmentdetail(vo); // 첨부파일 상세 저장
-				}
-			}
+	    	userService.insertattachment(vo);
+	        userService.insertattachmentdetail(vo);
 
 	        // 성공
 	        System.out.println("등록 성공");
@@ -304,37 +293,21 @@ public class UserController {
 	    }
 	}
 
-	// 문의하기 상세
-	@RequestMapping(value="inquirydetail.do")
-	public String inquirydetail(String contact_no, Model model) {
+	// 내 문의하기 상세
+	@RequestMapping(value="inquirydetail.do", method=RequestMethod.GET)
+	public String inquirydetail(Model model) {
 		
-		System.out.println("contact_no " + contact_no);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
 		
-		ContactVO vo = userService.selectcontact(contact_no);
-		
-		System.out.println("컨택트 " + vo.getContact_no());
+		ContactVO vo = userService.selectcontact(username);
 		
 		model.addAttribute("vo", vo);
 		
 		return "user/account/inquirydetail";
 	}
-	
-	// 문의하기 삭제
-	@RequestMapping(value="contactdelete.do")
-	public String deletecontact(String contact_no) {
-		
-		int result = userService.deletetcontact(contact_no);
-		
-		if(result > 0) {
-			System.out.println("삭제 완료");
-		}else {
-			System.out.println("삭제 실패");
-		}
-		
-		return "redirect:/mypost.do";
-	}
 
-	// 공지사항
+	// 내 게시물
 	@RequestMapping(value="notice.do", method=RequestMethod.GET)
 	public String notice() {
 		

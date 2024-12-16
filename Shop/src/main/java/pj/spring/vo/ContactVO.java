@@ -16,19 +16,12 @@ public class ContactVO extends AttachmentVO {
 	private String contact_update_ip;	// 수정ip
 	private String user_id;	            // 
 	private String product_no;					// 상품번호
-	private String user_name;
 	
 	public String getProduct_no() {
 		return product_no;
 	}
 	public void setProduct_no(String product_no) {
 		this.product_no = product_no;
-	}
-	public String getUser_name() {
-		return user_name;
-	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
 	}
 	public String getUser_id() {
 		return user_id;
