@@ -19,7 +19,7 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_update_ip;			// 수정ip
 	private String user_id;                     // ID
 	private String category_name;				// 카테고리 이름
-	
+	private String attachment_no;               // 첨부파일 번호
 	
 	
 	public String getProduct_no() {
@@ -91,6 +91,9 @@ public class ProductVO extends AttachmentDetailVO {
 	public String getCategory_name() {
 		return category_name;
 	}
+	public String getAttachment_no() {
+		return attachment_no;
+	}
 	
 	
 	public void setProduct_create_at(String product_create_at) {
@@ -132,6 +135,9 @@ public class ProductVO extends AttachmentDetailVO {
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}	
+	public void setAttachment_no(String attachment_no) {
+		this.attachment_no = attachment_no;
+	}
 	
 	
 }
