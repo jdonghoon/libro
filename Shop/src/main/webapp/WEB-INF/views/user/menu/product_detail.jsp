@@ -20,7 +20,7 @@
         <div class="shipping-info">
           <div class="shipping-title">배송정보</div>
           <div>배송비</div>
-          <div>배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내배송안내</div>
+          <div>전북 전주시 덕진구 백제대로 572 4층(이젠)</div>
         </div>
         <form action="purchase.html" method="get">
           <div class="quantity-info">

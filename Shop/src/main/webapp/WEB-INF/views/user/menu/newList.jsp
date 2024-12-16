@@ -30,12 +30,12 @@
 		        e.preventDefault(); // 링크 기본 동작 방지
 
 		        let categoryType = $(this).data('category'); // 선택된 카테고리 값 가져오기
-		        loadCategoryData(categoryType, 1);
+		        CategoryData(categoryType, 1);
 		        
 		  });	
 	    });
 	  
-	  function loadCategoryData(categoryType, nowPage) {
+	  function CategoryData(categoryType, nowPage) {
 		    $.ajax({
 		        url: "category.do",
 		        type: "GET",
@@ -91,14 +91,14 @@
 		                pagingHtml += `<a href="#" data-page="${paging.endPage + 1}">&gt;</a>`;
 		            }
 
-		            $(".pagination").html(pagingHtml);
+		            $("#pagination").html(pagingHtml);
 
 		            // 페이징 클릭 이벤트 바인딩
-		            $(".pagination a").on("click", function (e) {
+		            $("#pagination a").on("click", function (e) {
 		                e.preventDefault();
 		                
 		                const page = $(this).data("page");
-		                loadCategoryData(categoryType, page);
+		                CategoryData(categoryType, page);
 		            });
 		        },
 		        error: function (xhr, status, error) {
@@ -139,17 +139,17 @@
 	      </div>
       	</c:forEach>
       	
-	      <div class="pagination">
+	      <div id="pagination">
 			<c:if test="${paging.startPage > 1}">
 			  <a href="newList.do?nowPage=${paging.startPage - 1}">&lt;</a>
 			</c:if>	
 			
 			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="cnt">
 				<c:if test="${paging.nowPage eq cnt}">
-					<b>${paging.nowPage}</b>
+					<b>${cnt}</b>
 				</c:if>
 				<c:if test="${paging.nowPage ne cnt}">
-					<a href="newList.do?nowpage=${cnt}">${cnt}</a>
+					<a href="newList.do?nowPage=${cnt}">${cnt}</a>
 				</c:if>
 			</c:forEach>
 				
