@@ -94,7 +94,6 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productDelete(product_no);
 	}
 
-
 	
 	
 

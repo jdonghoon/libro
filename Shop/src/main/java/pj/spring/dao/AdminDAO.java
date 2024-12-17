@@ -83,4 +83,6 @@ public class AdminDAO {
 		return sqlSession.delete(namespace+".productDelete", product_no);
 	}
 	
+	
+	
 }

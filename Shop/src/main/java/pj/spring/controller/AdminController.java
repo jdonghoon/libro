@@ -197,12 +197,10 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/productModify.do", method = RequestMethod.POST)
-	public String productModify(ProductVO productVO) {
+	public String productModify(ProductVO productVO, Principal principal) {
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String user_id = authentication.getName();
+		String user_id = principal.getName();
 
-		productVO.setUser_id(user_id);
 		productVO.setProduct_update_id(user_id);
 
 		int result = adminService.productModifyUpdate(productVO);

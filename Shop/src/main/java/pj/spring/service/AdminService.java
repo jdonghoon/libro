@@ -44,7 +44,8 @@ public interface AdminService {
 	// 상품 수정
 	public int productModifyUpdate(ProductVO productVO);
 	
-	//상품 삭제
+	// 상품 삭제
 	public int productDelete(int product_no);
+	
 	
 }

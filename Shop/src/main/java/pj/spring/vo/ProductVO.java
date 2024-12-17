@@ -18,33 +18,23 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_update_id;			// 수정id
 	private String product_update_ip;			// 수정ip
 	private String user_id;                     // ID
-	private String category_name;				// 카테고리 이름
-	private String attachment_no;               // 첨부파일 번호
 	
-	private String attachment_type; 			//첨부파일 타입
+	private String category_name;				// 카테고리 이름
+
+	private String attachment_no;               // 첨부파일 번호
+	private String attachment_type; 			// 첨부파일 타입
+	private String attachment_detail_new_name;  // 첨부파일 이름
 	
 	private String review_starrating_avg;		// 별점 평균 (한 상품에 기준)
 	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
 	
 	
 	
-	public String getAttachment_type() {
-		return attachment_type;
+	public String getAttachment_detail_new_name() {
+		return attachment_detail_new_name;
 	}
-	public void setAttachment_type(String attachment_type) {
-		this.attachment_type = attachment_type;
-	}
-	public String getReview_starrating_avg() {
-		return review_starrating_avg;
-	}
-	public void setReview_starrating_avg(String review_starrating_avg) {
-		this.review_starrating_avg = review_starrating_avg;
-	}
-	public String getReview_cnt() {
-		return review_cnt;
-	}
-	public void setReview_cnt(String review_cnt) {
-		this.review_cnt = review_cnt;
+	public void setAttachment_detail_new_name(String attachment_detail_new_name) {
+		this.attachment_detail_new_name = attachment_detail_new_name;
 	}
 	public String getProduct_no() {
 		return product_no;
@@ -109,19 +99,8 @@ public class ProductVO extends AttachmentDetailVO {
 	public String getProduct_created_at() {
 		return product_created_at;
 	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public String getCategory_name() {
-		return category_name;
-	}
-	public String getAttachment_no() {
-		return attachment_no;
-	}
-	
-	
-	public void setProduct_created_at(String product_create_at) {
-		this.product_created_at = product_create_at;
+	public void setProduct_created_at(String product_created_at) {
+		this.product_created_at = product_created_at;
 	}
 	public String getProduct_create_id() {
 		return product_create_id;
@@ -153,15 +132,44 @@ public class ProductVO extends AttachmentDetailVO {
 	public void setProduct_update_ip(String product_update_ip) {
 		this.product_update_ip = product_update_ip;
 	}
+	public String getUser_id() {
+		return user_id;
+	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	public String getCategory_name() {
+		return category_name;
+	}
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
-	}	
+	}
+	public String getAttachment_no() {
+		return attachment_no;
+	}
 	public void setAttachment_no(String attachment_no) {
 		this.attachment_no = attachment_no;
 	}
+	public String getAttachment_type() {
+		return attachment_type;
+	}
+	public void setAttachment_type(String attachment_type) {
+		this.attachment_type = attachment_type;
+	}
+	public String getReview_starrating_avg() {
+		return review_starrating_avg;
+	}
+	public void setReview_starrating_avg(String review_starrating_avg) {
+		this.review_starrating_avg = review_starrating_avg;
+	}
+	public String getReview_cnt() {
+		return review_cnt;
+	}
+	public void setReview_cnt(String review_cnt) {
+		this.review_cnt = review_cnt;
+	}
+	
+	
 	
 	
 }

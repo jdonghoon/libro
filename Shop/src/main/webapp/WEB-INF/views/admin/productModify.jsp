@@ -57,7 +57,8 @@
                                                 <label for="category_name">카테고리</label>
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="category_name" name="category_name">
-                                                        <option value="${vo.category_name}" disabled selected>${vo.category_name}</option>
+                                                    	<option value="$" disabled selected>${vo.category_name}</option>
+                                                        <option value="${vo.category_name}" selected hidden>${vo.category_name}</option>
                                                         <option value="시">시</option>
                                                         <option value="소설">소설</option>
                                                         <option value="자기계발서">자기계발서</option>
@@ -148,14 +149,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                     	<!-- 파일 입력 -->
-                                                        <input type="file" class="form-control" id="topfile" name="topFile" onchange="showFileName(this)">
-                                                        <!-- 기존 파일명 표시 (파일이 없다면 빈 값으로 처리) -->
-										                <div id="fileNameDisplay">
-										                    <!-- 기존 파일 이름을 서버에서 넘겨주는 방식으로 표시 -->
-										                    <c:if test="${not empty existingFile}">
-										                        <small>현재 파일: ${existingFile}</small>
-										                    </c:if>
-										                </div>
+                                                        <input type="file" class="form-control" id="topfile" name="topFile">
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,16 +181,4 @@
             </div> <!--end::App Content-->
         </main>
 		
-		<script>
-		    function showFileName(input) {
-		        var fileName = input.files && input.files[0] ? input.files[0].name : '';
-		        var displayElement = document.getElementById('fileNameDisplay');
-		        
-		        if (fileName) {
-		            displayElement.innerHTML = '선택된 파일: ' + fileName;
-		        } else {
-		            displayElement.innerHTML = '';  // 파일을 선택하지 않으면 기존 파일명은 표시하지 않음
-		        }
-		    }
-		</script>
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

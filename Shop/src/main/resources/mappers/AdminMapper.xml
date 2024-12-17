@@ -110,13 +110,16 @@
     
     <!-- 상품 관리 list -->
     <select id="productList" parameterType="java.util.Map" resultType="ProductVO">
-    	SELECT p.*, c.category_name
-		  FROM product p
-		  JOIN category c 
-		    ON p.category_no = c.category_no
-		 LIMIT #{start}, #{perPage}
-    </select>
-	
+		  SELECT    p.*
+		          , c.category_name
+		          , ad.attachment_detail_new_name
+		    FROM  product p
+		    JOIN  category c ON p.category_no = c.category_no
+	   LEFT JOIN  attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
+	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+		   LIMIT  #{start}, #{perPage}
+	</select>
+		
 	<!-- 상품 전체 수 -->
 	<select id="productTotal" resultType="int">
 		SELECT count(*)
@@ -155,5 +158,8 @@
 		DELETE FROM product
 			  WHERE product_no = #{product_no}
 	</delete>
+	 
+	 
+	 
 	 
 </mapper>

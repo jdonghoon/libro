@@ -154,7 +154,12 @@
                                         	<c:forEach items="${list}" var="vo">
 	                                            <tr>
 	                                                <td onclick="location.href='productDetail.do';">${vo.product_no}</td>
-	                                                <td>이미지</td>
+	                                                <td>
+													    <c:if test="${not empty vo.attachment_detail_new_name}">
+											        		<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" alt="대표 이미지" width="90" height="120" />
+													    </c:if>
+													</td>
+													
 	                                                <td>${vo.category_name}</td>
 	                                                <td>${vo.product_name}</td>
 	                                                <td>${vo.product_author}</td>
@@ -172,7 +177,7 @@
 	                                                <td>${vo.product_update_id}</td>
 	                                                <td>
 	                                                    <button class="btn btn-primary" onclick="location.href='productModify.do?product_no=${vo.product_no}'">수정</button>
-	                                                    <button class="btn btn-primary" onclick="document.deletefrm.submit();">삭제</button>
+	                                                    <button class="btn btn-primary" onclick="document.forms['deletefrm'].submit();">삭제</button>
 	                                                    <form name="deletefrm" action="productDelete.do" method="post">
 															<input type="hidden" name="product_no" value="${vo.product_no}">
 														</form>
