@@ -68,9 +68,14 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace+".productTotal");
 	}
 	
-	// 상품 수정
+	// 상품 수정 상세
 	public ProductVO productModify(int product_no) {
 		return sqlSession.selectOne(namespace+".productModify", product_no);
+	}
+	
+	// 상품 수정
+	public int productModifyUpdate(ProductVO productVO) {
+		return sqlSession.update(namespace+".productModifyUpdate", productVO);
 	}
 	
 	// 상품 삭제

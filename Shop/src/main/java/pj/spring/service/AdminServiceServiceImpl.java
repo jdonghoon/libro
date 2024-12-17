@@ -76,10 +76,16 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productTotal();
 	}
 
-	// 상품 수정
+	// 상품 수정 상세
 	@Override
 	public ProductVO productModify(int product_no) {
 		return adminDAO.productModify(product_no);
+	}
+	
+	// 상품 수정
+	@Override
+	public int productModifyUpdate(ProductVO productVO) {
+		return adminDAO.productModifyUpdate(productVO);
 	}
 	
 	// 상품 삭제
@@ -87,6 +93,7 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int productDelete(int product_no) {
 		return adminDAO.productDelete(product_no);
 	}
+
 
 	
 	
