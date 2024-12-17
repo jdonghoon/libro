@@ -2,9 +2,7 @@ package pj.spring.service;
 
 import java.util.List;
 
-import pj.spring.vo.AddressBookVO;
-import pj.spring.vo.ContactVO;
-import pj.spring.vo.UserVO;
+import pj.spring.vo.*;
 
 public interface UserService {
 	
@@ -70,4 +68,16 @@ public interface UserService {
 	
 	// 문의하기 삭제
 	public int deletetcontact(String contact_no);
+	
+	// 주문내역 목록
+	public List<OrderedVO> selectorderhistory(String user_id);
+
+	// 취소내역 목록
+	public List<OrderedVO> selectorderhistorycancel(String user_id);
+
+	// 주문내역 상세
+	public OrderedVO selectorderhistorydetail(String ordered_no);
+
+	// 주문내역 상세(상품)
+	public List<OrderedVO> selectorderhistorydetailp(String ordered_no);
 }

@@ -23,13 +23,17 @@
                             <option>반품</option>
                         </select>
                         <div class="date-btn">
-                            <a href="javascript:void(0);" onclick="setDates('today')">오늘</a>
-                            <a href="javascript:void(0);" onclick="setDates('1week')">1주일</a>
-                            <a href="javascript:void(0);" onclick="setDates('1month')">1개월</a>
-                            <a href="javascript:void(0);" onclick="setDates('3months')">3개월</a>
-                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
-                            <input type="date"> ~ <input type="date">
-                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+                        	<div class="as">
+	                            <a href="javascript:void(0);" onclick="setDates('today')">오늘</a>
+	                            <a href="javascript:void(0);" onclick="setDates('1week')">1주일</a>
+	                            <a href="javascript:void(0);" onclick="setDates('1month')">1개월</a>
+	                            <a href="javascript:void(0);" onclick="setDates('3months')">3개월</a>
+	                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
+                        	</div>
+                        	<div class="dh">
+	                            <input type="date">&nbsp;~&nbsp;<input type="date">
+	                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+                        	</div>
                         </div>
                     </div>
                     
@@ -47,24 +51,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="orderhistorydetail.do">1234567</a>
-                                </td>
-                                <td>2024.12.03</td>
-                                <td>[소설]채식주의자</td>
-                                <td>13,500 / 1</td>
-                                <td>배송완료</td>
-                                <td><a href="#">조회</a></td>
-                            </tr>
-                            <tr>
-                                <td>1234566</td>
-                                <td>2024.12.02</td>
-                                <td>[소설]소년이 온다</td>
-                                <td>13,500 / 1</td>
-                                <td class="red">배송완료</td>
-                                <td><a href="#">조회</a></td>
-                            </tr>
+							<c:forEach items="${list}" var="vo">
+								<tr>
+									<td>
+										<a href="orderhistorydetail.do?ordered_no=${vo.ordered_no}">${vo.ordered_no}</a>
+									</td>
+									<td>${vo.ordered_date}</td>
+									<td>[${vo.category_name}]${vo.product_name}</td>
+									<td>${vo.ordered_detail_total_price} / ${vo.ordered_detail_totalquantity}</td>
+									<td>${vo.ordered_status}</td>
+									<td>
+										<a href="#">조회</a>
+									</td>
+								</tr>
+							</c:forEach>
                         </tbody>
                     </table>
                     〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
@@ -73,13 +73,17 @@
                 <div class="form-container" id="order-cancel-form">
                     <div class="order-search">
                         <div class="date-btn">
-                            <a href="javascript:void(0);" onclick="setDates('today')">오늘</a>
-                            <a href="javascript:void(0);" onclick="setDates('1week')">1주일</a>
-                            <a href="javascript:void(0);" onclick="setDates('1month')">1개월</a>
-                            <a href="javascript:void(0);" onclick="setDates('3months')">3개월</a>
-                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
-                            <input type="date"> ~ <input type="date">
-                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+                        	<div class="as">
+	                            <a href="javascript:void(0);" onclick="setDates('today')">오늘</a>
+	                            <a href="javascript:void(0);" onclick="setDates('1week')">1주일</a>
+	                            <a href="javascript:void(0);" onclick="setDates('1month')">1개월</a>
+	                            <a href="javascript:void(0);" onclick="setDates('3months')">3개월</a>
+	                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
+                        	</div>
+                        	<div class="dh">
+	                            <input type="date">&nbsp;~&nbsp;<input type="date">
+	                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+                        	</div>
                         </div>
                     </div>
                     
@@ -95,16 +99,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="orderhistorydetail.do">1234567</a>
-                                </td>
-                                <td>2024.12.03</td>
-                                <td>[소설]채식주의자</td>
-                                <td>13,500 / 1</td>
-                                <td>취소</td>
-                                <td><a href="#">조회</a></td>
-                            </tr>
+							<c:forEach items="${cancellist}" var="vo">
+								<tr>
+									<td>
+										<a href="orderhistorydetail.do?ordered_no=${vo.ordered_no}">${vo.ordered_no}</a>
+									</td>
+									<td>${vo.ordered_date}</td>
+									<td>[${vo.category_name}]${vo.product_name}</td>
+									<td>${vo.ordered_detail_total_price} / ${vo.ordered_detail_totalquantity}</td>
+									<td>${vo.ordered_status}</td>
+									<td>
+										<a href="#">조회</a>
+									</td>
+								</tr>
+							</c:forEach>
                         </tbody>
                     </table>
                     〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉

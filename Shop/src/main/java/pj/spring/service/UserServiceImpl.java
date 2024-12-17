@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.UserDAO;
-import pj.spring.vo.AddressBookVO;
-import pj.spring.vo.ContactVO;
-import pj.spring.vo.UserVO;
+import pj.spring.vo.*;
 
 @Service // 업무로직을 담당하는 구현 객체를 스프링이 생성하여 관리
 public class UserServiceImpl implements UserService {
@@ -140,5 +138,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int deletetcontact(String contact_no) {
 		return userDAO.deletecontact(contact_no);
+	}
+	
+	// 주문내역 목록
+	public List<OrderedVO> selectorderhistory(String user_id) {
+		return userDAO.selectorderhistory(user_id);
+	}
+
+	// 취소내역 목록
+	@Override
+	public List<OrderedVO> selectorderhistorycancel(String user_id) {
+		return userDAO.selectorderhistorycancel(user_id);
+	}
+
+	// 주문내역 상세
+	@Override
+	public OrderedVO selectorderhistorydetail(String ordered_no) {
+		return userDAO.selectOrderhistorydetail(ordered_no);
+	}
+
+	// 주문내역 상세(상품)
+	@Override
+	public List<OrderedVO> selectorderhistorydetailp(String ordered_no) {
+		return userDAO.selectOrderhistorydetailp(ordered_no);
 	}
 }

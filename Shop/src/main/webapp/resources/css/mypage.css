@@ -267,19 +267,42 @@ input[type="checkbox"]:checked + .checkmark::after {
     margin-bottom: 20px;
 
 }
-.date-btn a {
-    display: inline-block;
-    border: 1px solid black;
-    padding: 10px;
-    /* height: 40px; */
-}
 .post-search select, .post-search input {
     padding: 5px;
     border-radius: 0;
     border: 1px solid black;
 }
+.date-btn {
+    display: flex;
+    justify-content: space-between;
+}
+.date-btn a {
+    display: inline-block;
+    border: 1px solid black;
+    border-right: none;
+    padding: 10px 30px;
+    /* height: 40px; */
+}
+.as {
+    display: flex;
+    align-items: center;  /* 수직 중앙 정렬 */
+    justify-content: center;  /* 수평 중앙 정렬 */
+    gap: 0;  /* 요소 간의 간격을 없앰 */
+}
+.date-btn a:last-child {
+    border-right: 1px solid black; 
+}
 .date-btn input {
-    height: 28px; /* 원하는 높이로 설정 */
+    height: 31px; /* 원하는 높이로 설정 */
+}
+.dh .dh-btn {
+	height: 43px; 
+	margin-left: 10px;
+}
+.dh{
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: space-between;
 }
 .review-type-button{
     border: none;
@@ -365,6 +388,9 @@ input[type="checkbox"]:checked + .checkmark::after {
     padding: 5px;
     border-radius: 0;
     border: 1px solid black;
+}
+.order-search select {
+	margin-bottom: 10px;
 }
 .order-type-button {
     border: none;

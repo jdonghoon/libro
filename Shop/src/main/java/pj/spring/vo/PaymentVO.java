@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class PaymentVO {
+public class PaymentVO extends OrderedDetailVO {
 	private String payment_no;				// 결제번호
 	private String payment_price;			// 결제금액
 	private String payment_refund_price;	// 환불금액

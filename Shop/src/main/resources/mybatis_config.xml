@@ -15,8 +15,8 @@
 		<typeAlias type="pj.spring.vo.ContactVO" alias="contactVO" />
 		<typeAlias type="pj.spring.vo.GuestVO" alias="guestVO" />
 		<typeAlias type="pj.spring.vo.NoticeBoardVO" alias="noticeboardVO" />
-		<typeAlias type="pj.spring.vo.OrderDetailVO" alias="orderdetailVO" />
-		<typeAlias type="pj.spring.vo.OrderVO" alias="orderVO" />
+		<typeAlias type="pj.spring.vo.OrderedDetailVO" alias="ordereddetailVO" />
+		<typeAlias type="pj.spring.vo.OrderedVO" alias="orderedVO" />
 		<typeAlias type="pj.spring.vo.PaymentVO" alias="paymentVO" />
 		<typeAlias type="pj.spring.vo.ProductVO" alias="productVO" />
 		<typeAlias type="pj.spring.vo.ReviewVO" alias="reviewVO" />

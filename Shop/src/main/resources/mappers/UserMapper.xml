@@ -280,6 +280,150 @@
 	<delete id="deleteContact" parameterType="String">
 		DELETE FROM contact WHERE contact_no =  #{contact_no}
 	</delete>
+	
+	<!--주문내역 목록 토탈  -->
+	<select id="selectTotalOrderhistory" parameterType="String" resultType="orderedVO" >
+		SELECT 
+			COUNT(o.ordered_no) AS cnt
+		FROM 
+			ordered o
+		JOIN 
+			user u ON u.user_id = o.user_id
+		WHERE 
+			u.user_id = #{user_id}
+	</select>
+
+	<!--취소내역 목록 토탈  -->
+	<select id="selectTotalOrderhistoryCancel" parameterType="String" resultType="orderedVO" >
+		SELECT 
+			COUNT(DISTINCT o.ordered_no) AS cnt
+		FROM 
+			ordered o
+		JOIN 
+			user u ON u.user_id = o.user_id
+		WHERE 
+			u.user_id = #{user_id}
+		AND
+			o.ordered_status = 'CC'
+	</select>
+	
+	<!-- 주문내역 목록 -->
+	<select id="selectOrderhistory" parameterType="String" resultType="orderedVO" >
+		SELECT 
+			o.ordered_no, 
+			date(o.ordered_date) as ordered_date, 
+			p.product_name, 
+			( SELECT SUM(od2.ordered_detail_quantity) FROM ordered_detail od2 WHERE od2.ordered_no = o.ordered_no ) AS ordered_detail_totalquantity, 
+			ordered_detail_total_price, 
+			o.ordered_status, 
+			category_name
+		FROM 
+			ordered o
+		JOIN 
+			ordered_detail od ON o.ordered_no = od.ordered_no
+		JOIN 
+			product p ON od.product_no = p.product_no
+		JOIN 
+			category c ON c.category_no = p.category_no
+		JOIN 
+			user u ON u.user_id = o.user_id
+		WHERE 
+			od.ordered_detail_no = ( SELECT MIN(ordered_detail_no) FROM ordered_detail WHERE ordered_no = o.ordered_no )
+		AND
+			u.user_id = #{user_id}
+		GROUP BY 
+			o.ordered_no, o.ordered_date, p.product_name, o.ordered_status, od.ordered_detail_total_price, category_name
+		ORDER BY 
+			o.ordered_no DESC;
+	</select>
+
+	<!-- 취소내역 목록 -->
+	<select id="selectOrderhistoryCancel" parameterType="String" resultType="orderedVO" >
+		SELECT 
+			o.ordered_no, 
+			date(o.ordered_date) as ordered_date, 
+			p.product_name, 
+			( SELECT SUM(od2.ordered_detail_quantity) FROM ordered_detail od2 WHERE od2.ordered_no = o.ordered_no ) AS ordered_detail_totalquantity, 
+			ordered_detail_total_price, 
+			o.ordered_status, 
+			category_name
+		FROM 
+			ordered o
+		JOIN 
+			ordered_detail od ON o.ordered_no = od.ordered_no
+		JOIN 
+			product p ON od.product_no = p.product_no
+		JOIN 
+			category c ON c.category_no = p.category_no
+		JOIN 
+			user u ON u.user_id = o.user_id
+		WHERE 
+			od.ordered_detail_no = ( SELECT MIN(ordered_detail_no) FROM ordered_detail WHERE ordered_no = o.ordered_no )
+		AND
+			u.user_id = #{user_id}
+		AND
+			( o.ordered_status = 'CW' OR o.ordered_status = 'CC' )
+		GROUP BY 
+			o.ordered_no, o.ordered_date, p.product_name, o.ordered_status, od.ordered_detail_total_price, category_name
+		ORDER BY 
+			o.ordered_no DESC;
+	</select>
+	
+	<!-- 주문내역 상세 -->
+	<select id="selectOrderhistorydetail" parameterType="String" resultType="orderedVO" >
+		SELECT 
+			o.ordered_no, 
+			DATE(o.ordered_date) AS ordered_date, 
+			u.user_name,
+			o.ordered_status,
+			od.ordered_detail_total_price,
+			pm.payment_method,
+			o.ordered_name,
+			o.ordered_address,
+			o.ordered_phone,
+			o.ordered_note
+		FROM 
+			ordered o
+		JOIN 
+			ordered_detail od ON o.ordered_no = od.ordered_no
+		JOIN 
+			product p ON od.product_no = p.product_no
+		JOIN 
+			category c ON c.category_no = p.category_no
+		JOIN 
+			user u ON u.user_id = o.user_id
+		JOIN 
+			payment pm ON pm.user_id = u.user_id
+		WHERE 
+			o.ordered_no = #{ordered_no}
+		GROUP BY 
+			o.ordered_no, o.ordered_date, u.user_name, o.ordered_status, pm.payment_method, 
+			o.ordered_name, o.ordered_address, o.ordered_phone, o.ordered_note, od.ordered_detail_total_price
+		ORDER BY 
+			o.ordered_no DESC
+	</select>
+
+	<!-- 주문내역 상세(상품) -->
+	<select id="selectOrderhistorydetailp" parameterType="String" resultType="orderedVO" >
+		SELECT 
+			od.ordered_detail_no,
+			c.category_name,
+			p.product_name, 
+			od.ordered_detail_quantity,
+			od.ordered_detail_unit_price
+		FROM 
+			ordered o
+		JOIN 
+			ordered_detail od ON o.ordered_no = od.ordered_no
+		JOIN 
+			product p ON od.product_no = p.product_no
+		JOIN 
+			category c ON c.category_no = p.category_no
+		WHERE 
+			o.ordered_no = #{ordered_no}
+		ORDER BY 
+			od.ordered_detail_no
+	</select>
 </mapper>
 
 

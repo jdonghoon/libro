@@ -6,9 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import pj.spring.vo.AddressBookVO;
-import pj.spring.vo.ContactVO;
-import pj.spring.vo.UserVO;
+import pj.spring.vo.*;
 
 @Repository
 public class UserDAO {
@@ -121,5 +119,25 @@ public class UserDAO {
 	// 문의하기 삭제
 	public int deletecontact(String contact_no) {
 		return sqlSession.delete(namespace + ".deleteContact", contact_no);
+	}
+	
+	// 주문내역 목록
+	public List<OrderedVO> selectorderhistory(String user_id) {
+		return sqlSession.selectList(namespace + ".selectOrderhistory", user_id);
+	}
+
+	// 취소내역 목록
+	public List<OrderedVO> selectorderhistorycancel(String user_id) {
+		return sqlSession.selectList(namespace + ".selectOrderhistoryCancel", user_id);
+	}
+	
+	// 주문내역 상세
+	public OrderedVO selectOrderhistorydetail(String ordered_no) {
+		return sqlSession.selectOne(namespace + ".selectOrderhistorydetail", ordered_no);
+	}
+
+	// 주문내역 상세(상품)
+	public List<OrderedVO> selectOrderhistorydetailp(String ordered_no) {
+		return sqlSession.selectList(namespace + ".selectOrderhistorydetailp", ordered_no);
 	}
 }

@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.UserService;
-import pj.spring.vo.AddressBookVO;
-import pj.spring.vo.ContactVO;
-import pj.spring.vo.UserVO;
+import pj.spring.vo.*;
 
 @Controller
 public class UserController {
@@ -350,10 +348,10 @@ public class UserController {
 		    			userService.deletetattachment(attachment.getAttachment_no());
 		    		}
 		    		System.out.println("삭제 완료");
-	    		}else {
-		    		for(MultipartFile file : multiFile) {
-		    			
-						if(!file.getOriginalFilename().isEmpty()) {
+	    		}
+	    		for(MultipartFile file : multiFile) {
+	    			
+					if(!file.getOriginalFilename().isEmpty()) {
 						UUID uuid = UUID.randomUUID();
 						String originalFileName = file.getOriginalFilename();
 						String newFileName  = uuid.toString() + "_" + originalFileName;
@@ -376,8 +374,8 @@ public class UserController {
 						System.out.println("newFileName" + vo.getAttachment_detail_new_name());
 						System.out.println("path" + vo.getAttachment_detail_path());
 		                userService.insertattachmentdetail(vo); // 첨부파일 상세 저장
-						}
 					}
+					
 		    		System.out.println("사진 등록 완료");
 	    		}
 	    	}
@@ -387,7 +385,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			// 실패 처리
-			System.err.println("등록 실패: " + e.getMessage());
+			System.err.println("수정 실패: " + e.getMessage());
 			return "redirect:inquiry.do";
 		}
 	}
@@ -427,5 +425,39 @@ public class UserController {
 	public String notice() {
 		
 		return "user/account/notice";
+	}
+
+	// 주문(+취소)내역 목록
+	@RequestMapping(value="orderhistory.do", method=RequestMethod.GET)
+	public String orderhistory(Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		List<OrderedVO> list = userService.selectorderhistory(username);
+		List<OrderedVO> cancellist = userService.selectorderhistorycancel(username);
+		
+		System.out.println("주문내역 갯수 : " + list.size());
+		System.out.println("취소내역 갯수 : " + cancellist.size());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("cancellist", cancellist);
+		
+		return "user/account/orderhistory";
+	}
+	
+	// 주문내역 상세
+	@RequestMapping(value="orderhistorydetail.do")
+	public String orderhistorydetail(String ordered_no, Model model) {
+		
+		System.out.println("ordered_no " + ordered_no);
+		
+		OrderedVO vo = userService.selectorderhistorydetail(ordered_no);
+		List<OrderedVO> list = userService.selectorderhistorydetailp(ordered_no);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("list", list);
+		
+		return "user/account/orderhistorydetail";
 	}
 }
