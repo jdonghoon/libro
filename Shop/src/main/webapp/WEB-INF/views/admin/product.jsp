@@ -161,7 +161,11 @@
 	                                                <td>${vo.product_isbn}</td>
 	                                                <td>${vo.product_price}원</td>
 	                                                <td>${vo.product_stock}</td>
-	                                                <td>${vo.product_status}</td>
+	                                                <td>
+	                                                	<c:if test="${vo.product_status == 'E'}">진열</c:if>
+														<c:if test="${vo.product_status == 'D'}">미진열</c:if>
+														<c:if test="${vo.product_status == 'S'}">품절</c:if>
+	                                                </td>
 	                                                <td>${vo.product_created_at}</td>
 	                                                <td>${vo.product_create_id}</td>
 	                                                <td>${vo.product_update_at}</td>

@@ -190,11 +190,26 @@ public class AdminController {
 		return "admin/productModify";
 	}
 	
+	@RequestMapping(value = "/productModify.do", method = RequestMethod.POST)
+	public String productModify(ProductVO productVO) {
+		
+		int result = adminService.productModifyUpdate(productVO);
+		
+		if(result>0) {
+			System.out.println("등록완료");
+			return "redirect:product.do";
+		}else {
+			System.out.println("등록 실패 ");
+			return "redirect:productModify.do";
+		}
+		
+	}
+	
 	// 상품 삭제
 	@RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
 	public String productDelete(int product_no) {
 		
-		int result = adminService.productDelete(product_no);
+		adminService.productDelete(product_no);
 		
 		return "redirect:product.do";
 	}

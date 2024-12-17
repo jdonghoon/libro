@@ -38,8 +38,11 @@ public interface AdminService {
 	// 상품 전체 수
 	public int productTotal();
 	
-	// 상품 수정
+	// 상품 수정 상세
 	public ProductVO productModify(int product_no);
+	
+	// 상품 수정
+	public int productModifyUpdate(ProductVO productVO);
 	
 	//상품 삭제
 	public int productDelete(int product_no);
