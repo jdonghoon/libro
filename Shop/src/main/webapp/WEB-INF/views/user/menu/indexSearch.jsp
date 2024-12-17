@@ -34,7 +34,7 @@
       	<c:if test="${not empty vo.product_name}">
       	  <div class="book-info-container-search">
 			<div class="book-image">
-	    	  <a href="#">
+	    	  <a href="product.do?product_no=${vo.product_no}">
             	<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
           	  </a>
         	</div>
@@ -66,7 +66,7 @@
 				<b>${paging.nowPage}</b>
 			</c:if>
 			<c:if test="${paging.nowPage ne cnt}">
-				<a href="indexSearch.do?nowpage=${cnt}">${cnt}</a>
+				<a href="indexSearch.do?nowPage=${cnt}">${cnt}</a>
 			</c:if>
 		</c:forEach>
 			
@@ -84,7 +84,7 @@
         <c:forEach items="${recommend}" var="vo">
 	        <div class="recommend-books">
 	          <div>
-	            <a href="#">
+	            <a href="product.do?product_no=${vo.product_no}">
 	              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
 	              <div class="recommend-info">
 	                <div class="recommend-title">${vo.product_name}</div>

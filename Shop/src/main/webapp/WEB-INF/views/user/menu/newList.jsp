@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/menu.css">
 
@@ -118,7 +117,7 @@
       	<c:forEach items="${newList}" var="vo">
 	      <div class="book-info-container-list" id="book-info-container-list">
 	      	<div class="book-image">
-	            <a href="product_detail.html">
+	            <a href="product.do?product_no=${vo.product_no}">
 	                <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
 	            </a>
 	        </div>
@@ -131,9 +130,9 @@
 	        <div class="book-sales">
 	            <div class="quantity" name="quantity"></div>
 	            <div class="button-area-list">
-	                <div class="payment"><button>바로구매</button></div>
-	                <div class="cart"><button>장바구니</button></div>
-	                <div class="wishlist"><button>위시리스트</button></div>
+	                <div class="payment"><button onclick="location.href='payment.do'">바로구매</button></div>
+	                <div class="cart"><button onclick="location.href='cart.do'">장바구니</button></div>
+	                <div class="wishlist"><button onclick="location.href='wishlist.do'">위시리스트</button></div>
 	            </div>
 	        </div>
 	      </div>
@@ -167,7 +166,7 @@
         <c:forEach items="${recommend}" var="vo">
 	        <div class="recommend-books">
 	          <div>
-	            <a href="#">
+	            <a href="product.do?product_no=${vo.product_no}">
 	              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
 	              <div class="recommend-info">
 	                <div class="recommend-title">${vo.product_name}</div>

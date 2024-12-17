@@ -35,22 +35,55 @@
 	        </div>
           </div>
         <form action="purchase.html" method="get">
-          <div class="quantity-info">
-            <div>
-              <button type="button"><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-                <span>1</span>
-              <button type="button"><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-            </div>
-            <div class="total-price">${productDetail.product_price}</div>
-          </div>
-          <div class="button-area-detail">
-            <div>
-              <button type="button" class="wishlist" onclick="location.href='wishlist.html'">위시리스트</button>
-              <button type="button" class="cart" onclick="location.href='cart.html'">장바구니</button>
-              <button type="submit" class="purchase">바로 구매</button>
-            </div>
-          </div>
-        </form>
+		  <div class="quantity-info">
+		    <div>
+		      <button type="button" onclick="cntDown()">
+		        <img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px">
+		      </button>
+		      <span id="count">1</span>
+		      <button type="button" onclick="cntUp()">
+		        <img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px">
+		      </button>
+		    </div>
+		    <div class="total-price" id="total-price">${productDetail.product_price}</div>
+		  </div>
+		
+		  <div class="button-area-detail">
+		    <div>
+		      <button type="button" class="wishlist" onclick="location.href='wishlist.html'">위시리스트</button>
+		      <button type="button" class="cart" onclick="location.href='cart.html'">장바구니</button>
+		      <button type="submit" class="purchase">바로 구매</button>
+		    </div>
+		  </div>
+		</form>
+		
+		<script>
+		  const pricePerUnit = ${productDetail.product_price}; // 제품 단가
+		
+		  function updateTotalPrice(count) {
+		    const totalPrice = count * pricePerUnit;
+		    document.getElementById("total-price").innerText = totalPrice.toLocaleString(); // 가격 표시
+		  }
+		
+		  function cntUp() {
+		    const countElement = document.getElementById("count");
+		    let count = parseInt(countElement.innerText); // 현재 수량을 숫자로 변환
+		    count += 1; // 수량 증가
+		    countElement.innerText = count; // 화면에 반영
+		    updateTotalPrice(count); // 총 가격 갱신
+		  }
+		
+		  function cntDown() {
+		    const countElement = document.getElementById("count");
+		    let count = parseInt(countElement.innerText); // 현재 수량을 숫자로 변환
+		    if (count > 1) { // 최소 수량 1 제한
+		      count -= 1; // 수량 감소
+		      countElement.innerText = count; // 화면에 반영
+		      updateTotalPrice(count); // 총 가격 갱신
+		    }
+		  }
+		</script>
+
       </div>
     </div>
 
