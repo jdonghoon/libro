@@ -131,12 +131,33 @@
 	            <div class="quantity" name="quantity"></div>
 	            <div class="button-area-list">
 	                <div class="payment"><button onclick="location.href='payment.do'">바로구매</button></div>
-	                <div class="cart"><button onclick="location.href='cart.do'">장바구니</button></div>
+	                <div class="cart"><button onclick="addToCart(${vo.product_no})">장바구니</button></div>
 	                <div class="wishlist"><button onclick="location.href='wishlist.do'">위시리스트</button></div>
 	            </div>
 	        </div>
 	      </div>
       	</c:forEach>
+      	<script>
+      		function addToCart(product_no){
+      			
+      			$.ajax({
+      				url : "addCart.do",
+      				type : "POST",
+      				data : {product_no : product_no},
+      				success : function (response) {
+      					
+      					if(response.success) {
+      						alert("장바구니에 상품이 추가되었습니다.");
+      					} else {
+      						alert("장바구니에 추가에 실패하였습니다.");
+      					}
+      				},
+      				error : function (xhr, status, error);
+      					console.log("AJAX Error : ", error);
+      					alert("장바구니 추가 중 오류가 발생했습니다.");
+      			});
+      		}
+      	</script>
       	
 	      <div id="pagination">
 			<c:if test="${paging.startPage > 1}">
