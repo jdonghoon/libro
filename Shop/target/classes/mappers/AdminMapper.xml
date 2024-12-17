@@ -80,7 +80,7 @@
 	        attachment_product_no <!-- 상품 번호 -->
 	    ) 
 	    VALUES (
-	        'P', 
+	        #{attachment_type}, 
 	        #{product_no}
 	    )
 	    <selectKey order="AFTER" resultType="String" keyProperty="attachment_no">
@@ -145,7 +145,8 @@
 			  ,product_description = #{product_description}
 			  ,product_author = #{product_author}
 			  ,product_author_description = #{product_author_description}
-			  ,product_create_id = #{product_create_id}
+			  ,product_update_id = #{product_update_id}
+			  ,product_update_at = now()
 	    WHERE  product_no = #{product_no}
 	</update>
 	

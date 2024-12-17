@@ -21,11 +21,19 @@ public class ProductVO extends AttachmentDetailVO {
 	private String category_name;				// 카테고리 이름
 	private String attachment_no;               // 첨부파일 번호
 	
+	private String attachment_type; 			//첨부파일 타입
+	
 	private String review_starrating_avg;		// 별점 평균 (한 상품에 기준)
 	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
 	
 	
 	
+	public String getAttachment_type() {
+		return attachment_type;
+	}
+	public void setAttachment_type(String attachment_type) {
+		this.attachment_type = attachment_type;
+	}
 	public String getReview_starrating_avg() {
 		return review_starrating_avg;
 	}
