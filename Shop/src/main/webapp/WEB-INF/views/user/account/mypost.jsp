@@ -89,7 +89,7 @@
 	                                    	</div>
 	                                    </div>
 	                                </div>
-	                                <div>
+	                                <div> 
 	                                    <button onclick="location.href='reviewregister.do?product_no=${vo.product_no}'" class="review-register-btn">리뷰 작성하기</button>
 	                                    <br>
 	                                    <p class="register-date">작성기한 : 2024.12.10(D-7)</p>

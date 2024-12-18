@@ -14,26 +14,26 @@
                         <div>
                             <p><b>${vo.product_name}</b></p>
                             <p>${vo.product_author} 저  · ${vo.product_name}</p>
-                      <p>${vo.product_price}</p>
+                      <p>${vo.product_price}</p> 
                         </div>
                     </div>
                 </div>
 
-                <form action="reviewregisterOk.do" method="POST">
-            		<input type="hidden" name="product_no" value="${vo.product_no}">
+                <form action="reviewupdateOk.do" method="POST">
+            		<input type="hidden" name="review_no" value="${rvo.review_no}">
                     <label for="rating">평점 (1~5)</label>
 					<div id="rating" class="rating_box">
 						<div class="rating">
-							★★★★★ 
+							★★★★★
 							<span class="rating_star">★★★★★</span>
-							<input type="range" value="1" step="1" min="0" max="10" name="review_starrating">
+							<input type="range" value="${rvo.review_starrating}" step="1" min="0" max="10" name="review_starrating">
 						</div>
 					</div>
 
                     <label for="review">리뷰</label>
-                    <textarea id="review" name="review_content" rows="5" placeholder="책에 대한 리뷰를 작성하세요" required>0자</textarea>
+                    <textarea id="review" name="review_content" rows="5" placeholder="책에 대한 리뷰를 작성하세요" required>${rvo.review_content}</textarea>
                     
-                    <button class="dh-btn">리뷰 등록</button>
+                    <button class="dh-btn">리뷰 수정</button>
                 </form>
             </div>
         </section>
@@ -42,7 +42,11 @@
 	<script>
 		const rating_input = document.querySelector('.rating input');
 		const rating_star = document.querySelector('.rating_star');
-	
+
+		// 초기값 설정 (rvo.review_starrating에 따라 별점 너비 계산)
+		const initialRating = parseInt(rating_input.value, 10);
+		rating_star.style.width = (initialRating * 10) + '%';  // 초기 별점 너비 설정
+
 		// 별점 드래그 할 때
 		rating_input.addEventListener('input', function() {
 			const width = rating_input.value * 10;  // 계산된 너비

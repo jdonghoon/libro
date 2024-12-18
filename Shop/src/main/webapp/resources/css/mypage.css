@@ -336,7 +336,6 @@ input[type="checkbox"]:checked + .checkmark::after {
     justify-content: space-between;
     padding: 20px;
     text-align: left;
-    
 }
 .review-possible-form:not(:first-child) {
     border-top: none;

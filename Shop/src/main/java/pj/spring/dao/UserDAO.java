@@ -171,7 +171,7 @@ public class UserDAO {
 		return sqlSession.update(namespace + ".updateReview", reviewVO);
 	}
 
-	// 府轰 昏力
+	// 府轰 昏力 
 	public int deleteReview(String review_no) {
 		return sqlSession.update(namespace + ".deleteReview", review_no);
 	}

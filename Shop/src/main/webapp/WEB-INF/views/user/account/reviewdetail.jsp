@@ -12,7 +12,7 @@
                     <div style="display: flex;">
                         <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}">
                         <div>
-                            <p><b>${vo.product_name}</b></p>
+                            <p><b>${vo.product_name}</b></p> 
                             <p>${vo.product_author} 저  · ${vo.product_name}</p>
                       <p>${vo.product_price}</p>
                         </div>
@@ -24,7 +24,7 @@
                     <label for="rating">평점 (1~5)</label>
 					<div id="rating" class="rating_box">
 						<div class="rating">
-							★★★★★ 
+							★★★★★
 							<span class="rating_star">★★★★★</span>
 							<input type="range" value="1" step="1" min="0" max="10" name="review_starrating">
 						</div>

@@ -562,7 +562,7 @@
 			review_no = #{review_no};
 	</update>
 
-	<!-- 리뷰 삭제-->
+	<!-- 리뷰 삭제 -->
 	<update id="deleteReview" parameterType="String">
 		UPDATE review SET  
 			review_status = 'D' 
