@@ -17,7 +17,7 @@
                       <p>${vo.product_price}</p> 
                         </div>
                     </div>
-                </div>
+                </div> 
 
                 <form action="reviewupdateOk.do" method="POST">
             		<input type="hidden" name="review_no" value="${rvo.review_no}">

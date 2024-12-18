@@ -16,7 +16,7 @@
                             <p>${vo.product_author} 저  · ${vo.product_name}</p>
                       <p>${vo.product_price}</p>
                         </div>
-                    </div>
+                    </div> 
                 </div>
 
                 <form action="reviewregisterOk.do" method="POST">

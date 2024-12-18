@@ -21,7 +21,7 @@
 	                    	<div class="dh">
 	                            <input type="date">&nbsp;~&nbsp;<input type="date">
 	                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
-	                    	</div>
+	                    	</div> 
                         </div>
                     </div>
 

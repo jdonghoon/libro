@@ -120,7 +120,7 @@ public class UserController {
 		if(result > 0) {
 			System.out.println("수정 완료");
 		}else {
-			System.out.println("수정 실패 ");
+			System.out.println("수정 실패");
 		}
 
 		return "redirect:memberinfo.do";

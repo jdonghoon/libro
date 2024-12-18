@@ -28,7 +28,7 @@
 							<span class="rating_star">★★★★★</span>
 							<input type="range" value="1" step="1" min="0" max="10" name="review_starrating">
 						</div>
-					</div>
+					</div> 
 
                     <label for="review">리뷰</label>
                     <textarea id="review" name="review_content" rows="5" placeholder="책에 대한 리뷰를 작성하세요" required>0자</textarea>

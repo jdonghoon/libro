@@ -282,7 +282,7 @@ input[type="checkbox"]:checked + .checkmark::after {
     border-right: none;
     padding: 10px 30px;
     /* height: 40px; */
-}
+} 
 .as {
     display: flex;
     align-items: center;  /* 수직 중앙 정렬 */

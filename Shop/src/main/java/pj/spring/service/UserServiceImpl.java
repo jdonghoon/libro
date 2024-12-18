@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
 		return userDAO.updateReview(reviewVO);
 	}
 
-	// 府轰  昏力
+	// 府轰   昏力
 	@Override
 	public int deleteReview(String review_no) {
 		return userDAO.deleteReview(review_no);

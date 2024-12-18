@@ -99,6 +99,6 @@ public interface UserService {
 	// 府轰 荐沥
 	public int updateReview(ReviewVO reviewVO);
 	
-	// 府轰  昏力
+	// 府轰   昏力
 	public int deleteReview(String review_no);
 }
