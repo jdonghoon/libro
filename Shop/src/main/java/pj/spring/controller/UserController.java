@@ -109,7 +109,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="memberinfoOk.do", method=RequestMethod.POST)
-	public String addrmodify(UserVO vo, HttpServletRequest request) {
+	public String memberinfo(UserVO vo, HttpServletRequest request) {
 		
 		BCryptPasswordEncoder epwe = new BCryptPasswordEncoder(); // 복호화가 안되는 
 		
@@ -150,7 +150,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/addrregisterOk.do", method = RequestMethod.POST)
-	public String addrregister(AddressBookVO vo, HttpServletRequest request) {
+	public String addrregister(AddressBookVO vo) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -224,11 +224,17 @@ public class UserController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		List<ContactVO> list = userService.selectcontactlist(username);
+		List<ContactVO> contactlist = userService.selectcontactlist(username);
+		List<ReviewVO> reviewpossiblelist = userService.selectReviewPossibleList(username);
+		List<ReviewVO> reviewlist = userService.selectReviewList(username);
 		
-		System.out.println("주소록 갯수 : " + list.size());
+		System.out.println("주소록 갯수 : " + contactlist.size());
+		System.out.println("주소록 갯수 : " + reviewpossiblelist.size());
+		System.out.println("주소록 갯수 : " + reviewlist.size());
 		
-		model.addAttribute("list", list);
+		model.addAttribute("contactlist", contactlist);
+		model.addAttribute("reviewpossiblelist", reviewpossiblelist);
+		model.addAttribute("reviewlist", reviewlist);
 		
 		return "user/account/mypost";
 	}
@@ -419,6 +425,79 @@ public class UserController {
 		
 		return "redirect:/mypost.do";
 	}
+	
+	// 리뷰 등록
+	@RequestMapping(value="reviewregister.do", method = RequestMethod.GET)
+	public String reviewregister(String product_no, Model model) {
+		
+		ProductVO vo = userService.selectProduct(product_no);
+		
+		model.addAttribute("vo", vo);
+		
+		return "user/account/reviewregister";
+	}
+
+	@RequestMapping(value="reviewregisterOk.do", method = RequestMethod.POST)
+	public String reviewregister(ReviewVO vo) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		vo.setUser_id(username);
+		
+		int result = userService.insertReview(vo);
+		
+		if(result > 0) {
+			System.out.println("등록 완료");
+		}else {
+			System.out.println("등록 실패");
+		}
+
+		return "redirect:/mypost.do";
+	}
+	
+	// 리뷰 수정
+	@RequestMapping(value="reviewupdate.do", method = RequestMethod.GET)
+	public String reviewupdate(String product_no, String review_no, Model model) {
+		
+		ProductVO vo = userService.selectProduct(product_no);
+		ReviewVO rvo = userService.selectReview(review_no);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("rvo", rvo);
+		
+		return "user/account/reviewupdate";
+	}
+
+	@RequestMapping(value="reviewupdateOk.do", method = RequestMethod.POST)
+	public String reviewupdate(ReviewVO vo) {
+		
+		int result = userService.updateReview(vo);
+
+		if(result > 0) {
+			System.out.println("수정 완료");
+
+			return "redirect:/mypost.do";
+		}else {
+			System.out.println("수정 실패");
+			
+			return "redirect:reviewupdate.do?review_no=" + vo.getReview_no();
+		}
+	}
+
+	@RequestMapping(value="reviewdelete.do")
+	public String reviewdelete(String review_no) {
+		
+		int result = userService.deleteReview(review_no);
+		
+		if(result > 0) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("삭제 실패");
+		}
+
+		return "redirect:/mypost.do";
+	}
 
 	// 공지사항
 	@RequestMapping(value="notice.do", method=RequestMethod.GET)
@@ -459,5 +538,13 @@ public class UserController {
 		model.addAttribute("list", list);
 		
 		return "user/account/orderhistorydetail";
+	}
+	
+
+	// 위시리스트
+	@RequestMapping(value="wishlist.do", method=RequestMethod.GET)
+	public String wishlist() {
+		
+		return "user/account/wishlist";
 	}
 }

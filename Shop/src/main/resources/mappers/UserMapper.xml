@@ -197,7 +197,7 @@
 		    contact_type,
 		    contact_content,
 		    contact_password,
-		    contact_create_at,
+		    DATE_FORMAT(contact_create_at, '%Y.%m.%d') AS contact_create_at,
 		    u.user_id,
 		    u.user_name,
 		    c.product_no
@@ -424,6 +424,151 @@
 		ORDER BY 
 			od.ordered_detail_no
 	</select>
+	
+	<!-- 리뷰 가능한 목록 -->
+	<select id="selectReviewPossibleList" parameterType="String" resultType="reviewVO">
+		SELECT DISTINCT
+			od.ordered_detail_no,
+			c.category_name,
+			p.product_name, 
+			p.product_author, 
+			p.product_publisher, 
+			p.product_price,
+			DATE(o.ordered_date) AS ordered_date,
+			p.product_no,
+			attachment_detail_new_name
+		FROM 
+			ordered o
+		JOIN 
+			ordered_detail od ON o.ordered_no = od.ordered_no
+		JOIN 
+			product p ON od.product_no = p.product_no
+		JOIN 
+			category c ON c.category_no = p.category_no
+		JOIN 
+			user u ON u.user_id = o.user_id
+		JOIN 
+			payment pm ON pm.user_id = u.user_id 
+		JOIN 
+			attachment a ON p.product_no = a.attachment_product_no 
+		JOIN 
+			attachment_detail ad ON a.attachment_no = ad.attachment_no 
+		LEFT JOIN 
+			review r ON r.product_no = p.product_no AND r.user_id = o.user_id
+		WHERE 
+			u.user_id = #{user_id}
+		AND 
+			o.ordered_status = 'D' 
+		AND 
+			pm.payment_type = 'PC'
+		AND 
+			a.attachment_type = 'PT'
+		AND
+			r.review_no IS NULL
+		ORDER BY 
+			od.ordered_detail_no;
+	</select>
+
+	<!-- 리뷰 작성한 목록 -->
+	<select id="selectReviewList" parameterType="String" resultType="reviewVO">
+		SELECT 
+			ROW_NUMBER() OVER (ORDER BY od.ordered_detail_no DESC) AS review_seq, -- 순번을 ordered_detail_no 기준으로
+			p.product_name,
+			r.review_starrating, 
+			r.review_content, 
+			DATE_FORMAT(r.review_create_at, '%Y.%m.%d') AS review_create_at,
+			p.product_no,
+			u.user_name
+		FROM 
+			review r
+		JOIN 
+			user u ON r.user_id = u.user_id
+		JOIN 
+			product p ON p.product_no = r.product_no
+		JOIN 
+			ordered_detail od ON p.product_no = od.product_no    
+		JOIN 
+			ordered o ON o.ordered_no = od.ordered_no
+		WHERE 
+			u.user_id = #{user_id}
+		AND 
+			r.review_status = 'E'
+		ORDER BY 
+			od.ordered_detail_no DESC;
+	</select>
+	
+	<!-- 리뷰 등록 전 상품 조회 -->
+	<select id="selectProduct" parameterType="String" resultType="productVO">
+		SELECT 
+			product_no, 
+			product_name, 
+			product_author, 
+			product_price, 
+			product_publisher,
+			attachment_detail_new_name
+		FROM 
+			product p, attachment a, attachment_detail ad
+		WHERE 
+			product_no = #{product_no}
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND 
+			a.attachment_type = 'PT'
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="reviewVO">
+		INSERT INTO review (
+			review_content, 
+			review_starrating, 
+			review_create_id, 
+			review_update_id, 
+			user_id, 
+			product_no
+		) VALUES (
+			#{review_content}, 
+			#{review_starrating}, 
+			#{user_id}, 
+			#{user_id}, 
+			#{user_id}, 
+			#{product_no}
+		)
+	</insert>
+	
+	<!-- 리뷰 수정 전 조회 -->
+	<select id="selectReview" parameterType="String" resultType="reviewVO">
+		SELECT 
+			r.review_no, 
+			r.review_content, 
+			r.review_starrating, 
+			u.user_name
+		FROM 
+			review r, user u
+		WHERE
+			r.user_id = u.user_id
+		AND
+			r.review_no = #{review_no}
+	</select>
+	
+	<!-- 리뷰 수정 -->
+	<update id="updateReview" parameterType="reviewVO">
+		UPDATE review SET  
+			review_content = #{review_content}, 
+			review_starrating = #{review_starrating}, 
+			review_update_id = #{user_id}
+		WHERE
+			review_no = #{review_no};
+	</update>
+
+	<!-- 리뷰 삭제-->
+	<update id="deleteReview" parameterType="String">
+		UPDATE review SET  
+			review_status = 'D' 
+		WHERE
+			review_no = #{review_no};
+	</update>
 </mapper>
 
 

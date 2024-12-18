@@ -140,4 +140,39 @@ public class UserDAO {
 	public List<OrderedVO> selectOrderhistorydetailp(String ordered_no) {
 		return sqlSession.selectList(namespace + ".selectOrderhistorydetailp", ordered_no);
 	}
+	
+	// 리뷰 가능한 목록
+	public List<ReviewVO> selectReviewPossibleList(String user_id) {
+		return sqlSession.selectList(namespace + ".selectReviewPossibleList", user_id);
+	}
+
+	// 리뷰 작성한 목록
+	public List<ReviewVO> selectReviewList(String user_id) {
+		return sqlSession.selectList(namespace + ".selectReviewList", user_id);
+	}
+	
+	// 리뷰 등록 전 상품 조회
+	public ProductVO selectProduct(String product_no) {
+		return sqlSession.selectOne(namespace + ".selectProduct", product_no);
+	}
+
+	// 리뷰 등록
+	public int insertReview(ReviewVO reviewVO) {
+		return sqlSession.insert(namespace + ".insertReview", reviewVO);
+	}
+	
+	// 리뷰 수정 전 조회
+	public ReviewVO selectReview(String review_no) {
+		return sqlSession.selectOne(namespace + ".selectReview", review_no);
+	}
+
+	// 리뷰 수정
+	public int updateReview(ReviewVO reviewVO) {
+		return sqlSession.update(namespace + ".updateReview", reviewVO);
+	}
+
+	// 리뷰 삭제
+	public int deleteReview(String review_no) {
+		return sqlSession.update(namespace + ".deleteReview", review_no);
+	}
 }

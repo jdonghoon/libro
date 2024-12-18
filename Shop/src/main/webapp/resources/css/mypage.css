@@ -318,10 +318,12 @@ input[type="checkbox"]:checked + .checkmark::after {
     border-collapse: collapse;
     margin-top: 20px;
 }
-.ask-list, .ask-list th, .ask-list td {
+.ask-list, .ask-list th, .ask-list td,
+.review-list-form th, .review-list-form td {
     border: 1px solid black;
 }
-.ask-list th, .ask-list td {
+.ask-list th, .ask-list td, 
+.review-list-form th, .review-list-form td {
     padding: 10px;
     text-align: center;
 }
@@ -334,14 +336,21 @@ input[type="checkbox"]:checked + .checkmark::after {
     justify-content: space-between;
     padding: 20px;
     text-align: left;
+    
+}
+.review-possible-form:not(:first-child) {
+    border-top: none;
 }
 .review-possible-form img {
     width: 80px;
     margin-right: 10PX;
 }
 .review-possible-form p {
-    margin: 0;
+    margin: 1px;
 }
+/* .review-possible-form p:first-child {
+    font-weight: bold;
+} */
 .review-register-btn {
     border: 1px solid black;
     padding: 15px;
@@ -465,7 +474,7 @@ input[type="checkbox"]:checked + .checkmark::after {
 .review-container label {
     font-weight: bold;
 }
-.review-container input, .review-container textarea, .review-container select, .review-container button {
+.review-container input, .review-container select, .review-container button {
     width: 100%;
     margin: 10px 0;
     padding: 10px;
@@ -473,39 +482,58 @@ input[type="checkbox"]:checked + .checkmark::after {
 }
 .review-container textarea {
     resize: none; /* 크기 조정 불가 */
+    width: 878px;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid black;
 }
-.review-possible-form {
+.review-container .review-possible-form {
     border: 1px solid black;
     display: flex;
     justify-content: space-between;
     padding: 20px;
     text-align: left;
+    
 }
 .review-possible-form img {
     width: 80px;
     margin-right: 10PX;
 }
+.rating_box {
+	display: flex;
+    justify-content: center;     /* 가로 가운데 정렬 */
+    align-items: center;         /* 세로 가운데 정렬 */
+	margin-top: 20px;
+}
+
 .rating {
-    display: flex;
-    justify-content: center;
+	position: relative;
+	color: #ddd;
+	font-size: 40px;
+	text-align: center;
 }
+
 .rating input {
-    display: none; /* 라디오 버튼을 숨김 */
+	text-align: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	margin: 0;
 }
-.rating label {
-    font-size: 2rem;
-    color: #ddd; /* 비활성화된 별 색상 */
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
-}
-.rating input:checked ~ label,
-.rating label:hover,
-.rating label:hover ~ label {
-    color: #ffcc00; /* 활성화된 별 색상 */
-}
-.rating label:hover,
-.rating label:hover ~ label {
-    color: #ffcc00; /* 별 위에 마우스를 올릴 때 색상 */
+
+.rating_star {
+	width: 0;
+	color: #ffc107;
+	position: absolute;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	pointer-events: none;
 }
 
 /* =========================================================================================== */

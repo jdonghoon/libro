@@ -11,13 +11,17 @@
                 <div>
                     <div class="post-search">
                         <div class="date-btn">
-                            <a href="javascript:void(0);" onclick="setDates('today')">오늘</a>
-                            <a href="javascript:void(0);" onclick="setDates('1week')">1주일</a>
-                            <a href="javascript:void(0);" onclick="setDates('1month')">1개월</a>
-                            <a href="javascript:void(0);" onclick="setDates('3months')">3개월</a>
-                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
-                            <input type="date">~<input type="date">
-                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+	                    	<div class="as">
+	                           	<a href="javascript:void(0);" onclick="setDates('today')">오늘</a>
+	                            <a href="javascript:void(0);" onclick="setDates('1week')">1주일</a>
+	                            <a href="javascript:void(0);" onclick="setDates('1month')">1개월</a>
+	                            <a href="javascript:void(0);" onclick="setDates('3months')">3개월</a>
+	                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
+	                    	</div>
+	                    	<div class="dh">
+	                            <input type="date">&nbsp;~&nbsp;<input type="date">
+	                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+	                    	</div>
                         </div>
                     </div>
 
@@ -45,7 +49,7 @@
                                     <td>홍길동</td>
                                     <td>2024.12.03</td>
                                 </tr> -->
-                                <c:forEach items="${list}" var="vo">
+                                <c:forEach items="${contactlist}" var="vo">
                                 <tr>
                                     <td>${vo.contact_no}</td>
                                     <td>${vo.contact_type}</td>
@@ -65,53 +69,65 @@
                     <div class="review">
                         <h3>리뷰내역</h3>
                         <div class="order-type">
-                            <button class="review-type-button" id="review-list" onclick="toggleActiveButton('review-list')">작성 가능한 리뷰(0)</button>
-                            <button class="review-type-button" id="review-possible" onclick="toggleActiveButton('review-possible')">내가 작성한 리뷰(0)</button>
+                            <button class="review-type-button" id="review-possible" onclick="toggleActiveButton('review-possible')">작성 가능한 리뷰(0)</button>
+                            <button class="review-type-button" id="review-list" onclick="toggleActiveButton('review-list')">내가 작성한 리뷰(0)</button>
                         </div>
-                        
+
+                        <div class="form-container" id="review-possible-form">
+                            <c:forEach items="${reviewpossiblelist}" var="vo">
+	                            <div class="review-possible-form" >
+	                                <div style="display: flex;">
+	                                    <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}">
+	                                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+	                                    	<div>
+		                                        <p><b>${vo.product_name}</b></p>
+		                                        <p>${vo.product_author} 저  · ${vo.product_name}</p>
+		                                        <p>${vo.product_price}</p>
+	                                    	</div>
+	                                    	<div>
+		                                        <p style="font-size: 13px;">${vo.ordered_date}에 구매하신 상품입니다.</p>
+	                                    	</div>
+	                                    </div>
+	                                </div>
+	                                <div>
+	                                    <button onclick="location.href='reviewregister.do?product_no=${vo.product_no}'" class="review-register-btn">리뷰 작성하기</button>
+	                                    <br>
+	                                    <p class="register-date">작성기한 : 2024.12.10(D-7)</p>
+	                                </div>
+	                            </div>
+                            </c:forEach>
+                        </div>
+
                         <table class="review-list-form form-container" id="review-list-form">
                             <thead>
                                 <tr>
-                                    <th style="width: 36px;">번호</th>
-                                    <th style="width: 100px;">상품 이름</th>
-                                    <th style="width: 120px;">평점</th>
-                                    <th style="width:470px;">내용</th>
-                                    <th style="width: 70px;">작성일</th>
+                                    <th style="width: 35.27px;">번호</th>
+                                    <th style="width: 103.88px;">상품 이름</th>
+                                    <th style="width: 419.52px;">내용</th>
+                                    <th style="width: 127.59px;">평점</th>
+                                    <th style="width: 107.75px;">작성일</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>채식주의자</td>
-                                    <td>
-                                        <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
-                                        <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
-                                        <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
-                                        <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
-                                        <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
-                                    </td>
-                                    <td>감동</td>
-                                    <td>2024.12.03</td>
-                                </tr>
+                            	<c:forEach items="${reviewlist}" var="vo">
+	                                <tr>
+	                                    <td>${vo.review_seq}</td>
+	                                    <td><a href="productDetail.do?product_no=${vo.product_no}">${vo.product_name}</a></td>
+	                                    <td>${vo.review_content}</td>
+	                                    <td>
+											<div id="rating" class="rating_box">
+												<div class="rating">
+													★★★★★
+													<span class="rating_star">★★★★★</span>
+													<input type="range" value="${vo.review_starrating}" step="1" min="0" max="10" name="review_starrating">
+												</div>
+											</div>
+	                                    </td>
+	                                    <td>${vo.review_create_at}</td>
+	                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
-
-                        <div class="form-container" id="review-possible-form">
-                            <div class="review-possible-form" >
-                                <div style="display: flex;">
-                                    <img src="소년이 온다.jpg">
-                                    <div>
-                                        <p><b>소년이 온다</b></p><br><br><br><br>
-                                        <p>2024.12.03에 구매하신 상품입니다.</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button onclick="location.href='reviewregister.do'" class="review-register-btn">리뷰 작성하기</button>
-                                    <br>
-                                    <p class="register-date">작성기한 : 2024.12.10(D-7)</p>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -120,6 +136,13 @@
         </section>
     </main>
 
+<script>
+  function updateRating(value) {
+    document.getElementById('rating-display').textContent = value;
+  }
+</script>
+	
+	
     <script>
         window.onload = function() {
 
@@ -128,7 +151,7 @@
             if (activeButtonId) {
                 toggleActiveButton(activeButtonId);
             } else {
-                toggleActiveButton('review-list');  // 기본 값으로 '주문 목록' 버튼 활성화
+                toggleActiveButton('review-possible');  // 기본 값으로 '주문 목록' 버튼 활성화
             }
 
             // 오늘 날짜를 구하기
@@ -218,6 +241,13 @@
         // 두 번째 date input에 종료 날짜 설정
         document.querySelectorAll('input[type="date"]')[1].value = endDate;
     }
+        
+	const rating_input = document.querySelector('.rating input');
+	const rating_star = document.querySelector('.rating_star');
+
+	// 초기값 설정 (rvo.review_starrating에 따라 별점 너비 계산)
+	const initialRating = parseInt(rating_input.value, 10);
+	rating_star.style.width = (initialRating * 10) + '%';  // 초기 별점 너비 설정
     </script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

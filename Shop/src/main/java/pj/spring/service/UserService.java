@@ -80,4 +80,25 @@ public interface UserService {
 
 	// 주문내역 상세(상품)
 	public List<OrderedVO> selectorderhistorydetailp(String ordered_no);
+	
+	// 리뷰 가능한 목록
+	public List<ReviewVO> selectReviewPossibleList(String user_id);
+
+	// 리뷰 작성한 목록
+	public List<ReviewVO> selectReviewList(String user_id);
+	
+	// 리뷰 등록 전 상품 조회
+	public ProductVO selectProduct(String product_no);
+	
+	// 리뷰 등록
+	public int insertReview(ReviewVO reviewVO);
+	
+	// 리뷰 수정 전 조회
+	public ReviewVO selectReview(String review_no);
+	
+	// 리뷰 수정
+	public int updateReview(ReviewVO reviewVO);
+	
+	// 리뷰 삭제
+	public int deleteReview(String review_no);
 }

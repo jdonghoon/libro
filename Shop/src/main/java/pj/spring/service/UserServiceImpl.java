@@ -162,4 +162,46 @@ public class UserServiceImpl implements UserService {
 	public List<OrderedVO> selectorderhistorydetailp(String ordered_no) {
 		return userDAO.selectOrderhistorydetailp(ordered_no);
 	}
+
+	// 리뷰 가능한 목록
+	@Override
+	public List<ReviewVO> selectReviewPossibleList(String user_id) {
+		return userDAO.selectReviewPossibleList(user_id);
+	}
+
+	// 리뷰 작성한 목록
+	@Override
+	public List<ReviewVO> selectReviewList(String user_id) {
+		return userDAO.selectReviewList(user_id);
+	}
+
+	// 리뷰 등록 전 상품 조회
+	@Override
+	public ProductVO selectProduct(String product_no) {
+		return userDAO.selectProduct(product_no);
+	}
+
+	// 리뷰 등록
+	@Override
+	public int insertReview(ReviewVO reviewVO) {
+		return userDAO.insertReview(reviewVO);
+	}
+	
+	// 리뷰 수정 전 조회
+	@Override
+	public ReviewVO selectReview(String review_no) {
+		return userDAO.selectReview(review_no);
+	}
+
+	// 리뷰 수정
+	@Override
+	public int updateReview(ReviewVO reviewVO) {
+		return userDAO.updateReview(reviewVO);
+	}
+
+	// 리뷰 삭제
+	@Override
+	public int deleteReview(String review_no) {
+		return userDAO.deleteReview(review_no);
+	}
 }
