@@ -83,6 +83,19 @@ public class AdminDAO {
 		return sqlSession.delete(namespace+".productDelete", product_no);
 	}
 	
+	// 주문 관리 List
+	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam) {
+		return sqlSession.selectList(namespace+".orderList", pagingParam);
+	}
 	
+	// 주문 전체 수
+	public int orderTotal() {
+		return sqlSession.selectOne(namespace+".orderTotal");
+	}
 	
+	// 주문 관리 상태 변경 ajax
+	public int updateOrderStatus(Map<String,Object> orderedStatus) {
+		return sqlSession.update(namespace+".updateOrderStatus", orderedStatus);
+	}
+
 }

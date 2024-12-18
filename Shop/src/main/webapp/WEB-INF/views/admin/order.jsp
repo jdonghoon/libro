@@ -73,19 +73,13 @@
                                             
                                             <div class="row g-2">
                                                 <label for="validationCustom04">주문상태</label>
-                                                <div class="col">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="payment_type" id="inlineRadio1" value="all" checked>
-                                                        <label class="form-check-label" for="inlineRadio1">전체</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="payment_type" id="inlineRadio2" value="PC">
-                                                        <label class="form-check-label" for="inlineRadio2">결제완료</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="payment_type" id="inlineRadio3" value="D">
-                                                        <label class="form-check-label" for="inlineRadio3">발송완료</label>
-                                                    </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-select" id="validationCustom04">
+                                                        <option value="전체" selected>전체</option>
+                                                        <option value="주문완료">주문완료</option>
+                                                        <option value="결제완료">결제완료</option>
+                                                        <option value="발송완료">발송완료</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
@@ -120,45 +114,35 @@
                                                 <th>주문번호</th>
                                                 <th>상품번호</th>
                                                 <th>상품명</th>
-                                                <th>주문일자</th>
                                                 <th>주문상태</th>
+                                                <th>주문일자</th>
+                                                <th>결제상태</th>
                                                 <th>상품가격</th>
                                                 <th>수량</th>
                                                 <th>주문자명</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           <tr>
-                                           	<td>
-                                           		<%-- <c:if test="${payment_type == 'PC'}"> --%>
-                                           			<button class="btn btn-primary">발송완료</button>
-                                           		<%-- </c:if> --%>
-											</td>
-                                               <td onclick="location.href='#';">465128315</td>
-                                               <td>1648965</td>
-                                               <td>9849455</td>
-                                               <td>소년이온다</td>
-                                               <td>2024-12-04</td>
-                                               <td>결제완료</td>
-                                               <td>13,500원</td>
-                                               <td>1</td>
-                                               <td>홍길동</td>
-                                           </tr>
-                                           <tr>
-                                            	<td>
-                                            		<!-- 클릭 시 payment_type이 'PC'에서 'D'로 변경 -->
-                                            		<button class="btn btn-primary">발송완료</button>
-												</td>
-                                                <td onclick="location.href='#';">상품번호</td><!-- ordered_detail_no -->
-                                                <td>주문번호</td><!-- ordered_no -->
-                                                <td>상품번호</td><!-- product_no -->
-                                                <td>소년이온다</td><!-- product_name -->
-                                                <td>2024-12-04</td><!-- ordered_creat_at -->
-                                                <td>결제완료</td><!-- payment_type -->
-                                                <td>13,500원</td><!-- product_price -->
-                                                <td>1</td><!-- ordered_detail_quantity -->
-                                                <td>홍길동</td><!-- ordered_name -->
-                                            </tr>
+                                        	<c:forEach items="${orderList}" var="vo">
+	                                        	<tr>
+		                                           	<td>
+		                                           		<!-- 클릭 시 ordered_status 타입이 D로 변경-->
+		                                           		<c:if test="${ordered_status == 'O'}">
+		                                           			<button class="btn btn-primary" onclick="changeStatus(${vo.ordered_detail_no})">발송완료</button>
+		                                           		</c:if>
+												    </td>
+	                                                <td onclick="location.href='#';">${vo.ordered_detail_no}</td>
+	                                                <td>${vo.ordered_no}</td>
+	                                                <td>${vo.product_no}</td>
+	                                                <td>${vo.product_name}</td>
+	                                                <td>${vo.ordered_status}</td>
+	                                                <td>${vo.ordered_create_at}</td>
+	                                                <td>${vo.payment_type}</td>
+	                                                <td>${vo.product_price}원</td>
+	                                                <td>${vo.ordered_detail_quantity}</td>
+	                                                <td>${vo.ordered_name}</td>
+	                                            </tr>
+                                        	</c:forEach>
                                         </tbody>
                                     </table>
                                     <!--begin::Pagination-->
@@ -198,5 +182,31 @@
                 </div> <!--end::Container-->
             </div>
         </main>
+			
+	  	<script>
+		    function changeStatus(ordered_detail_no) {
+		        $.ajax({
+		            url: 'updateStatus.do',  // 서버의 URL (서버에 구현된 엔드포인트)
+		            method: 'POST',
+		            data: {
+		                orderedDetailNo: ordered_detail_no,  // 변경할 주문의 주문 상세 번호
+		                orderedStatus: 'D'  // 상태 값을 'D'로 변경
+		            },
+		            success: function(response) {
+		                if (response.success) {
+		                    // 상태 변경 성공 시, 버튼을 비활성화하거나 UI를 갱신
+		                    alert('상태가 변경되었습니다.');
+		                    location.reload();  // 페이지를 새로 고침해서 상태 변경 반영
+		                } else {
+		                    alert('상태 변경에 실패했습니다.');
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                alert('오류가 발생했습니다.');
+		            }
+		        });
+		    }
+		</script>			
+			
 				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

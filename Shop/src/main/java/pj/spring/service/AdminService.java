@@ -47,5 +47,13 @@ public interface AdminService {
 	// 惑前 昏力
 	public int productDelete(int product_no);
 	
+	// 林巩 包府 List
+	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam);
+	
+	// 林巩 包府 傈眉 荐
+	public int orderTotal();
+	
+	// 林巩 包府 惑怕 函版 ajax
+	public int updateOrderStatus(Map<String,Object> orderedStatus);
 	
 }

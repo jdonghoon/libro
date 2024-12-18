@@ -94,7 +94,23 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productDelete(product_no);
 	}
 
-	
+	// 林巩 包府 list
+	@Override
+	public List<Map<String, Object>> orderList(Map<String, Integer> pagingParam) {
+		return adminDAO.orderList(pagingParam);
+	}
+
+	// 林巩 包府 傈眉 荐
+	@Override
+	public int orderTotal() {
+		return adminDAO.orderTotal();
+	}
+
+	// 林巩 包府 惑怕 函版 ajax
+	@Override
+	public int updateOrderStatus(Map<String,Object> orderedStatus) {
+	    return adminDAO.updateOrderStatus(orderedStatus);
+	}
 	
 
 }

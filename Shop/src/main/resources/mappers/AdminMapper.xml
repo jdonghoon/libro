@@ -163,12 +163,12 @@
 	</delete>
 	 
 	<!-- 주문 관리List -->
-	<!-- <select id="userList" parameterType="java.util.Map" resultType="userVO" >
+	<select id="orderList" parameterType="java.util.Map" resultType="java.util.Map" >
 		SELECT   od.ordered_detail_no
 		       , o.ordered_no
 		       , p.product_no
 		       , p.product_name
-		       , o.ordered_creat_at
+		       , o.ordered_create_at
 		       , pm.payment_type
 		       , o.ordered_status
 		       , p.product_price
@@ -177,14 +177,21 @@
 		FROM  ordered o
 		JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
    LEFT JOIN  product p ON p.product_no = od.product_no
-   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no;
-       LIMIT  #{start} , #{perPage}
-	</select> -->
+   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no
+       LIMIT  #{start}, #{perPage}
+	</select>
 	
 	<!-- 주문 전체 수 -->
-	<!-- <select id="orderTotal" resultType="int">
+	<select id="orderTotal" resultType="int">
 		SELECT count(*)
-		  FROM order
-	</select> -->
+		  FROM ordered
+	</select>
+	
+	<!-- 주문 관리 상태 변경 ajax -->
+	<update id="updateOrderStatus" parameterType="java.util.Map">
+		UPDATE ordered_detail
+	       SET ordered_status = #{ordered_status}
+	     WHERE ordered_detail_no = #{ordered_detail_no}
+	</update>
 	 
 </mapper>
