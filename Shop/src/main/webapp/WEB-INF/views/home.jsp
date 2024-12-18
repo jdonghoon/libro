@@ -44,7 +44,9 @@
 						<c:forEach items="${today}" var="vo">
 							<div class="content-item">
 								<a href="product.do?product_no=${vo.product_no}">
-									<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
+									<c:if test="${not empty vo.attachment_detail_new_name}">
+										<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name} width="250px;">
+									</c:if>
 									<div class="title" name="title">${vo.product_name}</div>
 									<div class="writer" name="writer">${vo.product_author}</div>
 								</a>

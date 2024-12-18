@@ -11,7 +11,7 @@
      		 , product_author
   		  FROM product p
   		  JOIN attachment a
-    		ON p.product_no = a.attachment_product_no
+    		ON p.product_no = a.attachment_product_no AND attachment_type = 'PT'
   		  JOIN attachment_detail d
     		ON a.attachment_no = d.attachment_no
    	  ORDER BY  p.product_created_at DESC
@@ -28,7 +28,7 @@
      		 , COUNT(od.product_no) AS order_count
   		  FROM product p
   		  JOIN attachment a
-    		ON p.product_no = a.attachment_product_no
+    		ON p.product_no = a.attachment_product_no AND attachment_type = 'PT'
   		  JOIN attachment_detail d
     		ON a.attachment_no = d.attachment_no 
   		  JOIN ordered_detail od
@@ -48,7 +48,7 @@
      		 , COUNT(od.product_no) AS order_count
   		  FROM product p
   		  JOIN attachment a
-    		ON p.product_no = a.attachment_product_no
+    		ON p.product_no = a.attachment_product_no AND attachment_type = 'PT'
   		  JOIN attachment_detail d
     		ON a.attachment_no = d.attachment_no 
   		  JOIN ordered_detail od

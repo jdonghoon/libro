@@ -141,7 +141,7 @@
       		function addToCart(product_no){
       			
       			$.ajax({
-      				url : "addCart.do",
+      				url : "addcart.do",
       				type : "POST",
       				data : {product_no : product_no},
       				success : function (response) {
