@@ -113,8 +113,8 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="button" class="btn btn-primary">Search</button>
-                                        <button type="button" class="btn float-end">Reset</button>
+                                        <button type="button" class="btn btn-primary">검색</button>
+                                        <button type="button" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>
                                 <!--end::Form-->
@@ -138,6 +138,7 @@
                                                 <th>대표상품사진</th>
                                                 <th>카테고리</th>
                                                 <th>상품명</th>
+                                                <th>출판사</th>
                                                 <th>저자</th>
                                                 <th>국제표준도서번호</th>
                                                 <th>판매가</th>
@@ -162,6 +163,7 @@
 													
 	                                                <td>${vo.category_name}</td>
 	                                                <td>${vo.product_name}</td>
+	                                                <td>${vo.product_publisher}</td>
 	                                                <td>${vo.product_author}</td>
 	                                                <td>${vo.product_isbn}</td>
 	                                                <td>${vo.product_price}원</td>

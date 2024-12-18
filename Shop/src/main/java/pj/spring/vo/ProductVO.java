@@ -6,6 +6,7 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_description;			// 상품소개
 	private String product_author;				// 저자
 	private String product_author_description;	// 저자 소개
+	private String product_publisher;           // 출판사
 	private String product_price;				// 가격
 	private String product_isbn;				// 국제표준도서번호
 	private String product_page;				// 쪽수
@@ -30,6 +31,14 @@ public class ProductVO extends AttachmentDetailVO {
 	
 	
 	
+	
+	
+	public String getProduct_publisher() {
+		return product_publisher;
+	}
+	public void setProduct_publisher(String product_publisher) {
+		this.product_publisher = product_publisher;
+	}
 	public String getAttachment_detail_new_name() {
 		return attachment_detail_new_name;
 	}

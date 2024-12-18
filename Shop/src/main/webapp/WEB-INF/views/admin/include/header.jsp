@@ -94,7 +94,7 @@
 	                                    <li class="nav-item"> 
 	                                        <a href="<%=request.getContextPath()%>/admin/order.do" class="nav-link"> 
 	                                            <i class="nav-icon bi bi-circle"></i>
-	                                            <p>전체 주문내역</p>
+	                                            <p>주문내역</p>
 	                                        </a> 
 	                                    </li>
 	                                    <!-- <li class="nav-item"> 

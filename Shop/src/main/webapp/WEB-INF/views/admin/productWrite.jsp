@@ -97,6 +97,15 @@
                                                 </div>
                                             </div>
 
+											<div class="row g-2">
+                                                <label for="inputPublisher" class="col-sm-2 col-form-label">출판사</label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" id="inputPublisher" name="product_publisher">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="row g-2">
                                                 <label for="inputISBN" class="col-sm-2 col-form-label">국제표준도서번호</label>
                                                 <div class="row">

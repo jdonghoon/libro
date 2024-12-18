@@ -46,6 +46,7 @@
 		INSERT INTO product(
 			 product_status
 			,category_no
+			,product_publisher
 			,product_price
 			,product_stock
 			,product_name
@@ -58,6 +59,7 @@
 		)VALUES(
 			 #{product_status}
 			,(SELECT category_no FROM category WHERE category_name = #{category_name})
+			,#{product_publisher}
 			,#{product_price}
 			,#{product_stock}
 			,#{product_name}
@@ -140,6 +142,7 @@
 		UPDATE product
 		   SET product_status = #{product_status}
 			  ,category_no = (SELECT category_no FROM category WHERE category_name = #{category_name})
+			  ,product_publisher = #{product_publisher}
 			  ,product_price = #{product_price}
 			  ,product_stock = #{product_stock}
 			  ,product_name = #{product_name}
@@ -159,7 +162,29 @@
 			  WHERE product_no = #{product_no}
 	</delete>
 	 
-	 
-	 
+	<!-- 주문 관리List -->
+	<!-- <select id="userList" parameterType="java.util.Map" resultType="userVO" >
+		SELECT   od.ordered_detail_no
+		       , o.ordered_no
+		       , p.product_no
+		       , p.product_name
+		       , o.ordered_creat_at
+		       , pm.payment_type
+		       , o.ordered_status
+		       , p.product_price
+		       , od.ordered_detail_quantity
+		       , o.ordered_name
+		FROM  ordered o
+		JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
+   LEFT JOIN  product p ON p.product_no = od.product_no
+   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no;
+       LIMIT  #{start} , #{perPage}
+	</select> -->
+	
+	<!-- 주문 전체 수 -->
+	<!-- <select id="orderTotal" resultType="int">
+		SELECT count(*)
+		  FROM order
+	</select> -->
 	 
 </mapper>
