@@ -3,6 +3,7 @@ package pj.spring.service;
 import java.util.List;
 import java.util.Map;
 
+import pj.spring.vo.OrderedVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -54,6 +55,7 @@ public interface AdminService {
 	public int orderTotal();
 	
 	// 주문 관리 상태 변경 ajax
-	public int updateOrderStatus(Map<String,Object> orderedStatus);
+	public int updateOrderStatus(OrderedVO oderedvo);
 	
+
 }

@@ -11,10 +11,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.AdminService;
 import pj.spring.util.PagingUtil;
+import pj.spring.vo.OrderedVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -249,29 +249,20 @@ public class AdminController {
 	// 주문 관리 상태 변경 ajax
 	@ResponseBody
 	@RequestMapping(value = "/updateStatus.do", method = RequestMethod.POST)
-	public Map<String, Object> updateOrderStatus(@RequestParam("ordered_detail_no") int ordered_detail_no,
-	                                             @RequestParam("ordered_status") String ordered_status) {
-	    Map<String, Object> response = new HashMap<>();  // 응답을 담을 Map 객체 생성
-
-	    // Map에 파라미터 넣기
-	    Map<String, Object> orderedStatus = new HashMap<>();
-	    orderedStatus.put("ordered_detail_no", ordered_detail_no);
-	    orderedStatus.put("ordered_status", ordered_status);
-
-	    // 서비스에서 주문 상태 변경 처리
-	    int result = adminService.updateOrderStatus(orderedStatus);
-
-	    // 결과에 따라 응답
-	    if (result > 0) {
-	        response.put("success", true);
-	        response.put("message", "주문 상태가 성공적으로 변경되었습니다.");
+	public String updateStatus(@RequestBody OrderedVO orderedVO) {
+		
+		// 주문 상태를 변경하는 서비스 호출
+	    int result = adminService.updateOrderStatus(orderedVO);
+	    
+	    // 상태 변경 성공 여부에 따라 결과 반환
+	    if(result > 0) {
+	        return "success";  // 성공
 	    } else {
-	        response.put("success", false);
-	        response.put("message", "주문 상태 변경에 실패했습니다.");
+	        return "failure";  // 실패
 	    }
-
-	    return response;  // response를 반환
+	
 	}
+
 
 	// 취소 관리
 	@RequestMapping(value = "/cancel.do", method = RequestMethod.GET)

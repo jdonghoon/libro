@@ -127,15 +127,18 @@
 	                                        	<tr>
 		                                           	<td>
 		                                           		<!-- 클릭 시 ordered_status 타입이 D로 변경-->
-		                                           		<c:if test="${ordered_status == 'O'}">
-		                                           			<button class="btn btn-primary" onclick="changeStatus(${vo.ordered_detail_no})">발송완료</button>
-		                                           		</c:if>
+		                                           		<%-- <c:if test="${ordered_status == 'O'}"> --%>
+		                                           			<button class="btn btn-primary" onclick="changeStatus('${vo.ordered_no}', 'D')">발송완료</button>
+		                                           		<%-- </c:if> --%>
 												    </td>
 	                                                <td onclick="location.href='#';">${vo.ordered_detail_no}</td>
 	                                                <td>${vo.ordered_no}</td>
 	                                                <td>${vo.product_no}</td>
 	                                                <td>${vo.product_name}</td>
-	                                                <td>${vo.ordered_status}</td>
+	                                                <td>
+	                                                	<c:if test="${vo.ordered_status == 'O'}">주문완료</c:if>
+	                                                	<c:if test="${vo.ordered_status == 'D'}">발송완료</c:if>
+	                                                </td>
 	                                                <td>${vo.ordered_create_at}</td>
 	                                                <td>${vo.payment_type}</td>
 	                                                <td>${vo.product_price}원</td>
@@ -182,31 +185,34 @@
                 </div> <!--end::Container-->
             </div>
         </main>
-			
+        
 	  	<script>
-		    function changeStatus(ordered_detail_no) {
-		        $.ajax({
-		            url: 'updateStatus.do',  // 서버의 URL (서버에 구현된 엔드포인트)
-		            method: 'POST',
-		            data: {
-		                orderedDetailNo: ordered_detail_no,  // 변경할 주문의 주문 상세 번호
-		                orderedStatus: 'D'  // 상태 값을 'D'로 변경
-		            },
-		            success: function(response) {
-		                if (response.success) {
-		                    // 상태 변경 성공 시, 버튼을 비활성화하거나 UI를 갱신
-		                    alert('상태가 변경되었습니다.');
-		                    location.reload();  // 페이지를 새로 고침해서 상태 변경 반영
-		                } else {
-		                    alert('상태 변경에 실패했습니다.');
-		                }
-		            },
-		            error: function(xhr, status, error) {
-		                alert('오류가 발생했습니다.');
-		            }
-		        });
-		    }
-		</script>			
+		  	function changeStatus(orderedNo, orderedStatus) {
+		  	    var orderedVO = {
+		  	        ordered_no: orderedNo,
+		  	        ordered_status: orderedStatus
+		  	    };
+	
+		  	    $.ajax({
+		  	        url: 'updateStatus.do',
+		  	        type: 'POST',
+		  	        contentType: 'application/json',  // JSON 형식으로 데이터 전송
+		  	        data: JSON.stringify(orderedVO),  // 객체를 JSON 문자열로 변환
+		  	        success: function(response) {
+		  	            if(response === "success") {
+		  	                alert("상태가 성공적으로 변경되었습니다.");
+		  	            } else {
+		  	                alert("상태 변경에 실패했습니다.");
+		  	            }
+		  	        },
+		  	        error: function() {
+		  	            alert("서버와의 통신에 실패했습니다.");
+		  	        }
+		  	    });
+		  	}
+
+		</script>
+		
 			
 				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

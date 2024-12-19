@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>		
 	        <footer class="app-footer">
-	            <div class="float-end d-none d-sm-inline">Anything you want</div>
+	            <div class="float-end d-none d-sm-inline">Copyright &copy; Ezen c team</div>
 	            <strong>
-	                Copyright &copy; 2024&nbsp;
-	                <a class="text-decoration-none">ezen</a>.
-	            </strong>
-	            All rights reserved.
+                Copyright &copy; 2014-2024&nbsp;
+                <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+            </strong>
+            All rights reserved.
 	        </footer>
 	    </div>
 

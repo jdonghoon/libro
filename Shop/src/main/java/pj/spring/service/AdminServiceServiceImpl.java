@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
+import pj.spring.vo.OrderedVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -108,9 +109,12 @@ public class AdminServiceServiceImpl implements AdminService {
 
 	// 주문 관리 상태 변경 ajax
 	@Override
-	public int updateOrderStatus(Map<String,Object> orderedStatus) {
-	    return adminDAO.updateOrderStatus(orderedStatus);
+	public int updateOrderStatus(OrderedVO oderedvo) {
+		return adminDAO.updateOrderStatus(oderedvo);
 	}
+
+	
+
 	
 
 }

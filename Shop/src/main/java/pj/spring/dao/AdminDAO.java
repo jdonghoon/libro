@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pj.spring.vo.OrderedVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -94,8 +95,10 @@ public class AdminDAO {
 	}
 	
 	// 주문 관리 상태 변경 ajax
-	public int updateOrderStatus(Map<String,Object> orderedStatus) {
-		return sqlSession.update(namespace+".updateOrderStatus", orderedStatus);
+	public int updateOrderStatus(OrderedVO oderedvo) {
+		return sqlSession.update(namespace+".updateOrderStatus", oderedvo);
 	}
+	
+
 
 }

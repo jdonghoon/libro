@@ -188,10 +188,11 @@
 	</select>
 	
 	<!-- 주문 관리 상태 변경 ajax -->
-	<update id="updateOrderStatus" parameterType="java.util.Map">
-		UPDATE ordered_detail
+	<update id="updateOrderStatus" parameterType="OrderedVO">
+		UPDATE ordered
 	       SET ordered_status = #{ordered_status}
-	     WHERE ordered_detail_no = #{ordered_detail_no}
+	     WHERE ordered_no = #{ordered_no}
 	</update>
+	
 	 
 </mapper>
