@@ -26,35 +26,7 @@
 			</section>
 
 			<section class="content-section">
-				<!-- 오늘의 책 -->
-				<div class="content-container">
-					<div class="content-section-title">
-						<div class="content-section-1st-title">
-							<div>오늘의 책</div>
-							<div class="content-date">오늘 날짜</div>
-						</div>
-						<div>
-							<a href="menu/product.do?">
-								<img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="12px;">
-							</a>
-						</div>
-					</div>
-					<div class="content-list">
-						
-						<c:forEach items="${today}" var="vo">
-							<div class="content-item">
-								<a href="product.do?product_no=${vo.product_no}">
-									<c:if test="${not empty vo.attachment_detail_new_name}">
-										<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name} width="250px;">
-									</c:if>
-									<div class="title" name="title">${vo.product_name}</div>
-									<div class="writer" name="writer">${vo.product_author}</div>
-								</a>
-							</div>	 
-						</c:forEach> 
-					</div>
-				</div>
-			
+				
 				<!-- 주간 베스트 셀러 -->
 				<div class="content-container">
 					<div class="content-section-title">
@@ -72,7 +44,7 @@
 						<c:forEach items="${bestseller}" var="vo">
 							<div class="content-item">
 							<a href="product.do?product_no=${vo.product_no}">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
+								<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="250px;" height="350px;">
 								<div class="title" name="title">${vo.product_name}</div>
 								<div class="writer" name="writer">${vo.product_author}</div>
 							</a>
@@ -98,12 +70,36 @@
 					<c:forEach items="${hot}" var="vo">
 						<div class="content-item">
 							<a href="product.do?product_no=${vo.product_no}">
-								<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="250px;">
+								<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="250px;" height="350px;">
 								<div class="title" name="title">${vo.product_name}</div>
 								<div class="writer" name="writer">${vo.product_author}</div>
 							</a>
 						</div>
 					</c:forEach>
+					</div>
+				</div>
+				
+				<!-- 오늘의 책 -->
+				<div class="content-container">
+					<div class="content-section-title">
+						<div class="content-section-1st-title">
+							<div>오늘의 책</div>
+							<div class="content-date">오늘 날짜</div>
+						</div>
+					</div>
+					<div class="content-list">
+						
+						<c:forEach items="${today}" var="vo">
+							<div class="content-item">
+								<a href="product.do?product_no=${vo.product_no}">
+									<c:if test="${not empty vo.attachment_detail_new_name}">
+										<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="250px;" height="350px;">
+									</c:if>
+									<div class="title" name="title">${vo.product_name}</div>
+									<div class="writer" name="writer">${vo.product_author}</div>
+								</a>
+							</div>	 
+						</c:forEach> 
 					</div>
 				</div>
 			</section>

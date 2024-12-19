@@ -6,40 +6,15 @@
 <main class="main-container-cart">
   <!-- 상품 선택 -->
   <div class="first-container-cart">
-    <input type="radio" id="total" value="0">
-    <label class="total-rabel" for="total">전체 선택</label><br>
+    <div class="checkbox-container">
+      <label class="checkbox-label">
+        <input type="checkbox" id="selectAll" />
+        <span>전체 선택</span>
+      </label>
 
-    <input type="radio" id="option1" value="1">
-    <label for="option1">
-      <div class="book-info-container-cart">
-        <div class="book-image">
-          <a href="#">
-            <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-          </a>
-        </div>
-        <div class="book-detail">
-          <div class="category" name="category">카테고리</div>
-          <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-          <div class="writer" name="writer">저자</div>
-          <div class="price" name="price">가격</div>
-        </div>
-        <div class="book-sales">
-          <div class="quantity" name="quantity">수량
-            <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-              <span>1</span>
-            <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-          </div>
-          <div class="button-area-cart">
-            <div class="payment"><button>바로구매</button></div>
-            <div class="cart"><button>장바구니</button></div>
-            <div class="wishlist"><button>위시리스트</button></div>
-          </div>
-        </div>
-      </div>
-    </label>
-    <input type="radio" id="option2" value="2">
-    <label for="option2">
-      <div class="book-info-container-cart">
+      <label class="checkbox-label">
+        <input type="checkbox" name="book" value="1" />
+        <div class="book-info-container-cart">
           <div class="book-image">
             <a href="#">
               <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
@@ -58,16 +33,14 @@
               <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
             </div>
             <div class="button-area-cart">
-              <div class="payment"><button>바로구매</button></div>
-              <div class="cart"><button>장바구니</button></div>
-              <div class="wishlist"><button>위시리스트</button></div>
             </div>
           </div>
         </div>
       </label>
-      <input type="radio" id="option3" value="3">
-      <label for="option3">
-      <div class="book-info-container-cart">
+
+      <label class="checkbox-label">
+        <input type="checkbox" name="book" value="2" />
+        <div class="book-info-container-cart">
           <div class="book-image">
             <a href="#">
               <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
@@ -86,13 +59,55 @@
               <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
             </div>
             <div class="button-area-cart">
-              <div class="payment"><button>바로구매</button></div>
-              <div class="cart"><button>장바구니</button></div>
-              <div class="wishlist"><button>위시리스트</button></div>
             </div>
           </div>
         </div>
       </label>
+
+      <label class="checkbox-label">
+        <input type="checkbox" name="book" value="3" />
+        <div class="book-info-container-cart">
+          <div class="book-image">
+            <a href="#">
+              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+            </a>
+          </div>
+          <div class="book-detail">
+            <div class="category" name="category">카테고리</div>
+            <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
+            <div class="writer" name="writer">저자</div>
+            <div class="price" name="price">가격</div>
+          </div>
+          <div class="book-sales">
+            <div class="quantity" name="quantity">수량
+              <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
+                <span>1</span>
+              <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
+            </div>
+            <div class="button-area-cart">
+            </div>
+          </div>
+        </div>
+      </label>
+      <script>
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const checkboxes = document.querySelectorAll('input[name="book"]');
+      
+        // "전체 선택" 체크박스 클릭 시 모든 체크박스 상태 변경
+        selectAllCheckbox.addEventListener("change", () => {
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAllCheckbox.checked;
+          });
+        });
+      
+        // 개별 체크박스 클릭 시 "전체 선택" 상태 업데이트
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
+            selectAllCheckbox.checked = allChecked;
+          });
+        });
+      </script>
     </div>
 
   <!-- 결제 내역 -->  

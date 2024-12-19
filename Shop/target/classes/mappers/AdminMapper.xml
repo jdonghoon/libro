@@ -46,6 +46,7 @@
 		INSERT INTO product(
 			 product_status
 			,category_no
+			,product_publisher
 			,product_price
 			,product_stock
 			,product_name
@@ -58,6 +59,7 @@
 		)VALUES(
 			 #{product_status}
 			,(SELECT category_no FROM category WHERE category_name = #{category_name})
+			,#{product_publisher}
 			,#{product_price}
 			,#{product_stock}
 			,#{product_name}
@@ -110,13 +112,16 @@
     
     <!-- 상품 관리 list -->
     <select id="productList" parameterType="java.util.Map" resultType="ProductVO">
-    	SELECT p.*, c.category_name
-		  FROM product p
-		  JOIN category c 
-		    ON p.category_no = c.category_no
-		 LIMIT #{start}, #{perPage}
-    </select>
-	
+		  SELECT    p.*
+		          , c.category_name
+		          , ad.attachment_detail_new_name
+		    FROM  product p
+		    JOIN  category c ON p.category_no = c.category_no
+	   LEFT JOIN  attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
+	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+		   LIMIT  #{start}, #{perPage}
+	</select>
+		
 	<!-- 상품 전체 수 -->
 	<select id="productTotal" resultType="int">
 		SELECT count(*)
@@ -137,6 +142,7 @@
 		UPDATE product
 		   SET product_status = #{product_status}
 			  ,category_no = (SELECT category_no FROM category WHERE category_name = #{category_name})
+			  ,product_publisher = #{product_publisher}
 			  ,product_price = #{product_price}
 			  ,product_stock = #{product_stock}
 			  ,product_name = #{product_name}
@@ -155,5 +161,38 @@
 		DELETE FROM product
 			  WHERE product_no = #{product_no}
 	</delete>
+	 
+	<!-- 주문 관리List -->
+	<select id="orderList" parameterType="java.util.Map" resultType="java.util.Map" >
+		SELECT   od.ordered_detail_no
+		       , o.ordered_no
+		       , p.product_no
+		       , p.product_name
+		       , o.ordered_create_at
+		       , pm.payment_type
+		       , o.ordered_status
+		       , p.product_price
+		       , od.ordered_detail_quantity
+		       , o.ordered_name
+		FROM  ordered o
+		JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
+   LEFT JOIN  product p ON p.product_no = od.product_no
+   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no
+       LIMIT  #{start}, #{perPage}
+	</select>
+	
+	<!-- 주문 전체 수 -->
+	<select id="orderTotal" resultType="int">
+		SELECT count(*)
+		  FROM ordered
+	</select>
+	
+	<!-- 주문 관리 상태 변경 ajax -->
+	<update id="updateOrderStatus" parameterType="OrderedVO">
+		UPDATE ordered
+	       SET ordered_status = #{ordered_status}
+	     WHERE ordered_no = #{ordered_no}
+	</update>
+	
 	 
 </mapper>

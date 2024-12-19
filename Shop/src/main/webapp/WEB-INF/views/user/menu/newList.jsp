@@ -57,7 +57,7 @@
 		                    <div class="book-info-container-list">
 		                        <div class="book-image">
 		                            <a href="product_detail.html">
-		                                <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+		                                <img src="<%=request.getContextPath()%>/upload/${product.attachment_detail_new_name}" width="200px" height="300px;">
 		                            </a>
 		                        </div>
 		                        <div class="book-detail">
@@ -118,7 +118,7 @@
 	      <div class="book-info-container-list" id="book-info-container-list">
 	      	<div class="book-image">
 	            <a href="product.do?product_no=${vo.product_no}">
-	                <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+	                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px" height="300px;">
 	            </a>
 	        </div>
 	        <div class="book-detail">
@@ -188,7 +188,7 @@
 	        <div class="recommend-books">
 	          <div>
 	            <a href="product.do?product_no=${vo.product_no}">
-	              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
+	              <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="100px" height="150px;"></div>
 	              <div class="recommend-info">
 	                <div class="recommend-title">${vo.product_name}</div>
 	                <div class="recommend-writer">${vo.product_author}</div>

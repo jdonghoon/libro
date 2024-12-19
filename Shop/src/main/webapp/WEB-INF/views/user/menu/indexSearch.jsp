@@ -8,7 +8,9 @@
 <main class="main-container-search">
   <div class="search-result-container">
     <div class="result-container">
-      <div class="result-ment-area"><b>(${searchVo.searchValue})</b>에 대한 검색 결과입니다.</div>
+      <c:if test="${paging.nowPage eq 1}">
+      	<div class="result-ment-area"><b>(${searchVo.searchValue})</b>에 대한 검색 결과입니다.</div>
+      </c:if>
       <div class="menu-area">
         <!-- <ul>
           <li><a href="#" onclick="bestSeller()">판매순</a></li>
@@ -22,6 +24,7 @@
       </div>
       
       <!-- 도서 리스트 -->
+      
       <c:forEach items="${search}" var="vo">
       
       <!-- 점검 필요 -->
