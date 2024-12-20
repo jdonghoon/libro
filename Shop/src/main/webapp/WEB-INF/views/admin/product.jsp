@@ -148,7 +148,7 @@
                                                 <th>등록id</th>
                                                 <th>수정일</th>
                                                 <th>수정id</th>
-                                                <th>수정/삭제</th>
+                                                <th>수정</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -179,10 +179,10 @@
 	                                                <td>${vo.product_update_id}</td>
 	                                                <td>
 	                                                    <button class="btn btn-primary" onclick="location.href='productModify.do?product_no=${vo.product_no}'">수정</button>
-	                                                    <button class="btn btn-primary" onclick="document.forms['deletefrm'].submit();">삭제</button>
+	                                                   <%--  <button class="btn btn-primary" onclick="document.forms['deletefrm'].submit();">삭제</button>
 	                                                    <form name="deletefrm" action="productDelete.do" method="post">
 															<input type="hidden" name="product_no" value="${vo.product_no}">
-														</form>
+														</form> --%>
 	                                                </td>
 	                                            </tr>
                                             </c:forEach>

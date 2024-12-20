@@ -45,8 +45,9 @@ public interface AdminService {
 	// 상품 수정
 	public int productModifyUpdate(ProductVO productVO);
 	
-	// 상품 삭제
-	public int productDelete(int product_no);
+	/*
+	 * // 상품 삭제 public int productDelete(int product_no);
+	 */
 	
 	// 주문 관리 List
 	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam);
@@ -57,5 +58,10 @@ public interface AdminService {
 	// 주문 관리 상태 변경 ajax
 	public int updateOrderStatus(OrderedVO oderedvo);
 	
+	// 주문 취소 관리 List
+	public List<Map<String, Object>> orderCancelList(Map<String,Integer> pagingParam);
+	
+	// 주문 취소 전체 수
+	public int orderCancelTotal();
 
 }

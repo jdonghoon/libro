@@ -79,10 +79,10 @@ public class AdminDAO {
 		return sqlSession.update(namespace+".productModifyUpdate", productVO);
 	}
 	
-	// 惑前 昏力
-	public int productDelete(int product_no) {
-		return sqlSession.delete(namespace+".productDelete", product_no);
-	}
+	/*
+	 * // 惑前 昏力 public int productDelete(int product_no) { return
+	 * sqlSession.delete(namespace+".productDelete", product_no); }
+	 */
 	
 	// 林巩 包府 List
 	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam) {
@@ -99,6 +99,15 @@ public class AdminDAO {
 		return sqlSession.update(namespace+".updateOrderStatus", oderedvo);
 	}
 	
+	// 林巩 秒家 包府 List
+	public List<Map<String, Object>> orderCancelList(Map<String,Integer> pagingParam) {
+		return sqlSession.selectList(namespace+".orderCancelList", pagingParam);
+	}
+	
+	// 林巩 秒家 傈眉 荐
+	public int orderCancelTotal() {
+		return sqlSession.selectOne(namespace+".orderCancelTotal");
+	}
 
 
 }
