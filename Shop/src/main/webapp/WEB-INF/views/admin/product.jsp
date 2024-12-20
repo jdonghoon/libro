@@ -180,9 +180,9 @@
 	                                                <td>
 	                                                    <button class="btn btn-primary" onclick="location.href='productModify.do?product_no=${vo.product_no}'">수정</button>
 	                                                    <button class="btn btn-primary" onclick="document.forms['deletefrm'].submit();">삭제</button>
-	                                                    <form name="deletefrm" action="productDelete.do" method="post">
+	                                                    <%-- <form name="deletefrm" action="productDelete.do" method="post">
 															<input type="hidden" name="product_no" value="${vo.product_no}">
-														</form>
+														</form> --%>
 	                                                </td>
 	                                            </tr>
                                             </c:forEach>

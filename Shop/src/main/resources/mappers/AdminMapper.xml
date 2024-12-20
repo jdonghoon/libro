@@ -31,6 +31,7 @@
 		SELECT *
 		  FROM user 
 		 WHERE user_type = 'U'
+	  ORDER BY user_created_at DESC
 		 LIMIT #{start} , #{perPage}
 	</select>
 	
@@ -119,6 +120,7 @@
 		    JOIN  category c ON p.category_no = c.category_no
 	   LEFT JOIN  attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
 	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+	    ORDER BY  product_created_at DESC
 		   LIMIT  #{start}, #{perPage}
 	</select>
 		
@@ -157,28 +159,31 @@
 	</update>
 	
 	<!-- 상품 삭제 -->
-	<delete id="productDelete" parameterType="int">
+	<!-- <delete id="productDelete" parameterType="int">
 		DELETE FROM product
 			  WHERE product_no = #{product_no}
-	</delete>
+	</delete> -->
 	 
 	<!-- 주문 관리List -->
 	<select id="orderList" parameterType="java.util.Map" resultType="java.util.Map" >
-		SELECT   od.ordered_detail_no
-		       , o.ordered_no
-		       , p.product_no
-		       , p.product_name
-		       , o.ordered_create_at
-		       , pm.payment_type
-		       , o.ordered_status
-		       , p.product_price
-		       , od.ordered_detail_quantity
-		       , o.ordered_name
-		FROM  ordered o
-		JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
-   LEFT JOIN  product p ON p.product_no = od.product_no
-   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no
-       LIMIT  #{start}, #{perPage}
+			SELECT   od.ordered_detail_no
+			       , o.ordered_no
+			       , p.product_no
+			       , p.product_name
+			       , o.ordered_create_at
+			       , pm.payment_type
+			       , o.ordered_status
+			       , p.product_price
+			       , od.ordered_detail_quantity
+			       , o.ordered_name
+			FROM  ordered o
+			JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
+	   LEFT JOIN  product p ON p.product_no = od.product_no
+	   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no
+	   	   WHERE  ordered_status = 'O'
+		      OR  ordered_status = 'D'
+	    ORDER BY  ordered_create_at DESC
+	       LIMIT  #{start}, #{perPage}
 	</select>
 	
 	<!-- 주문 전체 수 -->
@@ -193,6 +198,41 @@
 	       SET ordered_status = #{ordered_status}
 	     WHERE ordered_no = #{ordered_no}
 	</update>
+	
+	<!-- 주문 취소 관리 List-->
+	<select id="orderCancelList" parameterType="java.util.Map" resultType="java.util.Map" >
+			SELECT   o.ordered_no
+			       , o.ordered_cancel_date
+			       , o.ordered_status
+			       , o.ordered_cancel_reason
+			       , o.ordered_name
+			       , o.ordered_phone
+			       , p.product_name
+			       , pm.payment_date
+			       , pm.payment_method
+			       , pm.payment_price
+			       , pm.payment_type
+			       , pm.payment_refund_price
+			       , pm.payment_refund_date
+			       , od.ordered_detail_no
+			       , od.ordered_detail_quantity
+			FROM  ordered o
+			JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
+	   LEFT JOIN  product p ON p.product_no = od.product_no
+	   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no
+	   	   WHERE  ordered_status = 'CW'
+		      OR  ordered_status = 'CC'
+	    ORDER BY  ordered_cancel_date DESC
+	       LIMIT  #{start}, #{perPage}
+	</select>
+	
+	<!-- 주문 취소 전체 수 -->
+	<select id="orderCancelTotal" resultType="int">
+		SELECT count(*)
+		  FROM ordered
+		 WHERE ordered_status = 'CW'
+		   OR ordered_status = 'CC'
+	</select>
 	
 	 
 </mapper>

@@ -89,11 +89,12 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productModifyUpdate(productVO);
 	}
 	
-	// 惑前 昏力
-	@Override
-	public int productDelete(int product_no) {
-		return adminDAO.productDelete(product_no);
-	}
+	/*
+	 * // 惑前 昏力
+	 * 
+	 * @Override public int productDelete(int product_no) { return
+	 * adminDAO.productDelete(product_no); }
+	 */
 
 	// 林巩 包府 list
 	@Override
@@ -111,6 +112,18 @@ public class AdminServiceServiceImpl implements AdminService {
 	@Override
 	public int updateOrderStatus(OrderedVO oderedvo) {
 		return adminDAO.updateOrderStatus(oderedvo);
+	}
+
+	// 林巩 秒家 包府 list
+	@Override
+	public List<Map<String, Object>> orderCancelList(Map<String, Integer> pagingParam) {
+		return adminDAO.orderCancelList(pagingParam);
+	}
+
+	// 林巩 秒家 傈眉 荐
+	@Override
+	public int orderCancelTotal() {
+		return adminDAO.orderCancelTotal();
 	}
 
 	

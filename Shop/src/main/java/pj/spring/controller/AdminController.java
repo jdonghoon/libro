@@ -216,14 +216,16 @@ public class AdminController {
 
 	}
 
-	// 惑前 昏力
-	@RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
-	public String productDelete(int product_no) {
-
-		adminService.productDelete(product_no);
-
-		return "redirect:product.do";
-	}
+	/*
+	 * // 惑前 昏力
+	 * 
+	 * @RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
+	 * public String productDelete(int product_no) {
+	 * 
+	 * adminService.productDelete(product_no);
+	 * 
+	 * return "redirect:product.do"; }
+	 */
 
 	// 林巩 包府
 	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
@@ -266,8 +268,23 @@ public class AdminController {
 
 	// 秒家 包府
 	@RequestMapping(value = "/cancel.do", method = RequestMethod.GET)
-	public String cancel() {
+	public String cancel(Model model,
+			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
 
+		int total = adminService.orderCancelTotal();
+
+		PagingUtil paging = new PagingUtil(nowPage, total, 10);
+
+		Map<String, Integer> pagingParam = new HashMap<String, Integer>();
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("perPage", paging.getPerPage());
+
+		List<Map<String, Object>> orderCancelList = adminService.orderCancelList(pagingParam);
+		
+		model.addAttribute("orderCancelList", orderCancelList);
+		model.addAttribute("paging", paging);
+
+		
 		return "admin/cancel";
 	}
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/admin/include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
         <main class="app-main">
             <!--begin::App Content Header-->
@@ -97,54 +98,8 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="button" class="btn btn-primary">Search</button>
-                                        <button type="button" class="btn float-end">Reset</button>
-                                    </div> <!--end::Footer-->
-                                </form>
-                                <!--end::Form-->
-                            </div>
-                            <!--end::Quick Example-->
-                        </div>
-                    </div> <!--end::Row-->
-                </div> <!--end::Container-->
-            </div> <!--end::App Content-->
-
-            <div class="app-content">
-                <!--begin::Container-->
-                <div class="container-fluid">
-                    <!--begin::Row-->
-                    <div class="row g-4">
-                        <!--begin::Col-->
-                        <div class="col-12">
-                            <!--begin::Quick Example-->
-                            <div class="card card-primary card-outline mb-4">
-                                <!--begin::Header-->
-                                <div class="card-header">
-                                    <div class="card-title">취소 요청 목록</div>
-                                </div>
-                                <!--end::Header-->
-                                <!--begin::Form-->
-                                <form>
-                                    <!--begin::Body-->
-                                    <div class="card-body">
-                                        <div class="row g-3">
-
-                                            <div class="row g-2">
-                                                <label for="validationCustom04">주문관리</label>
-                                                <div class="btn-group mb-2" role="group" aria-label="Basic radio toggle button group"> 
-                                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked> 
-                                                    <label class="btn btn-outline-primary" for="btnradio1">취소완료</label> 
-                                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"> 
-                                                    <label class="btn btn-outline-primary" for="btnradio2">환불완료</label> 
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <!--end::Body-->
-                                    <!--begin::Footer-->
-                                    <div class="card-footer">
-                                        <button type="button" class="btn btn-primary">적용</button>
+                                        <button type="button" class="btn btn-primary">검색</button>
+                                        <button type="reset" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>
                                 <!--end::Form-->
@@ -164,9 +119,7 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </th>
+                                                <th>btn</th>
                                                 <th>취소접수일</th>
                                                 <th>주문상태</th>
                                                 <th>상품주문번호</th>
@@ -185,216 +138,64 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                </td>
-                                                <td>2024-12-06</td>
-                                                <td>취소대기</td>
-                                                <td>131561485</td>
-                                                <td>131561485</td>
-                                                <td>소년이온다</td>
-                                                <td>주문실수</td>
-                                                <td>2024-12-03</td>
-                                                <td>카드</td>
-                                                <td>13,500원</td>
-                                                <td>환불대기</td>
-                                                <td>13,500원</td>
-                                                <td>2024-12-08</td>
-                                                <td>1</td>
-                                                <td>홍길동</td>
-                                                <td>01000000000</td>
-                                            </tr>
+                                        	<c:forEach items="${orderCancelList}" var="vo">
+	                                            <tr>
+	                                                <td>
+	                                                    <button class="btn btn-primary">취소완료</button>
+	                                                    <button class="btn btn-primary">환불완료</button>
+	                                                </td>
+	                                                <td>${vo.ordered_cancel_date}</td>
+	                                                <td>
+	                                                	<c:if test="${vo.ordered_status == 'CW'}">취소대기</c:if>
+	                                                	<c:if test="${vo.ordered_status == 'CC'}">취소완료</c:if>
+	                                                </td>
+	                                                <td>${vo.ordered_detail_no}</td>
+	                                                <td>${vo.ordered_no}</td>
+	                                                <td>${vo.product_name}</td>
+	                                                <td>${vo.ordered_cancel_reason}</td>
+	                                                <td>${vo.payment_date}</td>
+	                                                <td>${vo.payment_method}</td>
+	                                                <td>${vo.payment_price}</td>
+	                                                <td>
+	                                                	<c:if test="${vo.payment_type == 'RW'}">횐불대기</c:if>
+	                                                	<c:if test="${vo.payment_type == 'RC'}">횐불완료</c:if>
+	                                                </td>
+	                                                <td>${vo.payment_refund_price}</td>
+	                                                <td>${vo.payment_refund_date}</td>
+	                                                <td>${vo.ordered_detail_quantity}</td>
+	                                                <td>${vo.ordered_name}</td>
+	                                                <td>${vo.ordered_phone}</td>
+	                                            </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                     <!--begin::Pagination-->
                                     <div aria-label="Page navigation example">
                                         <ul class="pagination">
-                                            <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                            <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>
+                                            <li class="page-item">
+                                             	<c:if test="${paging.startPage > 1 }">
+	                                            	<a class="page-link" href="cancel.do?nowPage=${paging.startPage-1}" aria-label="Previous">
+	                                            		<span aria-hidden="true">&laquo;</span>
+	                                            	</a>
+                                            	</c:if>
+                                           	</li>
+                                            <li class="page-item">
+                                            	<c:forEach begin="${paging.startPage }" end="${paging.endPage}" var="cnt">
+													<c:if test="${paging.nowPage eq cnt }">
+														<b>${cnt}</b>
+													</c:if>
+													<c:if test="${paging.nowPage ne cnt }">
+                                            			<a class="page-link" href="cancel.do?nowPage=${cnt}">${cnt}</a>
+													</c:if>
+												</c:forEach>
+                                           	</li>
+                                            <li class="page-item">
+                                            	<c:if test="${paging.endPage < paging.lastPage }">
+		                                            <a class="page-link" href="cancel.do?nowPage=${paging.endPage+1}" aria-label="Next">
+		                                            	<span aria-hidden="true">&raquo;</span>
+		                                            </a>
+	                                            </c:if>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!--end::Pagination-->
@@ -405,5 +206,10 @@
                 </div> <!--end::Container-->
             </div>
         </main>
-				
+        
+        <script>
+			
+		</script>
+        
+        
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>
