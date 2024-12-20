@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pj.spring.mapper.menuMapper">
+
+	<!-- newList 30일 간 등록된 책 -->
+	<select id="selectNewList" parameterType="searchVO" resultType="productVO">
+		SELECT attachment_detail_new_name
+			  , p.product_no
+	 		  , product_name
+     		  , product_author
+     		  , product_price
+     		  , product_created_at
+     		  , category_name
+  		  FROM product p
+  		  JOIN attachment a
+		    ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
+		  JOIN attachment_detail d
+		    ON a.attachment_no = d.attachment_no
+		  JOIN category c
+		    ON p.category_no = c.category_no
+ 		 WHERE product_created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+ 		 <if test="categoryType != null and categoryType != ''">
+ 		   AND TRIM(category_name) = TRIM(#{categoryType})
+ 		 </if>
+   	  ORDER BY product_created_at DESC
+   	  	 LIMIT #{start}, #{perPage};
+   	</select>
+   	
+   	<!-- 3일간 paging total 조회 -->
+   	<select id="selectTotal" parameterType="searchVO" resultType="int">
+   		SELECT COUNT(*)
+   		  FROM product p
+   		  JOIN category c
+   		    ON p.category_no = c.category_no
+   		 WHERE product_created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+   		 <if test="categoryType != null and categoryType != ''">
+ 		   AND TRIM(category_name) = TRIM(#{categoryType});
+ 		 </if>
+   	</select>
+	
+	<!-- bestsellerlist 가장 많이 팔린 책 -->
+	<select id="selectBestsellerList" parameterType="searchVO" resultType="productVO">
+		SELECT attachment_detail_new_name
+			  , p.product_no
+	 		  , product_name
+     		  , product_author
+     		  , product_price
+     		  , product_created_at	
+     		  , category_name
+     		  , COUNT(od.product_no) AS order_count
+  		  FROM product p
+  		  JOIN attachment a
+		    ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
+		  JOIN attachment_detail d
+		    ON a.attachment_no = d.attachment_no
+		  JOIN category c
+		    ON p.category_no = c.category_no
+	      JOIN ordered_detail od
+    		ON p.product_no = od.product_no
+		 <if test="categoryType != null and categoryType != ''">
+		   WHERE TRIM(category_name) = TRIM(#{categoryType})
+		 </if>
+   	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author, product_price, product_created_at 
+   	  ORDER BY order_count DESC
+   	  	 LIMIT #{start}, #{perPage};
+   	</select>
+   	
+   	<!-- totalList 전체 책 -->
+	<select id="selectTotalList" parameterType="searchVO" resultType="productVO">
+		SELECT attachment_detail_new_name
+		 	 , p.product_no
+	  		 , product_name
+	  		 , product_author
+	  		 , product_price
+	  		 , product_created_at
+	  		 , category_name
+  		  FROM product p
+  		  JOIN attachment a
+			ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
+  		  JOIN attachment_detail d
+			ON a.attachment_no = d.attachment_no
+  		  JOIN category c
+			ON p.category_no = c.category_no
+		<if test="categoryType != null and categoryType != ''">
+		 WHERE TRIM(category_name) = TRIM(#{categoryType})
+		</if>
+   	  	 ORDER BY product_created_at DESC
+   	  	 LIMIT #{start}, #{perPage};
+   	</select>
+   	
+   	<!-- list banner 조회 -->
+   	<select id="selectRecommend" resultType="productVO">
+   		SELECT attachment_detail_new_name
+   			 , p.product_no
+			 , product_name
+     		 , product_author
+  		  FROM product p
+  		  JOIN attachment a
+    		ON p.product_no = a.attachment_product_no
+  		  JOIN attachment_detail d
+    		ON a.attachment_no = d.attachment_no
+   	  ORDER BY p.product_created_at
+   		 LIMIT 0, 4;
+   	</select>
+   	
+   	<!-- product_detail 조회 -->
+   	<select id="selectProductDetail" parameterType="int" resultType="productVO">
+   		SELECT attachment_detail_new_name
+	  		 , p.product_no
+      		 , product_name
+      		 , product_description
+      		 , product_author
+      		 , product_author_description
+      		 , product_price
+      		 , product_isbn
+      		 , product_page
+      		 , category_name
+      		 , FORMAT((SELECT AVG(review_starrating) FROM review WHERE product_no = 1), 1) as review_starrating_avg
+      		 , (SELECT COUNT(review_no) FROM review WHERE product_no = 1) as review_cnt
+  		 FROM product p
+  		 JOIN attachment a
+		   ON p.product_no = a.attachment_product_no
+		 JOIN attachment_detail d
+		   ON a.attachment_no = d.attachment_no
+		 JOIN category c
+		   ON p.category_no = c.category_no
+ 		WHERE p.product_no = #{product_no};
+   	</select>
+   	
+   	<!-- review 조회 -->
+   	<select id="selectReviewDetail" parameterType="int" resultType="reviewVO">
+   		SELECT FORMAT(SUM(CASE WHEN review_starrating = 5 THEN 1 ELSE 0 END) / COUNT(*) * 100, 0) as review_five_score
+	   		 , FORMAT(SUM(CASE WHEN review_starrating = 4 THEN 1 ELSE 0 END) / COUNT(*) * 100, 0) as review_four_score
+       		 , FORMAT(SUM(CASE WHEN review_starrating = 3 THEN 1 ELSE 0 END) / COUNT(*) * 100, 0) as review_three_score
+       		 , FORMAT(SUM(CASE WHEN review_starrating = 2 THEN 1 ELSE 0 END) / COUNT(*) * 100, 0) as review_two_score
+       		 , FORMAT(SUM(CASE WHEN review_starrating = 1 THEN 1 ELSE 0 END) / COUNT(*) * 100, 0) as review_one_score
+	    	 , (SELECT review_content FROM review WHERE review_starrating = 5 AND product_no = 1 ORDER BY review_create_at desc LIMIT 1) as review_content
+	    	 , (SELECT review_create_at FROM review WHERE review_starrating = 5 AND product_no = 1 ORDER BY review_create_at desc LIMIT 1) as review_create_at
+	    	 , (SELECT user_id FROM review WHERE review_starrating = 5 AND product_no = 1 ORDER BY review_create_at desc LIMIT 1) as user_id
+	      FROM review
+		 WHERE product_no = 1;
+   	</select>
+   	
+   	
+</mapper>

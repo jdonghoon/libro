@@ -6,7 +6,7 @@
   <!-- 왼쪽 섹션: 상품 이미지 -->
     <div class="first-container-detail">
       <div class="left-container-detail">
-        <div><img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="300px;"></div>
+        <div><img src="<%=request.getContextPath()%>/upload/${productDetail.attachment_detail_new_name}" width="300px;"></div>
       </div>
       <!-- 오른쪽 섹션: 상품 정보 및 구매 -->
       <div class="right-container-detail">
@@ -143,7 +143,14 @@
                 <img src="https://img.icons8.com/?size=100&id=87XmLcImcKSL&format=png&color=000000" width="20px">
                 <img src="https://img.icons8.com/?size=100&id=87XmLcImcKSL&format=png&color=000000" width="20px">
                 <img src="https://img.icons8.com/?size=100&id=87XmLcImcKSL&format=png&color=000000" width="20px">
-                <div class="evaluation-score">${productDetail.review_starrating_avg} / 5</div>
+                <div class="evaluation-score">
+                	<c:if test="${empty productDetail.review_starrating_avg}">
+                		0 / 5
+                	</c:if>
+                	<c:if test="${not empty productDetail.review_starrating_avg}">
+                		${productDetail.review_starrating_avg} / 5
+                	</c:if>
+                </div>
               </div>
             </div>
             <div class="display-container">
