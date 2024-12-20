@@ -52,7 +52,7 @@
 		</div>
 		
 		<!-- 로그인 메뉴 (오른쪽에서 나오는 메뉴) -->
-		<div id="login-menu" class="side-menu-right">
+		<div id="login-menu" class="side-menu-right-1">
 			<button class="right-close-btn" onclick="closeMenu()">닫기</button>
 			<!-- 비회원 -->
 			<sec:authorize access="isAnonymous()"><!-- 로그인 안됨 -->
@@ -78,8 +78,9 @@
 		</div>
 		
 		<!-- 장바구니 메뉴 (오른쪽에서 나오는 메뉴) -->
-		<div id="cart-menu" class="side-menu-right">
+		<div id="cart-menu" class="side-menu-right-2">
 			<button class="right-close-btn" onclick="closeMenu()">닫기</button>
 			<a href="#">장바구니 항목 1</a>
 			<a href="#">장바구니 항목 2</a>
+			<button onclick="location.href='user/cart/cart.html'" class="cart-btnvv">장바구니로 이동</button>
 		</div>

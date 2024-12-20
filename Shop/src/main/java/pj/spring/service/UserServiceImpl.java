@@ -1,12 +1,25 @@
 package pj.spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.UserDAO;
-import pj.spring.vo.*;
+import pj.spring.vo.AddressBookVO;
+import pj.spring.vo.CartVO;
+import pj.spring.vo.ContactVO;
+import pj.spring.vo.OrderedVO;
+import pj.spring.vo.ProductVO;
+import pj.spring.vo.ReviewVO;
+import pj.spring.vo.UserVO;
+import pj.spring.vo.WishlistVO;
 
 @Service // 업무로직을 담당하는 구현 객체를 스프링이 생성하여 관리
 public class UserServiceImpl implements UserService {
@@ -204,4 +217,134 @@ public class UserServiceImpl implements UserService {
 	public int deleteReview(String review_no) {
 		return userDAO.deleteReview(review_no);
 	}
+
+	// 위시리스트 조회
+	@Override
+	public List<WishlistVO> selectWishlist(String user_id) {
+		return userDAO.selectWishlist(user_id);
+	}
+
+	// 위시리스트 등록
+	@Override
+	public int insertWishlist(WishlistVO wishlistVO) {
+		return userDAO.insertWishlist(wishlistVO);
+	}
+
+	// 위시리스트 삭제
+	@Override
+	public int deleteWishlist(String wishlist_no) {
+		return userDAO.deleteWishlist(wishlist_no);
+	}
+
+	// 카트로 이동
+	@Override
+	public int insertCart(CartVO cartVO) {
+		return userDAO.insertCart(cartVO);
+	}
+
+	// 위시리스트 조회
+	@Override
+	public List<WishlistVO> getGuestWishlistFromCookies(HttpServletRequest request) {
+		List<WishlistVO> list = new ArrayList<>();
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().startsWith("wishlist_")) {
+		
+					String product_no = cookie.getValue();
+
+					ReviewVO product = userDAO.selectProductForGuest(product_no);
+					
+					WishlistVO vo = new WishlistVO();
+					vo.setProduct_no(product.getProduct_no());
+					vo.setAttachment_detail_new_name(product.getAttachment_detail_new_name());
+					vo.setProduct_name(product.getProduct_name());
+					vo.setProduct_author(product.getProduct_author());
+					vo.setProduct_publisher(product.getProduct_publisher());
+					vo.setReview_starrating(product.getReview_starrating());
+					vo.setWishlist_no(cookie.getName().substring("wishlist_".length()));
+//					System.out.println("비회원 위시번호 : " + vo.getWishlist_no());
+					list.add(vo);
+				}	
+			}
+		}
+		return list;
+	}
+
+	// 위시리스트 등록
+	@Override
+	public void addGuestWishlistToCookies(String product_no, HttpServletRequest request, HttpServletResponse response) {
+		String wishlistId = UUID.randomUUID().toString(); // 고유한 UUID 생성
+		Cookie cookie = new Cookie("wishlist_" + wishlistId, String.valueOf(product_no)); // 쿠키 이름을 일관되게 설정
+		cookie.setPath("/"); // 쿠키가 모든 경로에서 유효하도록 설정
+		cookie.setMaxAge(60 * 60 * 24 * 7); // 7일 유지
+		response.addCookie(cookie); // 쿠키를 클라이언트에 전달
+	}
+
+	// 위시리스트 삭제
+	@Override
+	public void removeGuestWishlistFromCookies(String wishlist_no, HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		System.out.println("cookies" + cookies);
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+//				System.out.println("name::"+cookie.getName().startsWith("wishlist_"));
+//				System.out.println("value::"+cookie.getValue());
+//				System.out.println("wishlist_no::"+wishlist_no);
+				if (cookie.getName().startsWith("wishlist_") && cookie.getValue().equals(wishlist_no)) {
+					cookie.setMaxAge(0);
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					System.out.println("Deleting cookie: " + cookie.getName());
+				}
+			}
+		}
+	}
+
+	// 카트로 이동
+	@Override
+	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response) {
+	    Cookie cookie = new Cookie("cart_" + UUID.randomUUID(), product_no);
+	    cookie.setPath("/");
+	    cookie.setMaxAge(60 * 60 * 24 * 7); // 7일 유지
+	    response.addCookie(cookie);
+	}
+
+	// 로그인 후 비회원 위시리스트 DB로 이동
+	@Override
+	public void migrateGuestWishlistToDB(HttpServletRequest request, String username, HttpServletResponse response) {
+	    Cookie[] cookies = request.getCookies();
+
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().startsWith("wishlist_")) {
+	                // 쿠키의 값은 상품 번호(product_no)
+	                String product_no = cookie.getValue();
+
+	                // DB에 저장할 위시리스트 객체 생성
+	                WishlistVO vo = new WishlistVO();
+	                vo.setProduct_no(product_no);
+	                vo.setUser_id(username);  // 로그인한 회원의 ID
+	                vo.setWishlist_create_id(username);
+	                vo.setWishlist_update_id(username);
+
+	                // DB에 위시리스트 저장
+	                int result = userDAO.insertWishlist(vo);
+	                if (result > 0) {
+	                    System.out.println("비회원 위시리스트 DB로 이동 성공");
+	                } else {
+	                    System.out.println("비회원 위시리스트 DB로 이동 실패");
+	                }
+
+	                // 쿠키 삭제
+	                cookie.setMaxAge(0);  // 쿠키 만료 시간 0으로 설정하여 삭제
+	                cookie.setPath("/");
+	                response.addCookie(cookie);  // 삭제된 쿠키를 클라이언트로 전송
+	                System.out.println("쿠키 삭제: " + cookie.getName());
+	            }
+	        }
+	    }
+	}
+
+
 }

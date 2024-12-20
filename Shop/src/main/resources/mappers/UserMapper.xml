@@ -569,6 +569,92 @@
 		WHERE
 			review_no = #{review_no};
 	</update>
+	
+	<!-- 위시리스트 조회 -->
+	<select id="selectWishlist" parameterType="String" resultType="wishlistVO">
+		SELECT 
+			w.wishlist_no,
+			r.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			p.product_price,
+			r.review_starrating
+		FROM 
+			wishlist w, product p, review r, attachment a, attachment_detail ad
+		WHERE
+			p.product_no = w.product_no
+		AND
+			p.product_no = r.product_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND
+			w.user_id = #{user_id}
+		AND 
+			a.attachment_type = 'PT'
+	</select>	
+	
+	<!-- 위시리스트 등록 -->
+	<insert id="insertWishlist" parameterType="wishlistVO">
+		INSERT INTO wishlist (
+			wishlist_create_id,
+			wishlist_update_id,
+			user_id,
+			product_no
+		) VALUES (
+			#{user_id},
+			#{user_id},
+			#{user_id},
+			#{product_no}
+		);
+	</insert>
+	
+	<!-- 위시리스트 삭제 -->
+	<delete id="deleteWishlist" parameterType="String">
+		DELETE FROM wishlist WHERE wishlist_no = #{wishlist_no} 
+	</delete>
+	
+	<!-- 카트로 이동 -->
+	<insert id="insertCart" parameterType="cartVO">
+		INSERT INTO cart (
+			cart_create_id,
+			cart_update_id,
+			user_id,
+			product_no
+		) VALUES (
+			#{user_id},
+			#{user_id},
+			#{user_id},
+			#{product_no}
+		);
+	</insert>
+	
+	<!-- 비회원용 상품정보 -->
+	<select id="selectProductForGuest" parameterType="String" resultType="reviewVO">
+		SELECT 
+			r.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			p.product_price,
+			r.review_starrating
+		FROM 
+			product p, review r, attachment a, attachment_detail ad
+		WHERE
+			p.product_no = r.product_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND
+			p.product_no = #{product_no}
+		AND 
+			a.attachment_type = 'PT'
+	</select>
 </mapper>
 
 

@@ -119,7 +119,7 @@
 												<div class="rating">
 													★★★★★
 													<span class="rating_star">★★★★★</span>
-													<input type="range" value="${vo.review_starrating}" step="1" min="0" max="10" name="review_starrating">
+													<input type="range" value="${vo.review_starrating}" step="1" min="0" max="5" name="review_starrating">
 												</div>
 											</div>
 	                                    </td>
@@ -246,8 +246,8 @@
 	const rating_star = document.querySelector('.rating_star');
 
 	// 초기값 설정 (rvo.review_starrating에 따라 별점 너비 계산)
-	const initialRating = parseInt(rating_input.value, 10);
-	rating_star.style.width = (initialRating * 10) + '%';  // 초기 별점 너비 설정
+	const initialRating = parseInt(rating_input.value, 20);
+	rating_star.style.width = (initialRating * 20) + '%';  // 초기 별점 너비 설정
     </script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

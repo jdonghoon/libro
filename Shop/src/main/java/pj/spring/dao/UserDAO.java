@@ -175,4 +175,30 @@ public class UserDAO {
 	public int deleteReview(String review_no) {
 		return sqlSession.update(namespace + ".deleteReview", review_no);
 	}
+	
+	// 위시리스트 조회
+	public List<WishlistVO> selectWishlist(String user_id) {
+		return sqlSession.selectList(namespace + ".selectWishlist", user_id);
+	}
+	
+	// 위시리스트 등록
+	public int insertWishlist(WishlistVO wishlistVO) {
+		return sqlSession.insert(namespace + ".insertWishlist", wishlistVO);
+	}
+	
+	// 위시리스트 삭제
+	public int deleteWishlist(String wishlist_no) {
+		return sqlSession.delete(namespace + ".deleteWishlist", wishlist_no);
+	}
+	
+	// 카트로 이동
+	public int insertCart(CartVO cartVO) {
+		return sqlSession.insert(namespace + ".insertCart", cartVO);
+	}
+	
+	// 비회원용 상품정보
+	public ReviewVO selectProductForGuest(String product_no) {
+		return sqlSession.selectOne(namespace + ".selectProductForGuest", product_no);
+	}
+
 }

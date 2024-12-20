@@ -67,7 +67,9 @@
 							</c:forEach>
                         </tbody>
                     </table>
-                    〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
+	                <div class="pagination">
+						〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
+	                </div>
                 </div>
 
                 <div class="form-container" id="order-cancel-form">
@@ -115,7 +117,9 @@
 							</c:forEach>
                         </tbody>
                     </table>
-                    〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
+	                <div class="pagination">
+						〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
+	                </div>
                 </div>
 
             </div>
