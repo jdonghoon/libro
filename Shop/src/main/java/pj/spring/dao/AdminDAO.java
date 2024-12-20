@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pj.spring.vo.OrderedVO;
+import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -94,9 +95,9 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace+".orderTotal");
 	}
 	
-	// 주문 관리 상태 변경 ajax
-	public int updateOrderStatus(OrderedVO oderedvo) {
-		return sqlSession.update(namespace+".updateOrderStatus", oderedvo);
+	// ordered_status 변경 ajax
+	public int updateOrderStatus(OrderedVO orderedVO) {
+		return sqlSession.update(namespace+".updateOrderStatus", orderedVO);
 	}
 	
 	// 주문 취소 관리 List
@@ -109,5 +110,10 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace+".orderCancelTotal");
 	}
 
+	// payment_type 변경 ajax
+	public int updateRefundStatus(PaymentVO paymentVO) {
+		return sqlSession.update(namespace+".updateRefundStatus", paymentVO);
+	}
+	
 
 }
