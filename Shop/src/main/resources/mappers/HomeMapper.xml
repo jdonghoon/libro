@@ -3,21 +3,6 @@
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pj.spring.mapper.homeMapper">
 
-	<!-- index 오늘의 책 -->
-	<select id="selectTodayBook" resultType="productVO">
-		SELECT attachment_detail_new_name
-			 , p.product_no
-			 , product_name
-     		 , product_author
-  		  FROM product p
-  		  JOIN attachment a
-    		ON p.product_no = a.attachment_product_no AND attachment_type = 'PT'
-  		  JOIN attachment_detail d
-    		ON a.attachment_no = d.attachment_no
-   	  ORDER BY  p.product_created_at DESC
-   		 LIMIT 0, 4;
-   	</select>
-   	
    	<!-- index 베스트 셀러 -->
    	<!-- 가장 많이 팔린  -->
    	<select id="selectBestSellerBook" resultType="productVO">
@@ -35,7 +20,7 @@
     		ON p.product_no = od.product_no
    	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author
    	  ORDER BY order_count DESC
-   		 LIMIT 0, 4;
+   		 LIMIT 4;
    	</select>
    	
    	<!-- 화제의 신작 -->
@@ -55,9 +40,23 @@
     		ON p.product_no = od.product_no
    	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author
    	  ORDER BY order_count, product_created_at DESC
-   		 LIMIT 0, 4;
+   		 LIMIT 4;
    	</select>
    	
+   	<!-- index 오늘의 책 -->
+	<select id="selectTodayBook" resultType="productVO">
+		SELECT attachment_detail_new_name
+	 		 , product_name
+     		 , product_author
+  		 FROM product p
+  	LEFT JOIN attachment a
+    	   ON p.product_no = a.attachment_product_no AND attachment_type = 'PT'
+  	LEFT JOIN attachment_detail d
+    	   ON a.attachment_no = d.attachment_no
+   WHERE DATE(p.product_created_at) = DATE(now())
+ 		LIMIT 4;
+   	</select>
+
    	<!-- paging total 조회 -->
    	<select id="selectProductTotal" parameterType="searchVO" resultType="int">
    		SELECT COUNT(*)
@@ -79,7 +78,7 @@
      		  , category_name
   		  FROM product p
   		  JOIN attachment a
-		    ON p.product_no = a.attachment_product_no
+		    ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
 		  JOIN attachment_detail d
 		    ON a.attachment_no = d.attachment_no
 		  JOIN category c
@@ -92,7 +91,7 @@
    	  	 LIMIT #{start}, #{perPage};
    	</select>
    	
-   	<!-- index_search banner 조회 -->
+   	<!-- index_search banner 조회 -->	
    	<select id="selectRecommend" resultType="productVO">
    		SELECT attachment_detail_new_name
    			 , p.product_no
@@ -100,7 +99,7 @@
      		 , product_author
   		  FROM product p
   		  JOIN attachment a
-    		ON p.product_no = a.attachment_product_no
+    		ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
   		  JOIN attachment_detail d
     		ON a.attachment_no = d.attachment_no
    	  ORDER BY p.product_created_at

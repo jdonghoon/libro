@@ -202,17 +202,17 @@
     height: 35px;
 }
 
-.pagination {
+#pagination {
 	text-align: center;
     margin: 15px 0;
 }
 
-.pagination b {
+#pagination b {
 	margin: 0 5px;
 	font-size: 1.1rem;
 }
 
-.pagination a {
+#pagination a {
 	margin: 0 5px;
 	color: grey;
     font-size: 1.1rem;
@@ -222,7 +222,7 @@
     position: sticky;
     top: 180px;
     width: 20%;
-    display: flex;
+    display: flex;	
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;

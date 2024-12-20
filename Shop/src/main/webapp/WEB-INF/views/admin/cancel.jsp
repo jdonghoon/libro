@@ -141,8 +141,8 @@
                                         	<c:forEach items="${orderCancelList}" var="vo">
 	                                            <tr>
 	                                                <td>
-	                                                    <button class="btn btn-primary">취소완료</button>
-	                                                    <button class="btn btn-primary">환불완료</button>
+	                                                    <button class="btn btn-primary" onclick="changeStatus('${vo.ordered_no}', 'CC')">취소완료</button>
+	                                                    <button class="btn btn-primary" onclick="changeRefundStatus('${vo.payment_no}', 'RC')">환불완료</button>
 	                                                </td>
 	                                                <td>${vo.ordered_cancel_date}</td>
 	                                                <td>
@@ -208,7 +208,71 @@
         </main>
         
         <script>
-			
+        function changeStatus(orderedNo, orderedStatus) {
+	  	    var orderedVO = {
+	  	        ordered_no: orderedNo,
+	  	        ordered_status: orderedStatus
+	  	    };
+
+	  	    $.ajax({
+	  	        url: 'updateStatus.do',
+	  	        type: 'POST',
+	  	        contentType: 'application/json',  // JSON 형식으로 데이터 전송
+	  	        data: JSON.stringify(orderedVO),  // 객체를 JSON 문자열로 변환
+	  	        success: function(response) {
+	  	            if(response === "success") {
+	  	                alert("상태가 성공적으로 변경되었습니다.");
+	  	                
+	  	           		// 상태 값에 맞는 텍스트 변경
+	  	                var statusCell = $("td:contains('" + orderedNo + "')").siblings().eq(2);
+	  	                if (orderedStatus === 'CW') {
+	  	                    statusCell.text("취소대기");
+	  	                } else if (orderedStatus === 'CC') {
+	  	                    statusCell.text("취소완료");
+	  	                }
+	  	                
+	  	            } else {
+	  	                alert("상태 변경에 실패했습니다.");
+	  	            }
+	  	        },
+	  	        error: function() {
+	  	            alert("서버와의 통신에 실패했습니다.");
+	  	        }
+	  	    });
+	  	}
+        
+        function changeRefundStatus(paymentNo, paymentStatus) {
+	  	    var paymentVO = {
+	    		payment_no: paymentNo,
+	  	      	payment_type: paymentStatus
+	  	    };
+
+	  	    $.ajax({
+	  	        url: 'updateRefundStatus.do',
+	  	        type: 'POST',
+	  	        contentType: 'application/json',  // JSON 형식으로 데이터 전송
+	  	        data: JSON.stringify(paymentVO),  // 객체를 JSON 문자열로 변환
+	  	        success: function(response) {
+	  	            if(response === "success") {
+	  	                alert("상태가 성공적으로 변경되었습니다.");
+	  	                
+	  	           		// 상태 값에 맞는 텍스트 변경
+	  	                var statusCell = $("td:contains('" + paymentNo + "')").siblings().eq(10);
+	  	                if (paymentStatus === 'RW') {
+	  	                    statusCell.text("환불대기");
+	  	                } else if (paymentStatus === 'RC') {
+	  	                    statusCell.text("환불완료");
+	  	                }
+	  	                
+	  	            } else {
+	  	                alert("상태 변경에 실패했습니다.");
+	  	            }
+	  	        },
+	  	        error: function() {
+	  	            alert("서버와의 통신에 실패했습니다.");
+	  	        }
+	  	    });
+	  	}
 		</script>
         
         

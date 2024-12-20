@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import pj.spring.vo.OrderedVO;
+import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -55,13 +56,16 @@ public interface AdminService {
 	// 주문 관리 전체 수
 	public int orderTotal();
 	
-	// 주문 관리 상태 변경 ajax
-	public int updateOrderStatus(OrderedVO oderedvo);
+	// ordered_status 변경 ajax
+	public int updateOrderStatus(OrderedVO orderedVO);
 	
 	// 주문 취소 관리 List
 	public List<Map<String, Object>> orderCancelList(Map<String,Integer> pagingParam);
 	
 	// 주문 취소 전체 수
 	public int orderCancelTotal();
+	
+	// payment_type 변경 ajax
+	public int updateRefundStatus(PaymentVO paymentVO);
 
 }

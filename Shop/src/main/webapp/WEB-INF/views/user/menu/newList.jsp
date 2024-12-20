@@ -9,7 +9,7 @@
     <div>
       <a name="categoryType" href="#" data-category="시">시</a>
       <a name="categoryType" href="#" data-category="소설">소설</a>
-      <a name="categoryType" href="#" data-category="자기개발서">자기개발서</a>
+      <a name="categoryType" href="#" data-category="자기계발서">자기계발서</a>
     </div>
     <div>
       <a name="categoryType" href="#" data-category="만화">만화</a>
@@ -52,12 +52,13 @@
 		            response.categoryData.forEach(function (product) {
 		            	console.log(product); // product 객체 전체 출력
 			            console.log(product.product_name); // product_name 확인
+			            console.log(product.attachment_detail_new_name);
 			            
 		                productHtml += `
 		                    <div class="book-info-container-list">
 		                        <div class="book-image">
-		                            <a href="product_detail.html">
-		                                <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+		                            <a href="product.do?product_no=\${product.product_no}">
+		                                <img src="<%=request.getContextPath()%>/upload/\${product.attachment_detail_new_name}" width="200px" height="300px;">
 		                            </a>
 		                        </div>
 		                        <div class="book-detail">
@@ -118,7 +119,7 @@
 	      <div class="book-info-container-list" id="book-info-container-list">
 	      	<div class="book-image">
 	            <a href="product.do?product_no=${vo.product_no}">
-	                <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+	                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px" height="300px;">
 	            </a>
 	        </div>
 	        <div class="book-detail">
@@ -188,7 +189,7 @@
 	        <div class="recommend-books">
 	          <div>
 	            <a href="product.do?product_no=${vo.product_no}">
-	              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
+	              <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="100px" height="150px;"></div>
 	              <div class="recommend-info">
 	                <div class="recommend-title">${vo.product_name}</div>
 	                <div class="recommend-writer">${vo.product_author}</div>

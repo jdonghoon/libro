@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pj.spring.service.AdminService;
 import pj.spring.util.PagingUtil;
 import pj.spring.vo.OrderedVO;
+import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -248,7 +249,7 @@ public class AdminController {
 		return "admin/order";
 	}
 	
-	// 주문 관리 상태 변경 ajax
+	// ordered_status 변경 ajax
 	@ResponseBody
 	@RequestMapping(value = "/updateStatus.do", method = RequestMethod.POST)
 	public String updateStatus(@RequestBody OrderedVO orderedVO) {
@@ -286,6 +287,23 @@ public class AdminController {
 
 		
 		return "admin/cancel";
+	}
+	
+	// payment_type 상태 변경 ajax
+	@ResponseBody
+	@RequestMapping(value = "/updateRefundStatus.do", method = RequestMethod.POST)
+	public String changeRefundStatus(@RequestBody PaymentVO paymentVO) {
+		
+		// 주문 상태를 변경하는 서비스 호출
+	    int result = adminService.updateRefundStatus(paymentVO);
+	    
+	    // 상태 변경 성공 여부에 따라 결과 반환
+	    if(result > 0) {
+	        return "success";  // 성공
+	    } else {
+	        return "failure";  // 실패
+	    }
+	
 	}
 
 	// 매출 관리
