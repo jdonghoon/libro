@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pj.spring.vo.OrderedVO;
+import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -79,10 +80,10 @@ public class AdminDAO {
 		return sqlSession.update(namespace+".productModifyUpdate", productVO);
 	}
 	
-	// 상품 삭제
-	public int productDelete(int product_no) {
-		return sqlSession.delete(namespace+".productDelete", product_no);
-	}
+	/*
+	 * // 상품 삭제 public int productDelete(int product_no) { return
+	 * sqlSession.delete(namespace+".productDelete", product_no); }
+	 */
 	
 	// 주문 관리 List
 	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam) {
@@ -94,11 +95,25 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace+".orderTotal");
 	}
 	
-	// 주문 관리 상태 변경 ajax
-	public int updateOrderStatus(OrderedVO oderedvo) {
-		return sqlSession.update(namespace+".updateOrderStatus", oderedvo);
+	// ordered_status 변경 ajax
+	public int updateOrderStatus(OrderedVO orderedVO) {
+		return sqlSession.update(namespace+".updateOrderStatus", orderedVO);
 	}
 	
+	// 주문 취소 관리 List
+	public List<Map<String, Object>> orderCancelList(Map<String,Integer> pagingParam) {
+		return sqlSession.selectList(namespace+".orderCancelList", pagingParam);
+	}
+	
+	// 주문 취소 전체 수
+	public int orderCancelTotal() {
+		return sqlSession.selectOne(namespace+".orderCancelTotal");
+	}
 
+	// payment_type 변경 ajax
+	public int updateRefundStatus(PaymentVO paymentVO) {
+		return sqlSession.update(namespace+".updateRefundStatus", paymentVO);
+	}
+	
 
 }

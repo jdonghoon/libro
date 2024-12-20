@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
 import pj.spring.vo.OrderedVO;
+import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
@@ -89,11 +90,12 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productModifyUpdate(productVO);
 	}
 	
-	// 상품 삭제
-	@Override
-	public int productDelete(int product_no) {
-		return adminDAO.productDelete(product_no);
-	}
+	/*
+	 * // 상품 삭제
+	 * 
+	 * @Override public int productDelete(int product_no) { return
+	 * adminDAO.productDelete(product_no); }
+	 */
 
 	// 주문 관리 list
 	@Override
@@ -107,10 +109,28 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.orderTotal();
 	}
 
-	// 주문 관리 상태 변경 ajax
+	// ordered_status 변경 ajax
 	@Override
-	public int updateOrderStatus(OrderedVO oderedvo) {
-		return adminDAO.updateOrderStatus(oderedvo);
+	public int updateOrderStatus(OrderedVO orderedVO) {
+		return adminDAO.updateOrderStatus(orderedVO);
+	}
+
+	// 주문 취소 관리 list
+	@Override
+	public List<Map<String, Object>> orderCancelList(Map<String, Integer> pagingParam) {
+		return adminDAO.orderCancelList(pagingParam);
+	}
+
+	// 주문 취소 전체 수
+	@Override
+	public int orderCancelTotal() {
+		return adminDAO.orderCancelTotal();
+	}
+
+	// payment_type 변경 ajax
+	@Override
+	public int updateRefundStatus(PaymentVO paymentVO) {
+		return adminDAO.updateRefundStatus(paymentVO);
 	}
 
 	

@@ -201,6 +201,27 @@ header {
     display: block;
 }
 
+/* 오른쪽에서 나오는 로그인 및 장바구니 메뉴 */
+.side-menu-right-1, .side-menu-right-2 {
+    position: fixed;
+    top: 0;
+    right: -250px; /* 처음에는 오른쪽으로 숨김 */
+    width: 400px;
+    height: 100%;
+    background-color: white; 
+    color: white;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 10px;
+    display: none; 
+    border-left: 1px solid #444;
+}
+
+.side-menu-right-1.active, .side-menu-right-2.active {
+    right: 0; /* active일 때 오른쪽으로 슬라이드 */
+    display: block;
+}
+
 /* 링크 스타일 */
 .side-menu-right a {
     display: block;
@@ -215,6 +236,23 @@ header {
 }
 
 .side-menu-right a:hover {
+    background-color: #e9e9e9;
+}
+
+/* 링크 스타일 */
+.side-menu-right-1 a, .side-menu-right-2 a {
+    display: block;
+    padding: 15px;
+    color: #333;
+    text-decoration: none;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+.side-menu-right-1 a:first-of-type, .side-menu-right-2 a:first-of-type {
+    margin-top: 30px;
+}
+
+.side-menu-right-1 a:hover, .side-menu-right-2 a:hover {
     background-color: #e9e9e9;
 }
 
@@ -243,6 +281,26 @@ header {
     cursor: pointer;
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+.cart-btnvv {
+    padding: 20px 30px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    /* height: 45px; */
+    display: none;
+    position: absolute; /* 절대 위치 설정 */
+    bottom: 70px;          /* 상단에서 10px */
+    left: 50%;        /* 오른쪽에서 10px */
+    transform: translateX(-50%);
+    font-size: 16px;
+    width: 380px;
+}
+
+.side-menu-right-2.active .cart-btnvv {
+    display: block; /* 활성화된 메뉴에서만 버튼을 보이도록 */
 }
 
 footer {

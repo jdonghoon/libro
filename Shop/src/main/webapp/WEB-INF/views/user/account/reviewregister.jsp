@@ -14,11 +14,11 @@
                         <div>
                             <p><b>${vo.product_name}</b></p>
                             <p>${vo.product_author} 저  · ${vo.product_name}</p>
-                      <p>${vo.product_price}</p>
+                      		<p>${vo.product_price}</p>
                         </div>
                     </div>
                 </div>
-
+ 
                 <form action="reviewregisterOk.do" method="POST">
             		<input type="hidden" name="product_no" value="${vo.product_no}">
                     <label for="rating">평점 (1~5)</label>
@@ -26,7 +26,7 @@
 						<div class="rating">
 							★★★★★ 
 							<span class="rating_star">★★★★★</span>
-							<input type="range" value="1" step="1" min="0" max="10" name="review_starrating">
+							<input type="range" value="1" step="1" min="0" max="5" name="review_starrating">
 						</div>
 					</div> 
 
@@ -45,7 +45,7 @@
 	
 		// 별점 드래그 할 때
 		rating_input.addEventListener('input', function() {
-			const width = rating_input.value * 10;  // 계산된 너비
+			const width = rating_input.value * 20;  // 계산된 너비
 			rating_star.style.width = width + '%'; // 너비 적용
 		});
 	</script>

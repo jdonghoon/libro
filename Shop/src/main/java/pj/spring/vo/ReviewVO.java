@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class ReviewVO  extends OrderedVO {
+public class ReviewVO extends OrderedVO {
 	private String review_no;			// 리뷰번호
 	private String review_content;		// 내용
 	private String review_status;		// 상태
@@ -18,7 +18,7 @@ public class ReviewVO  extends OrderedVO {
 	private String review_two_score;	// 2점 비율
 	private String review_one_score;	// 1점 비율
 	private String user_id;				// 유저 번호 (id로 변경 필요)
-	private String review_seq;				
+	private String review_seq;		 		
 	
 	public String getReview_seq() {
 		return review_seq;

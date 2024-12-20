@@ -52,7 +52,7 @@
 		</div>
 		
 		<!-- 로그인 메뉴 (오른쪽에서 나오는 메뉴) -->
-		<div id="login-menu" class="side-menu-right">
+		<div id="login-menu" class="side-menu-right-1">
 			<button class="right-close-btn" onclick="closeMenu()">닫기</button>
 			<!-- 비회원 -->
 			<sec:authorize access="isAnonymous()"><!-- 로그인 안됨 -->
@@ -64,7 +64,7 @@
 				<a href="mypost.do">내 게시물</a>
 				<a href="addr.do">배송주소록</a>
 			</sec:authorize>
-			<!-- 회원 -->
+			<!-- 회원 --> 
 			<sec:authorize access="isAuthenticated()"><!-- 로그인 O -->
 				<a href="#"><sec:authentication property="principal.username" />님 환영합니다!</a>
 				<a href="orderhistory.do">주문조회</a>
@@ -78,8 +78,9 @@
 		</div>
 		
 		<!-- 장바구니 메뉴 (오른쪽에서 나오는 메뉴) -->
-		<div id="cart-menu" class="side-menu-right">
+		<div id="cart-menu" class="side-menu-right-2">
 			<button class="right-close-btn" onclick="closeMenu()">닫기</button>
 			<a href="#">장바구니 항목 1</a>
 			<a href="#">장바구니 항목 2</a>
+			<button onclick="location.href='user/cart/cart.html'" class="cart-btnvv">장바구니로 이동</button>
 		</div>

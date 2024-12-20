@@ -26,10 +26,10 @@
 						<div class="rating">
 							★★★★★
 							<span class="rating_star">★★★★★</span>
-							<input type="range" value="${rvo.review_starrating}" step="1" min="0" max="10" name="review_starrating">
+							<input type="range" value="${rvo.review_starrating}" step="1" min="0" max="5" name="review_starrating">
 						</div>
 					</div>
-
+ 
                     <label for="review">리뷰</label>
                     <textarea id="review" name="review_content" rows="5" placeholder="책에 대한 리뷰를 작성하세요" required>${rvo.review_content}</textarea>
                     
@@ -44,12 +44,12 @@
 		const rating_star = document.querySelector('.rating_star');
 
 		// 초기값 설정 (rvo.review_starrating에 따라 별점 너비 계산)
-		const initialRating = parseInt(rating_input.value, 10);
-		rating_star.style.width = (initialRating * 10) + '%';  // 초기 별점 너비 설정
+		const initialRating = parseInt(rating_input.value, 20);
+		rating_star.style.width = (initialRating * 20) + '%';  // 초기 별점 너비 설정
 
 		// 별점 드래그 할 때
 		rating_input.addEventListener('input', function() {
-			const width = rating_input.value * 10;  // 계산된 너비
+			const width = rating_input.value * 20;  // 계산된 너비
 			rating_star.style.width = width + '%'; // 너비 적용
 		});
 	</script>

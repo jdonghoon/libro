@@ -19,10 +19,14 @@
                         <form action="loginOk.do" method="post">
                             <input type="text" name="user_id" placeholder="아이디" required>
                             <input type="password" name="user_password" placeholder="비밀번호" required>
+                            <div class="id-save">
+                                <input type="checkbox" id="id_save">
+                                <label for="id_save">아이디 저장</label>
+                            </div>
                             <button class="login-btn">로그인</button>
                         </form>
                     </div>
-                
+                 
                     <!-- 비회원 배송조회 -->
                     <div class="form-container" id="non-member-form">
                         <form>

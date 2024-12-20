@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class WishlistVO {
+public class WishlistVO extends ReviewVO {
 	private String wishlist_no;					// 위시리스트 번호
 	private String wishlist_create_at;			// 등록일
 	private String wishlist_create_id;			// 등록id
@@ -8,7 +8,14 @@ public class WishlistVO {
 	private String wishlist_update_at;			// 수정일
 	private String wishlist_update_id;			// 수정id
 	private String wishlist_update_ip;			// 수정ip
+	private String user_id; 
 	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public String getWishlist_no() {
 		return wishlist_no;
 	}

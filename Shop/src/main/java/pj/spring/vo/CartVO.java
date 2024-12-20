@@ -1,6 +1,6 @@
 package pj.spring.vo;
 
-public class CartVO {
+public class CartVO extends ProductVO {
 	private String cart_no;					// 장바구니 번호
 	private String cart_create_at;			// 등록일
 	private String cart_create_id;			// 등록id
@@ -8,7 +8,14 @@ public class CartVO {
 	private String cart_update_at;			// 수정일
 	private String cart_update_id;			// 수정id
 	private String cart_update_ip;			// 수정ip
+	private String user_id;
 	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	} 
 	public String getCart_no() {
 		return cart_no;
 	}
