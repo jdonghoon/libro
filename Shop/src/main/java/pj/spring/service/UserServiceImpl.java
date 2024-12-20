@@ -346,5 +346,25 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 
+//	@Override
+//	public List<WishlistVO> getGuestRecentlyProductFromCookies(HttpServletRequest request) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public void addGuestRecentlyProductToCookies(String product_no, HttpServletRequest request,
+//			HttpServletResponse response) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void removeGuestRecentlyProductFromCookies(String wishlist_no, HttpServletRequest request,
+//			HttpServletResponse response) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
 
 }

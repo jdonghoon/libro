@@ -701,4 +701,10 @@ public class UserController {
 	    return "redirect:/"; // 리다이렉션 처리
 	}
 
+	// 최근 본 상품
+	@RequestMapping(value="recentlyproducts.do", method=RequestMethod.GET)
+	public String recentlyproducts() {
+		
+		return "user/account/recentlyproducts";
+	}
 }

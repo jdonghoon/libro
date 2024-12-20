@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import pj.spring.vo.*; 
 
 public interface UserService {
+
+	//-------------------------------------------------------------------------------------------------------------------------------	
+	// 회원
 	
 	// 회원가입
 	public int insert(UserVO userVO);
@@ -117,6 +120,9 @@ public interface UserService {
 	// 카트로 이동
 	public int insertCart(CartVO cartVO);
 	
+	//-------------------------------------------------------------------------------------------------------------------------------	
+	// 비회원
+	
 	// 위시리스트 조회
 	public List<WishlistVO> getGuestWishlistFromCookies(HttpServletRequest request);
 
@@ -131,5 +137,20 @@ public interface UserService {
 	
 	// 로그인 후 비회원 위시리스트 DB로 이동
 	public void migrateGuestWishlistToDB(HttpServletRequest request, String username, HttpServletResponse response);
+	
+//	// 최근 본 상품 조회
+//	public List<WishlistVO> getGuestRecentlyProductFromCookies(HttpServletRequest request);
+//	
+//	// 최근 본 상품 등록
+//	public void addGuestRecentlyProductToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
+//	
+//	// 최근 본 상품 삭제
+//	public void removeGuestRecentlyProductFromCookies(String wishlist_no, HttpServletRequest request, HttpServletResponse response);
+//	
+//	// 위시리스트로 이동
+//	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
+//
+//	// 카트로 이동
+//	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
 
 }
