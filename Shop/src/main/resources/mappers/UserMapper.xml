@@ -585,7 +585,7 @@
 			wishlist w, product p, review r, attachment a, attachment_detail ad
 		WHERE
 			p.product_no = w.product_no
-		AND
+		AND 
 			p.product_no = r.product_no
 		AND
 			p.product_no = a.attachment_product_no 

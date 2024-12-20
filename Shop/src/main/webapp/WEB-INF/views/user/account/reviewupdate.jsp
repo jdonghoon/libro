@@ -29,7 +29,7 @@
 							<input type="range" value="${rvo.review_starrating}" step="1" min="0" max="5" name="review_starrating">
 						</div>
 					</div>
-
+ 
                     <label for="review">리뷰</label>
                     <textarea id="review" name="review_content" rows="5" placeholder="책에 대한 리뷰를 작성하세요" required>${rvo.review_content}</textarea>
                     

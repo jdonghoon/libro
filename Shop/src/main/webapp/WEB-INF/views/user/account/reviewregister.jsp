@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-
+ 
                 <form action="reviewregisterOk.do" method="POST">
             		<input type="hidden" name="product_no" value="${vo.product_no}">
                     <label for="rating">평점 (1~5)</label>

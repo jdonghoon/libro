@@ -179,7 +179,7 @@ public class UserDAO {
 	// 위시리스트 조회
 	public List<WishlistVO> selectWishlist(String user_id) {
 		return sqlSession.selectList(namespace + ".selectWishlist", user_id);
-	}
+	} 
 	
 	// 위시리스트 등록
 	public int insertWishlist(WishlistVO wishlistVO) {

@@ -15,7 +15,7 @@ public class CartVO extends ProductVO {
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
+	} 
 	public String getCart_no() {
 		return cart_no;
 	}

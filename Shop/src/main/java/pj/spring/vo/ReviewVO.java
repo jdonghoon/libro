@@ -18,7 +18,7 @@ public class ReviewVO extends OrderedVO {
 	private String review_two_score;	// 2점 비율
 	private String review_one_score;	// 1점 비율
 	private String user_id;				// 유저 번호 (id로 변경 필요)
-	private String review_seq;				
+	private String review_seq;		 		
 	
 	public String getReview_seq() {
 		return review_seq;

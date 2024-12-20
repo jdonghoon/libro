@@ -64,7 +64,7 @@
 				<a href="mypost.do">내 게시물</a>
 				<a href="addr.do">배송주소록</a>
 			</sec:authorize>
-			<!-- 회원 -->
+			<!-- 회원 --> 
 			<sec:authorize access="isAuthenticated()"><!-- 로그인 O -->
 				<a href="#"><sec:authentication property="principal.username" />님 환영합니다!</a>
 				<a href="orderhistory.do">주문조회</a>

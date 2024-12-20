@@ -8,7 +8,7 @@ public class WishlistVO extends ReviewVO {
 	private String wishlist_update_at;			// 수정일
 	private String wishlist_update_id;			// 수정id
 	private String wishlist_update_ip;			// 수정ip
-	private String user_id;
+	private String user_id; 
 	
 	public String getUser_id() {
 		return user_id;

@@ -13,7 +13,7 @@
                         <div>
                             <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" style="width: 100px;">
                         </div>
-                        <div class="book-info">
+                        <div class="book-info"> 
                             <div>
                                 <span>${vo.product_name}</span><br>
                                 <span>${vo.product_author} 저 · ${vo.product_publisher}</span><br>
