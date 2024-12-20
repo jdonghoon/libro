@@ -27,14 +27,14 @@
 
 			<section class="content-section">
 				
-				<!-- 주간 베스트 셀러 -->
+				<!-- 베스트 셀러 -->
 				<div class="content-container">
 					<div class="content-section-title">
 						<div class="content-section-1st-title">
-							<div>주간 베스트 셀러</div>
+							<div>베스트 셀러</div>
 						</div>
 						<div>
-							<a href="">
+							<a href="bestsellerList.do">
 								<img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="12px;">
 							</a>
 						</div>
@@ -60,7 +60,7 @@
 							<div>화제의 신간</div>
 						</div>
 						<div>
-							<a href="">
+							<a href="newList.do">
 								<img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="12px;">
 							</a>
 						</div>

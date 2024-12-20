@@ -38,7 +38,7 @@
       	  <div class="book-info-container-search">
 			<div class="book-image">
 	    	  <a href="product.do?product_no=${vo.product_no}">
-            	<img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
+            	<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px">
           	  </a>
         	</div>
           	<div class="book-detail">
@@ -59,7 +59,7 @@
 	    </c:if>
 	  </c:forEach>
 	  
-	  <div class="pagination">
+	  <div id="pagination">
 		<c:if test="${paging.startPage > 1}">
 		  <a href="indexSearch.do?nowPage=${paging.startPage - 1}">&lt;</a>
 		</c:if>	
@@ -88,7 +88,7 @@
 	        <div class="recommend-books">
 	          <div>
 	            <a href="product.do?product_no=${vo.product_no}">
-	              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="100px"></div>
+	              <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="100px"></div>
 	              <div class="recommend-info">
 	                <div class="recommend-title">${vo.product_name}</div>
 	                <div class="recommend-writer">${vo.product_author}</div>

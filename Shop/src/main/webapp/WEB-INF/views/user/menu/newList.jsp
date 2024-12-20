@@ -9,7 +9,7 @@
     <div>
       <a name="categoryType" href="#" data-category="시">시</a>
       <a name="categoryType" href="#" data-category="소설">소설</a>
-      <a name="categoryType" href="#" data-category="자기개발서">자기개발서</a>
+      <a name="categoryType" href="#" data-category="자기계발서">자기계발서</a>
     </div>
     <div>
       <a name="categoryType" href="#" data-category="만화">만화</a>
@@ -52,12 +52,13 @@
 		            response.categoryData.forEach(function (product) {
 		            	console.log(product); // product 객체 전체 출력
 			            console.log(product.product_name); // product_name 확인
+			            console.log(product.attachment_detail_new_name);
 			            
 		                productHtml += `
 		                    <div class="book-info-container-list">
 		                        <div class="book-image">
-		                            <a href="product_detail.html">
-		                                <img src="<%=request.getContextPath()%>/upload/${product.attachment_detail_new_name}" width="200px" height="300px;">
+		                            <a href="product.do?product_no=\${product.product_no}">
+		                                <img src="<%=request.getContextPath()%>/upload/\${product.attachment_detail_new_name}" width="200px" height="300px;">
 		                            </a>
 		                        </div>
 		                        <div class="book-detail">
