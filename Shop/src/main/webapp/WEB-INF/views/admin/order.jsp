@@ -201,6 +201,15 @@
 		  	        success: function(response) {
 		  	            if(response === "success") {
 		  	                alert("상태가 성공적으로 변경되었습니다.");
+		  	                
+		  	           		// 상태 값에 맞는 텍스트 변경
+		  	                var statusCell = $("td:contains('" + orderedNo + "')").siblings().eq(5); // 5번째 <td>는 주문 상태
+		  	                if (orderedStatus === 'O') {
+		  	                    statusCell.text("주문완료");
+		  	                } else if (orderedStatus === 'D') {
+		  	                    statusCell.text("발송완료");
+		  	                }
+		  	                
 		  	            } else {
 		  	                alert("상태 변경에 실패했습니다.");
 		  	            }
