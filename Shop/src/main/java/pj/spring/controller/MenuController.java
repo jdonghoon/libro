@@ -1,10 +1,12 @@
 package pj.spring.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.MenuService;
 import pj.spring.util.PagingUtil;
+import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
@@ -122,4 +125,35 @@ public class MenuController {
 		
 		return "user/menu/productDetail";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/addToCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	public Map<String, Object> addToCart(CartVO cartVO, @RequestParam("product_no") String product_no, HttpSession session) throws IllegalStateException, IOException {
+		
+		String userId = (String)session.getAttribute("user_id");
+		String cartCreateId = (String)session.getAttribute("user_id");
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		if(userId != null) {
+			
+	        cartVO.setUser_id(userId);
+	        cartVO.setCart_create_id(cartCreateId);
+	        cartVO.setProduct_no(product_no);
+	        cartVO.setCart_product_quantity(1);
+	        
+	        System.out.println(userId);
+	        
+			try {
+				menuService.addToCart(cartVO);
+				response.put("success", true);
+			} catch (Exception e) {
+				response.put("success", false);
+			}
+		} else {
+			response.put("success", false);
+		}
+		return response;
+	}
+	
 }

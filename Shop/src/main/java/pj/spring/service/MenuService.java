@@ -2,6 +2,7 @@ package pj.spring.service;
 
 import java.util.List;
 
+import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
@@ -21,4 +22,6 @@ public interface MenuService {
 	public ProductVO selectProductDetail(int product_no);
 	
 	public ReviewVO selectReviewDetail(int product_no);
+	
+	public int addToCart(CartVO cartVO);
 }

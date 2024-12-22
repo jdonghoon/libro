@@ -1,5 +1,5 @@
 package pj.spring.service;
 
-public interface CarService {
+public interface CartService {
 
 }

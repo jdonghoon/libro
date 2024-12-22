@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.MenuDAO;
+import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
@@ -56,6 +57,12 @@ public class MenuServiceIpml implements MenuService{
 	public ReviewVO selectReviewDetail(int product_no) {
 		
 		return menuDAO.selectReviewDetail(product_no);
+	}
+
+	@Override
+	public int addToCart(CartVO cartVO) {
+		
+		return menuDAO.addToCart(cartVO);
 	}
 
 	

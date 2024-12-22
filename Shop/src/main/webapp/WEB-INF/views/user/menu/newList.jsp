@@ -140,12 +140,13 @@
       	</c:forEach>
       	<script>
       		function addToCart(product_no){
-      			
       			$.ajax({
-      				url : "addcart.do",
+      				url : "addToCart.do",
       				type : "POST",
       				data : {product_no : product_no},
       				success : function (response) {
+      					
+      					console.log(response);
       					
       					if(response.success) {
       						alert("장바구니에 상품이 추가되었습니다.");
@@ -153,9 +154,10 @@
       						alert("장바구니에 추가에 실패하였습니다.");
       					}
       				},
-      				error : function (xhr, status, error);
+      				error : function (xhr, status, error) {
       					console.log("AJAX Error : ", error);
       					alert("장바구니 추가 중 오류가 발생했습니다.");
+      				}
       			});
       		}
       	</script>

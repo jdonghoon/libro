@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pj.spring.service.CarService;
+import pj.spring.service.CartService;
 import pj.spring.vo.UserVO;
 
 @Controller
 public class CartController {
 	
 	@Autowired
-	public CarService carService;
+	public CartService carService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/addcart.do", produces = "application/json; charset=UTF-8")

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
@@ -50,5 +51,10 @@ public class MenuDAO {
 	public ReviewVO selectReviewDetail(int product_no) {
 		
 		return sqlsession.selectOne(namespace + ".selectReviewDetail", product_no);
+	}
+	
+	public int addToCart(CartVO cartVO) {
+		
+		return sqlsession.insert(namespace + "addToCart", cartVO);
 	}
 }

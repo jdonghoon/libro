@@ -142,5 +142,17 @@
 		 WHERE product_no = 1;
    	</select>
    	
-   	
+   	<insert id="addToCart" parameterType="CartVO">
+   		INSERT INTO cart (
+   			cart_product_quantity
+   		  , cart_create_id
+   		  , user_id
+   		  , product_no
+   		) VALUES (
+   			  #{cart_product_quantity}
+   			, #{cart_create_id}
+   			, #{user_id}
+   			, #{product_no}
+   		);
+   	</insert>
 </mapper>
