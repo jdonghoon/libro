@@ -241,5 +241,28 @@
 	       SET payment_type = #{payment_type}
 	     WHERE payment_no = #{payment_no}
 	</update> 
+	
+	<!-- 리뷰 관리 list -->
+	<select id="reviewList" parameterType="java.util.Map" resultType="java.util.Map" >
+			SELECT   r.*
+			       , p.product_no
+			       , p.product_name
+			       , ad.attachment_detail_new_name
+			       , od.ordered_detail_no
+			FROM  review r
+			JOIN  product p ON r.product_no = p.product_no
+	   LEFT JOIN  ordered_detail od ON p.product_no = od.product_no
+	   LEFT JOIN  attachment a ON r.review_no = a.attachment_review_no
+	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+	    ORDER BY  review_create_at DESC
+	       LIMIT  #{start}, #{perPage}
+	</select>
+	
+	<!-- 리뷰 전체 수 -->
+	<select id="reviewTotal" resultType="int">
+		SELECT count(*)
+		  FROM review
+	</select>
+	
 	 
 </mapper>

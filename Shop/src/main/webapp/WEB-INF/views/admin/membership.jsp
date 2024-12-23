@@ -132,7 +132,10 @@
 	                                                <td>${fn:replace(vo.user_phone, ',', '-')}</td>
 	                                                <td>${vo.user_email}</td>
 	                                                <td>${vo.user_note}</td>
-	                                                <td>${vo.user_status}</td>
+	                                                <td>
+	                                                	<c:if test="${vo.user_status == 'E'}">활성</c:if>
+														<c:if test="${vo.user_status == 'D'}">비활성</c:if>
+	                                                </td>
 	                                                <td>${vo.user_created_at}</td>
 	                                                <td>${vo.user_update_at}</td>
 	                                            </tr>
@@ -176,5 +179,8 @@
                 </div> <!--end::Container-->
             </div>
         </main>
+        
+        
+        
 				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

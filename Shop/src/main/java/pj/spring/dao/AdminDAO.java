@@ -115,5 +115,14 @@ public class AdminDAO {
 		return sqlSession.update(namespace+".updateRefundStatus", paymentVO);
 	}
 	
+	// 府轰 包府 list
+	public List<Map<String, Object>> reviewList(Map<String,Integer> pagingParam) {
+		return sqlSession.selectList(namespace+".reviewList", pagingParam);
+	}
+	
+	// 府轰 傈眉 荐
+	public int reviewTotal() {
+		return sqlSession.selectOne(namespace+".reviewTotal");
+	}
 
 }

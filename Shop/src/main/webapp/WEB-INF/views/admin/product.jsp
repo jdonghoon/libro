@@ -154,7 +154,7 @@
                                         <tbody>
                                         	<c:forEach items="${list}" var="vo">
 	                                            <tr>
-	                                                <td onclick="location.href='productDetail.do';">${vo.product_no}</td>
+	                                                <td onclick="location.href='user/menu/product.do?product_no=${vo.product_no}'">${vo.product_no}</td>
 	                                                <td>
 													    <c:if test="${not empty vo.attachment_detail_new_name}">
 											        		<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" alt="대표 이미지" width="90" height="120" />

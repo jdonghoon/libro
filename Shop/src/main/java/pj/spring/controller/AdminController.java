@@ -315,8 +315,22 @@ public class AdminController {
 
 	// ¸®ºä °ü¸®
 	@RequestMapping(value = "/review.do", method = RequestMethod.GET)
-	public String review() {
+	public String review(Model model,
+			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
 
+		int total = adminService.reviewTotal();
+
+		PagingUtil paging = new PagingUtil(nowPage, total, 10);
+
+		Map<String, Integer> pagingParam = new HashMap<String, Integer>();
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("perPage", paging.getPerPage());
+
+		List<Map<String, Object>> reviewList = adminService.reviewList(pagingParam);
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("paging", paging);
+		
 		return "admin/review";
 	}
 

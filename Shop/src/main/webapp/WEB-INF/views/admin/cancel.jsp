@@ -31,7 +31,7 @@
                             <div class="card card-primary card-outline mb-4">
                                 <!--begin::Header-->
                                 <div class="card-header">
-                                    <div class="card-title">취소 정보 목록</div>
+                                    <div class="card-title">취소 목록</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
@@ -79,7 +79,7 @@
                                             <div class="row g-2">
                                                 <label for="inputDate" class="col-sm-2 col-form-label">조회기간</label>
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <select class="form-select" id="validationCustom04">
                                                             <option value="전체">전체</option>
                                                             <option value="결제일">결제일</option>
@@ -87,9 +87,15 @@
                                                             <option value="환불완료일">환불완료일</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                    <input type="date" class="form-control" id="inputDate">
-                                                    </div>
+                                                    
+                                                    <div class="col-md-3">
+                                                   		<input type="date" class="form-control" id="startDate" name="startDate">
+                                                	</div>
+                                                	
+                                                   	<div class="col-md-3">
+                                                   		<input type="date" class="form-control" id="endDate" name="endDate">
+                                                	</div>
+                                                	
                                                 </div>
                                             </div>
                                             

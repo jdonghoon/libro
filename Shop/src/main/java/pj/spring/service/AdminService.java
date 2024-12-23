@@ -67,5 +67,13 @@ public interface AdminService {
 	
 	// payment_type 변경 ajax
 	public int updateRefundStatus(PaymentVO paymentVO);
+	
+	// 리뷰 관리 list
+	public List<Map<String, Object>> reviewList(Map<String,Integer> pagingParam);
+	
+	// 리뷰 전체 수
+	public int reviewTotal();
+	
+	
 
 }

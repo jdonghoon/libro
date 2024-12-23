@@ -133,6 +133,18 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.updateRefundStatus(paymentVO);
 	}
 
+	// 府轰 包府 list
+	@Override
+	public List<Map<String, Object>> reviewList(Map<String, Integer> pagingParam) {
+		return adminDAO.reviewList(pagingParam);
+	}
+
+	// 府轰 傈眉 荐
+	@Override
+	public int reviewTotal() {
+		return adminDAO.reviewTotal();
+	}
+
 	
 
 	
