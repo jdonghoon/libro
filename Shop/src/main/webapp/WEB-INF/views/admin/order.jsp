@@ -137,7 +137,7 @@
 	                                                <td>${vo.product_name}</td>
 	                                                <td>
 	                                                	<c:if test="${vo.ordered_status == 'O'}">주문완료</c:if>
-	                                                	<c:if test="${vo.ordered_status == 'D'}">발송완료</c:if>
+	                                                	<c:if test="${vo.ordered_status == 'D'}"><span style="color:blue;">발송완료</span></c:if>
 	                                                </td>
 	                                                <td>${vo.ordered_create_at}</td>
 	                                                <td>${vo.payment_type}</td>
@@ -200,14 +200,13 @@
 		  	        data: JSON.stringify(orderedVO),  // 객체를 JSON 문자열로 변환
 		  	        success: function(response) {
 		  	            if(response === "success") {
-		  	                alert("상태가 성공적으로 변경되었습니다.");
 		  	                
 		  	           		// 상태 값에 맞는 텍스트 변경
 		  	                var statusCell = $("td:contains('" + orderedNo + "')").siblings().eq(5); // 5번째 <td>는 주문 상태
 		  	                if (orderedStatus === 'O') {
 		  	                    statusCell.text("주문완료");
 		  	                } else if (orderedStatus === 'D') {
-		  	                    statusCell.text("발송완료");
+		  	                    statusCell.text("발송완료").css("color", "blue");
 		  	                }
 		  	                
 		  	            } else {

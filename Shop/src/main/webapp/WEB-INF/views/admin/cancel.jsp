@@ -153,7 +153,7 @@
 	                                                <td>${vo.ordered_cancel_date}</td>
 	                                                <td>
 	                                                	<c:if test="${vo.ordered_status == 'CW'}">취소대기</c:if>
-	                                                	<c:if test="${vo.ordered_status == 'CC'}">취소완료</c:if>
+	                                                	<c:if test="${vo.ordered_status == 'CC'}"><span style="color:blue;">취소완료</span></c:if>
 	                                                </td>
 	                                                <td>${vo.ordered_detail_no}</td>
 	                                                <td>${vo.ordered_no}</td>
@@ -164,7 +164,7 @@
 	                                                <td>${vo.payment_price}</td>
 	                                                <td>
 	                                                	<c:if test="${vo.payment_type == 'RW'}">횐불대기</c:if>
-	                                                	<c:if test="${vo.payment_type == 'RC'}">횐불완료</c:if>
+	                                                	<c:if test="${vo.payment_type == 'RC'}"><span style="color:blue;">횐불완료</span></c:if>
 	                                                </td>
 	                                                <td>${vo.payment_refund_price}</td>
 	                                                <td>${vo.payment_refund_date}</td>
@@ -227,14 +227,13 @@
 	  	        data: JSON.stringify(orderedVO),  // 객체를 JSON 문자열로 변환
 	  	        success: function(response) {
 	  	            if(response === "success") {
-	  	                alert("상태가 성공적으로 변경되었습니다.");
 	  	                
 	  	           		// 상태 값에 맞는 텍스트 변경
 	  	                var statusCell = $("td:contains('" + orderedNo + "')").siblings().eq(2);
 	  	                if (orderedStatus === 'CW') {
 	  	                    statusCell.text("취소대기");
 	  	                } else if (orderedStatus === 'CC') {
-	  	                    statusCell.text("취소완료");
+	  	                    statusCell.text("취소완료").css("color", "blue");
 	  	                }
 	  	                
 	  	            } else {
@@ -260,14 +259,13 @@
 	  	        data: JSON.stringify(paymentVO),  // 객체를 JSON 문자열로 변환
 	  	        success: function(response) {
 	  	            if(response === "success") {
-	  	                alert("상태가 성공적으로 변경되었습니다.");
 	  	                
 	  	           		// 상태 값에 맞는 텍스트 변경
 	  	                var statusCell = $("td:contains('" + paymentNo + "')").siblings().eq(10);
 	  	                if (paymentStatus === 'RW') {
 	  	                    statusCell.text("환불대기");
 	  	                } else if (paymentStatus === 'RC') {
-	  	                    statusCell.text("환불완료");
+	  	                    statusCell.text("환불완료").css("color", "blue");
 	  	                }
 	  	                
 	  	            } else {

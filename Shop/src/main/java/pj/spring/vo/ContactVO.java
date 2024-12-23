@@ -17,9 +17,21 @@ public class ContactVO extends AttachmentVO {
 	private String contact_update_id;	// 수정id
 	private String contact_update_ip;	// 수정ip
 	private String user_id;	            // 
-	private String product_no;					// 상품번호
-	private String user_name;
+	private String ordered_no;          //
 	
+	private String product_no;			// 상품번호
+	
+	private String user_name;           //
+	
+	
+	
+	
+	public String getOrdered_no() {
+		return ordered_no;
+	}
+	public void setOrdered_no(String ordered_no) {
+		this.ordered_no = ordered_no;
+	}
 	public String getProduct_no() {
 		return product_no;
 	}

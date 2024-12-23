@@ -120,6 +120,8 @@
 		    JOIN  category c ON p.category_no = c.category_no
 	   LEFT JOIN  attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
 	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+	   	   WHERE  (product_status = 'E' OR product_status = 'D' OR product_status = 'S')
+       		 AND  product_status != 'N'
 	    ORDER BY  product_created_at DESC
 		   LIMIT  #{start}, #{perPage}
 	</select>
@@ -128,6 +130,8 @@
 	<select id="productTotal" resultType="int">
 		SELECT count(*)
 		  FROM product
+		 WHERE (product_status = 'E' OR product_status = 'D' OR product_status = 'S')
+       	   AND product_status != 'N'
 	</select>
 	
 	<!-- 상품 수정 상세 -->
@@ -159,10 +163,11 @@
 	</update>
 	
 	<!-- 상품 삭제 -->
-	<!-- <delete id="productDelete" parameterType="int">
-		DELETE FROM product
-			  WHERE product_no = #{product_no}
-	</delete> -->
+	<update id="productDelete" parameterType="java.util.Map">
+		UPDATE product
+	       SET product_status = 'N'
+	     WHERE product_no = #{product_no}
+	</update>
 	 
 	<!-- 주문 관리List -->
 	<select id="orderList" parameterType="java.util.Map" resultType="java.util.Map" >
@@ -262,6 +267,31 @@
 	<select id="reviewTotal" resultType="int">
 		SELECT count(*)
 		  FROM review
+	</select>
+	
+	<!-- review_status 상태 변경 ajax -->
+	<update id="reviewStatus" parameterType="ReviewVO">
+		UPDATE review
+	       SET review_status = #{review_status}
+	     WHERE review_no = #{review_no}
+	</update> 
+	
+	<!-- 문의 관리 list -->
+	<select id="contactList" parameterType="java.util.Map" resultType="java.util.Map" >
+			SELECT   c.*
+			       , ad.attachment_detail_new_name
+			FROM  contact c
+	  		JOIN  ordered o ON c.ordered_no = o.ordered_no
+	   LEFT JOIN  attachment a ON c.contact_no = a.attachment_contact_no
+	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+	    ORDER BY  contact_create_at DESC
+	       LIMIT  #{start}, #{perPage}
+	</select>
+	
+	<!-- 문의 전체 수 -->
+	<select id="contactTotal" resultType="int">
+		SELECT count(*)
+		  FROM contact
 	</select>
 	
 	 

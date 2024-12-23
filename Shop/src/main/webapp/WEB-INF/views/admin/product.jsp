@@ -153,7 +153,7 @@
                                         </thead>
                                         <tbody>
                                         	<c:forEach items="${list}" var="vo">
-	                                            <tr>
+	                                            <tr id="product-${vo.product_no}"> <!-- 각 상품에 고유 id 부여 -->
 	                                                <td onclick="location.href='user/menu/product.do?product_no=${vo.product_no}'">${vo.product_no}</td>
 	                                                <td>
 													    <c:if test="${not empty vo.attachment_detail_new_name}">
@@ -169,9 +169,9 @@
 	                                                <td>${vo.product_price}원</td>
 	                                                <td>${vo.product_stock}</td>
 	                                                <td>
-	                                                	<c:if test="${vo.product_status == 'E'}">진열</c:if>
+	                                                	<c:if test="${vo.product_status == 'E'}"><span style="color:blue;">진열</span></c:if>
 														<c:if test="${vo.product_status == 'D'}">미진열</c:if>
-														<c:if test="${vo.product_status == 'S'}">품절</c:if>
+														<c:if test="${vo.product_status == 'S'}"><span style="color:red;">품절</span></c:if>
 	                                                </td>
 	                                                <td>${vo.product_created_at}</td>
 	                                                <td>${vo.product_create_id}</td>
@@ -179,10 +179,7 @@
 	                                                <td>${vo.product_update_id}</td>
 	                                                <td>
 	                                                    <button class="btn btn-primary" onclick="location.href='productModify.do?product_no=${vo.product_no}'">수정</button>
-	                                                   <%--  <button class="btn btn-primary" onclick="document.forms['deletefrm'].submit();">삭제</button>
-	                                                    <form name="deletefrm" action="productDelete.do" method="post">
-															<input type="hidden" name="product_no" value="${vo.product_no}">
-														</form> --%>
+	                                                    <button class="btn btn-primary" onclick="deleteProduct(${vo.product_no})'">삭제</button>
 	                                                </td>
 	                                            </tr>
                                             </c:forEach>
@@ -225,5 +222,30 @@
                 </div> <!--end::Container-->
             </div>
         </main>
+        
+        <script>
+	        function deleteProduct(productNo) {
+	            if (confirm("정말 삭제하시겠습니까?")) {
+	                $.ajax({
+	                    url: 'productDelete.do',
+	                    type: 'POST',
+	                    contentType: 'application/json',
+	                    data: JSON.stringify({ product_no: productNo }),  // JSON 형식으로 상품 번호 전송
+	                    success: function(response) {
+	                        // 삭제 후 상품 목록 갱신
+	                        updateProductList(response);  // 서버에서 받아온 최신 목록을 갱신
+	                    },
+	                    error: function() {
+	                        alert("삭제에 실패했습니다.");
+	                    }
+	                });
+	            }
+	        }
+	
+	       
+
+
+        </script>
+        
 				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

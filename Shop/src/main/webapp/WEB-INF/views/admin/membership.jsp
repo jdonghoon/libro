@@ -133,8 +133,8 @@
 	                                                <td>${vo.user_email}</td>
 	                                                <td>${vo.user_note}</td>
 	                                                <td>
-	                                                	<c:if test="${vo.user_status == 'E'}">활성</c:if>
-														<c:if test="${vo.user_status == 'D'}">비활성</c:if>
+	                                                	<c:if test="${vo.user_status == 'E'}"><span style="color:blue;">활성</span></c:if>
+														<c:if test="${vo.user_status == 'D'}"><span style="color:red;">비활성</span></c:if>
 	                                                </td>
 	                                                <td>${vo.user_created_at}</td>
 	                                                <td>${vo.user_update_at}</td>

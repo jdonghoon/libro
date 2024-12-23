@@ -136,8 +136,8 @@
                                         	<c:forEach items="${reviewList}" var="vo">
 	                                            <tr>
 	                                            	<td>
-	                                            		<button class="btn btn-primary" >공개</button>
-	                                            		<button class="btn btn-primary" >비공개</button>
+	                                            		<button class="btn btn-primary" onclick="changeStatus('${vo.review_no}', 'E')">공개</button>
+	                                            		<button class="btn btn-primary" onclick="changeStatus('${vo.review_no}', 'D')">비공개</button>
 	                                            	</td>
 	                                                <td onclick="location.href='user/menu/product.do?product_no=${vo.product_no}'">${vo.product_no}</td>
 	                                                <td>${vo.product_name}</td>
@@ -154,8 +154,8 @@
 	                                                <td>${vo.review_update_at}</td>
 	                                                <td>${vo.user_id}</td>
 	                                                <td>
-	                                                	<c:if test="${vo.review_status == 'E'}">공개</c:if>
-	                                                	<c:if test="${vo.review_status == 'D'}">비공개</c:if>
+	                                                	<c:if test="${vo.review_status == 'E'}"><span style="color:blue;">공개</span></c:if>
+	                                                	<c:if test="${vo.review_status == 'D'}"><span style="color:red;">비공개</span></c:if>
 	                                                </td>
 	                                                <td onclick="location.href='#';">${vo.ordered_detail_no}</td>
 	                                            </tr>
@@ -199,5 +199,41 @@
                 </div> <!--end::Container-->
             </div>
         </main>
+		
+		<script>
+	        function changeStatus(reviewNo, reviewStatus) {
+		  	    var reviewVO = {
+		  	      review_no: reviewNo,
+		  	      review_status: reviewStatus
+		  	    };
+	
+		  	    $.ajax({
+		  	        url: 'reviewStatus.do',
+		  	        type: 'POST',
+		  	        contentType: 'application/json',  // JSON 형식으로 데이터 전송
+		  	        data: JSON.stringify(reviewVO),  // 객체를 JSON 문자열로 변환
+		  	        success: function(response) {
+		  	            if(response === "success") {
+		  	                
+		  	           		// 상태 값에 맞는 텍스트 변경
+		  	                var statusCell = $("td:contains('" + reviewNo + "')").siblings().eq(9);
+		  	                if (reviewStatus === 'E') {
+		  	                    statusCell.text("공개").css("color", "blue");
+		  	                } else if (reviewStatus === 'D') {
+		  	                    statusCell.text("비공개").css("color", "red");
+		  	                }
+		  	                
+		  	            } else {
+		  	                alert("상태 변경에 실패했습니다.");
+		  	            }
+		  	        },
+		  	        error: function() {
+		  	            alert("서버와의 통신에 실패했습니다.");
+		  	        }
+		  	    });
+		  	}
+		</script>
+		
+		
 				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

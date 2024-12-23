@@ -22,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.AdminService;
 import pj.spring.util.PagingUtil;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.ReviewVO;
 import pj.spring.vo.UserVO;
 
 @RequestMapping(value = "/admin")
@@ -217,16 +219,15 @@ public class AdminController {
 
 	}
 
-	/*
-	 * // 상품 삭제
-	 * 
-	 * @RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
-	 * public String productDelete(int product_no) {
-	 * 
-	 * adminService.productDelete(product_no);
-	 * 
-	 * return "redirect:product.do"; }
-	 */
+	 // 상품 삭제
+	 @ResponseBody
+	 @RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
+	 public String productDelete(@RequestBody ProductVO productVO) {
+	 
+		 
+		 return ""; 
+	 }
+	 
 
 	// 주문 관리
 	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
@@ -336,9 +337,49 @@ public class AdminController {
 
 	// 문의 관리
 	@RequestMapping(value = "/contact.do", method = RequestMethod.GET)
-	public String contact() {
+	public String contact(Model model,
+			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
 
+		int total = adminService.contactTotal();
+
+		PagingUtil paging = new PagingUtil(nowPage, total, 10);
+
+		Map<String, Integer> pagingParam = new HashMap<String, Integer>();
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("perPage", paging.getPerPage());
+
+		// 비지니스 로직 : DB에 있는 전체 회원 목록 데이터가져오기
+		List<Map<String, Object>> contactList = adminService.contactList(pagingParam);
+
+		// 모델 객체 사용하여 조회 데이터 화면으로 포워딩
+		model.addAttribute("contactList", contactList);
+		model.addAttribute("paging", paging);
+		
 		return "admin/contact";
 	}
+	
+	// review_status 상태 변경 ajax
+	@ResponseBody
+	@RequestMapping(value = "/reviewStatus.do", method = RequestMethod.POST)
+	public String reviewStatus(@RequestBody ReviewVO reviewVO) {
+		
+		// 주문 상태를 변경하는 서비스 호출
+	    int result = adminService.reviewStatus(reviewVO);
+	    
+	    // 상태 변경 성공 여부에 따라 결과 반환
+	    if(result > 0) {
+	        return "success";  // 성공
+	    } else {
+	        return "failure";  // 실패
+	    }
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

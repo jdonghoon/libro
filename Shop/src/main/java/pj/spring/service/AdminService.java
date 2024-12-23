@@ -6,6 +6,7 @@ import java.util.Map;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.ReviewVO;
 import pj.spring.vo.UserVO;
 
 public interface AdminService {
@@ -46,9 +47,8 @@ public interface AdminService {
 	// 상품 수정
 	public int productModifyUpdate(ProductVO productVO);
 	
-	/*
-	 * // 상품 삭제 public int productDelete(int product_no);
-	 */
+	// 상품 삭제 
+	/* public int productDelete(ProductVO productVO); */
 	
 	// 주문 관리 List
 	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam);
@@ -74,6 +74,14 @@ public interface AdminService {
 	// 리뷰 전체 수
 	public int reviewTotal();
 	
+	// review_status 상태 변경 ajax
+	public int reviewStatus(ReviewVO reviewVO);
+	
+	// 문의 관리 list
+	public List<Map<String, Object>> contactList(Map<String,Integer> pagingParam);
+	
+	// 문의 전체 수
+	public int contactTotal();
 	
 
 }

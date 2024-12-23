@@ -10,6 +10,7 @@ import pj.spring.dao.AdminDAO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.ReviewVO;
 import pj.spring.vo.UserVO;
 
 @Service
@@ -90,11 +91,10 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productModifyUpdate(productVO);
 	}
 	
+	// 상품 삭제 
 	/*
-	 * // 상품 삭제
-	 * 
-	 * @Override public int productDelete(int product_no) { return
-	 * adminDAO.productDelete(product_no); }
+	 * @Override public int productDelete(ProductVO productVO) { return
+	 * adminDAO.productDelete(productVO); }
 	 */
 
 	// 주문 관리 list
@@ -144,6 +144,25 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int reviewTotal() {
 		return adminDAO.reviewTotal();
 	}
+
+	// review_status 상태 변경 ajax
+	@Override
+	public int reviewStatus(ReviewVO reviewVO) {
+		return adminDAO.reviewStatus(reviewVO);
+	}
+	
+	// 문의관리 list
+	@Override
+	public List<Map<String, Object>> contactList(Map<String, Integer> pagingParam) {
+		return adminDAO.contactList(pagingParam);
+	}
+
+	// 문의 전체 수
+	@Override
+	public int contactTotal() {
+		return adminDAO.contactTotal();
+	}
+
 
 	
 
