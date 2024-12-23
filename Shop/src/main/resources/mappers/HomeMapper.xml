@@ -110,6 +110,30 @@
    	  ORDER BY p.product_created_at
    		 LIMIT 0, 4;
    	</select>
+   	
+   	<!-- cart 데이터 조회 -->
+   	<select id="selectCart" resultType="ProductVO">
+   		SELECT attachment_detail_new_name
+	 		 , p.product_no
+	 		 , product_name
+     		 , product_author
+     		 , product_price
+     		 , c.cart_no
+  		  FROM cart c
+  		  JOIN product p
+    		ON c.product_no = p.product_no
+  		  JOIN attachment a
+    		ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
+		  JOIN attachment_detail d
+			ON a.attachment_no = d.attachment_no
+ 		 WHERE product_status = 'E';
+   	</select>
+   	
+   	<!-- cart 데이터 삭제 -->
+   	<delete id="deleteCart" parameterType="String">
+   		DELETE FROM cart
+   		 WHERE cart_no = #{cart_no};
+   	</delete>
 </mapper>
 
 

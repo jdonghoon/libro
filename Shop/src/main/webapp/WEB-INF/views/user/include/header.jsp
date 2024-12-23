@@ -36,7 +36,7 @@
 					</div>
 					<%-- <button onclick="location.href='<%=request.getContextPath()%>/admin/index.do'" class="btn">관리자</button> --%>
 					<button onclick="toggleSideMenu('login')" class="btn">로그인</button>
-					<button onclick="toggleSideMenu('cart')" class="btn">장바구니</button>
+					<button onclick="toggleSideMenu('cart')" class="btn" id="cartBtn">장바구니</button>
 				</div>
 			</div>
 		</header>
@@ -80,7 +80,86 @@
 		<!-- 장바구니 메뉴 (오른쪽에서 나오는 메뉴) -->
 		<div id="cart-menu" class="side-menu-right-2">
 			<button class="right-close-btn" onclick="closeMenu()">닫기</button>
-			<a href="#">장바구니 항목 1</a>
-			<a href="#">장바구니 항목 2</a>
+			<div class="cart-right"></div>
 			<button onclick="location.href='user/cart/cart.html'" class="cart-btnvv">장바구니로 이동</button>
 		</div>
+		<script>
+		// 장바구니 데이터 조회
+		const cartBnt = document.getElementById('cartBtn');
+		cartBnt.addEventListener("click", selectCart);
+		
+		function selectCart() {
+			$.ajax({
+				url: "selectCart.do",
+				type: "GET",
+				data: "JSON",
+				success: function(response) {
+					console.log(response);
+					
+					const cartMenu = document.getElementById('cart-menu');
+					const cartList = cartMenu.querySelector('div');
+					cartList.innerHTML = "";
+					
+					if (response.length > 0) {
+		                let html = "";
+		                response.forEach(item => {
+		                	
+		                	console.log(item);
+		                	
+		                    html += `
+	                    	<div class="cart-menu-container">
+		                    	<div class="cart-info-container">
+			                    	<div>
+				                    	<a href="product.do?product_no=\${item.product_no}">
+			      	            			<img src="<%=request.getContextPath()%>/upload/\${item.attachment_detail_new_name}" width="100px" height="150px;">
+		      	            			</a>
+	      	            			</div>
+		      	            		<div class="cart-info">
+		      	            			<div class="cart-title">\${item.product_name}</div>
+		      	                		<div class="cart-writer">\${item.product_author}</div>
+		      	                		<div class="cart-price">\${item.product_price}</div>
+			      	            	</div>
+		      	            	</div>
+		      	            	<div>
+		      	            		<a href="#" onclick="deleteCartList(\${item.cart_no})">
+		      	            			<img src="https://img.icons8.com/?size=100&id=82771&format=png&color=000000" width="20px;">
+		      	            		</a>
+		      	            	</div>
+	      	            	</div>
+		                    `;
+		                });
+		                cartList.innerHTML = html; // 생성한 HTML 삽입
+		            } else {
+		                cartList.innerHTML = "<p>장바구니에 상품이 없습니다.</p>";
+		            }
+				},
+		        error: function (xhr, status, error) {
+		            console.error("AJAX Error:", status, error);
+		            alert("장바구니 데이터를 불러오지 못했습니다. 다시 시도해주세요.");
+		        }
+			});	
+		}
+		
+		function deleteCartList(cart_no) {
+			$.ajax({
+				url: "deleteCart.do",
+				type: "POST",
+				data: {cart_no : cart_no},
+				success: function(response) {
+					console.log(response);
+					
+					if(response > 0) {
+						alert("상품이 삭제 되었습니다.");
+						selectCart();
+					} else {
+						alert("상품이 삭제되지 않았습니다.");
+					}
+				},
+		        error: function (xhr, status, error) {
+		            console.error("AJAX Error:", status, error);
+		            alert("상품이 삭제되지 못했습니다. 다시 시도해주세요.");
+		        }
+			});
+		}
+			
+		</script>

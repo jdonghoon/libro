@@ -29,10 +29,15 @@ public class ProductVO extends AttachmentDetailVO {
 	private String review_starrating_avg;		// 별점 평균 (한 상품에 기준)
 	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
 	
+	private String cart_no;						// 장바구니 번호
 	
-	
-	
-	
+
+	public String getCart_no() {
+		return cart_no;
+	}
+	public void setCart_no(String cart_no) {
+		this.cart_no = cart_no;
+	}
 	public String getProduct_publisher() {
 		return product_publisher;
 	}

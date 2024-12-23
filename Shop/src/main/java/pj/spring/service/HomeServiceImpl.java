@@ -52,5 +52,16 @@ public class HomeServiceImpl implements HomeService {
 		return homeDAO.selectRecommend();
 	}
 
+	@Override
+	public List<ProductVO> selectCart() {
+		
+		return homeDAO.selectCart();
+	}
+
+	@Override
+	public int deleteCart(String cart_no) {
+		
+		return homeDAO.deleteCart(cart_no);
+	}
 	
 }

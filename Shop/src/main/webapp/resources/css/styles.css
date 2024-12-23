@@ -321,3 +321,24 @@ html, body{
 main{
     flex:1;
 }
+
+.cart-menu-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+}
+
+.cart-info-container {
+	display: flex;
+    align-items: center;
+    color: rgb(112, 112, 112);
+    font-size: 0.9rem;
+    font-weight: bolder;
+}
+
+.cart-title {
+	width: 85px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

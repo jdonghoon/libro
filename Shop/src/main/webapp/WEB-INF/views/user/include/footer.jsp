@@ -37,7 +37,8 @@
 			function toggleSearch() {
 				const searchContainer = document.getElementById('search-container');
 				console.log(searchContainer);
-				searchContainer.classList.toggle('hidden'); 
+				searchContainer.classList.toggle('hidden');
+				
 			}	
 		</script>
 		<footer>

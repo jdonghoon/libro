@@ -1,6 +1,8 @@
 package pj.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.HomeService;
 import pj.spring.util.PagingUtil;
@@ -62,4 +65,22 @@ public class HomeController {
 		return "user/menu/indexSearch";
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/selectCart.do", produces = "application/json; charset=UTF-8")
+	public List<ProductVO> selectCart(ProductVO productVO, @RequestParam(value="nowPage", required = false, defaultValue="1") int nowpage) {
+	    
+	    List<ProductVO> selectCart = homeService.selectCart();
+	    
+	    return selectCart;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	public int deleteCart(@RequestParam("cart_no") String cart_no) {
+	    
+	    int result = homeService.deleteCart(cart_no);
+	    	
+	    return result;
+	}
 }

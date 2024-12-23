@@ -18,4 +18,8 @@ public interface HomeService {
 	public List<ProductVO> selectIndexSearch(SearchVO searchVO);
 	
 	public List<ProductVO> selectRecommend();
+	
+	public List<ProductVO> selectCart();
+	
+	public int deleteCart(String cart_no);
 }

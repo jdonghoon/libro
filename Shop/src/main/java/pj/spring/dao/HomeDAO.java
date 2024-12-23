@@ -46,4 +46,14 @@ public class HomeDAO {
 		
 		return sqlsession.selectList(namespace + ".selectRecommend");
 	}
+	
+	public List<ProductVO> selectCart() {
+		
+		return sqlsession.selectList(namespace + ".selectCart");
+	}
+	
+	public int deleteCart(String cart_no) {
+		
+		return sqlsession.delete(namespace + ".deleteCart", cart_no);
+	}
 }
