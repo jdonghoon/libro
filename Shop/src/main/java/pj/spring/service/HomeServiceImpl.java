@@ -1,6 +1,7 @@
 package pj.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,9 +54,9 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<ProductVO> selectCart() {
+	public List<ProductVO> selectCart(Map<String, Object> params) {
 		
-		return homeDAO.selectCart();
+		return homeDAO.selectCart(params);
 	}
 
 	@Override

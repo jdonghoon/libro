@@ -53,7 +53,6 @@ public class UserAuthenticationService implements UserDetailsService{
 								, true, true, true
 								, autorities
 								, (String)user.getUser_type());
-		
 		return vo;
 	}
 

@@ -1,6 +1,7 @@
 package pj.spring.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,9 @@ public class HomeDAO {
 		return sqlsession.selectList(namespace + ".selectRecommend");
 	}
 	
-	public List<ProductVO> selectCart() {
+	public List<ProductVO> selectCart(Map<String, Object> params) {
 		
-		return sqlsession.selectList(namespace + ".selectCart");
+		return sqlsession.selectList(namespace + ".selectCart", params);
 	}
 	
 	public int deleteCart(String cart_no) {

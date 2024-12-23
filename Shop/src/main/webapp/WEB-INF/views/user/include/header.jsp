@@ -85,6 +85,12 @@
 		</div>
 		<script>
 		// 장바구니 데이터 조회
+		const user_id = '<%= session.getAttribute("user_id")%>';
+		const guest_no = '<%= session.getAttribute("guest_no") %>';
+		
+		console.log(user_id);
+		console.log(guest_no);
+		
 		const cartBnt = document.getElementById('cartBtn');
 		cartBnt.addEventListener("click", selectCart);
 		
@@ -92,7 +98,6 @@
 			$.ajax({
 				url: "selectCart.do",
 				type: "GET",
-				data: "JSON",
 				success: function(response) {
 					console.log(response);
 					
