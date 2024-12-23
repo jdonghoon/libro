@@ -133,7 +133,7 @@
 	            <div class="button-area-list">
 	                <div class="payment"><button onclick="location.href='payment.do'">바로구매</button></div>
 	                <div class="cart"><button onclick="addToCart(${vo.product_no})">장바구니</button></div>
-	                <div class="wishlist"><button onclick="location.href='wishlist.do'">위시리스트</button></div>
+	                <div class="wishlist"><button onclick="addToWishlist(${vo.product_no})">위시리스트</button></div>
 	            </div>
 	        </div>
 	      </div>
@@ -157,6 +157,28 @@
       				error : function (xhr, status, error) {
       					console.log("AJAX Error : ", error);
       					alert("장바구니 추가 중 오류가 발생했습니다.");
+      				}
+      			});
+      		}
+      		
+      		function addToWishlist(product_no){
+      			$.ajax({
+      				url : "addToWishlist.do",
+      				type : "POST",
+      				data : {product_no : product_no},
+      				success : function (response) {
+      					
+      					console.log(response);
+      					
+      					if(response.success) {
+      						alert("읽고 싶은 책에 상품이 추가되었습니다.");
+      					} else {
+      						alert("읽고 싶은 책 추가에 실패하였습니다.");
+      					}
+      				},
+      				error : function (xhr, status, error) {
+      					console.log("AJAX Error : ", error);
+      					alert("읽고 싶은 책 추가 중 오류가 발생했습니다.");
       				}
       			});
       		}

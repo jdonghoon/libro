@@ -23,6 +23,7 @@
  		 <if test="categoryType != null and categoryType != ''">
  		   AND TRIM(category_name) = TRIM(#{categoryType})
  		 </if>
+ 		   AND product_status = 'E'
    	  ORDER BY product_created_at DESC
    	  	 LIMIT #{start}, #{perPage};
    	</select>
@@ -37,6 +38,7 @@
    		 <if test="categoryType != null and categoryType != ''">
  		   AND TRIM(category_name) = TRIM(#{categoryType});
  		 </if>
+ 		   AND product_status = 'E'
    	</select>
 	
 	<!-- bestsellerlist 가장 많이 팔린 책 -->
@@ -46,7 +48,7 @@
 	 		  , product_name
      		  , product_author
      		  , product_price
-     		  , product_created_at	
+     		  , product_created_at
      		  , category_name
      		  , COUNT(od.product_no) AS order_count
   		  FROM product p
@@ -61,6 +63,7 @@
 		 <if test="categoryType != null and categoryType != ''">
 		   WHERE TRIM(category_name) = TRIM(#{categoryType})
 		 </if>
+		   AND product_status = 'E'
    	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author, product_price, product_created_at 
    	  ORDER BY order_count DESC
    	  	 LIMIT #{start}, #{perPage};
@@ -85,6 +88,7 @@
 		<if test="categoryType != null and categoryType != ''">
 		 WHERE TRIM(category_name) = TRIM(#{categoryType})
 		</if>
+		  AND product_status = 'E'
    	  	 ORDER BY product_created_at DESC
    	  	 LIMIT #{start}, #{perPage};
    	</select>
@@ -100,6 +104,7 @@
     		ON p.product_no = a.attachment_product_no
   		  JOIN attachment_detail d
     		ON a.attachment_no = d.attachment_no
+    	 WHERE product_status = 'E'
    	  ORDER BY p.product_created_at
    		 LIMIT 0, 4;
    	</select>
@@ -125,7 +130,8 @@
 		   ON a.attachment_no = d.attachment_no
 		 JOIN category c
 		   ON p.category_no = c.category_no
- 		WHERE p.product_no = #{product_no};
+ 		WHERE p.product_no = #{product_no}
+ 		  AND product_status = 'E';
    	</select>
    	
    	<!-- review 조회 -->
@@ -138,10 +144,14 @@
 	    	 , (SELECT review_content FROM review WHERE review_starrating = 5 AND product_no = 1 ORDER BY review_create_at desc LIMIT 1) as review_content
 	    	 , (SELECT review_create_at FROM review WHERE review_starrating = 5 AND product_no = 1 ORDER BY review_create_at desc LIMIT 1) as review_create_at
 	    	 , (SELECT user_id FROM review WHERE review_starrating = 5 AND product_no = 1 ORDER BY review_create_at desc LIMIT 1) as user_id
-	      FROM review
-		 WHERE product_no = 1;
+	      FROM review r
+	      JOIN product p
+	        ON r.product_no = p.product_no
+		 WHERE product_no = 1
+		   AND product_status = 'E';
    	</select>
    	
+   	<!-- cart 데이터 추가 (회원) / 비회원 일 때 조건 필요 -->
    	<insert id="addToCart" parameterType="CartVO">
    		INSERT INTO cart (
    			cart_product_quantity
@@ -151,6 +161,21 @@
    		) VALUES (
    			  #{cart_product_quantity}
    			, #{cart_create_id}
+   			, #{user_id}
+   			, #{product_no}
+   		);
+   	</insert>
+   	
+   	<!-- wishlist 데이터 추가 (회원) / 비회원 일 때 조건 필요 -->
+   	<insert id="addToWishlist" parameterType="WishlistVO">
+   		INSERT INTO wishlist (
+   			wishlist_product_quantity
+   		  , wishlist_create_id
+   		  , user_id
+   		  , product_no
+   		) VALUES (
+   			  #{wishlist_product_quantity}
+   			, #{wishlist_create_id}
    			, #{user_id}
    			, #{product_no}
    		);

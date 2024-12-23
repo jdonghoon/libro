@@ -10,6 +10,7 @@ import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
+import pj.spring.vo.WishlistVO;
 
 @Service
 public class MenuServiceIpml implements MenuService{
@@ -63,6 +64,12 @@ public class MenuServiceIpml implements MenuService{
 	public int addToCart(CartVO cartVO) {
 		
 		return menuDAO.addToCart(cartVO);
+	}
+
+	@Override
+	public int addToWishlist(WishlistVO wishlistVO) {
+
+		return menuDAO.addToWishlist(wishlistVO);
 	}
 
 	

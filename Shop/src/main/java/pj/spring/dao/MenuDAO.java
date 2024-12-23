@@ -10,6 +10,7 @@ import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
+import pj.spring.vo.WishlistVO;
 
 @Repository
 public class MenuDAO {
@@ -55,6 +56,11 @@ public class MenuDAO {
 	
 	public int addToCart(CartVO cartVO) {
 		
-		return sqlsession.insert(namespace + "addToCart", cartVO);
+		return sqlsession.insert(namespace + ".addToCart", cartVO);
+	}
+	
+	public int addToWishlist(WishlistVO wishlistVO) {
+		
+		return sqlsession.insert(namespace + ".addToWishlist", wishlistVO);
 	}
 }

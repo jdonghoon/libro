@@ -2,14 +2,31 @@ package pj.spring.vo;
 
 public class WishlistVO extends ReviewVO {
 	private String wishlist_no;					// 위시리스트 번호
+	private int wishlist_product_quantity;	// 상품 수량
 	private String wishlist_create_at;			// 등록일
 	private String wishlist_create_id;			// 등록id
 	private String wishlist_create_ip;			// 등록ip
 	private String wishlist_update_at;			// 수정일
 	private String wishlist_update_id;			// 수정id
 	private String wishlist_update_ip;			// 수정ip
-	private String user_id; 
+	private String user_id;
 	
+	private String product_no;					// 상품 번호
+	
+	
+	
+	public int getWishlist_product_quantity() {
+		return wishlist_product_quantity;
+	}
+	public void setWishlist_product_quantity(int wishlist_product_quantity) {
+		this.wishlist_product_quantity = wishlist_product_quantity;
+	}
+	public String getProduct_no() {
+		return product_no;
+	}
+	public void setProduct_no(String product_no) {
+		this.product_no = product_no;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

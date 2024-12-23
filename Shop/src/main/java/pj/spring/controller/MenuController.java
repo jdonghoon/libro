@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,7 @@ import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
+import pj.spring.vo.WishlistVO;
 
 @Controller
 public class MenuController {
@@ -130,8 +133,13 @@ public class MenuController {
 	@RequestMapping(value = "/addToCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public Map<String, Object> addToCart(CartVO cartVO, @RequestParam("product_no") String product_no, HttpSession session) throws IllegalStateException, IOException {
 		
-		String userId = (String)session.getAttribute("user_id");
-		String cartCreateId = (String)session.getAttribute("user_id");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
+		String cartCreateId = authentication.getName();
+		
+		System.out.println("user_id : " + userId);
+		System.out.println("cart_create_id : " + cartCreateId);
+		System.out.println("product_no : " + product_no);
 		
 		Map<String, Object> response = new HashMap<>();
 		
@@ -141,13 +149,12 @@ public class MenuController {
 	        cartVO.setCart_create_id(cartCreateId);
 	        cartVO.setProduct_no(product_no);
 	        cartVO.setCart_product_quantity(1);
-	        
-	        System.out.println(userId);
-	        
-			try {
-				menuService.addToCart(cartVO);
+
+			int result = menuService.addToCart(cartVO);
+			if(result > 0) {
 				response.put("success", true);
-			} catch (Exception e) {
+				System.out.println("success result : 성공");
+			} else {
 				response.put("success", false);
 			}
 		} else {
@@ -155,5 +162,42 @@ public class MenuController {
 		}
 		return response;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/addToWishlist.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	public Map<String, Object> addToWishlist(WishlistVO wishlistVO, @RequestParam("product_no") String product_no, HttpSession session) throws IllegalStateException, IOException {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
+		String wishlistCreateId = authentication.getName();
+		
+		System.out.println("user_id : " + userId);
+		System.out.println("wishlist_create_id : " + wishlistCreateId);
+		System.out.println("product_no : " + product_no);
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		if(userId != null) {
+			
+	        wishlistVO.setUser_id(userId);
+	        wishlistVO.setWishlist_create_id(wishlistCreateId);
+	        wishlistVO.setProduct_no(product_no);
+	        wishlistVO.setWishlist_product_quantity(1);
+
+			int result = menuService.addToWishlist(wishlistVO);
+			if(result > 0) {
+				response.put("success", true);
+				System.out.println("success result : 성공");
+			} else {
+				response.put("success", false);
+			}
+		} else {
+			response.put("success", false);
+		}
+		return response;
+	}
+	
+	
+	
 	
 }

@@ -50,12 +50,57 @@
 		
 		  <div class="button-area-detail">
 		    <div>
-		      <button type="button" class="wishlist" onclick="location.href='wishlist.html'">위시리스트</button>
-		      <button type="button" class="cart" onclick="location.href='cart.html'">장바구니</button>
+		      <button type="button" class="wishlist" onclick="addToWishlist(${vo.product_no})">위시리스트</button>
+		      <button type="button" class="cart" onclick="addToCart(${vo.product_no})">장바구니</button>
 		      <button type="submit" class="purchase">바로 구매</button>
 		    </div>
 		  </div>
 		</form>
+		<script>
+      		function addToCart(product_no){
+      			$.ajax({
+      				url : "addToCart.do",
+      				type : "POST",
+      				data : {product_no : product_no},
+      				success : function (response) {
+      					
+      					console.log(response);
+      					
+      					if(response.success) {
+      						alert("장바구니에 상품이 추가되었습니다.");
+      					} else {
+      						alert("장바구니에 추가에 실패하였습니다.");
+      					}
+      				},
+      				error : function (xhr, status, error) {
+      					console.log("AJAX Error : ", error);
+      					alert("장바구니 추가 중 오류가 발생했습니다.");
+      				}
+      			});
+      		}
+      		
+      		function addToWishlist(product_no){
+      			$.ajax({
+      				url : "addToWishlist.do",
+      				type : "POST",
+      				data : {product_no : product_no},
+      				success : function (response) {
+      					
+      					console.log(response);
+      					
+      					if(response.success) {
+      						alert("읽고 싶은 책에 상품이 추가되었습니다.");
+      					} else {
+      						alert("읽고 싶은 책 추가에 실패하였습니다.");
+      					}
+      				},
+      				error : function (xhr, status, error) {
+      					console.log("AJAX Error : ", error);
+      					alert("읽고 싶은 책 추가 중 오류가 발생했습니다.");
+      				}
+      			});
+      		}
+      	</script>
 		
 		<script>
 		  const pricePerUnit = ${productDetail.product_price}; // 제품 단가
