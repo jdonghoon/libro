@@ -718,6 +718,9 @@
 .first-container-cart {
   border: 1px solid rgb(190, 190, 190);
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
 }
 
 #total{
@@ -841,6 +844,34 @@
   border-radius: 5px;
   border: none;
   background-color: rgb(238, 238, 238);
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkbox-label:hover {
+  background-color: #f0f0f0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.checkbox-label input[type="checkbox"]:checked + span {
+  font-weight: bold;
 }
 
 

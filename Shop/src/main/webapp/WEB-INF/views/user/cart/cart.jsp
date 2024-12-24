@@ -11,103 +11,58 @@
         <input type="checkbox" id="selectAll" />
         <span>전체 선택</span>
       </label>
-
-      <label class="checkbox-label">
-        <input type="checkbox" name="book" value="1" />
-        <div class="book-info-container-cart">
-          <div class="book-image">
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-            </a>
-          </div>
-          <div class="book-detail">
-            <div class="category" name="category">카테고리</div>
-            <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-            <div class="writer" name="writer">저자</div>
-            <div class="price" name="price">가격</div>
-          </div>
-          <div class="book-sales">
-            <div class="quantity" name="quantity">수량
-              <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-                <span>1</span>
-              <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-            </div>
-            <div class="button-area-cart">
-            </div>
-          </div>
-        </div>
-      </label>
-
-      <label class="checkbox-label">
-        <input type="checkbox" name="book" value="2" />
-        <div class="book-info-container-cart">
-          <div class="book-image">
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-            </a>
-          </div>
-          <div class="book-detail">
-            <div class="category" name="category">카테고리</div>
-            <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-            <div class="writer" name="writer">저자</div>
-            <div class="price" name="price">가격</div>
-          </div>
-          <div class="book-sales">
-            <div class="quantity" name="quantity">수량
-              <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-                <span>1</span>
-              <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-            </div>
-            <div class="button-area-cart">
-            </div>
-          </div>
-        </div>
-      </label>
-
-      <label class="checkbox-label">
-        <input type="checkbox" name="book" value="3" />
-        <div class="book-info-container-cart">
-          <div class="book-image">
-            <a href="#">
-              <img src="https://cdn.ypbooks.co.kr/image/product/202411/520e42e1-40c5-4632-a3cf-71182e3a89d8_192.jpg" width="200px">
-            </a>
-          </div>
-          <div class="book-detail">
-            <div class="category" name="category">카테고리</div>
-            <div class="title" name="title">무의식은 어떻게 나를 설계하는가</div>
-            <div class="writer" name="writer">저자</div>
-            <div class="price" name="price">가격</div>
-          </div>
-          <div class="book-sales">
-            <div class="quantity" name="quantity">수량
-              <button><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
-                <span>1</span>
-              <button><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
-            </div>
-            <div class="button-area-cart">
-            </div>
-          </div>
-        </div>
-      </label>
-      <script>
-        const selectAllCheckbox = document.getElementById("selectAll");
-        const checkboxes = document.querySelectorAll('input[name="book"]');
-      
-        // "전체 선택" 체크박스 클릭 시 모든 체크박스 상태 변경
-        selectAllCheckbox.addEventListener("change", () => {
-          checkboxes.forEach((checkbox) => {
-            checkbox.checked = selectAllCheckbox.checked;
-          });
-        });
-      
-        // 개별 체크박스 클릭 시 "전체 선택" 상태 업데이트
-        checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener("change", () => {
-            const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
-            selectAllCheckbox.checked = allChecked;
-          });
-        });
-      </script>
+	  
+	  <c:forEach items="${cartList}" var="vo">
+	    <label class="checkbox-label">
+	        <input type="checkbox" name="book" value="${vo.product_no}" class="product-checkbox" />
+	        <div class="book-info-container-cart">
+	            <div class="book-image">
+	                <a href="product.do?product_no=${vo.product_no}">
+	                    <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px" height="300px">
+	                </a>
+	            </div>
+	            <div class="book-detail">
+	                <div class="category" name="category">${vo.category_name}</div>
+	                <div class="title" name="title">${vo.product_name}</div>
+	                <div class="writer" name="writer">${vo.product_author}</div>
+	                <div class="price" name="price">${vo.product_price}</div>
+	            </div>
+	            <div class="book-sales">
+	                <div class="quantity" name="quantity">수량
+	                    <button class="cnt-down" data-product-no="${vo.product_no}"><img src="https://img.icons8.com/?size=100&id=79029&format=png&color=000000" width="10px"></button>
+	                    <span class="count" id="count_${vo.product_no}">${vo.cart_product_quantity}</span>
+	                    <button class="cnt-up" data-product-no="${vo.product_no}"><img src="https://img.icons8.com/?size=100&id=3220&format=png&color=000000" width="10px"></button>
+	                </div>
+	            </div>
+	        </div>
+	    </label>
+	  </c:forEach>
+	
+	  <script>
+	    $(document).ready(function() {
+	        $('.cnt-down').click(function() {
+	            let productNo = $(this).data('product-no');
+	            let countElement = $(`#count_${productNo}`);
+	            let count = parseInt(countElement.text());
+	            
+	            if (count > 1) {
+	                count--;
+	                countElement.text(count);
+	            }
+	        });
+	
+	        $('.cnt-up').click(function() {
+	            let productNo = $(this).data('product-no');
+	            let countElement = $(`#count_${productNo}`);
+	            let count = parseInt(countElement.text());
+	            
+	            count++;
+	            countElement.text(count);
+	        });
+	
+	        
+	    });
+	  </script>
     </div>
 
   <!-- 결제 내역 -->  
@@ -118,27 +73,27 @@
         <div>
           <div class="payment-info">
             <div>총 수량</div>
-            <div class="payment-price">1</div>
+            <div class="payment-price" id="total-quantity">${cartPrice.cart_product_quantity}</div>
           </div>
           <div class="payment-info">
             <div>상품금액</div>
-            <div class="payment-price">100,000</div>
+            <div class="payment-price" id="product-price">${cartPrice.product_price}</div>
           </div>
           <div class="payment-info">
-            <div>서비스 이용료</div>
-            <div class="payment-price">10,000</div>
+            <div>배송비</div>
+            <div class="payment-price" id="shipping-price">3,000</div>
           </div>
           <div class="payment-total-info">
             <div>총 주문금액</div>
-            <div class="payment-total-price">140,000</div>
+            <div class="payment-total-price" id="total-price">${totalPrice}</div>
           </div>
         </div>
         <div class="order-button">
           <button>주문하기</button>
         </div> 
       </div>
-    </div>
-  </form>
+  	</form>
+  </div>
 </main>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

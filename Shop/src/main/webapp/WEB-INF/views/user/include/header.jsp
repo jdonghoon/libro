@@ -81,7 +81,7 @@
 		<div id="cart-menu" class="side-menu-right-2">
 			<button class="right-close-btn" onclick="closeMenu()">닫기</button>
 			<div class="cart-right"></div>
-			<button onclick="location.href='user/cart/cart.html'" class="cart-btnvv">장바구니로 이동</button>
+			<button onclick="window.location.href='cart.do';" class="cart-btnvv">장바구니로 이동</button>
 		</div>
 		<script>
 		// 장바구니 데이터 조회

@@ -19,6 +19,7 @@ public class ProductVO extends AttachmentDetailVO {
 	private String product_update_id;			// 수정id
 	private String product_update_ip;			// 수정ip
 	private String user_id;                     // ID
+	private String guest_no;					// guest번호
 	
 	private String category_name;				// 카테고리 이름
 
@@ -30,8 +31,22 @@ public class ProductVO extends AttachmentDetailVO {
 	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
 	
 	private String cart_no;						// 장바구니 번호
+	private int cart_product_quantity;		// 장바구니 상품 수량
 	
 
+	
+	public int getCart_product_quantity() {
+		return cart_product_quantity;
+	}
+	public void setCart_product_quantity(int cart_product_quantity) {
+		this.cart_product_quantity = cart_product_quantity;
+	}
+	public String getGuest_no() {
+		return guest_no;
+	}
+	public void setGuest_no(String guest_no) {
+		this.guest_no = guest_no;
+	}
 	public String getCart_no() {
 		return cart_no;
 	}

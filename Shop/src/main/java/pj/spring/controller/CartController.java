@@ -1,26 +1,35 @@
 package pj.spring.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.CartService;
+import pj.spring.vo.ProductVO;
 import pj.spring.vo.UserVO;
 
 @Controller
 public class CartController {
 	
 	@Autowired
-	public CartService carService;
+	public CartService cartService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/addcart.do", produces = "application/json; charset=UTF-8")
@@ -47,4 +56,28 @@ public class CartController {
 		result.put("success", true);
 		return result;
 	}
+	
+	@RequestMapping(value = "/cart.do", method = RequestMethod.GET)
+	public String cart(Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String user_id = authentication.getName();
+	    System.out.println("user_id : " + user_id);
+	    
+	    List<ProductVO> cartList = cartService.selectCartList();
+	    ProductVO cartPrice = cartService.selectCartPrice(user_id);
+	    
+	    int shippingPrice = 3000;
+	    int totalPrice = Integer.parseInt(cartPrice.getProduct_price()) + shippingPrice;
+	    
+	    model.addAttribute("cartList", cartList);
+	    model.addAttribute("cartPrice", cartPrice);
+	    model.addAttribute("totalPrice", totalPrice);
+	    
+	    return "user/cart/cart";
+	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/updateQuantity.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	
 }

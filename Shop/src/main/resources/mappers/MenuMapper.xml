@@ -101,7 +101,7 @@
      		 , product_author
   		  FROM product p
   		  JOIN attachment a
-    		ON p.product_no = a.attachment_product_no
+    		ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
   		  JOIN attachment_detail d
     		ON a.attachment_no = d.attachment_no
     	 WHERE product_status = 'E'
@@ -125,7 +125,7 @@
       		 , (SELECT COUNT(review_no) FROM review WHERE product_no = 1) as review_cnt
   		 FROM product p
   		 JOIN attachment a
-		   ON p.product_no = a.attachment_product_no
+		   ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
 		 JOIN attachment_detail d
 		   ON a.attachment_no = d.attachment_no
 		 JOIN category c

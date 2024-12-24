@@ -1,5 +1,15 @@
 package pj.spring.service;
 
-public interface CartService {
+import java.util.List;
+import java.util.Map;
 
+import pj.spring.vo.ProductVO;
+
+public interface CartService {
+	
+	public List<ProductVO> selectCartList();
+	
+	public ProductVO selectCartPrice(String user_id);
+	
+	public int updateCartQuantity(Map<String, Object> map);
 }
