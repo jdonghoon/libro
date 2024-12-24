@@ -132,35 +132,42 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value = "/addToCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public Map<String, Object> addToCart(CartVO cartVO, @RequestParam("product_no") String product_no, HttpSession session) throws IllegalStateException, IOException {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userId = authentication.getName();
-		String cartCreateId = authentication.getName();
-		
-		System.out.println("user_id : " + userId);
-		System.out.println("cart_create_id : " + cartCreateId);
-		System.out.println("product_no : " + product_no);
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		if(userId != null) {
-			
+
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userId = authentication.getName();
+	    String cartCreateId = authentication.getName();
+
+	    System.out.println("user_id : " + userId);
+	    System.out.println("cart_create_id : " + cartCreateId);
+	    System.out.println("product_no : " + product_no);
+
+	    Map<String, Object> response = new HashMap<>();
+
+	    if (userId != null) {
 	        cartVO.setUser_id(userId);
 	        cartVO.setCart_create_id(cartCreateId);
 	        cartVO.setProduct_no(product_no);
 	        cartVO.setCart_product_quantity(1);
 
-			int result = menuService.addToCart(cartVO);
-			if(result > 0) {
-				response.put("success", true);
-				System.out.println("success result : 성공");
-			} else {
-				response.put("success", false);
-			}
-		} else {
-			response.put("success", false);
-		}
-		return response;
+	        // 중복 확인
+	        if (menuService.checkCart(cartVO)) {
+	            response.put("success", false);
+	            response.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
+	        } else {
+	            int result = menuService.addToCart(cartVO);
+	            if (result > 0) {
+	                response.put("success", true);
+	                System.out.println("success result : 성공");
+	            } else {
+	                response.put("success", false);
+	                response.put("message", "장바구니 추가에 실패하였습니다."); // 삽입 실패 메시지
+	            }
+	        }
+	    } else {
+	        response.put("success", false);
+	        response.put("message", "로그인이 필요합니다.");
+	    }
+	    return response;
 	}
 	
 	@ResponseBody
@@ -184,20 +191,24 @@ public class MenuController {
 	        wishlistVO.setProduct_no(product_no);
 	        wishlistVO.setWishlist_product_quantity(1);
 
-			int result = menuService.addToWishlist(wishlistVO);
-			if(result > 0) {
-				response.put("success", true);
-				System.out.println("success result : 성공");
-			} else {
-				response.put("success", false);
-			}
-		} else {
-			response.put("success", false);
-		}
-		return response;
+	     // 중복 확인
+	        if (menuService.checkWishlist(wishlistVO)) {
+	            response.put("success", false);
+	            response.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
+	        } else {
+	            int result = menuService.addToWishlist(wishlistVO);
+	            if (result > 0) {
+	                response.put("success", true);
+	                System.out.println("success result : 성공");
+	            } else {
+	                response.put("success", false);
+	                response.put("message", "장바구니 추가에 실패하였습니다."); // 삽입 실패 메시지
+	            }
+	        }
+	    } else {
+	        response.put("success", false);
+	        response.put("message", "로그인이 필요합니다.");
+	    }
+	    return response;
 	}
-	
-	
-	
-	
 }

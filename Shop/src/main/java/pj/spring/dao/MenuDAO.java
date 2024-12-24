@@ -59,8 +59,18 @@ public class MenuDAO {
 		return sqlsession.insert(namespace + ".addToCart", cartVO);
 	}
 	
+	public int checkCart(CartVO cartVO) {
+		
+		return sqlsession.selectOne(namespace + ".checkCart", cartVO);
+	}
+	
 	public int addToWishlist(WishlistVO wishlistVO) {
 		
 		return sqlsession.insert(namespace + ".addToWishlist", wishlistVO);
+	}
+	
+	public int checkWishlist(WishlistVO wishlistVO) {
+		
+		return sqlsession.selectOne(namespace + ".checkWishlist", wishlistVO);
 	}
 }

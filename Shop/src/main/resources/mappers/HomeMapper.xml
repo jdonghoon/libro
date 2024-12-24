@@ -130,7 +130,7 @@
  		   <if test="user_id != null and user_id != ''">
  		   AND c.user_id = #{user_id};
  		   </if>
- 		   <if test="guest_no != null and guest_no != ''">
+ 		   <if test="(user_id == null or user_id == '') and guest_no != null and guest_no != ''">
  		   AND c.guest_no = #{guest_no};
  		   </if>
    	</select>

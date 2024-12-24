@@ -73,30 +73,32 @@ public class HomeController {
 	@ResponseBody
 	@RequestMapping(value = "/selectCart.do", produces = "application/json; charset=UTF-8")
 	public List<ProductVO> selectCart(HttpSession session) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userId = null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String user_id = authentication.getName();
+		System.out.println("user_id : " + user_id);
 
-        // 로그인한 사용자라면 user_id 가져오기
-        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
-            Object principal = auth.getPrincipal();
+        // 로그인한 사용자라면 user_id 가져오기 (확인하기)
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
             if (principal instanceof UserDetails) {
-                userId = ((UserDetails) principal).getUsername();
+            	user_id = ((UserDetails) principal).getUsername();
             } else {
-                userId = principal.toString();
+            	user_id = principal.toString();
             }
         }
 
         // 비회원일 경우 세션에서 guest_no 가져오기
-        String guestNo = (String) session.getAttribute("guest_no");
+        String guest_no = (String) session.getAttribute("guest_no");
 
         // 필요한 로직 처리
         Map<String, Object> params = new HashMap<>();
-        params.put("user_id", userId);
-        params.put("guest_no", guestNo);
+        params.put("user_id", user_id);
+        params.put("guest_no", guest_no);
 
         // DB 쿼리 호출 (Mapper를 통해 데이터 가져오기)
         return homeService.selectCart(params);
     }
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")

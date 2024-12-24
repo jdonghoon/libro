@@ -67,11 +67,20 @@ public class MenuServiceIpml implements MenuService{
 	}
 
 	@Override
+	public boolean checkCart(CartVO cartVO) {
+		int count = menuDAO.checkCart(cartVO);
+		return count > 0;
+	}
+	
+	@Override
 	public int addToWishlist(WishlistVO wishlistVO) {
 
 		return menuDAO.addToWishlist(wishlistVO);
 	}
 
-	
-
+	@Override
+	public boolean checkWishlist(WishlistVO wishlistVO) {
+		int count = menuDAO.checkWishlist(wishlistVO);
+		return count > 0;
+	}
 }

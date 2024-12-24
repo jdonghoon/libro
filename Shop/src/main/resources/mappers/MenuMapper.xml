@@ -166,6 +166,14 @@
    		);
    	</insert>
    	
+   	<!-- cart 중복 상품 체크 -->
+   	<select id="checkCart" parameterType="CartVO" resultType="int">
+   		SELECT COUNT(*) 
+    	  FROM cart
+	     WHERE user_id = #{user_id}
+	       AND product_no = #{product_no}
+   	</select>
+   	
    	<!-- wishlist 데이터 추가 (회원) / 비회원 일 때 조건 필요 -->
    	<insert id="addToWishlist" parameterType="WishlistVO">
    		INSERT INTO wishlist (
@@ -180,4 +188,12 @@
    			, #{product_no}
    		);
    	</insert>
+   	
+   	<!-- wishlist 중복 상품 체크 -->
+   	<select id="checkWishlist" parameterType="WishlistVO" resultType="int">
+   		SELECT COUNT(*) 
+    	  FROM wishlist
+	     WHERE user_id = #{user_id}
+	       AND product_no = #{product_no}
+   	</select>
 </mapper>

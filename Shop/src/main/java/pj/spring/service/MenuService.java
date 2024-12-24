@@ -26,6 +26,10 @@ public interface MenuService {
 	
 	public int addToCart(CartVO cartVO);
 	
+	public boolean checkCart(CartVO cartVO);
+	
 	public int addToWishlist(WishlistVO wishlistVO);
+	
+	public boolean checkWishlist(WishlistVO wishlistVO);
 	
 }
