@@ -57,49 +57,49 @@
 		  </div>
 		</form>
 		<script>
-      		function addToCart(product_no){
-      			$.ajax({
-      				url : "addToCart.do",
-      				type : "POST",
-      				data : {product_no : product_no},
-      				success : function (response) {
-      					
-      					console.log(response);
-      					
-      					if(response.success) {
-      						alert("장바구니에 상품이 추가되었습니다.");
-      					} else {
-      						alert("장바구니에 추가에 실패하였습니다.");
-      					}
-      				},
-      				error : function (xhr, status, error) {
-      					console.log("AJAX Error : ", error);
-      					alert("장바구니 추가 중 오류가 발생했습니다.");
-      				}
-      			});
-      		}
-      		
-      		function addToWishlist(product_no){
-      			$.ajax({
-      				url : "addToWishlist.do",
-      				type : "POST",
-      				data : {product_no : product_no},
-      				success : function (response) {
-      					
-      					console.log(response);
-      					
-      					if(response.success) {
-      						alert("읽고 싶은 책에 상품이 추가되었습니다.");
-      					} else {
-      						alert("읽고 싶은 책 추가에 실패하였습니다.");
-      					}
-      				},
-      				error : function (xhr, status, error) {
-      					console.log("AJAX Error : ", error);
-      					alert("읽고 싶은 책 추가 중 오류가 발생했습니다.");
-      				}
-      			});
-      		}
+			function addToCart(product_no) {
+	      	    $.ajax({
+	      	        url: "addToCart.do",
+	      	        type: "POST",
+	      	        data: { product_no: product_no },
+	      	        success: function (response) {
+	      	            console.log(response);
+	
+	      	            if (response.success) {
+	      	                alert("장바구니에 상품이 추가되었습니다.");
+	      	                selectCart(); // 장바구니 목록 갱신
+	      	            } else {
+	      	                alert(response.message); // 서버에서 전달된 메시지 표시
+	      	            }
+	      	        },
+	      	        error: function (xhr, status, error) {
+	      	            console.log("AJAX Error: ", error);
+	      	            alert("장바구니 추가 중 오류가 발생했습니다.");
+	      	        }
+	      	    });
+	      	}
+	  		
+	  		function addToWishlist(product_no){
+	  			$.ajax({
+	  				url : "addToWishlist.do",
+	  				type : "POST",
+	  				data : {product_no : product_no},
+	  				success : function (response) {
+	  					
+	  					console.log(response);
+	  					
+	  					if(response.success) {
+	  						alert("읽고 싶은 책에 상품이 추가되었습니다.");
+	  					} else {
+	  						alert(response.message); // 서버에서 전달된 메시지 표시
+	  					}
+	  				},
+	  				error : function (xhr, status, error) {
+	  					console.log("AJAX Error : ", error);
+	  					alert("읽고 싶은 책 추가 중 오류가 발생했습니다.");
+	  				}
+	  			});
+	  		}
       	</script>
 		
 		<script>
