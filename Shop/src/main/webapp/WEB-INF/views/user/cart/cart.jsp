@@ -39,29 +39,34 @@
 	  </c:forEach>
 	
 	  <script>
-	    $(document).ready(function() {
-	        $('.cnt-down').click(function() {
-	            let productNo = $(this).data('product-no');
-	            let countElement = $(`#count_${productNo}`);
-	            let count = parseInt(countElement.text());
-	            
-	            if (count > 1) {
-	                count--;
-	                countElement.text(count);
-	            }
-	        });
+		  $(document).ready(function() {
+		        $('.cnt-up, .cnt-down').click(function() {
+		            let productNo = $(this).data('product-no');
+		            let countElement = $(`#count_${productNo}`);
+		            let count = parseInt(countElement.text());
 	
-	        $('.cnt-up').click(function() {
-	            let productNo = $(this).data('product-no');
-	            let countElement = $(`#count_${productNo}`);
-	            let count = parseInt(countElement.text());
-	            
-	            count++;
-	            countElement.text(count);
-	        });
+		            if ($(this).hasClass('cnt-down') && count > 1) {
+		                count--;
+		            } else if ($(this).hasClass('cnt-up')) {
+		                count++;
+		            }
 	
-	        
-	    });
+		            countElement.text(count);
+	
+		            // AJAX 요청
+		            $.ajax({
+		                url: 'updateCartQuantity.do',
+		                type: 'POST',
+		                data: { user_id: user_id, product_no: productNo, quantity: count },
+		                success: function(response) {
+		                    console.log('수량 업데이트 성공:', response);
+		                },
+		                error: function(xhr, status, error) {
+		                    console.error('수량 업데이트 실패:', status, error);
+		                }
+		            });
+		        });
+		    });
 	  </script>
     </div>
 

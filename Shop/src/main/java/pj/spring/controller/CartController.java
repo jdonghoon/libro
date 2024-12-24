@@ -77,7 +77,25 @@ public class CartController {
 	    return "user/cart/cart";
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value = "/updateQuantity.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	@RequestMapping(value = "/updateCartQuantity.do", method = RequestMethod.POST)
+    public int updateCartQuantity(@RequestParam int product_no, @RequestParam int quantity) throws IllegalStateException, IOException {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String user_id = null;
+		
+	    if (authentication != null && authentication.isAuthenticated()) {
+	    	user_id = authentication.getName();
+	    }
+	    
+	    System.out.println("cart user_id : " + user_id);
+	    
+        Map<String, Object> map = new HashMap<>();
+        
+        map.put("product_no", product_no);
+        map.put("quantity", quantity);
+        
+        return cartService.updateCartQuantity(user_id, map);
+    }
 	
 }

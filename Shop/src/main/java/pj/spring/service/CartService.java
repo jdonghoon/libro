@@ -11,5 +11,5 @@ public interface CartService {
 	
 	public ProductVO selectCartPrice(String user_id);
 	
-	public int updateCartQuantity(Map<String, Object> map);
+	public int updateCartQuantity(String user_id, Map<String, Object> map);
 }
