@@ -39,7 +39,16 @@
                             <input type="text" id="phoneLast" name="address_book_phone" style="width: 35%;" value="${vo.address_book_phone}">
                         </div>
                     </div>
-
+					<c:if test="${vo.address_book_top == 'Y'}">
+						<input type="hidden" id="hidden_addr_save" name="address_book_top" value="Y">
+					</c:if>
+                    <c:if test="${vo.address_book_top != 'Y'}">
+						<div class="addr-save">
+							<input type="hidden" id="hidden_addr_save" name="address_book_top" value="N">
+							<input type="checkbox" id="addr_save" name="address_book_top_checkbox" value="Y">
+							<label for="addr_save">기본 배송지로 설정</label>
+						</div>
+					</c:if>
                     <!-- 버튼 -->
                     <div class="addrform-footer">
                         <button onclick="location.href='addr.do'">취소</button>
@@ -72,6 +81,29 @@
 			inputDtlAddr.value = "" // 상세주소란 초기화
 			inputDtlAddr.readOnly = true; // 상세주소란 읽기전용 해제
 		}
+	</script>
+	
+	<script>
+		// vo.user_phone 값 (서버에서 전달되는 값)
+		const userPhone = "${vo.address_book_phone}"; // 예: "010,1234,5678"
+		
+		if (userPhone) {
+			const phoneParts = userPhone.split(",");
+			if (phoneParts.length === 3) {
+				// 각 필드에 값 설정
+				document.getElementById("phonePrefix").value = phoneParts[0];
+				document.getElementById("phoneMiddle").value = phoneParts[1];
+				document.getElementById("phoneLast").value = phoneParts[2];
+			}
+		}
+	</script>
+	
+	<script>
+		// 체크박스 상태에 따라 hidden 필드 값 업데이트
+		document.getElementById('addr_save').addEventListener('change', function () {
+			const hiddenInput = document.getElementById('hidden_addr_save');
+			hiddenInput.value = this.checked ? 'Y' : 'N';
+		});
 	</script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

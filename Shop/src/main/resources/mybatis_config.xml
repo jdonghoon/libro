@@ -24,5 +24,6 @@
 		<typeAlias type="pj.spring.vo.ShippingVO" alias="shippingVO" />
 		<typeAlias type="pj.spring.vo.UserLoginHistoryVO" alias="userloginhistoryVO" />
 		<typeAlias type="pj.spring.vo.WishlistVO" alias="wishlistVO" />
+		<typeAlias type="pj.spring.vo.RecentlyproductVO" alias="recentlyproductVO" />
 	</typeAliases>
 </configuration>

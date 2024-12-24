@@ -58,36 +58,60 @@
                     <!-- 버튼 -->
                     <div class="memberinfoform-footer">
                         <button type="submit">회원정보수정</button>
-                        <button>취소</button>
-                        <button>회원탈퇴</button>
+                        <button type="reset">취소</button>
+                        <button type="button" onclick="confirmWithdrawal()">회원탈퇴</button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
-    
-<!-- 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	<script>
-		function searchAddress() {
-			new daum.Postcode({
-				oncomplete: function(data) { // 선택시 입력값 세팅
-				document.getElementById("userAddress").value = data.address; // 주소 넣기
-				document.getElementById("userPostCode").value = data.zonecode; // 우편번호 넣기
-				var inputDtlAddr = document.getElementById("userDtlAddress"); // 주소란 읽기전용 설정
-				inputDtlAddr.readOnly = false;
-				}
-			}).open();
+	    // vo.user_phone 값 (서버에서 전달되는 값)
+	    const userPhone = "${vo.user_phone}";
+	
+	    if (userPhone) {
+	        const phoneParts = userPhone.split(",");
+	        if (phoneParts.length === 3) {
+	            // 각 필드에 값 설정
+	            document.getElementById("phonePrefix").value = phoneParts[0];
+	            document.getElementById("phoneMiddle").value = phoneParts[1];
+	            document.getElementById("phoneLast").value = phoneParts[2];
+	        }
+	    }
+	</script>
+	
+	<script>
+		function confirmWithdrawal() {
+			Swal.fire({
+					title: '회원탈퇴를 진행하시겠습니까?',
+					text: '다시 되돌릴 수 없습니다. 신중하세요.',
+					icon: 'warning',
+
+					showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+					confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+					cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+					confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+					cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+
+					reverseButtons: true, // 버튼 순서 거꾸로
+
+				}).then(result => {
+					// 만약 Promise리턴을 받으면,
+					if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+		                Swal.fire({
+		                    title: '회원탈퇴 완료',
+		                    text: '화끈하시네요~!',
+		                    icon: 'success',
+		                    confirmButtonText: '확인'
+		                }).then(() => {
+		                    location.href = 'deleteAccount.do'; // 탈퇴 처리 URL로 이동
+		                });
+					}
+				});
 		}
-		
-		function cancelAddress() {
-			var inputPostCode = document.getElementById("userPostCode");
-			inputPostCode.value = "" // 우편번호 초기화
-			var inputAddr = document.getElementById("userAddress");
-			inputAddr.value = "" // 주소란 초기화
-			var inputDtlAddr = document.getElementById("userDtlAddress");
-			inputDtlAddr.value = "" // 상세주소란 초기화
-			inputDtlAddr.readOnly = true; // 상세주소란 읽기전용 해제
-		}
-	</script> -->
+	</script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

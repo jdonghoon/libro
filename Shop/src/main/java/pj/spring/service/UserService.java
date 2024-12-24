@@ -14,6 +14,9 @@ public interface UserService {
 	
 	// 회원가입
 	public int insert(UserVO userVO);
+	
+	// 회원탈퇴
+	public int deleteAccount(String user_id);
 
 	// 로그인
 	public UserVO selectLogin(String username);
@@ -33,6 +36,9 @@ public interface UserService {
 	// 주소록 수정
 	public AddressBookVO addrmodify(String address_book_no);
 
+	// 기본 주소록 업데이트
+	public int updateAddrTop(String user_id);
+	
 	// 주소록 업데이트
 	public int addrmodifyOk(AddressBookVO addressbookVO);
 	
@@ -111,6 +117,9 @@ public interface UserService {
 	// 위시리스트 조회
 	public List<WishlistVO> selectWishlist(String user_id);
 	
+	// 위시리스트 중복 방지
+	public int selectDedupeWishlist(String product_no);
+	
 	// 위시리스트 등록
 	public int insertWishlist(WishlistVO wishlistVO);
 	
@@ -119,6 +128,15 @@ public interface UserService {
 	
 	// 카트로 이동
 	public int insertCart(CartVO cartVO);
+
+	// 최근본상품 조회
+	public List<RecentlyproductVO> selectRecentlyproduct(String user_id);
+	
+	// 최근본상품 등록
+	public int insertRecentlyproduct(RecentlyproductVO recentlyproductVO);
+	
+	// 최근본상품 삭제
+	public int deleteRecentlyproduct(String recentlyproduct_no);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------	
 	// 비회원
@@ -138,15 +156,15 @@ public interface UserService {
 	// 로그인 후 비회원 위시리스트 DB로 이동
 	public void migrateGuestWishlistToDB(HttpServletRequest request, String username, HttpServletResponse response);
 	
-//	// 최근 본 상품 조회
-//	public List<WishlistVO> getGuestRecentlyProductFromCookies(HttpServletRequest request);
-//	
-//	// 최근 본 상품 등록
-//	public void addGuestRecentlyProductToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
-//	
-//	// 최근 본 상품 삭제
-//	public void removeGuestRecentlyProductFromCookies(String wishlist_no, HttpServletRequest request, HttpServletResponse response);
-//	
+	// 최근 본 상품 조회
+	public List<RecentlyproductVO> getGuestRecentlyProductFromCookies(HttpServletRequest request);
+	
+	// 최근 본 상품 등록
+	public void addGuestRecentlyProductToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
+	
+	// 최근 본 상품 삭제
+	public void removeGuestRecentlyProductFromCookies(String recentlyproduct_no, HttpServletRequest request, HttpServletResponse response);
+	
 //	// 위시리스트로 이동
 //	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
 //

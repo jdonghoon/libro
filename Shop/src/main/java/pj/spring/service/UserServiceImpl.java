@@ -17,12 +17,16 @@ import pj.spring.vo.CartVO;
 import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.RecentlyproductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.UserVO;
 import pj.spring.vo.WishlistVO;
 
 @Service // 업무로직을 담당하는 구현 객체를 스프링이 생성하여 관리
 public class UserServiceImpl implements UserService {
+	
+	//-------------------------------------------------------------------------------------------------------------------------------	
+	// 회원
 	
 	@Autowired
 	public UserDAO userDAO;
@@ -33,6 +37,13 @@ public class UserServiceImpl implements UserService {
 		return userDAO.insert(userVO);
 	}
 
+	// 회원탈퇴
+	@Override
+	public int deleteAccount(String user_id) {
+		return userDAO.deleteAccount(user_id);
+	}
+
+	
 	// 로그인
 	@Override
 	public UserVO selectLogin(String username){
@@ -67,6 +78,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public AddressBookVO addrmodify(String address_book_no) {
 		return userDAO.addrmodify(address_book_no);
+	}
+	
+	// 기본 주소록 업데이트
+	@Override
+	public int updateAddrTop(String user_id) {
+		return userDAO.updateAddrTop(user_id);
 	}
 
 	// 주소록 업데이트
@@ -223,6 +240,12 @@ public class UserServiceImpl implements UserService {
 	public List<WishlistVO> selectWishlist(String user_id) {
 		return userDAO.selectWishlist(user_id);
 	}
+	
+	// 위시리스트 중복 방지
+	@Override
+	public int selectDedupeWishlist(String product_no) {
+		return userDAO.selectDedupeWishlist(product_no);
+	}
 
 	// 위시리스트 등록
 	@Override
@@ -241,6 +264,27 @@ public class UserServiceImpl implements UserService {
 	public int insertCart(CartVO cartVO) {
 		return userDAO.insertCart(cartVO);
 	}
+	
+	// 최근본상품 조회
+	@Override
+	public List<RecentlyproductVO> selectRecentlyproduct(String user_id) {
+		return userDAO.selectRecentlyproduct(user_id);
+	}
+	
+	// 최근본상품 등록
+	@Override
+	public int insertRecentlyproduct(RecentlyproductVO recentlyproductVO) {
+		return userDAO.insertRecentlyproduct(recentlyproductVO);
+	}
+
+	// 최근본상품 삭제
+	@Override
+	public int deleteRecentlyproduct(String recentlyproduct_no) {
+		return userDAO.deleteRecentlyproduct(recentlyproduct_no);
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------------------	
+	// 비회원
 
 	// 위시리스트 조회
 	@Override
@@ -341,30 +385,88 @@ public class UserServiceImpl implements UserService {
 	                cookie.setPath("/");
 	                response.addCookie(cookie);  // 삭제된 쿠키를 클라이언트로 전송
 	                System.out.println("쿠키 삭제: " + cookie.getName());
+	            } else if (cookie.getName().startsWith("recentlyproduct_")) {
+	                // 쿠키의 값은 상품 번호(product_no)
+	                String product_no = cookie.getValue();
+
+	                // DB에 저장할 위시리스트 객체 생성
+	                RecentlyproductVO vo = new RecentlyproductVO();
+	                vo.setProduct_no(product_no);
+	                vo.setUser_id(username);  // 로그인한 회원의 ID
+	                vo.setWishlist_create_id(username);
+	                vo.setWishlist_update_id(username);
+
+	                // DB에 위시리스트 저장
+	                int result = userDAO.insertRecentlyproduct(vo);
+	                if (result > 0) {
+	                    System.out.println("비회원 최근 본 상품 DB로 이동 성공");
+	                } else {
+	                    System.out.println("비회원 최근 본 상품 DB로 이동 실패");
+	                }
 	            }
 	        }
 	    }
 	}
 
-//	@Override
-//	public List<WishlistVO> getGuestRecentlyProductFromCookies(HttpServletRequest request) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public void addGuestRecentlyProductToCookies(String product_no, HttpServletRequest request,
-//			HttpServletResponse response) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void removeGuestRecentlyProductFromCookies(String wishlist_no, HttpServletRequest request,
-//			HttpServletResponse response) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	// 최근 본 상품 조회
+	@Override
+	public List<RecentlyproductVO> getGuestRecentlyProductFromCookies(HttpServletRequest request) {
+		List<RecentlyproductVO> list = new ArrayList<>();
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().startsWith("recentlyproduct_")) {
+		
+					String product_no = cookie.getValue();
+
+					ReviewVO product = userDAO.selectProductForGuest(product_no);
+					
+					RecentlyproductVO vo = new RecentlyproductVO();
+					vo.setProduct_no(product.getProduct_no());
+					vo.setAttachment_detail_new_name(product.getAttachment_detail_new_name());
+					vo.setProduct_name(product.getProduct_name());
+					vo.setProduct_author(product.getProduct_author());
+					vo.setProduct_publisher(product.getProduct_publisher());
+					vo.setReview_starrating(product.getReview_starrating());
+					vo.setRecentlyproduct_no(cookie.getName().substring("recentlyproduct_".length()));
+					list.add(vo);
+				}	
+			}
+		}
+		return list;
+	}
+
+	// 최근 본 상품 등록
+	@Override
+	public void addGuestRecentlyProductToCookies(String product_no, HttpServletRequest request,
+			HttpServletResponse response) {
+		String recentlyproductId = UUID.randomUUID().toString(); // 고유한 UUID 생성
+		Cookie cookie = new Cookie("recentlyproduct_" + recentlyproductId, String.valueOf(product_no)); // 쿠키 이름을 일관되게 설정
+		cookie.setPath("/"); // 쿠키가 모든 경로에서 유효하도록 설정
+		cookie.setMaxAge(60 * 60 * 24 * 7); // 7일 유지
+		response.addCookie(cookie); // 쿠키를 클라이언트에 전달
+	}
+
+	// 최근 본 상품 삭제
+	@Override
+	public void removeGuestRecentlyProductFromCookies(String recentlyproduct_no, HttpServletRequest request,
+			HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		System.out.println("cookies" + cookies);
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().startsWith("recentlyproduct_") && cookie.getValue().equals(recentlyproduct_no)) {
+					cookie.setMaxAge(0);
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					System.out.println("Deleting cookie: " + cookie.getName());
+				}
+			}
+		}
+	}
+
+
+
 
 
 }

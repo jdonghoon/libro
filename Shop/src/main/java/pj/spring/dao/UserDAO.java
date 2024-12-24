@@ -21,6 +21,11 @@ public class UserDAO {
 		return sqlSession.insert(namespace + ".userInsert", userVO);
 	}
 
+	// 회원탈퇴
+	public int deleteAccount(String user_id) {
+		return sqlSession.update(namespace + ".deleteAccount", user_id);
+	}
+
 	// 아이디 중복 체크
 	public int selectCntByUid(String user_id) {
 		return sqlSession.selectOne(namespace + ".selectCntByUid", user_id);
@@ -49,6 +54,11 @@ public class UserDAO {
 	// 주소록 수정
 	public AddressBookVO addrmodify(String address_book_no) {
 		return sqlSession.selectOne(namespace + ".addrModify", address_book_no);
+	}
+
+	// 기본 주소록 업데이트
+	public int updateAddrTop(String user_id) {
+		return sqlSession.update(namespace + ".updateAddrTop", user_id);
 	}
 
 	// 주소록 업데이트
@@ -180,6 +190,11 @@ public class UserDAO {
 	public List<WishlistVO> selectWishlist(String user_id) {
 		return sqlSession.selectList(namespace + ".selectWishlist", user_id);
 	} 
+
+	// 위시리스트 중복 방지
+	public int selectDedupeWishlist(String product_no) {
+		return sqlSession.selectOne(namespace + ".selectDedupeWishlist", product_no);
+	} 
 	
 	// 위시리스트 등록
 	public int insertWishlist(WishlistVO wishlistVO) {
@@ -195,6 +210,21 @@ public class UserDAO {
 	public int insertCart(CartVO cartVO) {
 		return sqlSession.insert(namespace + ".insertCart", cartVO);
 	}
+	
+	// 최근본상품 조회
+	public List<RecentlyproductVO> selectRecentlyproduct(String user_id) {
+		return sqlSession.selectList(namespace + ".selectRecentlyproduct", user_id);
+	};
+	
+	// 최근본상품 등록
+	public int insertRecentlyproduct(RecentlyproductVO recentlyproductVO) {
+		return sqlSession.insert(namespace + ".insertRecentlyproduct", recentlyproductVO);
+	};
+	
+	// 최근본상품 삭제
+	public int deleteRecentlyproduct(String recentlyproduct_no) {
+		return sqlSession.delete(namespace + ".deleteRecentlyproduct", recentlyproduct_no);
+	};
 	
 	// 비회원용 상품정보
 	public ReviewVO selectProductForGuest(String product_no) {

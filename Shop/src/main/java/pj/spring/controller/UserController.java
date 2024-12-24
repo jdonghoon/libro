@@ -2,6 +2,7 @@ package pj.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,14 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.UserService;
-import pj.spring.vo.AddressBookVO;
-import pj.spring.vo.CartVO;
-import pj.spring.vo.ContactVO;
-import pj.spring.vo.OrderedVO;
-import pj.spring.vo.ProductVO;
-import pj.spring.vo.ReviewVO;
-import pj.spring.vo.UserVO;
-import pj.spring.vo.WishlistVO;
+import pj.spring.vo.*;
 
 @Controller
 public class UserController {
@@ -134,6 +128,21 @@ public class UserController {
 
 		return "redirect:memberinfo.do";
 	}
+
+	// 회원탈퇴
+	@RequestMapping(value="deleteAccount.do")
+	public String deleteAccount(Principal principal) {
+		
+		int result = userService.deleteAccount(principal.getName());
+		
+		if(result > 0) {
+			System.out.println("탈퇴 완료");
+		}else {
+			System.out.println("탈퇴 실패");
+		}
+		
+		return "redirect:/";
+	}
 	
 	// 주소록 목록
 	@RequestMapping(value="/addr.do", method = RequestMethod.GET)
@@ -159,19 +168,18 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/addrregisterOk.do", method = RequestMethod.POST)
-	public String addrregister(AddressBookVO vo) {
+	public String addrregister(AddressBookVO vo, Principal principal) {
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
+		System.out.println("기본 : " + vo.getAddress_book_top());
+		System.out.println(principal.getName());
 		
-		vo.setUser_id(username);
+		vo.setUser_id(principal.getName());
 		
-		vo.setAddress_book_addressname(vo.getAddress_book_addressname());
-		vo.setAddress_book_name(vo.getAddress_book_name());
-		vo.setAddress_book_postcode(vo.getAddress_book_postcode());
-		vo.setAddress_book_address(vo.getAddress_book_address());
-		vo.setAddress_book_detailaddress(vo.getAddress_book_detailaddress());
-		vo.setAddress_book_phone(vo.getAddress_book_phone());
+		if("Y".equals(vo.getAddress_book_top()))
+		{
+			int result1 = userService.updateAddrTop(principal.getName());
+			System.out.println("기본 삭제");
+		}
 		
 		int result = userService.addrinsert(vo);
 		
@@ -205,14 +213,24 @@ public class UserController {
 		
 		AddressBookVO vo = userService.addrmodify(address_book_no);
 		
+		System.out.println(vo.getAddress_book_top());
+		
 		model.addAttribute("vo", vo);
 
 		return "user/account/addrmodify";
 	}
 	
 	@RequestMapping(value="addrmodifyOk.do", method=RequestMethod.POST)
-	public String addrmodify(AddressBookVO vo) {
+	public String addrmodify(AddressBookVO vo, Principal principal) {
 		
+		System.out.println("기본 : " + vo.getAddress_book_top());
+		System.out.println(principal.getName());
+		
+		if("Y".equals(vo.getAddress_book_top()))
+		{
+			int result1 = userService.updateAddrTop(principal.getName());
+			System.out.println("기본 삭제");
+		}
 		int result = userService.addrmodifyOk(vo);
 		
 		if(result > 0) {
@@ -288,9 +306,6 @@ public class UserController {
 					
 					file.transferTo(new File(path, newFileName ));
 					
-					// 첨부파일 기본 정보 저장
-					vo.setAttachment_type("C"); // 문의 첨부파일 유형
-					vo.setAttachment_contact_no(vo.getContact_no());
 	                userService.insertattachment(vo); // 첨부파일 정보 저장 (PK 생성)
 					
 	             // 첨부파일 상세 정보 저장
@@ -373,11 +388,10 @@ public class UserController {
 						
 						file.transferTo(new File(path, newFileName ));
 						
-						// 첨부파일 기본 정보 저장
-						vo.setAttachment_type("C"); // 문의 첨부파일 유형
-						vo.setAttachment_contact_no(vo.getContact_no());
 		                userService.insertattachment(vo); // 첨부파일 정보 저장 (PK 생성)
-						
+		                System.out.println("1번 완료");
+						System.out.println(username);
+		                
 		             // 첨부파일 상세 정보 저장
 						vo.setAttachment_detail_name(originalFileName); // 원본 파일명
 						vo.setAttachment_detail_new_name(newFileName); // 새 파일명
@@ -389,6 +403,7 @@ public class UserController {
 						System.out.println("newFileName" + vo.getAttachment_detail_new_name());
 						System.out.println("path" + vo.getAttachment_detail_path());
 		                userService.insertattachmentdetail(vo); // 첨부파일 상세 저장
+		                System.out.println("2번 완료");
 					}
 					
 		    		System.out.println("사진 등록 완료");
@@ -584,13 +599,16 @@ public class UserController {
 			
 		// 회원
 		} else { 
+			
 			vo.setUser_id(username);
-			int result = userService.insertWishlist(vo);
-
+			int result = userService.selectDedupeWishlist(vo.getProduct_no());
+			
+			System.out.println("중복수" + result);
+			
 			if (result > 0) {
-				System.out.println("회원 위시리스트 등록 완료");
+				System.out.println("이미 등록된 상품입니다.");
 			} else {
-				System.out.println("회원 위시리스트 등록 실패");
+				int result1 = userService.insertWishlist(vo);
 	 		}
 		}
 		
@@ -676,22 +694,24 @@ public class UserController {
 		username = authentication.getName();
 		
 	    Cookie[] cookies = request.getCookies();
+	    boolean foundRecentlyProductCookie = false;
+	    boolean foundWishlistCookie = false;
 	    
 	    if (cookies != null) {
-	        boolean foundWishlistCookie = false;  // wishlist_ 쿠키가 존재하는지 여부를 추적하는 변수
 	        
 	        for (Cookie cookie : cookies) {
-	            System.out.println("쿠키 이름: " + cookie.getName() + ", 쿠키 값: " + cookie.getValue());
-	            
-	            // 쿠키 이름이 wishlist_로 시작하면
-	            if (cookie.getName().startsWith("wishlist_")) {
-	                foundWishlistCookie = true;
-	                break;  // wishlist_ 쿠키를 찾으면 반복문 종료
-	            }
+	        	System.out.println("쿠키 이름: " + cookie.getName() + ", 쿠키 값: " + cookie.getValue());
+	        	
+	        	if (cookie.getName().startsWith("recentlyproduct_")) {
+	        		foundRecentlyProductCookie = true;
+	        	}
+	        	if (cookie.getName().startsWith("wishlist_")) {
+	        		foundWishlistCookie = true;
+	        	}
 	        }
 
 	        // wishlist_ 쿠키가 발견되었을 경우 DB로 이동 처리
-	        if (foundWishlistCookie) {
+	        if (foundRecentlyProductCookie || foundWishlistCookie) {
 	            userService.migrateGuestWishlistToDB(request, username, response);
 	        }
 	    } else {
@@ -700,11 +720,155 @@ public class UserController {
 
 	    return "redirect:/"; // 리다이렉션 처리
 	}
+	
 
-	// 최근 본 상품
-	@RequestMapping(value="recentlyproducts.do", method=RequestMethod.GET)
-	public String recentlyproducts() {
+	// 최근 본 상품 조회
+	@RequestMapping(value="recentlyproducts.do")
+	public String recentlyproducts(Model model, HttpServletRequest request) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		// 비회원
+		if (username.equals("anonymousUser")) { 
+			List<RecentlyproductVO> list = userService.getGuestRecentlyProductFromCookies(request);
+			model.addAttribute("list", list);
+			// 회원
+		} else { 
+			List<RecentlyproductVO> list = userService.selectRecentlyproduct(username);
+			System.out.println("최근 본 상품 갯수 : " + list.size());
+			model.addAttribute("list", list);
+		}
 		
 		return "user/account/recentlyproducts";
 	}
+	
+	// 최근 본 상품 등록
+	@RequestMapping(value="recentlyproductinsert.do")
+	public String recentlyproductinsert(RecentlyproductVO vo, HttpServletRequest request, HttpServletResponse response) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		// 비회원
+		if (username.equals("anonymousUser")) { 
+			userService.addGuestRecentlyProductToCookies(vo.getProduct_no(), request, response);
+		// 회원
+		} else { 
+			vo.setUser_id(username);
+			int result = userService.insertRecentlyproduct(vo);
+			
+			if (result > 0) {
+				System.out.println("회원 위시리스트 등록 완료");
+			} else {
+				System.out.println("회원 위시리스트 등록 실패");
+			}
+		}
+		
+		return "redirect:/recentlyproducts.do";
+	}
+	
+	// 최근 본 상품 삭제
+	@RequestMapping(value="recentlyproductdelete.do")
+	public String recentlyproductdelete(String recentlyproduct_no, HttpServletRequest request, HttpServletResponse response) {
+		
+		// 쿠키 가져오기
+//	    Cookie[] cookies = request.getCookies();
+//	    
+//	    if (cookies != null) {
+//	        for (Cookie cookie : cookies) {
+//	            // 쿠키 이름과 값을 출력
+//	            System.out.println("쿠키 이름: " + cookie.getName() + ", 쿠키 값: " + cookie.getValue());
+//	        }
+//	    } else {
+//	        System.out.println("쿠키가 존재하지 않습니다.");
+//	    }
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		// 비회원
+		if (username.equals("anonymousUser")) { 
+			userService.removeGuestRecentlyProductFromCookies(recentlyproduct_no, request, response);
+			// 회원
+		} else { 
+			int result = userService.deleteRecentlyproduct(recentlyproduct_no);
+			
+			if (result > 0) {
+				System.out.println("회원 최근본상품 삭제 완료");
+			} else {
+				System.out.println("회원 최근본상품 삭제 실패");
+			}
+		}
+		
+		return "redirect:/recentlyproducts.do";
+	}
+	
+//	// 카트로 이동
+//	@RequestMapping(value="cartinsert.do")
+//	public String cartinsert(String wishlist_no, CartVO vo, HttpServletRequest request, HttpServletResponse response) {
+//		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String username = authentication.getName();
+//		
+//		if (username.equals("anonymousUser")) { // 비회원
+////			// 비회원은 쿠키에서 제거 후 카트 쿠키로 이동
+////			String productNo = userService.removeGuestWishlistFromCookies(wishlist_no, request, response);
+////			if (productNo != null) {
+////				userService.addGuestCartToCookies(productNo, request, response);
+////				System.out.println("비회원 카트 등록 완료");
+////			} else {
+////				System.out.println("비회원 위시리스트 삭제 실패");
+////			}
+//		} else { // 회원
+//			int result = userService.deleteWishlist(wishlist_no);
+//			if (result > 0) {
+//				vo.setUser_id(username);
+//				int result1 = userService.insertCart(vo);
+//				
+//				if (result1 > 0) {
+//					System.out.println("회원 카트 등록 완료");
+//				} else {
+//					System.out.println("회원 카트 등록 실패");
+//				}
+//			} else {
+//				System.out.println("회원 위시리스트 삭제 실패");
+//			}
+//		}
+//		
+//		return "redirect:/wishlist.do";
+//	}
+//	
+//	// 로그인 후 호출되는 메서드에서 비회원 위시리스트 DB로 이동
+//	@RequestMapping(value = "cookietodb.do")
+//	public String loginUser(String username, HttpServletRequest request, HttpServletResponse response) {
+//		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		username = authentication.getName();
+//		
+//		Cookie[] cookies = request.getCookies();
+//		
+//		if (cookies != null) {
+//			boolean foundWishlistCookie = false;  // wishlist_ 쿠키가 존재하는지 여부를 추적하는 변수
+//			
+//			for (Cookie cookie : cookies) {
+//				System.out.println("쿠키 이름: " + cookie.getName() + ", 쿠키 값: " + cookie.getValue());
+//				
+//				// 쿠키 이름이 wishlist_로 시작하면
+//				if (cookie.getName().startsWith("wishlist_")) {
+//					foundWishlistCookie = true;
+//					break;  // wishlist_ 쿠키를 찾으면 반복문 종료
+//				}
+//			}
+//			
+//			// wishlist_ 쿠키가 발견되었을 경우 DB로 이동 처리
+//			if (foundWishlistCookie) {
+//				userService.migrateGuestWishlistToDB(request, username, response);
+//			}
+//		} else {
+//			System.out.println("쿠키가 존재하지 않습니다.");
+//		}
+//		
+//		return "redirect:/"; // 리다이렉션 처리
+//	}
 }

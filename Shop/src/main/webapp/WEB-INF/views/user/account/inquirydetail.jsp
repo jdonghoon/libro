@@ -45,10 +45,10 @@
 						<div class="inquirydetail-content">
 							<c:if test="${vo.attachment_detail_new_name != null}">
 								<c:forEach var="image" items="${fn:split(vo.attachment_detail_new_name, ',')}">
-									<img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment"/>
+									<img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment"/ style="width:350px; height: 350px;">
 								</c:forEach>
 							</c:if>
-								${vo.contact_content}
+								<br><br>${vo.contact_content}
 						</div>
 					</div>
 

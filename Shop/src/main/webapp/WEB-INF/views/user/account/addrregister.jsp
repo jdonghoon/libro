@@ -38,10 +38,14 @@
                             <input type="text" id="phoneLast" name="address_book_phone" style="width: 35%;">
                         </div>
                     </div>
-
+					<div class="addr-save">
+						<input type="hidden" id="hidden_addr_save" name="address_book_top" value="N">
+						<input type="checkbox" id="addr_save" name="address_book_top_checkbox" value="Y">
+						<label for="addr_save">기본 배송지로 설정</label>
+					</div>
                     <!-- 버튼 -->
                     <div class="addrform-footer">
-                        <!-- <button onclick="location.href='addr.do'">취소</button> -->
+                        <button onclick="location.href='addr.do'">취소</button>
                         <button>등록</button>
                     </div>
                 </form>
@@ -71,6 +75,14 @@
 			inputDtlAddr.value = "" // 상세주소란 초기화
 			inputDtlAddr.readOnly = true; // 상세주소란 읽기전용 해제
 		}
+	</script>
+	
+	<script>
+		// 체크박스 상태에 따라 hidden 필드 값 업데이트
+		document.getElementById('addr_save').addEventListener('change', function () {
+			const hiddenInput = document.getElementById('hidden_addr_save');
+			hiddenInput.value = this.checked ? 'Y' : 'N';
+		});
 	</script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

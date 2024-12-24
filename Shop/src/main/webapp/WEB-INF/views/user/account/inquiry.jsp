@@ -23,13 +23,19 @@
                         <textarea name="contact_content">▶ 비회원으로 문의주시는 경우 주문번호를 남겨주셔야 처리가능하며
 이메일 주소로 답변이 안내되오니 수신 가능한 이메일 주소를 꼭 남겨주시기 바랍니다.
 
---------------------------------------------------------------------------------------<br><br></textarea>
+--------------------------------------------------------------------------------------</textarea>
                     </div>
 
-                    <div class="inquiryform-group">
-                        <input type="password" name="contact_password" placeholder="비밀번호">
-                    </div>
-
+					<sec:authorize access="isAnonymous()">
+	                    <div class="inquiryform-group">
+	                        <input type="password" name="contact_password" placeholder="주문번호">
+	                    </div>
+	
+	                    <div class="inquiryform-group">
+	                        <input type="password" name="contact_password" placeholder="비밀번호">
+	                    </div>
+					</sec:authorize>
+					
 <!--                     <div class="inquiryform-group">
                         <input type="file" id="file-upload" class="custom-file-input" name="multiFile" multiple>
                         <input type="text" id="file-name" value="파일선택" readonly>

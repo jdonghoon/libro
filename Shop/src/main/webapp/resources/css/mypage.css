@@ -32,7 +32,26 @@
     justify-content: flex-end; 
     gap: 5px;
 }
-
+.addr_info {
+	display: flex;
+    font-weight: bold;
+    text-align: left;
+    font-size: 10pt;
+    margin-bottom: 15px;
+}
+.addr-container span > img {
+    margin-right: 5px;
+}
+.addr_top {
+    color: black;
+    border: 1px solid black;
+    padding: 3px 10px;
+    cursor: pointer;
+    background-color: white;
+    margin-left: 8px;
+    font-size: 10px;
+    /* border-radius: 3px; */
+}
 /* =========================================================================================== */
 /* addrmodify.jsp, addrregister.jsp, join.jsp, memberinfo.jsp */
 /* =========================================================================================== */
@@ -106,7 +125,52 @@
     cursor: pointer;
     width: 100px;
 }
-
+.addr-save {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+.addr-save input[type="checkbox"] {
+    appearance: none; /* 기본 체크박스 스타일 제거 */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #767678;
+    border-radius: 50%; /* 동그랗게 만듦 */
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.addr-save input[type="checkbox"]:checked {
+    background-color: black; /* 체크되었을 때 배경색 */
+    border-color: black; /* 체크되었을 때 테두리 색 */
+}
+.addr-save input[type="checkbox"]::after {
+    content: ''; /* 비어있는 콘텐츠로 체크 표시 생성 */
+    position: absolute;
+    top: 48%;
+    left: 52%;
+    width: 4px;
+    height: 9px;
+    border: solid #767678; /* 체크되지 않았을 때 V 색상 */
+    border-width: 0 2px 2px 0; /* 오른쪽과 아래에만 선 추가 */
+    transform: translate(-50%, -50%) rotate(45deg); /* V자 만들기 */
+    transition: transform 0.2s ease-in-out, border-color 0.3s; /* 부드러운 효과 */
+}
+.addr-save input[type="checkbox"]:checked::after {
+    border-color: white; /* 체크되었을 때 V 색상 */
+    transform: translate(-50%, -50%) rotate(45deg) scale(1); /* 체크되었을 때 V 표시 */
+}
+.addr-save label {
+    margin-left: 2px;
+    cursor: pointer;
+    color: #767678; /* 체크되지 않았을 때 라벨 색상 */
+    transition: color 0.3s;
+}
+.addr-save input[type="checkbox"]:checked + label {
+    color: black; /* 체크되었을 때 라벨 색상 */
+}
 /* =========================================================================================== */
 /* join.jsp */
 /* =========================================================================================== */
@@ -178,7 +242,7 @@ input[type="checkbox"]:checked + .checkmark::after {
 }
 .form-container input[type="text"], 
 .form-container input[type="password"] {
-    width: 100%;
+    width: 280px;
     padding: 10px;
     margin-bottom: 10px;
     border: none;

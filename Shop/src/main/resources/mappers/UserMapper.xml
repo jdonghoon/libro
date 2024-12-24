@@ -23,6 +23,16 @@
 		)
 	</insert>
 	
+	<!-- 회원탈퇴-->
+	<update id="deleteAccount" parameterType="String">
+		UPDATE 
+			user
+		SET 
+			user_status = 'D'
+		WHERE 
+			user_id = #{user_id}
+	</update>
+	
 	<!-- 로그인 -->
 	<select id="selectOneById" parameterType="String" resultType="userVO">
 		SELECT user_id 
@@ -40,18 +50,25 @@
 			FROM user 
 		WHERE user_id = #{user_id}
 	</select>
-	
+
 	<!-- 주소록 조회 -->
 	<select id="addrlistSelect" parameterType="String" resultType="addressbookVO" >
-		SELECT address_book_no
+		SELECT 
+			address_book_no
 			, address_book_addressname
 			, address_book_name
 			, address_book_postcode
 			, address_book_address
 			, address_book_detailaddress
 			, address_book_phone
-		 FROM address_book
-		WHERE user_id = #{user_id}
+			, address_book_top
+		FROM 
+			address_book
+		WHERE
+			user_id = #{user_id}
+		ORDER BY 
+			address_book_top DESC, 
+			address_book_create_at DESC
 	</select>
 	
 	<!-- 주소록 등록 -->
@@ -66,6 +83,7 @@
 			, address_book_create_id
 			, address_book_update_id
 			, user_id
+			, address_book_top
 		)VALUES(
 			#{address_book_addressname}
 			, #{address_book_name}
@@ -76,6 +94,7 @@
 			, #{user_id}
 			, #{user_id}
 			, #{user_id}
+			, #{address_book_top}
 		);
 	</insert>
 	
@@ -93,20 +112,34 @@
 			, address_book_address
 			, address_book_detailaddress
 			, address_book_phone
+			, address_book_top
 		 FROM address_book
 		WHERE address_book_no =  #{address_book_no}
 	</select>
+	
+	<!-- 기본 주소록 업데이트 -->
+	<update id="updateAddrTop" parameterType="String">
+		UPDATE 
+			address_book
+		SET 
+			address_book_top = 'N'
+		WHERE 
+			user_id = #{user_id}
+		AND 
+			address_book_top = 'Y' 
+	</update>
 	
 	<!-- 주소록 업데이트 -->
 	<update id="addrModifyOk" parameterType="addressbookVO">
 		UPDATE address_book 
 			SET 
-		address_book_addressname   = #{address_book_addressname}
+		address_book_addressname     = #{address_book_addressname}
 		, address_book_name          = #{address_book_name} 
 		, address_book_postcode      = #{address_book_postcode} 
 		, address_book_address       = #{address_book_address} 
 		, address_book_detailaddress = #{address_book_detailaddress} 
 		, address_book_phone         = #{address_book_phone} 
+		, address_book_top           = #{address_book_top}
 		WHERE address_book_no =  #{address_book_no}
 	</update>
 	
@@ -123,13 +156,17 @@
 	
 	<!-- 회원정보 업데이트 -->
 	<update id="memberinfoModify" parameterType="userVO">
-		UPDATE user
-			SET 
-		user_password = #{user_password}
-		, user_phone  = #{user_phone} 
-		, user_email  = #{user_email} 
-		WHERE user_id = #{user_id}
-		 AND user_status = 'E'
+		UPDATE
+			user
+		SET 
+			user_password = #{user_password}
+			, user_phone  = #{user_phone} 
+			, user_email  = #{user_email} 
+			, user_name   = #{user_name} 
+		WHERE 
+			user_id = #{user_id}
+		AND 
+			user_status = 'E'
 	</update>
 	
 	<!-- 문의하기 등록 -->
@@ -578,6 +615,7 @@
 			p.product_name,
 			p.product_author,
 			p.product_publisher,
+			p.product_status,
 			ad.attachment_detail_new_name,
 			p.product_price,
 			r.review_starrating
@@ -595,6 +633,18 @@
 			w.user_id = #{user_id}
 		AND 
 			a.attachment_type = 'PT'
+	</select>	
+	
+	<!-- 위시리스트 중복 방지 -->
+	<select id="selectDedupeWishlist" parameterType="String" resultType="int">
+		SELECT 
+			COUNT(wishlist_no)
+		FROM 
+			wishlist
+		WHERE
+			user_id = #{user_id}
+		AND 
+			product_no = #{product_no}
 	</select>	
 	
 	<!-- 위시리스트 등록 -->
@@ -655,6 +705,54 @@
 		AND 
 			a.attachment_type = 'PT'
 	</select>
+	
+	<!-- 최근본상품 조회 -->
+	<select id="selectRecentlyproduct" parameterType="String" resultType="recentlyproductVO">
+		SELECT 
+			rp.recentlyproduct_no,
+			r.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			p.product_price,
+			r.review_starrating
+		FROM 
+			recentlyproduct rp, product p, review r, attachment a, attachment_detail ad
+		WHERE
+			p.product_no = rp.product_no
+		AND 
+			p.product_no = r.product_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND
+			rp.user_id = #{user_id}
+		AND 
+			a.attachment_type = 'PT'
+	</select>	
+	
+	<!-- 최근본상품 등록 -->
+	<insert id="insertRecentlyproduct" parameterType="recentlyproductVO">
+		INSERT INTO recentlyproduct (
+			recentlyproduct_create_id,
+			recentlyproduct_update_id,
+			user_id,
+			product_no
+		) VALUES (
+			#{user_id},
+			#{user_id},
+			#{user_id},
+			#{product_no}
+		);
+	</insert>
+	
+	<!-- 최근본상품 삭제 -->
+	<delete id="deleteRecentlyproduct" parameterType="String">
+		DELETE FROM recentlyproduct WHERE recentlyproduct_no = #{recentlyproduct_no} 
+	</delete>
+	
 </mapper>
 
 

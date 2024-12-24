@@ -25,27 +25,18 @@
                         <textarea name="contact_content">${vo.contact_content}</textarea>
                     </div>
 
-                    <div class="inquiryform-group">
-                        <input type="password" name="contact_password" placeholder="비밀번호">
-                    </div>
+					<sec:authorize access="isAnonymous()">
+	                    <div class="inquiryform-group">
+	                        <input type="password" name="contact_password" placeholder="주문번호">
+	                    </div>
+	
+	                    <div class="inquiryform-group">
+	                        <input type="password" name="contact_password" placeholder="비밀번호">
+	                    </div>
+					</sec:authorize>
 
-<!--                     <div class="inquiryform-group">
-                        <input type="file" id="file-upload" class="custom-file-input" name="multiFile" multiple>
-                        <input type="text" id="file-name" value="파일선택" readonly>
-                    	<label for="file-upload" class="custom-file-label">+</label>
-					</div> -->
-					<c:if test="${vo.attachment_detail_name != null}">
-						<div id="file-upload-container">
-							<c:forEach var="image" items="${fn:split(vo.attachment_detail_name, ',')}">
-				            <div class="inquiryform-group" style="display: flex;">
-				            	<input type="text" id="file-name" value="${image}" readonly>
-				                <!-- 이미지 삭제 버튼 -->
-				                <button type="button" class="delete-button">-</button>
-				                <%-- <img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment" style="max-width: 200px; max-height: 200px;"> --%>
-				            </div>
-							</c:forEach>
-						</div>
-					</c:if>
+					<div id="file-upload-container">
+					</div>
 					
 					<div class="inquiryform-group">
 						<input type="file" id="file-upload" class="custom-file-input" name="multiFile" multiple>
@@ -62,43 +53,9 @@
     </main>
     
     <script>
-    document.getElementById('file-upload').addEventListener('change', function(event) {
-        var container = document.getElementById('file-upload-container');
-        // container가 존재하는지 확인
-        if (container) {
-            var files = event.target.files;
-
-            // 기존의 항목들 삭제
-            container.innerHTML = "";
-
-            // 파일 개수만큼 새로운 inquiryform-group 생성
-            for (var i = 0; i < files.length; i++) {
-                var div = document.createElement('div');
-                div.classList.add('inquiryform-group');
-
-                // 파일 이름 표시
-                var fileName = document.createElement('input');
-                fileName.type = 'text';
-                fileName.value = files[i].name;
-                fileName.readOnly = true;
-                div.appendChild(fileName);
-
-                // 파일 삭제 버튼 추가
-                var deleteButton = document.createElement('button');
-                deleteButton.textContent = '-';
-                deleteButton.addEventListener('click', function() {
-                    this.closest('.inquiryform-group').remove();
-                });
-
-                // 삭제 버튼에 클래스 추가
-                deleteButton.classList.add('delete-button');
-                div.appendChild(deleteButton);
-                container.appendChild(div);
-            }
-            // 선택한 파일들의 이름을 쉼표로 구분하여 'file-name' 텍스트 필드에 표시
-            updateFileNames();
-        } else {
-			var files = event.target.files;
+	    document.getElementById('file-upload').addEventListener('change', function(event) {
+	        var container = document.getElementById('file-upload-container');
+	        var files = event.target.files;
 	        
 	        // 기존의 항목들 삭제
 	        container.innerHTML = "";
@@ -130,20 +87,19 @@
 	        }
 	        // 선택한 파일들의 이름을 쉼표로 구분하여 'file-name' 텍스트 필드에 표시
 	        updateFileNames();
-        }
-    });
- // 파일들이 선택될 때마다 'file-name'에 파일 이름들을 표시
-    function updateFileNames() {
-        var files = document.getElementById('file-upload').files;
-        var fileNames = [];
+	    });
+	 // 파일들이 선택될 때마다 'file-name'에 파일 이름들을 표시
+	    function updateFileNames() {
+	        var files = document.getElementById('file-upload').files;
+	        var fileNames = [];
 
-        for (var i = 0; i < files.length; i++) {
-            fileNames.push(files[i].name);
-        }
+	        for (var i = 0; i < files.length; i++) {
+	            fileNames.push(files[i].name);
+	        }
 
-        // 쉼표로 구분하여 표시
-        document.getElementById('file-name').value = fileNames.join(', ');
-    }
+	        // 쉼표로 구분하여 표시
+	        document.getElementById('file-name').value = fileNames.join(', ');
+	    }
 	</script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	
