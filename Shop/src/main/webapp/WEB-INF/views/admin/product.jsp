@@ -154,7 +154,7 @@
                                         <tbody>
                                         	<c:forEach items="${list}" var="vo">
 	                                            <tr id="product-${vo.product_no}"> <!-- 각 상품에 고유 id 부여 -->
-	                                                <td onclick="location.href='user/menu/product.do?product_no=${vo.product_no}'">${vo.product_no}</td>
+	                                                <td onclick="window.location.href='user/menu/product.do?product_no=${vo.product_no}'">${vo.product_no}</td>
 	                                                <td>
 													    <c:if test="${not empty vo.attachment_detail_new_name}">
 											        		<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" alt="대표 이미지" width="90" height="120" />
@@ -179,7 +179,7 @@
 	                                                <td>${vo.product_update_id}</td>
 	                                                <td>
 	                                                    <button class="btn btn-primary" onclick="location.href='productModify.do?product_no=${vo.product_no}'">수정</button>
-	                                                    <button class="btn btn-primary" onclick="deleteProduct(${vo.product_no})'">삭제</button>
+	                                                    <button class="btn btn-primary" onclick="deleteProduct('${vo.product_no}')">삭제</button>
 	                                                </td>
 	                                            </tr>
                                             </c:forEach>
@@ -224,27 +224,30 @@
         </main>
         
         <script>
-	        function deleteProduct(productNo) {
-	            if (confirm("정말 삭제하시겠습니까?")) {
-	                $.ajax({
-	                    url: 'productDelete.do',
-	                    type: 'POST',
-	                    contentType: 'application/json',
-	                    data: JSON.stringify({ product_no: productNo }),  // JSON 형식으로 상품 번호 전송
-	                    success: function(response) {
-	                        // 삭제 후 상품 목록 갱신
-	                        updateProductList(response);  // 서버에서 받아온 최신 목록을 갱신
-	                    },
-	                    error: function() {
-	                        alert("삭제에 실패했습니다.");
-	                    }
-	                });
-	            }
-	        }
+	        function deleteProduct(productNo, productStatus) {
+		  	    var productVO = {
+		  	    		product_no: productNo,
+	  	    		product_status: productStatus
+		  	    };
 	
+		  	    $.ajax({
+		  	        url: 'deleteProduct.do',
+		  	        type: 'POST',
+		  	        contentType: 'application/json',  // JSON 형식으로 데이터 전송
+		  	        data: JSON.stringify(productVO),  // 객체를 JSON 문자열로 변환
+		  	        success: function(response) {
+		  	            if(response === "success") {
+		  	            	 $('#product-' + productNo).remove();
+		  	            } else {
+		  	                alert("삭제 실패했습니다.");
+		  	            }
+		  	        },
+		  	        error: function() {
+		  	            alert("서버와의 통신에 실패했습니다.");
+		  	        }
+		  	    });
+		  	}
 	       
-
-
         </script>
         
 				

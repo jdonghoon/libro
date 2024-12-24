@@ -142,8 +142,10 @@
 	                                                </td>
 	                                                <td>${vo.ordered_create_at}</td>
 	                                                <td>${vo.product_price}원</td>
-	                                                <td>${vo.payment_type}</td>
-                                 	                <td>${vo.payment_price}</td>
+	                                                <td>
+	                                                	<c:if test="${vo.payment_type == 'PC'}">결제완료</c:if>
+	                                                </td>
+                                 	                <td>${vo.payment_price}원</td>
 	                                                <td>${vo.ordered_detail_quantity}</td>
 	                                                <td>${vo.ordered_name}</td>
 	                                            </tr>

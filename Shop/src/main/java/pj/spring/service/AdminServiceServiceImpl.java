@@ -93,11 +93,11 @@ public class AdminServiceServiceImpl implements AdminService {
 	}
 	
 	// 惑前 昏力 
-	/*
-	 * @Override public int productDelete(ProductVO productVO) { return
-	 * adminDAO.productDelete(productVO); }
-	 */
-
+	@Override
+	public int productDelete(ProductVO productVO) {
+		return adminDAO.productDelete(productVO);
+	}
+	
 	// 林巩 包府 list
 	@Override
 	public List<Map<String, Object>> orderList(Map<String, Integer> pagingParam) {

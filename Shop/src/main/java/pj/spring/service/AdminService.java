@@ -49,7 +49,7 @@ public interface AdminService {
 	public int productModifyUpdate(ProductVO productVO);
 	
 	// 惑前 昏力 
-	/* public int productDelete(ProductVO productVO); */
+	public int productDelete(ProductVO productVO);
 	
 	// 林巩 包府 List
 	public List<Map<String, Object>> orderList(Map<String,Integer> pagingParam);

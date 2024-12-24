@@ -83,10 +83,11 @@ public class AdminDAO {
 	}
 
 	// 상품 삭제 
-	/*
-	 * public int productDelete(ProductVO productVO) { return
-	 * sqlSession.update(namespace+".productDelete", productVO); }
-	 */
+	public int productDelete(ProductVO productVO) { 
+		return sqlSession.update(namespace+".productDelete", productVO); 
+	}
+	 
+	
 	
 	// 주문 관리 List
 	public List<Map<String, Object>> orderList(Map<String, Integer> pagingParam) {
@@ -167,7 +168,6 @@ public class AdminDAO {
 	//매출 관리 전체 수
 	public int salesTotal() {
 		return sqlSession.selectOne(namespace + ".salesTotal");
-	}
-	
+	}	
 	
 }

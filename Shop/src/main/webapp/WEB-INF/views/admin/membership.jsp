@@ -111,6 +111,54 @@
                         <div class="col-12"> <!-- The icons -->
                             <div class="col-12">
                                 <div class="card card-primary card-outline mb-4">
+                                	
+                                	<div id="userModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 600px; padding: 20px; z-index: 1000;">
+									    <h2 style="text-align: center;">회원정보</h2>
+									    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+									        <tr>
+									            <th>아이디</th>
+									            <td id="modalUserId" style="padding: 5px;">${vo.user_id}</td>
+									            <th>이름</th>
+									            <td id="modalUserName" style="padding: 5px;">${vo.user_name}</td>
+									        </tr>
+									        <tr>
+									            <th>휴대폰 번호</th>
+									            <td id="modalUserPhone" style="padding: 5px;">${fn:replace(vo.user_phone, ',', '-')}</td>
+									            <th>이메일</th>
+									            <td id="modalUserEmail" style="padding: 5px;">${vo.user_email}</td>
+									        </tr>
+									        <tr>
+									            <th>상태</th>
+									            <td id="modalUserStatus" style="padding: 5px;">${vo.user_status}</td>
+									            <td colspan="2">
+									                <label><input type="radio" name="status" value="active" checked> 활성</label>
+									                <label style="margin-left: 10px;"><input type="radio" name="status" value="inactive"> 비활성</label>
+									            </td>
+									        </tr>
+									        <tr>
+									            <th>가입일</th>
+									            <td id="modalUserCreatedAt" style="padding: 5px;">${vo.user_created_at}</td>
+									            <th>등록ID</th>
+									            <td id="modalUserRegisterId" style="padding: 5px;">${vo.user_create_id}</td>
+									        </tr>
+									        <tr>
+									            <th>수정일</th>
+									            <td id="modalUserUpdatedAt" style="padding: 5px;">${vo.user_update_at}</td>
+									            <th>수정ID</th>
+									            <td id="modalUserUpdateId" style="padding: 5px;">${vo.user_update_id}</td>
+									        </tr>
+									    </table>
+									    <div style="margin-top: 20px;">
+									        <h3 style="margin: 10px 0;">MEMO</h3>
+									        <textarea id="modalMemo" style="width: 100%; height: 100px; border: 1px solid #ccc; border-radius: 5px;">${vo.user_note}</textarea>
+									    </div>
+									    <div style="text-align: center; margin-top: 20px;">
+									        <button onclick="applyChanges()" style="padding: 10px 20px; margin-right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">적용</button>
+									        <button onclick="closeModal()" style="padding: 10px 20px; background-color: #6C757D; color: white; border: none; border-radius: 5px; cursor: pointer;">닫기</button>
+									    </div>
+									</div>
+
+                                
                                     <table>
                                         <thead>
                                             <tr>
@@ -126,7 +174,7 @@
                                         </thead>
                                         <tbody>
 											<c:forEach items="${list}" var="vo">
-	                                            <tr onclick="location.href='membershipInfo.do';">
+	                                            <tr onclick="showUserModal('${vo.user_id}', '${vo.user_name}', '${fn:replace(vo.user_phone, ',', '-')}', '${vo.user_email}', '${vo.user_note}', '${vo.user_status}', '${vo.user_created_at}', '${vo.user_update_at}')">
 	                                                <td>${vo.user_id}</td>
 	                                                <td>${vo.user_name}</td>
 	                                                <td>${fn:replace(vo.user_phone, ',', '-')}</td>
@@ -142,6 +190,7 @@
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                    
                                     <!--begin::Pagination-->
                                     <div aria-label="Page navigation example">
                                         <ul class="pagination">
@@ -180,7 +229,42 @@
             </div>
         </main>
         
+        <script>
+		 	// 모달 열기
+		    function openModal() {
+		        document.querySelector('#userModal').style.display = 'block';
+		    }
+
+		    // 모달 닫기
+		    function closeModal() {
+		        document.querySelector('#userModal').style.display = 'none';
+		    }
+		    
+		 	// 적용 버튼 클릭 이벤트
+		    function applyChanges() {
+		        alert('변경 사항이 적용되었습니다.');
+		        closeModal();
+		    }
+
+		    // 특정 유저 정보를 모달에 세팅하고 열기
+		    function showUserModal(userId, userName, userPhone, userEmail, userNote, userStatus, userCreatedAt, userUpdatedAt) {
+		        document.querySelector('#modalUserId').innerText = userId;
+		        document.querySelector('#modalUserName').innerText = userName;
+		        document.querySelector('#modalUserPhone').innerText = userPhone;
+		        document.querySelector('#modalUserEmail').innerText = userEmail;
+		        document.querySelector('#modalMemo').value = userNote;
+
+		        // 상태 설정
+		        const statusElement = document.querySelector('#modalUserStatus');
+		        statusElement.innerText = userStatus === 'E' ? '활성' : '비활성';
+
+		        // 가입일 및 수정일
+		        document.querySelector('#modalUserCreatedAt').innerText = userCreatedAt;
+		        document.querySelector('#modalUserUpdatedAt').innerText = userUpdatedAt;
+
+		        openModal();
+		    }
+		</script>
         
         
-				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

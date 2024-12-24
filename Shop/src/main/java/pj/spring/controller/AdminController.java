@@ -221,11 +221,18 @@ public class AdminController {
 
 	 // 상품 삭제
 	 @ResponseBody
-	 @RequestMapping(value = "/productDelete.do", method = RequestMethod.POST)
+	 @RequestMapping(value = "/deleteProduct.do", method = RequestMethod.POST)
 	 public String productDelete(@RequestBody ProductVO productVO) {
 	 
-		 
-		 return ""; 
+		// 주문 상태를 변경하는 서비스 호출
+		    int result = adminService.productDelete(productVO);
+		    
+		    // 상태 변경 성공 여부에 따라 결과 반환
+		    if(result > 0) {
+		        return "success";  // 성공
+		    } else {
+		        return "failure";  // 실패
+		    }
 	 }
 	 
 

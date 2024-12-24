@@ -163,11 +163,19 @@
 	</update>
 	
 	<!-- 상품 삭제 -->
-	<update id="productDelete" parameterType="java.util.Map">
+	<update id="productDelete" parameterType="ProductVO">
 		UPDATE product
 	       SET product_status = 'N'
 	     WHERE product_no = #{product_no}
 	</update>
+	
+	<!-- 상품 재고 스케줄러 -->
+	<!-- <update id="updateOutOfStockProducts">
+        UPDATE product 
+        SET product_status = 'S' 
+        WHERE product_stock = 0 AND product_status != 'S'
+    </update> -->
+	
 	 
 	<!-- 주문 관리List -->
 	<select id="orderList" parameterType="java.util.Map" resultType="java.util.Map" >
