@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
@@ -142,4 +143,31 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace + ".reviewTotal");
 	}
 
+	//매출관리 매출 합계
+	//총 거래금액
+	public OrderedDetailVO orderTotalAmount() {
+		return sqlSession.selectOne(namespace+".orderTotalAmount");
+	}
+	
+	//총 결제금액
+	public PaymentVO paymentTotalAmount() {
+		return sqlSession.selectOne(namespace+".paymentTotalAmount");
+	}
+	
+	//총 판매수량
+	public OrderedDetailVO orderTotalQuantity() {
+		return sqlSession.selectOne(namespace+".orderTotalQuantity");
+	}
+	
+	//매출관리 list
+	public List<Map<String, Object>>salesList(Map<String, Integer> pagingParam) {
+		return sqlSession.selectList(namespace + ".salesList", pagingParam);
+	}
+	
+	//매출 관리 전체 수
+	public int salesTotal() {
+		return sqlSession.selectOne(namespace + ".salesTotal");
+	}
+	
+	
 }

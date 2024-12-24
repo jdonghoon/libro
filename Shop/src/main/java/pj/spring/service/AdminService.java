@@ -3,6 +3,7 @@ package pj.spring.service;
 import java.util.List;
 import java.util.Map;
 
+import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
@@ -83,5 +84,22 @@ public interface AdminService {
 	// 문의 전체 수
 	public int contactTotal();
 	
+	//매출관리 매출 합계
+	//총 거래금액
+	public OrderedDetailVO orderTotalAmount();
+		
+	//총 결제금액
+	public PaymentVO paymentTotalAmount();
+	
+	//총 판매수량
+	public OrderedDetailVO orderTotalQuantity();
+		
+	//매출관리 list
+	public List<Map<String, Object>>salesList(Map<String, Integer> pagingParam);
+	
+	//매출 관리 전체 수
+	public int salesTotal();
+		
+		
 
 }

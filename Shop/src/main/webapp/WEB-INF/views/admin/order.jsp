@@ -116,8 +116,9 @@
                                                 <th>상품명</th>
                                                 <th>주문상태</th>
                                                 <th>주문일자</th>
-                                                <th>결제상태</th>
                                                 <th>상품가격</th>
+                                                <th>결제상태</th>
+                                                <th>결제금액</th>
                                                 <th>수량</th>
                                                 <th>주문자명</th>
                                             </tr>
@@ -140,8 +141,9 @@
 	                                                	<c:if test="${vo.ordered_status == 'D'}"><span style="color:blue;">발송완료</span></c:if>
 	                                                </td>
 	                                                <td>${vo.ordered_create_at}</td>
-	                                                <td>${vo.payment_type}</td>
 	                                                <td>${vo.product_price}원</td>
+	                                                <td>${vo.payment_type}</td>
+                                 	                <td>${vo.payment_price}</td>
 	                                                <td>${vo.ordered_detail_quantity}</td>
 	                                                <td>${vo.ordered_name}</td>
 	                                            </tr>

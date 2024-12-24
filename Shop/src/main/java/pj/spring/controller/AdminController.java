@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.AdminService;
 import pj.spring.util.PagingUtil;
-import pj.spring.vo.ContactVO;
+import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
@@ -309,7 +309,35 @@ public class AdminController {
 
 	// 매출 관리
 	@RequestMapping(value = "/sales.do", method = RequestMethod.GET)
-	public String sales() {
+	public String sales(Model model,
+			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
+		
+		int total = adminService.salesTotal();
+
+		PagingUtil paging = new PagingUtil(nowPage, total, 10);
+
+		Map<String, Integer> pagingParam = new HashMap<String, Integer>();
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("perPage", paging.getPerPage());
+
+		List<Map<String, Object>> salesList = adminService.salesList(pagingParam);
+		
+		
+		// 총 거래금액
+        OrderedDetailVO orderTotalAmount = adminService.orderTotalAmount();
+        // 총 결제금액
+        PaymentVO paymentTotalAmount = adminService.paymentTotalAmount();
+        // 총 판매수량
+        OrderedDetailVO orderTotalQuantity = adminService.orderTotalQuantity();
+
+        // 계산된 값을 모델에 담아서 뷰에 전달
+        model.addAttribute("orderTotalAmount", orderTotalAmount);
+        model.addAttribute("paymentTotalAmount", paymentTotalAmount);
+        model.addAttribute("orderTotalQuantity", orderTotalQuantity);
+        model.addAttribute("salesList", salesList);
+		
+		
+		
 
 		return "admin/sales";
 	}

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
+import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
 import pj.spring.vo.ProductVO;
@@ -161,6 +162,37 @@ public class AdminServiceServiceImpl implements AdminService {
 	@Override
 	public int contactTotal() {
 		return adminDAO.contactTotal();
+	}
+
+	//매출관리 매출 합계
+	//총 거래금액
+	@Override
+	public OrderedDetailVO orderTotalAmount() {
+		return adminDAO.orderTotalAmount();
+	}
+
+	//총 결제금액
+	@Override
+	public PaymentVO paymentTotalAmount() {
+		return adminDAO.paymentTotalAmount();
+	}
+
+	//총 판매수량
+	@Override
+	public OrderedDetailVO orderTotalQuantity() {
+		return adminDAO.orderTotalQuantity();
+	}
+
+	//매출관리 list
+	@Override
+	public List<Map<String, Object>> salesList(Map<String, Integer> pagingParam) {
+		return adminDAO.salesList(pagingParam);
+	}
+
+	//매출 관리 전체 수
+	@Override
+	public int salesTotal() {
+		return adminDAO.salesTotal();
 	}
 
 

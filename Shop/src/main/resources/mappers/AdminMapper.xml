@@ -172,15 +172,16 @@
 	<!-- 주문 관리List -->
 	<select id="orderList" parameterType="java.util.Map" resultType="java.util.Map" >
 			SELECT   od.ordered_detail_no
+			       , od.ordered_detail_quantity
 			       , o.ordered_no
+			       , o.ordered_create_at
+			       , o.ordered_status
+			       , o.ordered_name
 			       , p.product_no
 			       , p.product_name
-			       , o.ordered_create_at
-			       , pm.payment_type
-			       , o.ordered_status
 			       , p.product_price
-			       , od.ordered_detail_quantity
-			       , o.ordered_name
+			       , pm.payment_type
+			       , pm.payment_price
 			FROM  ordered o
 			JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
 	   LEFT JOIN  product p ON p.product_no = od.product_no
@@ -294,5 +295,67 @@
 		  FROM contact
 	</select>
 	
+	<!-- 매출관리 매출 합계 -->
+	<!-- 총 거래금액 -->
+	<select id="orderTotalAmount" resultType="OrderedDetailVO">
+		SELECT SUM(ordered_detail_total_price) AS total_transaction_amount
+    	  FROM ordered_detail
+    	 WHERE YEAR(ordered_detail_create_at) = YEAR(CURRENT_DATE)
+    	   AND MONTH(ordered_detail_create_at) = MONTH(CURRENT_DATE);
+	</select>
+	
+	<!-- 총 결제금액 -->
+	<select id="paymentTotalAmount" resultType="PaymentVO">
+		SELECT SUM(payment_price) AS total_payment_amount
+    	  FROM payment
+    	 WHERE YEAR(payment_date) = YEAR(CURRENT_DATE)
+    	   AND MONTH(payment_date) = MONTH(CURRENT_DATE);
+	</select>
+	
+	<!-- 총 판매수량 -->
+	<select id="orderTotalQuantity" resultType="OrderedDetailVO">
+		SELECT SUM(ordered_detail_quantity) AS total_sales_quantity
+    	  FROM ordered_detail
+    	 WHERE YEAR(ordered_detail_create_at) = YEAR(CURRENT_DATE)
+    	   AND MONTH(ordered_detail_create_at) = MONTH(CURRENT_DATE);
+	</select>
+	
+	<!-- 매출관리 list -->
+	<select id="salesList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT    p.product_name
+		 		, p.product_price
+    			, SUM(od.ordered_detail_total_price) AS total_transaction_amount
+    			, SUM(pm.payment_price) AS total_payment_amount
+    			, SUM(od.ordered_detail_total_price) + SUM(pm.payment_price) AS total_amount
+    			, SUM(od.ordered_detail_quantity) AS total_sales_quantity
+    			, ad.attachment_detail_new_name
+		  FROM  product p
+	 LEFT JOIN  ordered_detail od ON p.product_no = od.product_no 
+	 LEFT JOIN  ordered o ON od.ordered_no = o.ordered_no 
+	 LEFT JOIN  payment pm ON o.payment_no = pm.payment_no
+	 LEFT JOIN  attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
+	 LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+	  GROUP BY  p.product_no, p.product_name, ad.attachment_detail_new_name
+	  ORDER BY  total_amount DESC
+	     LIMIT  #{start}, #{perPage}
+	</select>
 	 
+	<!-- 매출 관리 전체 수 -->
+	<select id="salesTotal" resultType="int">
+		SELECT COUNT(p.product_no) AS total_count
+		  FROM  product p
+	 LEFT JOIN  ordered_detail od ON p.product_no = od.product_no 
+	 LEFT JOIN  ordered o ON od.ordered_no = o.ordered_no 
+	 LEFT JOIN  payment pm ON o.payment_no = pm.payment_no
+	 LEFT JOIN  attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
+	 LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
