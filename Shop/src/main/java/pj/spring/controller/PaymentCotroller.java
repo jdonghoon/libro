@@ -1,6 +1,11 @@
 package pj.spring.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pj.spring.service.PaymentService;
+import pj.spring.vo.PaymentVO;
 import pj.spring.vo.UserVO;
 
 @Controller
@@ -18,9 +24,9 @@ public class PaymentCotroller {
 	
 	@Autowired
 	public PaymentService paymentService;
-	
+	    
 	@RequestMapping(value="payment.do", method = RequestMethod.GET)
-	public String goPayment(Model model) {
+	public String goPayment(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String user_id = authentication.getName();
@@ -40,7 +46,7 @@ public class PaymentCotroller {
 	        String updatedPhone = address.getAddress_book_phone().replace(",", "-");
 	        address.setAddress_book_phone(updatedPhone);
 	    }
-	    
+
 	    model.addAttribute("userInfo", userInfo);
 	    model.addAttribute("addressInfo", addressInfo);
 		

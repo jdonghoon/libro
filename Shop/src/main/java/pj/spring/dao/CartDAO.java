@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.UserVO;
 
 @Repository
 public class CartDAO {
@@ -19,19 +19,19 @@ public class CartDAO {
 	private final String namespace = "pj.spring.mapper.cartMapper";
 
 	
-	public List<ProductVO> selectCartList() {
+	public List<ProductVO> selectCartListUser(UserVO userVO) {
 		
-		return sqlSession.selectList(namespace + ".selectCartList");
+		return sqlSession.selectList(namespace + ".selectCartListUser", userVO);
 	}
 	
-	public ProductVO selectCartPrice(String user_id) {
+	public ProductVO selectCartPriceUser(UserVO userVO) {
 		
-		return sqlSession.selectOne(namespace + ".selectCartPrice", user_id);
+		return sqlSession.selectOne(namespace + ".selectCartPriceUser", userVO);
 	}
 	
-	public int updateCartQuantity(String user_id, Map<String, Object> map) {
+	public int updateCartQuantityUser(String user_id, Map<String, Object> map) {
 		
 		map.put("user_id", user_id);
-        return sqlSession.update(namespace + ".updateCartQuantity", map);
+        return sqlSession.update(namespace + ".updateCartQuantityUser", map);
     }
 }

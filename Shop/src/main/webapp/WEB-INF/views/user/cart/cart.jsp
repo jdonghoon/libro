@@ -111,7 +111,7 @@
 
     <!-- 결제 내역 -->
     <div class="payment-container">
-      <form action="payment.do">
+      <form action="payment.do?cart_product_quantity=${cartPrice.cart_product_quantity}&product_price=${cartPrice.product_price}", method="GET">
         <div class="payment-title">주문 합계</div>
         <div class="payment-display">
           <div>
@@ -119,7 +119,7 @@
               <div>총 수량</div>
               <div class="payment-price" id="total-quantity" >${cartPrice.cart_product_quantity}</div>
             </div>
-            <div class="payment-info">
+            <div class="payment-info">	
               <div>상품금액</div>
               <div class="payment-price" id="product-price">${cartPrice.product_price}</div>
             </div>
