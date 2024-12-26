@@ -470,7 +470,7 @@ input[type="checkbox"]:checked + .checkmark::after {
 }
 
 /* =========================================================================================== */
-/* orderhistory.jsp, orderhistorydetail.jsp */
+/* orderhistory.jsp */
 /* =========================================================================================== */
 .order-container {
     width: 900px; 
@@ -485,19 +485,6 @@ input[type="checkbox"]:checked + .checkmark::after {
     border: 1px solid black;
     padding: 20px;
     margin-bottom: 20px;
-}
-.order-list, .order-detail {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.order-list, .order-detail, 
-.order-list th, .order-list td,
-.order-detail th, .order-detail td {
-    border: 1px solid black;
-}
-.red {
-    color: red;
 }
 .order-search select, .order-search input {
     padding: 5px;
@@ -519,14 +506,188 @@ input[type="checkbox"]:checked + .checkmark::after {
     text-decoration: underline;
     font-weight: bold;
 }      
-
+.order-history-form {
+    border: 1px solid black;
+    /* display: flex; */
+    justify-content: space-between;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.order-history-form img {
+    width: 70px;
+    margin-right: 10PX;
+    border: 1px solid black;
+}
+.order-history-form p {
+    margin: 1px;
+    font-size: 14px;
+}
+.fp {
+    font-size: 12px;
+    text-decoration: underline;
+}
+.lp {
+    font-size: 17px;
+    font-weight: bold;
+}
+.order-history{
+    font-size: 15px;
+    font-weight: bold;
+}
+.order-product {
+    display: flex;
+    justify-content: space-between;
+}
+.order-no {
+    display: flex; 
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.order-modify {
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 0;
+    background-color: black;
+    color: white;
+    margin-left: 5px;
+    padding: 1px 6px;
+    font-weight: bold;
+}
+.addr_form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.addr_form-container h2 {
+    margin-top: 0;
+}
+.addr_form-group {
+    margin-bottom: 15px;
+}
+.addr_form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.addr_form-group input,
+.addr_form-group select {
+    width: 421px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.addr_form-group textarea {
+    border: 1px solid black;
+    padding: 9px;
+    resize: none;
+}
+.addr_form-footer {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.addr_form-footer button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 210px;
+    height: 45px;
+}
+.addr_form-footer button:hover {
+    background-color: #555;
+}
 /* =========================================================================================== */
 /* orderhistorydetail.jsp */
 /* =========================================================================================== */
+.order-detail {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: left;
+    border: 1px solid black;
+    font-size: 14px;
+}
+.order-detail th, .order-detail td {
+    border-bottom: 1px solid black;
+}
 .order-detail th{
+    padding: 10px 20px;
     width: 200px;
 }
-
+.order-detail tr:last-child th,
+.order-detail tr:last-child td {
+    border-bottom: none; /* 마지막 행은 가로줄 없애기 */
+}
+.qq{
+    text-align: left;
+    display: flex;
+    margin: 20px 0;
+    font-size: 14px;
+}
+.order-history-form2 {
+    border: 1px solid black;
+    padding: 20px;
+    text-align: left;
+}
+.order-history-form2 img {
+    width: 70px;
+    margin-right: 10PX;
+    border: 1px solid black;
+}
+.order-history-form2 p {
+    margin: 1px;
+    font-size: 14px;
+}
+.order-history-form2:not(:first-child) {
+    border-top: none;
+}
+/* =========================================================================================== */
+/* addrmodify_modal.jsp */
+/* =========================================================================================== */
+.addr_form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.addr_form-container h2 {
+    margin-top: 0;
+}
+.addr_form-group {
+    margin-bottom: 15px;
+}
+.addr_form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.addr_form-group input,
+.addr_form-group select {
+    width: 421px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.addr_form-group textarea {
+    border: 1px solid black;
+    padding: 9px;
+    resize: none;
+}
+.addr_form-footer {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.addr_form-footer button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 210px;
+    height: 45px;
+}
+.addr_form-footer button:hover {
+    background-color: #555;
+}
 /* =========================================================================================== */
 /* wishlist.jsp, recentlyproducts.jsp */
 /* =========================================================================================== */

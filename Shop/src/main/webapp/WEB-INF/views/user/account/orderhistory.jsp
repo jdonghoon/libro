@@ -36,37 +36,34 @@
                         	</div>
                         </div>
                     </div>
-                    
+
                     <p>취소 신청은 배송완료일 기준 7일까지 가능합니다.</p>
-                    
-                    <table class="order-list">
-                        <thead>
-                            <tr>
-                                <th>주문번호</th>
-                                <th>주문일자</th>
-                                <th>주문내역</th>
-                                <th>주문금액/수량</th>
-                                <th>주문상태</th>
-                                <th>배송조회</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-							<c:forEach items="${list}" var="vo">
-								<tr>
-									<td>
-										<a href="orderhistorydetail.do?ordered_no=${vo.ordered_no}">${vo.ordered_no}</a>
-									</td>
-									<td>${vo.ordered_date}</td>
-									<td>[${vo.category_name}]${vo.product_name}</td>
-									<td>${vo.ordered_detail_total_price} / ${vo.ordered_detail_totalquantity}</td>
-									<td>${vo.ordered_status}</td>
-									<td>
-										<a href="#">조회</a>
-									</td>
-								</tr>
-							</c:forEach>
-                        </tbody>
-                    </table>
+
+					<c:forEach items="${list}" var="vo">
+	                    <div class="order-history-form" >
+	                        <div class="order-no">
+	                            <span class="order-history">${vo.ordered_date} (${vo.ordered_no})</span>
+	                            <span class="fp"><a href="orderhistorydetail.do?ordered_no=${vo.ordered_no}">상세보기</a></span>
+	                        </div>
+	                        <div class="order-product">
+	                            <div style="display: flex;">
+	                                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}">
+	                                <div>
+	                                    <p>[${vo.category_name}] ${vo.product_name}</p>
+	                                    <p>${vo.product_author} 저 · ${vo.product_publisher}</p>
+	                                    <p style="margin-bottom: 15px;">${vo.ordered_detail_unit_price}원</p>
+	                                    <p>[${vo.ordered_detail_quantity}개]</p>
+	                                </div>
+	                            </div>
+	                            <span class="lp">${vo.ordered_status}</span>
+	                        </div>
+	                        <div style="display: flex; margin-top: 5px; justify-content: flex-end;">
+	                            <a class="order-modify" id="openWindow">배송지 변경</a>
+	                            <a href="" class="order-modify">주문취소</a>
+	                        </div>
+	                    </div>
+                    </c:forEach>
+
 	                <div class="pagination">
 						〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
 	                </div>
@@ -89,34 +86,26 @@
                         </div>
                     </div>
                     
-                    <table class="order-list">
-                        <thead>
-                            <tr>
-                                <th>주문번호</th>
-                                <th>주문일자</th>
-                                <th>주문내역</th>
-                                <th>주문금액/수량</th>
-                                <th>주문상태</th>
-                                <th>배송조회</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-							<c:forEach items="${cancellist}" var="vo">
-								<tr>
-									<td>
-										<a href="orderhistorydetail.do?ordered_no=${vo.ordered_no}">${vo.ordered_no}</a>
-									</td>
-									<td>${vo.ordered_date}</td>
-									<td>[${vo.category_name}]${vo.product_name}</td>
-									<td>${vo.ordered_detail_total_price} / ${vo.ordered_detail_totalquantity}</td>
-									<td>${vo.ordered_status}</td>
-									<td>
-										<a href="#">조회</a>
-									</td>
-								</tr>
-							</c:forEach>
-                        </tbody>
-                    </table>
+					<c:forEach items="${cancellist}" var="vo">
+	                    <div class="order-history-form" >
+	                        <div class="order-no">
+	                            <span class="order-history">${vo.ordered_date} (${vo.ordered_no})</span>
+	                            <span class="fp"><a href="orderhistorydetail.do?ordered_no=${vo.ordered_no}">상세보기</a></span>
+	                        </div>
+	                        <div class="order-product">
+	                            <div style="display: flex;">
+	                                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}">
+	                                <div>
+	                                    <p>[${vo.category_name}] ${vo.product_name}</p>
+	                                    <p>${vo.product_author} 저 · ${vo.product_publisher}</p>
+	                                    <p style="margin-bottom: 15px;">${vo.ordered_detail_unit_price}원</p>
+	                                    <p>[${vo.ordered_detail_quantity}개]</p>
+	                                </div>
+	                            </div>
+	                            <span class="lp">${vo.ordered_status}</span>
+	                        </div>
+	                    </div>
+                    </c:forEach>
 	                <div class="pagination">
 						〈〈&nbsp;&nbsp;&nbsp;〈&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;〉&nbsp;&nbsp;&nbsp;〉〉
 	                </div>
@@ -223,6 +212,17 @@
         // 두 번째 date input에 종료 날짜 설정
         document.querySelectorAll('input[type="date"]')[1].value = endDate;
     }
+    </script>
+
+    <script>
+        document.getElementById("openWindow").onclick = function () {
+            // 새 창 열기
+            window.open(
+                "addrmodify_modal.do", // 새 창에 표시할 URL
+                "_blank", // 새 창으로 열기
+                "width=500,height=600,scrollbars=yes" // 창 크기 및 옵션 설정
+            );
+        };
     </script>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

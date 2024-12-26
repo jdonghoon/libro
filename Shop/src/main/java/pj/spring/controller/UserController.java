@@ -69,7 +69,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	
 	// 아이디 중복 체크
 	@ResponseBody
 	@RequestMapping(value = "/ajax/checkID.do", method = RequestMethod.GET)
@@ -95,6 +94,32 @@ public class UserController {
 		}
 		
 		return msg;
+	}
+	
+	// 비밀번호 확인
+	@ResponseBody
+	@RequestMapping(value = "/ajax/checkPassword.do")
+	public String checkPassword(HttpServletRequest request, UserSecurityVO vo) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+//        String inputPassword = request.getParameter("password");
+//        String DBPassword = vo.getUser_password();
+//        
+//        System.out.println(inputPassword);
+//        System.out.println(DBPassword);
+//
+//        // 비밀번호 비교
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        boolean isMatch = encoder.matches(inputPassword, DBPassword);
+//		
+//        // 비밀번호 일치 여부에 따른 메시지 반환
+//        if (isMatch) {
+//            return "isMatch";  // 비밀번호 일치
+//        } else {
+//            return "isNotMatch";  // 비밀번호 불일치
+//        }
+		return "";
 	}
 	
 	// 회원 정보
@@ -564,6 +589,17 @@ public class UserController {
 		
 		return "user/account/orderhistorydetail";
 	}
+	
+	// 배송지 변경
+	@RequestMapping(value="addrmodify_modal.do")
+	public String addrmodify_modal(String ordered_no, Model model) {
+		
+		OrderedVO vo = userService.selectorderhistorydetail(ordered_no);
+		
+		model.addAttribute("vo", vo);
+		
+		return "user/account/addrmodify_modal";
+	}
 
 	// 위시리스트 조회
 	@RequestMapping(value="wishlist.do")
@@ -599,20 +635,24 @@ public class UserController {
 			
 		// 회원
 		} else { 
-			
+			vo.setProduct_no(vo.getProduct_no());
 			vo.setUser_id(username);
-			int result = userService.selectDedupeWishlist(vo.getProduct_no());
-			
-			System.out.println("중복수" + result);
-			
-			if (result > 0) {
-				System.out.println("이미 등록된 상품입니다.");
-			} else {
-				int result1 = userService.insertWishlist(vo);
-	 		}
+			int result1 = userService.selectDedupeWishlist(vo);
+			System.out.println("위시?" + result1);
+			if(result1 > 0) {
+				System.out.println("이미 위시에 있음");
+			}else {
+				int result2 = userService.insertWishlist(vo);
+				
+				if (result2 > 0) {
+					System.out.println("회원 위시리스트 등록 완료");
+				} else {
+					System.out.println("회원 위시리스트 등록 실패");
+				}
+			}
 		}
 		
-		return "redirect:/wishlist.do";
+		return "redirect:/recentlyproducts.do";
 	}
 	
 	// 위시리스트 삭제
@@ -651,8 +691,45 @@ public class UserController {
 		return "redirect:/wishlist.do";
 	}
 
-	// 카트로 이동
-	@RequestMapping(value="cartinsert.do")
+	// 카트 등록(최근)
+	@RequestMapping(value="retocartinsert.do")
+	public String cartinsert(CartVO vo, HttpServletRequest request, HttpServletResponse response) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		if (username.equals("anonymousUser")) { // 비회원
+//			// 비회원은 쿠키에서 제거 후 카트 쿠키로 이동
+//			String productNo = userService.removeGuestWishlistFromCookies(wishlist_no, request, response);
+//			if (productNo != null) {
+//				userService.addGuestCartToCookies(productNo, request, response);
+//				System.out.println("비회원 카트 등록 완료");
+//			} else {
+//				System.out.println("비회원 위시리스트 삭제 실패");
+//			}
+		} else { // 회원
+			vo.setProduct_no(vo.getProduct_no());
+			vo.setUser_id(username);
+			int result1 = userService.selectDedupeCart(vo);
+			System.out.println("카트?" + result1);
+			if(result1 > 0) {
+				System.out.println("이미 카트에 있음");
+			}else {
+				int result2 = userService.insertCart(vo);
+				
+				if (result2 > 0) {
+					System.out.println("회원 카트 등록 완료");
+				} else {
+					System.out.println("회원 카트 등록 실패");
+				}
+			}
+		}
+		
+		return "redirect:/recentlyproducts.do";
+	}
+	
+	// 카트 등록(위시)
+	@RequestMapping(value="witocartinsert.do")
 	public String cartinsert(String wishlist_no, CartVO vo, HttpServletRequest request, HttpServletResponse response) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -668,18 +745,26 @@ public class UserController {
 //				System.out.println("비회원 위시리스트 삭제 실패");
 //			}
 		} else { // 회원
-			int result = userService.deleteWishlist(wishlist_no);
-			if (result > 0) {
-				vo.setUser_id(username);
-				int result1 = userService.insertCart(vo);
-		
-				if (result1 > 0) {
+			vo.setProduct_no(vo.getProduct_no());
+			vo.setUser_id(username);
+			int result1 = userService.selectDedupeCart(vo);
+			System.out.println("카트?" + result1);
+			if(result1 > 0) {
+				System.out.println("이미 카트에 있음");
+			}else {
+				int result2 = userService.deleteWishlist(wishlist_no);
+				if (result2 > 0) {
+					vo.setUser_id(username);
+					int result3 = userService.insertCart(vo);
+					
+					if (result3 > 0) {
 						System.out.println("회원 카트 등록 완료");
+					} else {
+						System.out.println("회원 카트 등록 실패");
+					}
 				} else {
-					System.out.println("회원 카트 등록 실패");
+					System.out.println("회원 위시리스트 삭제 실패");
 				}
-			} else {
-				System.out.println("회원 위시리스트 삭제 실패");
 			}
 		}
 		
@@ -792,7 +877,9 @@ public class UserController {
 			userService.removeGuestRecentlyProductFromCookies(recentlyproduct_no, request, response);
 			// 회원
 		} else { 
-			int result = userService.deleteRecentlyproduct(recentlyproduct_no);
+			
+			System.out.println("recentlyproduct_no : " + recentlyproduct_no);
+			int result = userService.deleteRecentlyproduct_(recentlyproduct_no);
 			
 			if (result > 0) {
 				System.out.println("회원 최근본상품 삭제 완료");

@@ -7,14 +7,33 @@
         <section>
             <div class="memberinfoform-container">
                 <h2>회원정보</h2>
-                <form action="memberinfoOk.do" method="post">
-                    <!-- 기본 정보 -->
+                <div id="passwordForm" method="post">
+                    <div>
+                        <p>고객님의 소중한 회원정보를 확인/변경 하기 위해 비밀번호 재확인이 필요합니다.</p>
+                    </div>
+                    
+                    <div class="memberinfoform-group">
+                        <input type="text" value="${vo.user_name}" readonly>
+                    </div>
+                    <div class="memberinfoform-group">
+                        <input type="text" value="${vo.user_id}" readonly>
+                    </div>
+                    <div class="memberinfoform-group">
+                        <input type="password" id="first_user_password" name="user_password" placeholder="비밀번호  입력">
+                    </div>
+                    <div class="memberinfoform-footer">
+                        <button style="width:500px;" onclick="checkPassword()">확인</button>
+                    </div>
+                </div>
+                
+                <form id="memberInfoForm" action="memberinfoOk.do" method="post" style="display:none;">
+
                     <div>
                         <p>*필수입력사항</p>
                     </div>
 
                     <div class="memberinfoform-group">
-                        <input type="text" id="user_id" name="user_id" value="${vo.user_id}">
+                        <input type="text" id="user_id" name="user_id" value="${vo.user_id}" readonly>
                     </div>
                     <div class="memberinfoform-group">
                         <input type="password" id="user_password" name="user_password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
@@ -25,16 +44,6 @@
                     <div class="memberinfoform-group">
                         <input type="text" id="name" name="user_name" value="${vo.user_name}">
                     </div>
-
-<%--                      <div class="memberinfoform-group">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                            <input type="text" id="userPostCode" name="address_book_postcode" value="${vo.address_book_postcode}" placeholder="주소" style="width: 50%;">
-                            <button type="button" onclick="searchAddress();" class="addr_btn">우편번호</button>
-                            <button type="button" onclick="cancelAddress();" class="addr_btn">취소</button>
-                        </div>
-                        <input type="text" id="userAddress" name="address_book_address" value="${vo.address_book_address}" placeholder="기본주소" style="margin-bottom: 15px;">
-                        <input type="text" id="userDtlAddress" name="address_book_detailaddress" value="${vo.address_book_detailaddress}" placeholder="나머지주소(선택입력가능)">
-                    </div> --%>
 
                     <div class="addrform-group">
                         <div style="display: flex; justify-content: space-between;">
@@ -67,6 +76,30 @@
     </main>
 	
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
+	<script>
+		// 비밀번호 확인을 체크하는 함수
+		function checkPassword() {
+			const password = document.getElementById("first_user_password").value;
+	
+			$.ajax({
+				url : "ajax/checkPassword.do",
+				type : "POST",
+				data : { password : encodeURIComponent(password) },
+				success : function(data) {
+					if (data == "isMatch") {
+						document.getElementById("passwordForm").style.display = "none";  // 비밀번호 폼 숨기기
+						document.getElementById("memberInfoForm").style.display = "block";  // 회원정보 수정 폼 보이기
+					} else {
+						alert("비밀번호가 일치하지 않습니다.");
+					}
+				},
+				error : function(xhr){
+					console.log(xhr);
+				}	
+			});
+		}
+	</script>
 
 	<script>
 	    // vo.user_phone 값 (서버에서 전달되는 값)

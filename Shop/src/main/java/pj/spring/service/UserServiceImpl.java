@@ -235,16 +235,28 @@ public class UserServiceImpl implements UserService {
 		return userDAO.deleteReview(review_no);
 	}
 
+	// 카트로 이동
+	@Override
+	public int insertCart(CartVO cartVO) {
+		return userDAO.insertCart(cartVO);
+	}
+	
+	// 카트 중복 조회
+	@Override
+	public int selectDedupeCart(CartVO cartVO) {
+		return userDAO.selectDedupeCart(cartVO);
+	}
+
 	// 위시리스트 조회
 	@Override
 	public List<WishlistVO> selectWishlist(String user_id) {
 		return userDAO.selectWishlist(user_id);
 	}
 	
-	// 위시리스트 중복 방지
+	// 위시리스트 중복 조회
 	@Override
-	public int selectDedupeWishlist(String product_no) {
-		return userDAO.selectDedupeWishlist(product_no);
+	public int selectDedupeWishlist(WishlistVO wishlistVO) {
+		return userDAO.selectDedupeWishlist(wishlistVO);
 	}
 
 	// 위시리스트 등록
@@ -258,11 +270,11 @@ public class UserServiceImpl implements UserService {
 	public int deleteWishlist(String wishlist_no) {
 		return userDAO.deleteWishlist(wishlist_no);
 	}
-
-	// 카트로 이동
+	
+	// 최근본상품 중복 조회
 	@Override
-	public int insertCart(CartVO cartVO) {
-		return userDAO.insertCart(cartVO);
+	public int selectDedupeRecentlyproduct(RecentlyproductVO recentlyproductVO) {
+		return userDAO.selectDedupeRecentlyproduct(recentlyproductVO);
 	}
 	
 	// 최근본상품 조회
@@ -279,8 +291,14 @@ public class UserServiceImpl implements UserService {
 
 	// 최근본상품 삭제
 	@Override
-	public int deleteRecentlyproduct(String recentlyproduct_no) {
-		return userDAO.deleteRecentlyproduct(recentlyproduct_no);
+	public int deleteRecentlyproduct(RecentlyproductVO recentlyproductVO) {
+		return userDAO.deleteRecentlyproduct(recentlyproductVO);
+	}
+	
+	// 최근본상품 삭제
+	@Override
+	public int deleteRecentlyproduct_(String recentlyproduct_no) {
+		return userDAO.deleteRecentlyproduct_(recentlyproduct_no);
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------	
@@ -464,6 +482,8 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 	}
+
+
 
 
 

@@ -149,6 +149,7 @@
 			, user_name
 			, user_phone
 			, user_email
+			, user_password
 		 FROM user 
 		WHERE user_id = #{user_id}
 		AND user_status = 'E'
@@ -346,117 +347,124 @@
 	
 	<!-- 주문내역 목록 -->
 	<select id="selectOrderhistory" parameterType="String" resultType="orderedVO" >
-		SELECT 
+		SELECT
 			o.ordered_no, 
-			date(o.ordered_date) as ordered_date, 
-			p.product_name, 
-			( SELECT SUM(od2.ordered_detail_quantity) FROM ordered_detail od2 WHERE od2.ordered_no = o.ordered_no ) AS ordered_detail_totalquantity, 
-			ordered_detail_total_price, 
-			o.ordered_status, 
-			category_name
+			DATE(o.ordered_date) AS ordered_date, 
+			o.ordered_status,
+			p.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			category_name,
+			ordered_detail_quantity,
+			ordered_detail_unit_price
 		FROM 
-			ordered o
-		JOIN 
-			ordered_detail od ON o.ordered_no = od.ordered_no
-		JOIN 
-			product p ON od.product_no = p.product_no
-		JOIN 
-			category c ON c.category_no = p.category_no
-		JOIN 
-			user u ON u.user_id = o.user_id
-		WHERE 
-			od.ordered_detail_no = ( SELECT MIN(ordered_detail_no) FROM ordered_detail WHERE ordered_no = o.ordered_no )
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c 
+		WHERE
+			o.ordered_no = od.ordered_no
 		AND
-			u.user_id = #{user_id}
-		GROUP BY 
-			o.ordered_no, o.ordered_date, p.product_name, o.ordered_status, od.ordered_detail_total_price, category_name
+			od.product_no = p.product_no
+		AND
+			c.category_no = p.category_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND 
+			a.attachment_type = 'PT'
+		AND
+			o.user_id = #{user_id}
 		ORDER BY 
-			o.ordered_no DESC;
+			o.ordered_no DESC
 	</select>
 
 	<!-- 취소내역 목록 -->
 	<select id="selectOrderhistoryCancel" parameterType="String" resultType="orderedVO" >
-		SELECT 
+		SELECT
 			o.ordered_no, 
-			date(o.ordered_date) as ordered_date, 
-			p.product_name, 
-			( SELECT SUM(od2.ordered_detail_quantity) FROM ordered_detail od2 WHERE od2.ordered_no = o.ordered_no ) AS ordered_detail_totalquantity, 
-			ordered_detail_total_price, 
-			o.ordered_status, 
-			category_name
+			DATE(o.ordered_date) AS ordered_date, 
+			o.ordered_status,
+			p.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			category_name,
+			ordered_detail_quantity,
+			ordered_detail_unit_price
 		FROM 
-			ordered o
-		JOIN 
-			ordered_detail od ON o.ordered_no = od.ordered_no
-		JOIN 
-			product p ON od.product_no = p.product_no
-		JOIN 
-			category c ON c.category_no = p.category_no
-		JOIN 
-			user u ON u.user_id = o.user_id
-		WHERE 
-			od.ordered_detail_no = ( SELECT MIN(ordered_detail_no) FROM ordered_detail WHERE ordered_no = o.ordered_no )
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c 
+		WHERE
+			o.ordered_no = od.ordered_no
 		AND
-			u.user_id = #{user_id}
+			od.product_no = p.product_no
+		AND
+			c.category_no = p.category_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND 
+			a.attachment_type = 'PT'
+		AND
+			o.user_id = #{user_id}
 		AND
 			( o.ordered_status = 'CW' OR o.ordered_status = 'CC' )
-		GROUP BY 
-			o.ordered_no, o.ordered_date, p.product_name, o.ordered_status, od.ordered_detail_total_price, category_name
 		ORDER BY 
 			o.ordered_no DESC;
 	</select>
 	
 	<!-- 주문내역 상세 -->
 	<select id="selectOrderhistorydetail" parameterType="String" resultType="orderedVO" >
-		SELECT 
+		SELECT DISTINCT
 			o.ordered_no, 
 			DATE(o.ordered_date) AS ordered_date, 
-			u.user_name,
 			o.ordered_status,
-			od.ordered_detail_total_price,
-			pm.payment_method,
-			o.ordered_name,
+		    o.ordered_name,
 			o.ordered_address,
 			o.ordered_phone,
-			o.ordered_note
+			o.ordered_note,
+		    od.ordered_detail_total_price,
+			pm.payment_method
 		FROM 
-			ordered o
-		JOIN 
-			ordered_detail od ON o.ordered_no = od.ordered_no
-		JOIN 
-			product p ON od.product_no = p.product_no
-		JOIN 
-			category c ON c.category_no = p.category_no
-		JOIN 
-			user u ON u.user_id = o.user_id
-		JOIN 
-			payment pm ON pm.user_id = u.user_id
-		WHERE 
+			ordered o, ordered_detail od, payment pm 
+		WHERE
+			o.ordered_no = od.ordered_no
+		AND
+			pm.payment_price = od.ordered_detail_total_price    
+		AND
 			o.ordered_no = #{ordered_no}
-		GROUP BY 
-			o.ordered_no, o.ordered_date, u.user_name, o.ordered_status, pm.payment_method, 
-			o.ordered_name, o.ordered_address, o.ordered_phone, o.ordered_note, od.ordered_detail_total_price
 		ORDER BY 
 			o.ordered_no DESC
 	</select>
 
 	<!-- 주문내역 상세(상품) -->
 	<select id="selectOrderhistorydetailp" parameterType="String" resultType="orderedVO" >
-		SELECT 
-			od.ordered_detail_no,
-			c.category_name,
-			p.product_name, 
-			od.ordered_detail_quantity,
-			od.ordered_detail_unit_price
+		SELECT
+			p.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			category_name,
+			ordered_detail_quantity,
+			ordered_detail_unit_price
 		FROM 
-			ordered o
-		JOIN 
-			ordered_detail od ON o.ordered_no = od.ordered_no
-		JOIN 
-			product p ON od.product_no = p.product_no
-		JOIN 
-			category c ON c.category_no = p.category_no
-		WHERE 
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c
+		WHERE
+			o.ordered_no = od.ordered_no
+		AND
+			od.product_no = p.product_no
+		AND
+			c.category_no = p.category_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND 
+			a.attachment_type = 'PT'
+		AND
 			o.ordered_no = #{ordered_no}
 		ORDER BY 
 			od.ordered_detail_no
@@ -605,13 +613,66 @@
 			review_status = 'D' 
 		WHERE
 			review_no = #{review_no};
-	</update>
+	</update>	
+	
+	<!-- 비회원용 상품정보 -->
+	<select id="selectProductForGuest" parameterType="String" resultType="reviewVO">
+		SELECT 
+			r.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			p.product_price,
+			r.review_starrating
+		FROM 
+			product p, review r, attachment a, attachment_detail ad
+		WHERE
+			p.product_no = r.product_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND
+			p.product_no = #{product_no}
+		AND 
+			a.attachment_type = 'PT'
+	</select>
+	
+	<!-- 카트 중복 조회 -->
+	<select id="selectDedupeCart" parameterType="CartVO" resultType="int">
+		SELECT 
+			COUNT(cart_no) 
+		FROM
+			cart
+		WHERE
+			user_id = #{user_id}
+		AND
+			product_no = #{product_no}
+	</select>
+	
+	<!-- 카트 등록 -->
+	<insert id="insertCart" parameterType="cartVO">
+		INSERT INTO cart (
+			cart_product_quantity,
+			cart_create_id,
+			cart_update_id,
+			user_id,
+			product_no
+		) VALUES (
+			1,
+			#{user_id},
+			#{user_id},
+			#{user_id},
+			#{product_no}
+		);
+	</insert>
 	
 	<!-- 위시리스트 조회 -->
 	<select id="selectWishlist" parameterType="String" resultType="wishlistVO">
 		SELECT 
 			w.wishlist_no,
-			r.product_no, 
+			p.product_no, 
 			p.product_name,
 			p.product_author,
 			p.product_publisher,
@@ -620,23 +681,19 @@
 			p.product_price,
 			r.review_starrating
 		FROM 
-			wishlist w, product p, review r, attachment a, attachment_detail ad
+			wishlist w
+			JOIN product p ON p.product_no = w.product_no
+			LEFT JOIN review r ON p.product_no = r.product_no
+			JOIN attachment a ON p.product_no = a.attachment_product_no
+			JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
 		WHERE
-			p.product_no = w.product_no
-		AND 
-			p.product_no = r.product_no
-		AND
-			p.product_no = a.attachment_product_no 
-		AND 
-			a.attachment_no = ad.attachment_no
-		AND
 			w.user_id = #{user_id}
 		AND 
 			a.attachment_type = 'PT'
 	</select>	
 	
-	<!-- 위시리스트 중복 방지 -->
-	<select id="selectDedupeWishlist" parameterType="String" resultType="int">
+	<!-- 위시리스트 중복 조회 -->
+	<select id="selectDedupeWishlist" parameterType="wishlistVO" resultType="int">
 		SELECT 
 			COUNT(wishlist_no)
 		FROM 
@@ -666,51 +723,24 @@
 	<delete id="deleteWishlist" parameterType="String">
 		DELETE FROM wishlist WHERE wishlist_no = #{wishlist_no} 
 	</delete>
-	
-	<!-- 카트로 이동 -->
-	<insert id="insertCart" parameterType="cartVO">
-		INSERT INTO cart (
-			cart_create_id,
-			cart_update_id,
-			user_id,
-			product_no
-		) VALUES (
-			#{user_id},
-			#{user_id},
-			#{user_id},
-			#{product_no}
-		);
-	</insert>
-	
-	<!-- 비회원용 상품정보 -->
-	<select id="selectProductForGuest" parameterType="String" resultType="reviewVO">
+
+	<!-- 최근본상품 중복 조회 -->
+	<select id="selectDedupeRecentlyproduct" parameterType="recentlyproductVO" resultType="int">
 		SELECT 
-			r.product_no, 
-			p.product_name,
-			p.product_author,
-			p.product_publisher,
-			ad.attachment_detail_new_name,
-			p.product_price,
-			r.review_starrating
+			COUNT(recentlyproduct_no)
 		FROM 
-			product p, review r, attachment a, attachment_detail ad
+			recentlyproduct
 		WHERE
-			p.product_no = r.product_no
-		AND
-			p.product_no = a.attachment_product_no 
+			user_id = #{user_id}
 		AND 
-			a.attachment_no = ad.attachment_no
-		AND
-			p.product_no = #{product_no}
-		AND 
-			a.attachment_type = 'PT'
+			product_no = #{product_no}
 	</select>
-	
+
 	<!-- 최근본상품 조회 -->
-	<select id="selectRecentlyproduct" parameterType="String" resultType="recentlyproductVO">
+	<select id="selectRecentlyproduct" parameterType="String" resultType="recentlyproductVO">			
 		SELECT 
 			rp.recentlyproduct_no,
-			r.product_no, 
+			p.product_no, 
 			p.product_name,
 			p.product_author,
 			p.product_publisher,
@@ -718,19 +748,17 @@
 			p.product_price,
 			r.review_starrating
 		FROM 
-			recentlyproduct rp, product p, review r, attachment a, attachment_detail ad
+			recentlyproduct rp
+			JOIN product p ON p.product_no = rp.product_no
+			LEFT JOIN review r ON p.product_no = r.product_no
+			JOIN attachment a ON p.product_no = a.attachment_product_no
+			JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
 		WHERE
-			p.product_no = rp.product_no
-		AND 
-			p.product_no = r.product_no
-		AND
-			p.product_no = a.attachment_product_no 
-		AND 
-			a.attachment_no = ad.attachment_no
-		AND
 			rp.user_id = #{user_id}
 		AND 
 			a.attachment_type = 'PT'
+		ORDER BY 
+			recentlyproduct_created_at DESC
 	</select>	
 	
 	<!-- 최근본상품 등록 -->
@@ -749,8 +777,13 @@
 	</insert>
 	
 	<!-- 최근본상품 삭제 -->
-	<delete id="deleteRecentlyproduct" parameterType="String">
+	<delete id="deleteRecentlyproduct_" parameterType="String">
 		DELETE FROM recentlyproduct WHERE recentlyproduct_no = #{recentlyproduct_no} 
+	</delete>
+	
+	<!-- 최근본상품 삭제 -->
+	<delete id="deleteRecentlyproduct" parameterType="recentlyproductVO">
+		DELETE FROM recentlyproduct WHERE product_no = #{product_no} AND user_id = #{user_id} 
 	</delete>
 	
 </mapper>

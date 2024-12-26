@@ -40,7 +40,7 @@
 	                                <a href="wishlistinsert.do?product_no=${vo.product_no}">
 		                                <img src="https://img.icons8.com/?size=100&id=XjcL8Du609Vi&format=png&color=000000">
 	                                </a>
-	                                <a href="#">
+	                                <a href="retocartinsert.do?product_no=${vo.product_no}">
 		                                <img src="https://img.icons8.com/?size=100&id=TgHJI44zOCgU&format=png&color=000000">
 	                                </a>
 	                                <a href="recentlyproductdelete.do?recentlyproduct_no=${vo.recentlyproduct_no}">

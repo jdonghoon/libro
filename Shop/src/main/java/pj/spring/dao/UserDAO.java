@@ -185,15 +185,25 @@ public class UserDAO {
 	public int deleteReview(String review_no) {
 		return sqlSession.update(namespace + ".deleteReview", review_no);
 	}
+
+	// 카트 중복 조회
+	public int selectDedupeCart(CartVO cartVO) {
+		return sqlSession.selectOne(namespace + ".selectDedupeCart", cartVO);
+	} 
+	
+	// 카트 등록
+	public int insertCart(CartVO cartVO) {
+		return sqlSession.insert(namespace + ".insertCart", cartVO);
+	}
 	
 	// 위시리스트 조회
 	public List<WishlistVO> selectWishlist(String user_id) {
 		return sqlSession.selectList(namespace + ".selectWishlist", user_id);
 	} 
 
-	// 위시리스트 중복 방지
-	public int selectDedupeWishlist(String product_no) {
-		return sqlSession.selectOne(namespace + ".selectDedupeWishlist", product_no);
+	// 위시리스트 중복 조회
+	public int selectDedupeWishlist(WishlistVO wishlistVO) {
+		return sqlSession.selectOne(namespace + ".selectDedupeWishlist", wishlistVO);
 	} 
 	
 	// 위시리스트 등록
@@ -205,11 +215,11 @@ public class UserDAO {
 	public int deleteWishlist(String wishlist_no) {
 		return sqlSession.delete(namespace + ".deleteWishlist", wishlist_no);
 	}
-	
-	// 카트로 이동
-	public int insertCart(CartVO cartVO) {
-		return sqlSession.insert(namespace + ".insertCart", cartVO);
-	}
+
+	// 카트 중복 조회
+	public int selectDedupeRecentlyproduct(RecentlyproductVO recentlyproductVO) {
+		return sqlSession.selectOne(namespace + ".selectDedupeRecentlyproduct", recentlyproductVO);
+	} 
 	
 	// 최근본상품 조회
 	public List<RecentlyproductVO> selectRecentlyproduct(String user_id) {
@@ -222,8 +232,13 @@ public class UserDAO {
 	};
 	
 	// 최근본상품 삭제
-	public int deleteRecentlyproduct(String recentlyproduct_no) {
-		return sqlSession.delete(namespace + ".deleteRecentlyproduct", recentlyproduct_no);
+	public int deleteRecentlyproduct_(String recentlyproduct_no) {
+		return sqlSession.delete(namespace + ".deleteRecentlyproduct_", recentlyproduct_no);
+	};
+	
+	// 최근본상품 삭제
+	public int deleteRecentlyproduct(RecentlyproductVO recentlyproductVO) {
+		return sqlSession.delete(namespace + ".deleteRecentlyproduct", recentlyproductVO);
 	};
 	
 	// 비회원용 상품정보

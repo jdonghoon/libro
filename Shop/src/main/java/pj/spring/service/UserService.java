@@ -117,8 +117,14 @@ public interface UserService {
 	// 위시리스트 조회
 	public List<WishlistVO> selectWishlist(String user_id);
 	
-	// 위시리스트 중복 방지
-	public int selectDedupeWishlist(String product_no);
+	// 카트 중복 조회
+	public int selectDedupeCart(CartVO cartVO);
+
+	// 카트 등록
+	public int insertCart(CartVO cartVO);
+
+	// 위시리스트 중복 조회
+	public int selectDedupeWishlist(WishlistVO wishlistVO);
 	
 	// 위시리스트 등록
 	public int insertWishlist(WishlistVO wishlistVO);
@@ -126,9 +132,9 @@ public interface UserService {
 	// 위시리스트 삭제
 	public int deleteWishlist(String wishlist_no);
 	
-	// 카트로 이동
-	public int insertCart(CartVO cartVO);
-
+	// 최근본상품 중복 조회
+	public int selectDedupeRecentlyproduct(RecentlyproductVO recentlyproductVO);
+	
 	// 최근본상품 조회
 	public List<RecentlyproductVO> selectRecentlyproduct(String user_id);
 	
@@ -136,7 +142,10 @@ public interface UserService {
 	public int insertRecentlyproduct(RecentlyproductVO recentlyproductVO);
 	
 	// 최근본상품 삭제
-	public int deleteRecentlyproduct(String recentlyproduct_no);
+	public int deleteRecentlyproduct(RecentlyproductVO recentlyproductVO);
+	
+	// 최근본상품 삭제
+	public int deleteRecentlyproduct_(String recentlyproduct_no);
 	
 	//-------------------------------------------------------------------------------------------------------------------------------	
 	// 비회원

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.MenuService;
+import pj.spring.service.UserService;
 import pj.spring.util.PagingUtil;
 import pj.spring.vo.CartVO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.RecentlyproductVO;
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.SearchVO;
 import pj.spring.vo.WishlistVO;
@@ -31,6 +34,9 @@ public class MenuController {
 	
 	@Autowired
 	public MenuService menuService;
+	
+	@Autowired
+	public UserService userService;
 	
 	@RequestMapping(value = "/newList.do", method = RequestMethod.GET)
 	public String newList(Model model, SearchVO searchVO, @RequestParam(value="nowPage", required = false, defaultValue="1") int nowpage, HttpServletRequest request) {
@@ -118,13 +124,43 @@ public class MenuController {
 	
 	
 	@RequestMapping(value= "/product.do", method = RequestMethod.GET)
-	public String productDetail(Model model, int product_no) {
+	public String productDetail(Model model, int product_no, RecentlyproductVO vo, HttpServletRequest request, HttpServletResponse response) {
 		
 		ProductVO productDetail = menuService.selectProductDetail(product_no);
 		ReviewVO reviewDetail = menuService.selectReviewDetail(product_no);
-	    
+
 		model.addAttribute("productDetail", productDetail);
 		model.addAttribute("reviewDetail", reviewDetail);
+		
+		// 최근 본 상품 등록 로직 추가
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+
+		if ("anonymousUser".equals(username)) { 
+			// 비회원: 쿠키에 최근 본 상품 추가
+			userService.addGuestRecentlyProductToCookies(vo.getProduct_no(), request, response);
+		} else { 
+			vo.setUser_id(username);
+			vo.setProduct_no(vo.getProduct_no());
+			vo.setRecentlyproduct_no(vo.getRecentlyproduct_no());
+			int result1 = userService.selectDedupeRecentlyproduct(vo);
+			System.out.println("re?" + result1);
+			
+			if(result1 > 0) {
+				System.out.println("vo.getRecentlyproduct_no()" + vo.getRecentlyproduct_no());
+				int result2 = userService.deleteRecentlyproduct(vo);
+				System.out.println("최근 삭제");
+			}
+			
+			int result3 = userService.insertRecentlyproduct(vo);
+			
+			if (result3 > 0) {
+				System.out.println("회원 최근본상품 등록 완료");
+			} else {
+				System.out.println("회원 최근본상품 등록 실패");
+			}
+		}
+		
 		
 		return "user/menu/productDetail";
 	}

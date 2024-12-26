@@ -9,7 +9,7 @@
 
                 <h2>주문상세내역</h2>
 
-                주문 정보
+				<span class="qq">주문 정보</span>
                 <table class="order-detail">
                     <tbody>
                         <tr>
@@ -30,30 +30,28 @@
                         </tr>
                     </tbody>
                 </table>
+                
+				<span class="qq">주문 상품</span>
+				<div>
+					<c:forEach items="${list}" var="vo">
+                    <div class="order-history-form2">
+                        <div class="order-product">
+                            <div style="display: flex;">
+                                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}">
+                                <div>
+                                    <p>[${vo.category_name}] ${vo.product_name}</p>
+                                    <p>${vo.product_author} 저 · ${vo.product_publisher}</p>
+                                    <p style="margin-bottom: 15px;">${vo.ordered_detail_unit_price}원</p>
+                                    <p>[${vo.ordered_detail_quantity}개]</p>
+                                </div>
+                            </div>
+                            <span class="lp">${vo.ordered_status}</span>
+                        </div>
+                    </div>
+                    </c:forEach>
+                </div>
 
-                주문상품
-                <table class="order-detail">
-                    <thead>
-                        <tr>
-                            <th>상품명</th>
-                            <th>수량</th>
-                            <th>주문금액</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-						<c:forEach items="${list}" var="vo">
-	                        <tr>
-	                            <td>
-	                                <a href="#">[${vo.category_name}]${vo.product_name}</a><!-- 상품 상세 링크 달기 -->
-	                            </td>
-	                            <td>${vo.ordered_detail_quantity}</td>
-	                            <td>${vo.ordered_detail_unit_price}</td>
-	                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-                결제 정보
+				<span class="qq">결제 정보</span>
                 <table class="order-detail">
                     <tbody>
                         <tr>
@@ -81,8 +79,8 @@
                         </tr>
                     </tbody>
                 </table>
-
-                배송지 정보
+                
+				<span class="qq">배송지  정보</span>
                 <table class="order-detail">
                     <tbody>
                         <tr>
