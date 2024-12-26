@@ -147,7 +147,7 @@
 	      FROM review r
 	      JOIN product p
 	        ON r.product_no = p.product_no
-		 WHERE product_no = 1
+		 WHERE r.product_no = 1
 		   AND product_status = 'E';
    	</select>
    	

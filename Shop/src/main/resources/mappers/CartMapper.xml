@@ -37,7 +37,6 @@
          	   COALESCE(SUM(c.cart_product_quantity), 0) AS cart_product_quantity
     	  FROM product p
     	  JOIN cart c ON p.product_no = c.product_no
-         WHERE c.user_id = #{user_id};
 	</select>
 	
 	<!-- 장바구니 수량 업데이트 -->

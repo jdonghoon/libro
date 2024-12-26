@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/menu.css">
 
@@ -59,12 +58,16 @@
           $('.cnt-up, .cnt-down').click(function() {
             let productNo = $(this).data('product-no');
             let countElement = $(`#count_\${productNo}`);
-            let count = parseInt(countElement.text());
+            
+            // 기본 수량 설정
+            let count = parseInt(countElement.text()) || 1; 
 
             if ($(this).hasClass('cnt-down') && count > 1) {
               count--;
+              updateOrderSummary();
             } else if ($(this).hasClass('cnt-up')) {
               count++;
+              updateOrderSummary();
             }
 
             countElement.text(count);
@@ -108,13 +111,13 @@
 
     <!-- 결제 내역 -->
     <div class="payment-container">
-      <form action="">
+      <form action="payment.do">
         <div class="payment-title">주문 합계</div>
         <div class="payment-display">
           <div>
             <div class="payment-info">
               <div>총 수량</div>
-              <div class="payment-price" id="total-quantity">${cartPrice.cart_product_quantity}</div>
+              <div class="payment-price" id="total-quantity" >${cartPrice.cart_product_quantity}</div>
             </div>
             <div class="payment-info">
               <div>상품금액</div>

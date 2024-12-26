@@ -14,24 +14,24 @@ import pj.spring.vo.ProductVO;
 public class CartDAO {
 	
 	@Autowired
-	public SqlSession sqlsession;
+	public SqlSession sqlSession;
 	
 	private final String namespace = "pj.spring.mapper.cartMapper";
 
 	
 	public List<ProductVO> selectCartList() {
 		
-		return sqlsession.selectList(namespace + ".selectCartList");
+		return sqlSession.selectList(namespace + ".selectCartList");
 	}
 	
 	public ProductVO selectCartPrice(String user_id) {
 		
-		return sqlsession.selectOne(namespace + ".selectCartPrice", user_id);
+		return sqlSession.selectOne(namespace + ".selectCartPrice", user_id);
 	}
 	
 	public int updateCartQuantity(String user_id, Map<String, Object> map) {
 		
 		map.put("user_id", user_id);
-        return sqlsession.update(namespace + ".updateCartQuantity", map);
+        return sqlSession.update(namespace + ".updateCartQuantity", map);
     }
 }
