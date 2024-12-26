@@ -201,13 +201,14 @@
       <div class="payment-title">주문 합계</div>
       <div class="payment-display">
         <div>
+          <c:set var="cartSummary" value="${sessionScope.cartSummary}"/>
           <div class="payment-info">
             <div>총 수량</div>
-            <div class="payment-price">${cartPrice.cart_product_quantity}</div>
+            <div class="payment-price">${cartSummary.totalQuantity}</div>
           </div>
           <div class="payment-info">
             <div>상품금액</div>
-            <div class="payment-price">${cartPrice.cart_product_price}</div>
+            <div class="payment-price">${cartSummary.totalPrice}</div>
           </div>
           <div class="payment-info">
             <div>배송비</div>
@@ -215,15 +216,48 @@
           </div>
           <div class="payment-total-info">
             <div>총 주문금액</div>
-            <div class="payment-total-price">${cartPrice.total_price}</div>
+            <div class="payment-total-price">${cartSummary.totalPrice + cartSummary.shippingFee}</div>
           </div>
         </div>
         <div class="order-button">
-          <button>결제하기</button>
+          <button id="btn-pay-ready">결제하기</button>
         </div> 
       </div>
   	</form>	
   </div>
+  <script>
+	  /* $(function() {
+	      $("#btn-pay-ready").click(function(e) {
+	    	  e.preventDefault();
+	    	  
+	          // 아래 데이터 외에도 필요한 데이터를 원하는 대로 담고, Controller에서 @RequestBody로 받으면 됨
+	          let data = {
+				    name: "${empty cartSummary.displayProductName ? '상품 이름 없음' : cartSummary.displayProductName}",
+				    totalQuantity: ${cartSummary.totalQuantity ?: 0},
+				    totalPrice: ${cartSummary.totalPrice + cartSummary.shippingFee ?: 0}
+				};
+	        
+	          $.ajax({
+	              type: 'POST',
+	              url: '/ready.do',
+	              data: JSON.stringify(data), // JSON 형태로 변환
+	              contentType: 'application/json; charset=utf-8', // JSON 데이터임을 명시
+	              dataType: 'json', // 서버 응답을 JSON으로 기대
+	              success: function(response) {
+	                  if (response.next_redirect_pc_url) {
+	                      location.href = response.next_redirect_pc_url; // 카카오페이 결제 페이지로 이동
+	                  } else {
+	                      alert("결제 페이지 URL을 받을 수 없습니다.");
+	                  }
+	              },
+	              error: function(xhr, status, error) {
+	                  console.error("카카오페이 요청 실패:", xhr.responseText);
+	                  alert("결제 요청 중 오류가 발생했습니다.");
+	              }
+	          });
+	      });
+	  }); */
+  </script>
 </main>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	
