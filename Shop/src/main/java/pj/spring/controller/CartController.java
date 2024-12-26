@@ -1,14 +1,12 @@
 package pj.spring.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,8 +81,12 @@ public class CartController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String user_id = null;
+	    
+	    System.out.println("Authentication: " + authentication);
 		
-	    if (authentication != null && authentication.isAuthenticated()) {
+	    if (authentication != null) {
+	    	System.out.println("Authorities: " + authentication.getAuthorities());
+	        System.out.println("Principal: " + authentication.getPrincipal());
 	    	user_id = authentication.getName();
 	    }
 	    
