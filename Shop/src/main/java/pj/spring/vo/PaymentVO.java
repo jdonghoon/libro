@@ -17,6 +17,32 @@ public class PaymentVO extends OrderedDetailVO {
 	private String payment_update_id;		// 수정id
 	private String payment_update_ip;		// 수정ip
 	
+	private int cart_product_quantity;		// 카드 상품 수량
+	
+	private String product_price;			// 상품 금액
+	
+	private String ordered_detail_total_price;	// 주문 총금액
+	
+	
+	
+	public String getOrdered_detail_total_price() {
+		return ordered_detail_total_price;
+	}
+	public void setOrdered_detail_total_price(String ordered_detail_total_price) {
+		this.ordered_detail_total_price = ordered_detail_total_price;
+	}
+	public int getCart_product_quantity() {
+		return cart_product_quantity;
+	}
+	public void setCart_product_quantity(int cart_product_quantity) {
+		this.cart_product_quantity = cart_product_quantity;
+	}
+	public String getProduct_price() {
+		return product_price;
+	}
+	public void setProduct_price(String product_price) {
+		this.product_price = product_price;
+	}
 	public String getPayment_no() {
 		return payment_no;
 	}

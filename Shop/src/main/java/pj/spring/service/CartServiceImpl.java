@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pj.spring.dao.CartDAO;
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.UserVO;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -16,21 +17,22 @@ public class CartServiceImpl implements CartService{
 	public CartDAO cartDAO;
 
 	@Override
-	public List<ProductVO> selectCartList() {
+	public List<ProductVO> selectCartListUser(UserVO userVO) {
 		
-		return cartDAO.selectCartList();
+		return cartDAO.selectCartListUser(userVO);
 	}
 
 	@Override
-	public ProductVO selectCartPrice(String user_id) {
+	public ProductVO selectCartPriceUser(UserVO userVO) {
 
-		return cartDAO.selectCartPrice(user_id);
+		return cartDAO.selectCartPriceUser(userVO);
 	}
 
 	@Override
-    public int updateCartQuantity(String user_id, Map<String, Object> map) {
+    public int updateCartQuantityUser(String user_id, Map<String, Object> map) {
 		
-        return cartDAO.updateCartQuantity(user_id, map);
+        return cartDAO.updateCartQuantityUser(user_id, map);
 	}
 
+	
 }

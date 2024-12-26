@@ -1,7 +1,6 @@
 package pj.spring.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,8 +61,11 @@ public class CartController {
 	    String user_id = authentication.getName();
 	    System.out.println("user_id : " + user_id);
 	    
-	    List<ProductVO> cartList = cartService.selectCartList();
-	    ProductVO cartPrice = cartService.selectCartPrice(user_id);
+	    UserVO userVO = new UserVO();
+	    userVO.setUser_id(user_id);
+	    
+	    List<ProductVO> cartList = cartService.selectCartListUser(userVO);
+	    ProductVO cartPrice = cartService.selectCartPriceUser(userVO);
 	    
 	    int shippingPrice = 3000;
 	    int totalPrice = Integer.parseInt(cartPrice.getProduct_price()) + shippingPrice;
@@ -81,8 +83,6 @@ public class CartController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String user_id = null;
-	    
-	    System.out.println("Authentication: " + authentication);
 		
 	    if (authentication != null) {
 	    	System.out.println("Authorities: " + authentication.getAuthorities());
@@ -97,7 +97,7 @@ public class CartController {
         map.put("product_no", product_no);
         map.put("quantity", quantity);
         
-        return cartService.updateCartQuantity(user_id, map);
+        return cartService.updateCartQuantityUser(user_id, map);
     }
 	
 }

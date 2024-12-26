@@ -50,8 +50,8 @@
 		
 		  <div class="button-area-detail">
 		    <div>
-		      <button type="button" class="wishlist" onclick="addToWishlist(${vo.product_no})">위시리스트</button>
-		      <button type="button" class="cart" onclick="addToCart(${vo.product_no})">장바구니</button>
+		      <button type="button" class="wishlist" onclick="addToWishlist(${productDetail.product_no})">위시리스트</button>
+		      <button type="button" class="cart" onclick="addToCart(${productDetail.product_no})">장바구니</button>
 		      <button type="submit" class="purchase">바로 구매</button>
 		    </div>
 		  </div>

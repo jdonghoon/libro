@@ -89,22 +89,51 @@
 
           // 주문합계 업데이트
           function updateOrderSummary() {
-            let totalQuantity = 0;
-            let totalPrice = 0;
-
-            $('.product-checkbox:checked').each(function() {
-              let productNo = $(this).val();
-              let count = parseInt($(`#count_\${productNo}`).text());
-              let price = parseFloat($(`#price_\${productNo}`).text().replace(',', ''));
-
-              totalQuantity += count;
-              totalPrice += count * price;
-            });
-
-            $('#total-quantity').text(totalQuantity);
-            $('#product-price').text(totalPrice.toLocaleString());
-            $('#total-price').text((totalPrice + 3000).toLocaleString());
-          }
+			  let totalQuantity = 0;
+			  let totalPrice = 0;
+			  let selectedProductNames = [];
+			
+			  $('.product-checkbox:checked').each(function() {
+			    let productNo = $(this).val();
+			    let count = parseInt($(`#count_${productNo}`).text());
+			    let price = parseFloat($(`#price_${productNo}`).text().replace(',', ''));
+			    let productName = $(`#price_${productNo}`).closest('.book-detail').find('.title').text().trim();
+			
+			    totalQuantity += count;
+			    totalPrice += count * price;
+			
+			    // 상품명 저장
+			    selectedProductNames.push(productName);
+			  });
+			
+			  // 상품명 처리 (첫 번째 상품명 + 외 n권)
+			  let displayProductName = selectedProductNames.length > 1
+			    ? `${selectedProductNames[0]} 외 ${selectedProductNames.length - 1}권`
+			    : selectedProductNames[0] || "선택된 상품 없음";
+			
+			  // 주문 합계 UI 업데이트
+			  $('#total-quantity').text(totalQuantity);
+			  $('#product-price').text(totalPrice.toLocaleString());
+			  $('#total-price').text((totalPrice + 3000).toLocaleString());
+			
+			  // AJAX 요청으로 데이터 전송
+			  $.ajax({
+			    url: 'updateCartSummary.do',
+			    type: 'POST',
+			    data: {
+			      totalQuantity,
+			      totalPrice,
+			      shippingFee: 3000,
+			      displayProductName
+			    },
+			    success: function(response) {
+			      console.log('Session updated successfully:', response);
+			    },
+			    error: function(xhr, status, error) {
+			      console.error('Failed to update session:', error);
+			    }
+			  });
+			}
         });
       </script>
     </div>
@@ -119,7 +148,7 @@
               <div>총 수량</div>
               <div class="payment-price" id="total-quantity" >${cartPrice.cart_product_quantity}</div>
             </div>
-            <div class="payment-info">
+            <div class="payment-info">	
               <div>상품금액</div>
               <div class="payment-price" id="product-price">${cartPrice.product_price}</div>
             </div>

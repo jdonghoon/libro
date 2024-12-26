@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import pj.spring.vo.ProductVO;
+import pj.spring.vo.UserVO;
 
 public interface CartService {
 	
-	public List<ProductVO> selectCartList();
+	public List<ProductVO> selectCartListUser(UserVO userVO);
 	
-	public ProductVO selectCartPrice(String user_id);
+	public ProductVO selectCartPriceUser(UserVO userVO);
 	
-	public int updateCartQuantity(String user_id, Map<String, Object> map);
+	public int updateCartQuantityUser(String user_id, Map<String, Object> map);
 }
