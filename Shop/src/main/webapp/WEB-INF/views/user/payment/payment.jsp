@@ -24,58 +24,50 @@
           <input type="radio" name="selectaddress" id="option2" value="2">
           <label for="option2"> 새로운 배송지
         </div>
-        <!-- 배송지 목록 클릭 시 -->
+        <!-- 기본 배송지 클릭 시 -->
         <div class="address-book-container">
           <div class="address-book-info">
             <div>
-              <div>${userInfo.address_book_name}</div>
+              <div>${userInfo.address_book_addressname}</div>
               <div>${userInfo.address_book_phone}</div>
               <div>${userInfo.address_book_address}, ${userInfo.address_book_detailaddress}</div>
             </div>
             <div>
               <a href="#" onclick="">[수정]</a>
               <!-- 배송지 목록 -->
-              <!--
-              <div class="address-list-container">
-                <div class="address-list">
-                  <div>
-                    <div>배송지명</div>
-                    <div>주문자 휴대폰 번호</div>
-                    <div>배송지 주소</div>
-                  </div>
-                  <div>
-                    <button>선택</button>
-                  </div>
-                </div>
-                <div class="address-list">
-                  <div>
-                    <div>배송지명</div>
-                    <div>주문자 휴대폰 번호</div>
-                    <div>배송지 주소</div>
-                  </div>
-                  <div>
-                    <button>선택</button>
-                  </div>
-                </div>
-              </div>
-              --> 
+	            <div class="address-list-container">
+	              <c:forEach items="${addressInfo}" var="vo">
+	                <div class="address-list">
+	                  <div>
+	                    <div>${vo.address_book_addressname}</div>
+	                    <div>${vo.address_book_phone}</div>
+	                    <div>${vo.address_book_address}, ${vo.address_book_detailaddress}</div>
+	                  </div>
+	                  <div>
+	                    <button class="select-address-btn" 
+	                    data-name="${vo.address_book_addressname}" 
+	                    data-phone="${vo.address_book_phone}" 
+	                    data-address="${vo.address_book_address}, ${vo.address_book_detailaddress}">선택</button>
+	                  </div>
+	                </div>
+              	  </c:forEach>
+	            </div>
             </div>
           </div>
-		  
          </div>
           <!-- 새로운 배송지 -->
-          <div class="new-address-container">
-            <div class="new-address-title">이름</div>
-              <input type="text">
-            <div class="new-address-title">휴대폰번호</div>
-              <input type="text">
-            <div class="new-address-title">주소</div>
-              <input type="text" id="sample6_postcode" placeholder="우편번호">
-              <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-              <input type="text" id="sample6_address" placeholder="주소"><br>
-              <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-              <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-          </div>
+         <div class="new-address-container">
+           <div class="new-address-title">이름</div>
+           <input type="text">
+           <div class="new-address-title">휴대폰번호</div>
+           <input type="text">
+           <div class="new-address-title">주소</div>
+           <input type="text" id="sample6_postcode" placeholder="우편번호">
+           <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+           <input type="text" id="sample6_address" placeholder="주소"><br>
+           <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+           <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+         </div>
           
           <div>
             <div class="address-memo-title">배송지 메모</div>
@@ -97,26 +89,55 @@
 	      document.querySelector('.address-book-container').style.display = 'block'; // 기본 배송지 보여주기
 	      document.querySelector('.new-address-container').style.display = 'none';   // 새로운 배송지 숨기기
 	    });
-    
-		document.getElementById('option1').addEventListener('change', function() {
-		  if (this.checked) {
-		    document.querySelector('.address-book-container').style.display = 'block'; // 기본 배송지 보기
-		    document.querySelector('.new-address-container').style.display = 'none';   // 새로운 배송지 숨기기
-		  }
-		});
-		 
-		 document.getElementById('option2').addEventListener('change', function() {
-		  if (this.checked) {
-		    document.querySelector('.new-address-container').style.display = 'block';   // 새로운 배송지 숨기기
-		    document.querySelector('.address-book-container').style.display = 'none'; // 기본 배송지 보기
-		  }
-		});
-		 
-		 document.querySelector('.address-book-info a').addEventListener('click', function(event) {
-			  event.preventDefault();
-			  document.querySelector('.address-list-container').style.display = 'block'; // 배송지 목록 보이기
-			});
+	
+	    document.getElementById('option1').addEventListener('change', function() {
+	      if (this.checked) {
+	        document.querySelector('.address-book-container').style.display = 'block'; // 기본 배송지 보기
+	        document.querySelector('.new-address-container').style.display = 'none';   // 새로운 배송지 숨기기
+	      }
+	    });
+	
+	    document.getElementById('option2').addEventListener('change', function() {
+	      if (this.checked) {
+	        document.querySelector('.new-address-container').style.display = 'block';   // 새로운 배송지 보이기
+	        document.querySelector('.address-book-container').style.display = 'none'; // 기본 배송지 보기
+	      }
+	    });
+	
+	    let isListVisible = false; // 상태 변수 설정
 
+	    document.querySelector('.address-book-info a').addEventListener('click', function(event) {
+	      event.preventDefault();
+	      
+	      isListVisible = !isListVisible; // 상태 토글
+	      
+	      const addressListContainer = document.querySelector('.address-list-container');
+	      if (isListVisible) {
+	        addressListContainer.style.display = 'block'; // 목록 보이기
+	      } else {
+	        addressListContainer.style.display = 'none'; // 목록 숨기기
+	      }
+	    });
+	    
+	 	// 주소록에서 "선택" 버튼 클릭 시 기본 배송지 정보 변경
+	    document.querySelectorAll('.select-address-btn').forEach(button => {
+	      button.addEventListener('click', function () {
+	        const name = this.dataset.name; // 버튼의 데이터 속성에서 이름 가져오기
+	        const phone = this.dataset.phone; // 버튼의 데이터 속성에서 전화번호 가져오기
+	        const address = this.dataset.address; // 버튼의 데이터 속성에서 주소 가져오기
+
+	        // 기본 배송지 정보 업데이트
+	        const addressInfoContainer = document.querySelector('.address-book-info > div');
+	        addressInfoContainer.innerHTML = `
+	          <div>\${name}</div>
+	          <div>\${phone}</div>
+	          <div>\${address}</div>
+	        `;
+
+	        // 주소 목록 숨기기
+	        document.querySelector('.address-list-container').style.display = 'none';
+	      });
+	    });
 	</script>
 
     <div>

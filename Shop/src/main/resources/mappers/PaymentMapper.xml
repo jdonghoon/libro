@@ -8,7 +8,7 @@
 		SELECT u.user_name
 	 		 , user_phone
      		 , user_email
-     		 , address_book_name
+     		 , address_book_addressname
      		 , address_book_phone
      		 , address_book_address
      		 , address_book_detailaddress
@@ -16,7 +16,20 @@
  		  JOIN address_book a
    			ON u.user_id = a.user_id 
 		 WHERE user_status ='E'
+		   AND address_book_top = 'Y'
   		   AND u.user_id = #{user_id}; 
+	</select>
+	
+	<select id="selectAddressBook" parameterType="String" resultType="UserVO">
+		SELECT address_book_addressname
+     		 , address_book_phone
+     		 , address_book_address
+     		 , address_book_detailaddress
+     	  FROM address_book a
+     	  JOIN user u
+   			ON a.user_id = u.user_id 
+     	 WHERE user_status ='E'
+  		   AND u.user_id = #{user_id};
 	</select>
 
 </mapper>

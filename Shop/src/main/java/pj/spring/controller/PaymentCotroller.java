@@ -1,5 +1,7 @@
 package pj.spring.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,12 +30,19 @@ public class PaymentCotroller {
 	    
 	    String user_phone = userInfo.getUser_phone().replace(",", "-");
 	    String address_book_phone = userInfo.getAddress_book_phone().replace(",", "-");
-	    System.out.println(user_phone);
 	    
 	    userInfo.setUser_phone(user_phone);
 	    userInfo.setAddress_book_phone(address_book_phone);
 	    
+	    List<UserVO> addressInfo = paymentService.selectAddressBook(user_id);
+	    
+	    for (UserVO address : addressInfo) {
+	        String updatedPhone = address.getAddress_book_phone().replace(",", "-");
+	        address.setAddress_book_phone(updatedPhone);
+	    }
+	    
 	    model.addAttribute("userInfo", userInfo);
+	    model.addAttribute("addressInfo", addressInfo);
 		
 		return "user/payment/payment";
 	}

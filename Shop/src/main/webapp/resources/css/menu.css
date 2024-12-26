@@ -939,6 +939,7 @@
   }
   
   .address-book-info div{
+  	margin-top: 5px;
     margin-bottom: 10px;
   }
   
@@ -949,6 +950,10 @@
   }
   
   .address-list-container {
+  	position: absolute;
+  	display: none;
+  	background-color: white;
+  	width: 300px;
     border: 1px solid rgb(190, 190, 190);
     padding: 10px;
   }
@@ -956,7 +961,7 @@
   .address-list {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: start;
     border-bottom: 1px solid rgb(190, 190, 190);
   }
   
@@ -968,7 +973,7 @@
   }
   
   .new-address-container {
-	margin: 25px 0;   
+	margin: 25px 0;
   }
   
   .new-address-container input[type="text"] {

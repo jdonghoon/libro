@@ -1,5 +1,7 @@
 package pj.spring.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,4 +21,9 @@ public class PaymentDAO {
 		return sqlSession.selectOne(namespace + ".selectPaymentInfo", user_id);
 	}
 	
+	public List<UserVO> selectAddressBook(String user_id) {
+		
+		return sqlSession.selectList(namespace + ".selectAddressBook", user_id);
+	}
+
 }
