@@ -112,6 +112,7 @@
                             <div class="col-12">
                                 <div class="card card-primary card-outline mb-4">
                                 	
+                                	<!-- Modal -->
                                 	<div id="userModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 600px; padding: 20px; z-index: 1000;">
 									    <h2 style="text-align: center;">회원정보</h2>
 									    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">

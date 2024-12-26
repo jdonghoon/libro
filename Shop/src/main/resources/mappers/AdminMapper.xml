@@ -288,13 +288,14 @@
 				   , r.review_create_at
 				   , r.review_update_at
 				   , r.review_status
+				   , r.review_create_id
 			       , p.product_no
 			       , p.product_name
 			       , ad.attachment_detail_new_name
 			       , od.ordered_detail_no
 			FROM  review r
 			JOIN  product p ON r.product_no = p.product_no
-	   LEFT JOIN  ordered_detail od ON p.product_no = od.product_no
+	   LEFT JOIN  ordered_detail od ON r.ordered_detail_no = od.ordered_detail_no
 	   LEFT JOIN  attachment a ON r.review_no = a.attachment_review_no
 	   LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
 	    ORDER BY  review_create_at DESC

@@ -150,13 +150,15 @@
                                         <tbody>
                                         	<c:forEach items="${contactList}" var="vo">
 	                                            <tr>
-	                                                <td>
+	                                                <td onclick="" style="cursor: pointer;">
 	                                                	<c:if test="${not empty vo.contact_comment}"><span style="color:blue;">답변완료</span></c:if>
 	                                                	<c:if test="${empty vo.contact_comment}"><span style="color:red;">미답변</span></c:if>
 	                                                </td>
 	                                                <td>${vo.contact_type}</td>
 	                                                <td>${vo.contact_create_at}</td>
-	                                                <td>${vo.contact_title}</td>
+	                                                <td onclick="window.open('${pageContext.request.contextPath}/inquirydetail.do?contact_no=${vo.contact_no}', '_blank')">
+                                                		<span style="color:green; cursor: pointer;">${vo.contact_title}</span>
+                                                	</td>
 	                                                <td>${vo.contact_content}</td>
 	                                                <td>
 	                                                	<c:if test="${not empty vo.attachment_detail_new_name}">
@@ -165,7 +167,9 @@
 	                                                </td>
 	                                                <td>${vo.contact_comment}</td>
 	                                                <td>${vo.contact_comment_date}</td>
-	                                                <td onclick="location.href='#';">${vo.ordered_no}</td>
+	                                                <td onclick="location.href='#';">
+	                                                	<span style="color:green; cursor: pointer;">${vo.ordered_no}</span>
+	                                                </td>
 	                                            </tr>
                                             </c:forEach>
                                             
@@ -209,5 +213,14 @@
                 </div> <!--end::Container-->
             </div>
         </main>
+        
+        <script>
+        	
+        
+        
+        
+        
+        
+        </script>
 				
 <%@ include file="/WEB-INF/views/admin/include/footer.jsp" %>

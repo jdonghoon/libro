@@ -154,7 +154,7 @@
 	                                                </td>
 	                                                <td>${vo.review_create_at}</td>
 	                                                <td>${vo.review_update_at}</td>
-	                                                <td>${vo.user_id}</td>
+	                                                <td>${vo.review_create_id}</td>
 	                                                <td>
 	                                                	<c:if test="${vo.review_status == 'E'}"><span style="color:blue;">공개</span></c:if>
 	                                                	<c:if test="${vo.review_status == 'D'}"><span style="color:red;">비공개</span></c:if>
