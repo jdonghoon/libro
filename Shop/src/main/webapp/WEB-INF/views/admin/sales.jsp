@@ -195,7 +195,7 @@
                                         <tbody>
                                         	<c:forEach items="${salesList}" var="vo">
 	                                            <tr>
-	                                                <td>
+	                                                <td onclick="window.open('${pageContext.request.contextPath}/product.do?product_no=${vo.product_no}', '_blank')" style="cursor: pointer;">
 	                                                	<c:if test="${not empty vo.attachment_detail_new_name}">
 	                                                		<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="100" height="130">
 	                                                	</c:if>

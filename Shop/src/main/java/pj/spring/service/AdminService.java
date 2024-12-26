@@ -60,6 +60,9 @@ public interface AdminService {
 	// ordered_status 변경 ajax
 	public int updateOrderStatus(OrderedVO orderedVO);
 	
+	// 상품주문번호 모달창
+	public Map<String, Object> getOrderDetails(String ordered_detail_no);
+	
 	// 주문 취소 관리 List
 	public List<Map<String, Object>> orderCancelList(Map<String,Integer> pagingParam);
 	

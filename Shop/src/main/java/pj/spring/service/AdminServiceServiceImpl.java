@@ -116,6 +116,12 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.updateOrderStatus(orderedVO);
 	}
 
+	// 상품주문번호 모달창
+	@Override
+	public Map<String, Object> getOrderDetails(String ordered_detail_no) {
+		return adminDAO.getOrderDetails(ordered_detail_no);
+	}
+	
 	// 주문 취소 관리 list
 	@Override
 	public List<Map<String, Object>> orderCancelList(Map<String, Integer> pagingParam) {
@@ -194,6 +200,7 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int salesTotal() {
 		return adminDAO.salesTotal();
 	}
+
 
 
 	

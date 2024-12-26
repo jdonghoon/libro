@@ -121,9 +121,9 @@
       		 , product_isbn
       		 , product_page
       		 , category_name
-      		 , FORMAT((SELECT AVG(review_starrating) FROM review WHERE product_no = 1), 1) as review_starrating_avg
-      		 , (SELECT COUNT(review_no) FROM review WHERE product_no = 1) as review_cnt
-  		 FROM product p
+      		 , FORMAT((SELECT AVG(review_starrating) FROM review r WHERE r.product_no = p.product_no), 1) as review_starrating_avg
+       		 , (SELECT COUNT(review_no) FROM review r WHERE r.product_no = p.product_no) as review_cnt  		 
+       	 FROM product p
   		 JOIN attachment a
 		   ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
 		 JOIN attachment_detail d

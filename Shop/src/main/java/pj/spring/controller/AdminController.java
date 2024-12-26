@@ -273,6 +273,38 @@ public class AdminController {
 	    }
 	
 	}
+	
+	// 상품주문번호 모달창
+	@ResponseBody
+	@RequestMapping(value = "/getOrderDetails.do", method = RequestMethod.GET)
+	public Map<String, Object> getOrderDetails(Model model,
+	        @RequestParam("ordered_detail_no") String ordered_detail_no) {
+	    // 예: 서비스에서 주문 상세 정보 조회
+	    Map<String, Object> orderDetail = adminService.getOrderDetails(ordered_detail_no);
+	    
+	    // 응답 데이터 생성
+	    Map<String, Object> response = new HashMap<>();
+	    if (orderDetail != null) {
+	        // 주문 상세 정보를 응답 맵에 넣기
+	        response.put("ordered_status", orderDetail.get("ordered_status")); // 주문 상태
+	        response.put("ordered_name", orderDetail.get("ordered_name")); // 구매자명
+	        response.put("ordered_phone", orderDetail.get("ordered_phone")); // 연락처
+	        response.put("ordered_address", orderDetail.get("ordered_address")); //주소
+	        response.put("ordered_note", orderDetail.get("ordered_note")); // 배송 메모
+	        response.put("ordered_delivery_fee", orderDetail.get("ordered_delivery_fee")); // 배송비
+	        response.put("ordered_create_at", orderDetail.get("ordered_create_at")); // 주문접수일
+	        response.put("ordered_detail_quantity", orderDetail.get("ordered_detail_quantity")); // 수량
+	        response.put("product_name", orderDetail.get("product_name")); // 상품명
+	        response.put("product_price", orderDetail.get("product_price")); // 상품가격
+	        response.put("payment_date", orderDetail.get("payment_date")); // 결제일
+	        response.put("payment_method", orderDetail.get("payment_method")); // 결제수단
+	        response.put("payment_price", orderDetail.get("payment_price")); // 결제금액
+	    } else {
+	        response.put("error", "Order details not found");
+	    }
+
+	    return response;
+	}
 
 
 	// 취소 관리

@@ -185,6 +185,7 @@
 			       , o.ordered_create_at
 			       , o.ordered_status
 			       , o.ordered_name
+			       , o.ordered_delivery_fee
 			       , p.product_no
 			       , p.product_name
 			       , p.product_price
@@ -213,6 +214,29 @@
 	     WHERE ordered_no = #{ordered_no}
 	</update>
 	
+	<!-- 상품주문번호 모달창 -->
+	<select id="getOrderDetails" parameterType="String" resultType="java.util.Map">
+		SELECT   o.ordered_status
+			       , o.ordered_name
+			       , o.ordered_phone
+			       , o.ordered_address
+			       , o.ordered_note
+			       , o.ordered_create_at
+			       , o.ordered_delivery_fee
+			       , od.ordered_detail_quantity
+			       , od.ordered_detail_no
+			       , p.product_name
+			       , p.product_price
+			       , pm.payment_date
+			       , pm.payment_method
+			       , pm.payment_price
+			FROM  ordered o
+			JOIN  ordered_detail od ON o.ordered_no = od.ordered_no
+	   LEFT JOIN  product p ON p.product_no = od.product_no
+	   LEFT JOIN  payment pm ON pm.payment_no = o.payment_no
+	   	   WHERE ordered_detail_no = #{ordered_detail_no}
+	</select>	
+	
 	<!-- 주문 취소 관리 List-->
 	<select id="orderCancelList" parameterType="java.util.Map" resultType="java.util.Map" >
 			SELECT   o.ordered_no
@@ -221,6 +245,7 @@
 			       , o.ordered_cancel_reason
 			       , o.ordered_name
 			       , o.ordered_phone
+			       , o.ordered_delivery_fee
 			       , p.product_name
 			       , pm.payment_no
 			       , pm.payment_date
@@ -258,7 +283,11 @@
 	
 	<!-- 리뷰 관리 list -->
 	<select id="reviewList" parameterType="java.util.Map" resultType="java.util.Map" >
-			SELECT   r.*
+			SELECT   r.review_no
+				   , r.review_content
+				   , r.review_create_at
+				   , r.review_update_at
+				   , r.review_status
 			       , p.product_no
 			       , p.product_name
 			       , ad.attachment_detail_new_name
@@ -331,6 +360,7 @@
 	<!-- 매출관리 list -->
 	<select id="salesList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT    p.product_name
+				, p.product_no
 		 		, p.product_price
     			, SUM(od.ordered_detail_total_price) AS total_transaction_amount
     			, SUM(pm.payment_price) AS total_payment_amount

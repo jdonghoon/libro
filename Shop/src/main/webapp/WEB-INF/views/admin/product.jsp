@@ -154,8 +154,10 @@
                                         <tbody>
                                         	<c:forEach items="${list}" var="vo">
 	                                            <tr id="product-${vo.product_no}"> <!-- 각 상품에 고유 id 부여 -->
-	                                                <td onclick="window.location.href='user/menu/product.do?product_no=${vo.product_no}'">${vo.product_no}</td>
-	                                                <td>
+	                                                <td onclick="window.open('${pageContext.request.contextPath}/product.do?product_no=${vo.product_no}', '_blank')">
+													    <span style="color:green; cursor: pointer;">${vo.product_no}</span>
+													</td>
+													<td>
 													    <c:if test="${not empty vo.attachment_detail_new_name}">
 											        		<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" alt="대표 이미지" width="90" height="120" />
 													    </c:if>
