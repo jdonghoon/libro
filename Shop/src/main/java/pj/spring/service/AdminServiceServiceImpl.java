@@ -92,6 +92,12 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.productModifyUpdate(productVO);
 	}
 	
+	// 상품 첨부파일 수정
+	@Override
+	public int updateProductAttachment(ProductVO productVO) {
+		return adminDAO.updateProductAttachment(productVO);
+	}
+	
 	// 상품 삭제 
 	@Override
 	public int productDelete(ProductVO productVO) {
@@ -200,6 +206,8 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int salesTotal() {
 		return adminDAO.salesTotal();
 	}
+
+	
 
 
 

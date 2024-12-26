@@ -154,23 +154,33 @@
                                             </div>
                                             
                                             <div class="row g-2">
-                                                <label for="topfile" class="col-sm-2 col-form-label">대표상품사진</label>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                    	<!-- 파일 입력 -->
-                                                        <input type="file" class="form-control" id="topfile" name="topFile">
-                                                    </div>
-                                                </div>
-                                            </div>
+											    <label for="topImage" class="col-sm-2 col-form-label">대표상품사진</label>
+											    <div class="row">
+											        <div class="col-md-6">
+											            <!-- 기존 대표 이미지 출력 -->
+											            <c:if test="${not empty vo.top_attachment_new_name}">
+											                	첨부파일 : ${vo.top_attachment_new_name}
+											            </c:if>
+											            <!-- 새로운 대표 이미지 파일 업로드 -->
+											            <input type="file" class="form-control" id="topfile" name="topFile">
+											        </div>
+											    </div>
+											</div>
+											
+											<div class="row g-2">
+											    <label for="otherImages" class="col-sm-2 col-form-label">기타사진</label>
+											    <div class="row">
+											        <div class="col-md-6">
+											            <!-- 기존 기타 이미지 출력 -->
+											            <c:if test="${not empty vo.other_attachment_new_name}">
+											                	첨부파일 : ${vo.other_attachment_new_name}
+											            </c:if>
+											            <!-- 새로운 기타 이미지 파일 업로드 -->
+											            <input type="file" class="form-control" id="files" name="multiFile" multiple>
+											        </div>
+											    </div>
+											</div>
 
-                                            <div class="row g-2">
-                                                <label for="files" class="col-sm-2 col-form-label">기타사진</label>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <input type="file" class="form-control" id="files" name="multiFile" multiple>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         </div>
                                     </div>

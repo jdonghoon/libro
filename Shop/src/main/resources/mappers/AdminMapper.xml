@@ -136,12 +136,18 @@
 	
 	<!-- 상품 수정 상세 -->
 	<select id="productModify" parameterType="int" resultType="ProductVO" >
-		SELECT p.*, c.category_name
+		SELECT p.*
+		      , c.category_name
+      		  , ad.attachment_detail_new_name AS top_attachment_new_name
+      		  , bd.attachment_detail_new_name AS other_attachment_new_name
 		  FROM product p
-		  JOIN category c 
-		    ON p.category_no = c.category_no
-		 WHERE product_no = #{product_no}
-	</select>
+		  JOIN category c ON p.category_no = c.category_no
+	 LEFT JOIN attachment a ON p.product_no = a.attachment_product_no AND a.attachment_type = 'PT'
+	 LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
+	 LEFT JOIN attachment b ON p.product_no = b.attachment_product_no AND b.attachment_type = 'PD'
+	 LEFT JOIN attachment_detail bd ON b.attachment_no = bd.attachment_no
+	 	 WHERE p.product_no = #{product_no}
+ 	</select>
 	
 	<!-- 상품 수정 -->
 	<update id="productModifyUpdate" parameterType="ProductVO">
@@ -160,6 +166,26 @@
 			  ,product_update_id = #{product_update_id}
 			  ,product_update_at = now()
 	    WHERE  product_no = #{product_no}
+	</update>
+	
+	<!-- 상품 첨부파일 상세 수정 -->
+	<update id="updateProductAttachment" parameterType="ProductVO">
+	    <!-- 대표 이미지 수정 -->
+	    <if test="top_attachment_new_name != null">
+	        UPDATE attachment_detail
+	        SET attachment_detail_new_name = #{top_attachment_new_name}
+	        WHERE attachment_no = #{top_attachment_no}
+	    </if>
+	    
+	    <!-- 기타 이미지 수정 -->
+	    <if test="other_attachment_new_name != null">
+	        UPDATE attachment_detail
+	        SET attachment_detail_new_name = #{other_attachment_new_name}
+	        WHERE attachment_no IN 
+	        <foreach collection="other_attachment_no" item="attachment_no" open="(" separator="," close=")">
+	            #{attachment_no}
+	        </foreach>
+	    </if>
 	</update>
 	
 	<!-- 상품 삭제 -->

@@ -3,6 +3,7 @@ package pj.spring.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,23 +202,60 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/productModify.do", method = RequestMethod.POST)
-	public String productModify(ProductVO productVO, Principal principal) {
+	public String productModify(ProductVO productVO, @RequestParam("topFile") MultipartFile topFile, 
+	                            @RequestParam("multiFile") MultipartFile[] multiFiles, 
+	                            Principal principal, HttpServletRequest request) {
+	    String user_id = principal.getName();
+	    productVO.setProduct_update_id(user_id);
 
-		String user_id = principal.getName();
+	    // 파일 업로드 경로 설정
+	    String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+	    File dir = new File(path);
+	    if (!dir.exists()) {
+	        dir.mkdirs();
+	    }
 
-		productVO.setProduct_update_id(user_id);
+	    // 대표 이미지 처리
+	    if (!topFile.isEmpty()) {
+	        String topImageName = saveFile(topFile, path);
+	        productVO.setTop_attachment_new_name(topImageName);
+	    }
 
-		int result = adminService.productModifyUpdate(productVO);
+	    // 기타 이미지 처리
+	    if (multiFiles != null && multiFiles.length > 0) {
+	        List<String> otherImageNames = new ArrayList<>();
+	        for (MultipartFile file : multiFiles) {
+	            if (!file.isEmpty()) {
+	                String otherImageName = saveFile(file, path);
+	                otherImageNames.add(otherImageName);
+	            }
+	        }
+	        productVO.setOther_attachment_new_name(String.join(",", otherImageNames));
+	    }
 
-		if (result > 0) {
-			System.out.println("등록완료");
-			return "redirect:product.do";
-		} else {
-			System.out.println("등록 실패 ");
-			return "redirect:productModify.do";
-		}
-
+	    int result = adminService.productModifyUpdate(productVO);
+	    if (result > 0) {
+	        return "redirect:product.do";
+	    } else {
+	        return "redirect:productModify.do";
+	    }
 	}
+
+	// 파일 저장 메서드
+	private String saveFile(MultipartFile file, String path) {
+	    String originalFileName = file.getOriginalFilename();
+	    String fileName = System.currentTimeMillis() + "_" + originalFileName;
+	    try {
+	        // 파일을 저장할 경로
+	        File targetFile = new File(path, fileName);
+	        file.transferTo(targetFile);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return fileName; // 업로드된 파일 이름 반환
+	}
+
+
 
 	 // 상품 삭제
 	 @ResponseBody

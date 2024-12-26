@@ -26,6 +26,8 @@ public class ProductVO extends AttachmentDetailVO {
 	private String attachment_no;               // 첨부파일 번호
 	private String attachment_type; 			// 첨부파일 타입
 	private String attachment_detail_new_name;  // 첨부파일 이름
+	private String top_attachment_new_name;     // 상품 첨부파일 PT
+	private String other_attachment_new_name;   // 상품 첨부파일 PD
 	
 	private String review_starrating_avg;		// 별점 평균 (한 상품에 기준)
 	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
@@ -35,6 +37,19 @@ public class ProductVO extends AttachmentDetailVO {
 	
 
 	
+	
+	public String getTop_attachment_new_name() {
+		return top_attachment_new_name;
+	}
+	public void setTop_attachment_new_name(String top_attachment_new_name) {
+		this.top_attachment_new_name = top_attachment_new_name;
+	}
+	public String getOther_attachment_new_name() {
+		return other_attachment_new_name;
+	}
+	public void setOther_attachment_new_name(String other_attachment_new_name) {
+		this.other_attachment_new_name = other_attachment_new_name;
+	}
 	public int getCart_product_quantity() {
 		return cart_product_quantity;
 	}

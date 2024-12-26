@@ -81,6 +81,11 @@ public class AdminDAO {
 	public int productModifyUpdate(ProductVO productVO) {
 		return sqlSession.update(namespace + ".productModifyUpdate", productVO);
 	}
+	
+	// 惑前 梅何颇老 荐沥
+	public int updateProductAttachment(ProductVO productVO) {
+		return sqlSession.update(namespace+".updateProductAttachment", productVO);
+	}
 
 	// 惑前 昏力 
 	public int productDelete(ProductVO productVO) { 
@@ -107,7 +112,6 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace+".getOrderDetails", ordered_detail_no);
 	}
 	
-
 	// 林巩 秒家 包府 List
 	public List<Map<String, Object>> orderCancelList(Map<String, Integer> pagingParam) {
 		return sqlSession.selectList(namespace + ".orderCancelList", pagingParam);
