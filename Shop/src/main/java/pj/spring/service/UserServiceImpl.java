@@ -17,7 +17,7 @@ import pj.spring.vo.CartVO;
 import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.ProductVO;
-import pj.spring.vo.RecentlyproductVO;
+import pj.spring.vo.RecentlyproductVO; 
 import pj.spring.vo.ReviewVO;
 import pj.spring.vo.UserVO;
 import pj.spring.vo.WishlistVO;

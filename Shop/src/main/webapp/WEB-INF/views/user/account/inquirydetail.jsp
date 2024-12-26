@@ -63,7 +63,7 @@
 	                        <button onclick="location.href='inquirymodify.do?contact_no=${vo.contact_no}'">수정</button>
                         </div>
                     </div>
-            </div>
+            </div> 
         </section>
     </main>
 

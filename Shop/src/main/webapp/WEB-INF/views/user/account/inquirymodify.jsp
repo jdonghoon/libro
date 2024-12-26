@@ -43,7 +43,7 @@
 						<input type="text" id="file-name" value="파일선택" readonly>
 						<label for="file-upload" class="custom-file-label">+</label>
 					</div>
-					
+					 
                     <div class="inquiryform-footer">
                         <button>수정</button>
                     </div>

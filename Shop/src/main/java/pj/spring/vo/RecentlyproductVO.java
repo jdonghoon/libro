@@ -13,7 +13,7 @@ public class RecentlyproductVO extends WishlistVO {
 	
 	public String getProduct_no() {
 		return product_no;
-	}
+	} 
 	public void setProduct_no(String product_no) {
 		this.product_no = product_no;
 	}

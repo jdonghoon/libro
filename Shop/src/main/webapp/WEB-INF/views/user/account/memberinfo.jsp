@@ -79,7 +79,7 @@
 	            document.getElementById("phonePrefix").value = phoneParts[0];
 	            document.getElementById("phoneMiddle").value = phoneParts[1];
 	            document.getElementById("phoneLast").value = phoneParts[2];
-	        }
+	        } 
 	    }
 	</script>
 	

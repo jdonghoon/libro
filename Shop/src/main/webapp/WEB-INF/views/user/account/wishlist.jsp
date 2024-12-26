@@ -27,7 +27,7 @@
 	                            <div class="imgs">
 	                                <a href="cartinsert.do?wishlist_no=${vo.wishlist_no}&product_no=${vo.product_no}">
 		                                <img src="https://img.icons8.com/?size=100&id=TgHJI44zOCgU&format=png&color=000000">
-	                                </a>
+	                                </a> 
 	                                <!-- 로그인 X -->
 	                        		<sec:authorize access="isAnonymous()">
 		                                <a href="wishlistdelete.do?wishlist_no=${vo.product_no}">

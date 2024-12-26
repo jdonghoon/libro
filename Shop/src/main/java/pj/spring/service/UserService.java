@@ -16,7 +16,7 @@ public interface UserService {
 	public int insert(UserVO userVO);
 	
 	// È¸¿øÅ»Åğ
-	public int deleteAccount(String user_id);
+	public int deleteAccount(String user_id); 
 
 	// ·Î±×ÀÎ
 	public UserVO selectLogin(String username);

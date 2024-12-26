@@ -35,7 +35,7 @@
 	                        <input type="password" name="contact_password" placeholder="비밀번호">
 	                    </div>
 					</sec:authorize>
-					
+					 
 <!--                     <div class="inquiryform-group">
                         <input type="file" id="file-upload" class="custom-file-input" name="multiFile" multiple>
                         <input type="text" id="file-name" value="파일선택" readonly>

@@ -43,7 +43,7 @@
 		WHERE user_id = #{user_id}
 		AND user_status = 'E'
 	</select>
-	
+	 
 	<!-- 아이디 중복 체크 -->
 	<select id="selectCntByUid" parameterType="String" resultType="int">
 		SELECT COUNT(*) AS cnt 

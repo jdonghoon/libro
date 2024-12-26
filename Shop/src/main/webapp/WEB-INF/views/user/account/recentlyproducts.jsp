@@ -22,7 +22,7 @@
                                 </span><br><br><br><br>
                                 <span>${vo.product_price}</span>
                             </div>
-                            <div class="imgs">
+                            <div class="imgs"> 
                                 <!-- 로그인 X -->
                         		<sec:authorize access="isAnonymous()">
 	                                <a href="wishlistinsert.do?product_no=${vo.product_no}">
