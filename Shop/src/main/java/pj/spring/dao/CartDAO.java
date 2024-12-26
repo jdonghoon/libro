@@ -29,8 +29,9 @@ public class CartDAO {
 		return sqlsession.selectOne(namespace + ".selectCartPrice", user_id);
 	}
 	
-	public int updateCartQuantity(Map<String, Object> map) {
-
-	    return sqlsession.update(namespace + ".updateCartQuantity", map);
-	}
+	public int updateCartQuantity(String user_id, Map<String, Object> map) {
+		
+		map.put("user_id", user_id);
+        return sqlsession.update(namespace + ".updateCartQuantity", map);
+    }
 }

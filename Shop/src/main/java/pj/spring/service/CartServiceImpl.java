@@ -28,10 +28,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int updateCartQuantity(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+    public int updateCartQuantity(String user_id, Map<String, Object> map) {
+		
+        return cartDAO.updateCartQuantity(user_id, map);
 	}
-
 
 }
