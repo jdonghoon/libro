@@ -203,60 +203,98 @@
         <div>
           <c:set var="cartSummary" value="${sessionScope.cartSummary}"/>
           <div class="payment-info">
-            <div>총 수량</div>
-            <div class="payment-price">${cartSummary.totalQuantity}</div>
-          </div>
+		    <div>총 수량</div>
+		    <div class="payment-price">
+		        <c:choose>
+		            <c:when test="${cartSummary.totalQuantity != null}">
+		                ${cartSummary.totalQuantity}
+		            </c:when>
+		            <c:otherwise>
+		                0
+		            </c:otherwise>
+		        </c:choose>
+		    </div>
+		  </div>
+		  
           <div class="payment-info">
             <div>상품금액</div>
-            <div class="payment-price">${cartSummary.totalPrice}</div>
+            <div class="payment-price">
+		        <c:choose>
+		            <c:when test="${cartSummary.totalPrice != null}">
+		                ${cartSummary.totalPrice}
+		            </c:when>
+		            <c:otherwise>
+		                0
+		            </c:otherwise>
+		        </c:choose>
+		    </div>
           </div>
+          
           <div class="payment-info">
             <div>배송비</div>
             <div class="payment-price">3,000</div>
           </div>
           <div class="payment-total-info">
             <div>총 주문금액</div>
-            <div class="payment-total-price">${cartSummary.totalPrice + cartSummary.shippingFee}</div>
+            <div class="payment-total-price">
+		        <c:choose>
+		            <c:when test="${cartSummary.totalPrice != null && cartSummary.shippingFee != null}">
+		                ${cartSummary.totalPrice + cartSummary.shippingFee}
+		            </c:when>
+		            <c:otherwise>
+		                0
+		            </c:otherwise>
+		        </c:choose>
+		    </div>
           </div>
         </div>
         <div class="order-button">
-          <button id="btn-pay-ready">결제하기</button>
+          <button id="btn-pay-ready" type="button">결제하기</button>
+          	<div id="productName" style="display:none;">${cartSummary.displayProductName}</div>
+			<div id="totalQuantity" style="display:none;">${cartSummary.totalQuantity}</div>
+			<div id="totalPrice" style="display:none;">${cartSummary.totalPrice + cartSummary.shippingFee}</div>
         </div> 
       </div>
   	</form>	
-  </div>
+  </div>	
   <script>
-	  /* $(function() {
-	      $("#btn-pay-ready").click(function(e) {
-	    	  e.preventDefault();
-	    	  
-	          // 아래 데이터 외에도 필요한 데이터를 원하는 대로 담고, Controller에서 @RequestBody로 받으면 됨
-	          let data = {
-				    name: "${empty cartSummary.displayProductName ? '상품 이름 없음' : cartSummary.displayProductName}",
-				    totalQuantity: ${cartSummary.totalQuantity ?: 0},
-				    totalPrice: ${cartSummary.totalPrice + cartSummary.shippingFee ?: 0}
-				};
+  $(function() {
+	    $("#btn-pay-ready").click(function(e) {
+	        e.preventDefault();
+
+	        let data = {
+	        	    name: $("#productName").text() || '상품 이름 없음',
+	        	    totalQuantity: $("#totalQuantity").text() || 0,
+	        	    totalPrice: $("#totalPrice").text() || 0
+	        	};
 	        
-	          $.ajax({
-	              type: 'POST',
-	              url: '/ready.do',
-	              data: JSON.stringify(data), // JSON 형태로 변환
-	              contentType: 'application/json; charset=utf-8', // JSON 데이터임을 명시
-	              dataType: 'json', // 서버 응답을 JSON으로 기대
-	              success: function(response) {
-	                  if (response.next_redirect_pc_url) {
-	                      location.href = response.next_redirect_pc_url; // 카카오페이 결제 페이지로 이동
-	                  } else {
-	                      alert("결제 페이지 URL을 받을 수 없습니다.");
-	                  }
-	              },
-	              error: function(xhr, status, error) {
-	                  console.error("카카오페이 요청 실패:", xhr.responseText);
-	                  alert("결제 요청 중 오류가 발생했습니다.");
-	              }
-	          });
-	      });
-	  }); */
+	        
+	        
+	        $.ajax({
+	            type: 'POST',
+	            url: "<%=request.getContextPath()%>/kakaoPay/ready",
+	            /* data: JSON.stringify(data), */
+	            data: JSON.stringify({
+			        itemName: "테스트 상품",
+			        quantity: 1,
+			        amount: 1000
+			    }),
+	            contentType: 'application/json; charset=utf-8',
+	            dataType: 'json',
+	            success: function(response) {
+	                if (response.next_redirect_pc_url) {
+	                    location.href = response.next_redirect_pc_url;
+	                } else {
+	                    alert("결제 페이지 URL을 받을 수 없습니다.");
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("카카오페이 요청 실패:", xhr.responseText);
+	                alert("결제 요청 중 오류가 발생했습니다.");
+	            }
+	        });
+	    });
+	});
   </script>
 </main>
 

@@ -153,7 +153,7 @@
 
     <!-- 책 소개 -->
     <div class="third-container">
-      <div class="container-title">${productDetail.product_author_description}</div>
+      <div class="container-title">상품소개</div>
       <div class="book-info-content">
         ${productDetail.product_description}
       </div>

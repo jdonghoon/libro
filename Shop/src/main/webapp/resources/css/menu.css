@@ -716,6 +716,7 @@
 }
 
 .first-container-cart {
+  min-width: 1130px;
   border: 1px solid rgb(190, 190, 190);
   padding: 10px;
   display: flex;
@@ -737,7 +738,22 @@
   background-color: rgb(243, 243, 243);
   padding: 10px;
   margin-bottom: 10px;
-  width: 800px;
+  width: 847px;
+  height: 300px;
+  text-align: center;
+}
+
+.book-info-container-cart-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(243, 243, 243);
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 847px;
+  height: 300px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .book-image{
@@ -850,6 +866,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 847px;
 }
 
 .checkbox-label {

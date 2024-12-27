@@ -32,4 +32,7 @@
   		   AND u.user_id = #{user_id};
 	</select>
 
+	<!-- <select id="selectKakaoData" parameterType="String" resultType="ProductVO">
+		SELECT 
+	</select> -->
 </mapper>

@@ -2,7 +2,6 @@ package pj.spring.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.PaymentService;
+import pj.spring.vo.CartSummary;
 import pj.spring.vo.UserVO;
 
 @Controller
@@ -58,14 +58,14 @@ public class PaymentCotroller {
 	
 	@ResponseBody
 	@RequestMapping(value = "/updateCartSummary.do", method = RequestMethod.POST)
-	public void updateCartSummary(HttpSession session, @RequestParam int totalQuantity,
-            @RequestParam int totalPrice, @RequestParam int shippingFee,  @RequestParam String displayProductName) {
-	session.setAttribute("cartSummary", Map.of(
-						"totalQuantity", totalQuantity,
-						"totalPrice", totalPrice,
-						"shippingFee", shippingFee,
-						"displayProductName", displayProductName
-						));
+	public void updateCartSummary(HttpSession session,
+	                              @RequestParam int totalQuantity,
+	                              @RequestParam int totalPrice,
+	                              @RequestParam int shippingFee,
+	                              @RequestParam String displayProductName) {
+	    CartSummary cartSummary = new CartSummary(totalQuantity, totalPrice, shippingFee, displayProductName);
+	    session.setAttribute("cartSummary", cartSummary);
 	}
+
 
 }
