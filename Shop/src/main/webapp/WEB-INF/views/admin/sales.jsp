@@ -48,11 +48,11 @@
                                                         <div>
                                                             <p>
 															    <c:choose>
-															        <c:when test="${empty orderTotalAmount}">
+															        <c:when test="${empty orderTotalAmount.orderTotalAmount}">
 															            0원
 															        </c:when>
 															        <c:otherwise>
-															            ${orderTotalAmount}원
+															            ${orderTotalAmount.orderTotalAmount}원
 															        </c:otherwise>
 															    </c:choose>
 															</p>
@@ -69,11 +69,11 @@
                                                         <div>
                                                             <p>
 															    <c:choose>
-															        <c:when test="${empty paymentTotalAmount}">
+															        <c:when test="${empty paymentTotalAmount.paymentTotalAmount}">
 															            0원
 															        </c:when>
 															        <c:otherwise>
-															            ${paymentTotalAmount}원
+															            ${paymentTotalAmount.paymentTotalAmount}원
 															        </c:otherwise>
 															    </c:choose>
 															</p>
@@ -90,11 +90,11 @@
                                                         <div>
                                                             <p>
 															    <c:choose>
-															        <c:when test="${empty orderTotalQuantity}">
+															        <c:when test="${empty orderTotalQuantity.orderTotalQuantity}">
 															            0원
 															        </c:when>
 															        <c:otherwise>
-															            ${orderTotalQuantity}원
+															            ${orderTotalQuantity.orderTotalQuantity}원
 															        </c:otherwise>
 															    </c:choose>
 															</p>
@@ -223,11 +223,11 @@
 									                </td>
 	                                                <td>
 									                    <c:choose>
-									                        <c:when test="${empty vo.total_amount}">
+									                        <c:when test="${empty vo.total_payment_amount}">
 									                            0원
 									                        </c:when>
 									                        <c:otherwise>
-									                            ${vo.total_amount}원
+									                            ${vo.total_payment_amount}원
 									                        </c:otherwise>
 									                    </c:choose>
 									                </td>

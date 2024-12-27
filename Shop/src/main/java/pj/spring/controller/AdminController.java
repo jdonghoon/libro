@@ -56,8 +56,19 @@ public class AdminController {
 	// 회원 관리
 	@RequestMapping(value = "/membership.do", method = RequestMethod.GET)
 	public String membership(Model model,
-			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
+			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage,
+			@RequestParam(value = "searchType", required = false, defaultValue = "all") String searchType,
+	        @RequestParam(value = "searchValue", required = false, defaultValue = "") String searchValue,
+	        @RequestParam(value = "user_created_at", required = false) String userCreatedAt,
+	        @RequestParam(value = "user_status", required = false, defaultValue = "all") String userStatus) {
 
+		// 검색 조건에 따라 쿼리 필터를 설정하기 위해 Map 사용
+	    Map<String, Object> searchParams = new HashMap<>();
+	    searchParams.put("searchType", searchType);
+	    searchParams.put("searchValue", "%" + searchValue + "%");  // LIKE 검색을 위해 %를 추가
+	    searchParams.put("userCreatedAt", userCreatedAt);
+	    searchParams.put("userStatus", userStatus);
+		
 		int total = adminService.selectTotal();
 
 		PagingUtil paging = new PagingUtil(nowPage, total, 10);
@@ -72,6 +83,7 @@ public class AdminController {
 		// 모델 객체 사용하여 조회 데이터 화면으로 포워딩
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("searchParams", searchParams);
 
 		return "admin/membership";
 	}
@@ -485,9 +497,13 @@ public class AdminController {
 
 	// 문의 관리
 	@RequestMapping(value = "/contact.do", method = RequestMethod.GET)
-	public String contact(Model model,
+	public String contact(Model model, OrderedDetailVO orderedDetailVO, PaymentVO paymentVO,
 			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
 
+		OrderedDetailVO orderTotalAmount = adminService.orderTotalAmount();
+	    PaymentVO paymentTotalAmount = adminService.paymentTotalAmount();
+	    OrderedDetailVO orderTotalQuantity = adminService.orderTotalQuantity();
+	    
 		int total = adminService.contactTotal();
 
 		PagingUtil paging = new PagingUtil(nowPage, total, 10);
@@ -498,10 +514,15 @@ public class AdminController {
 
 		// 비지니스 로직 : DB에 있는 전체 회원 목록 데이터가져오기
 		List<Map<String, Object>> contactList = adminService.contactList(pagingParam);
-
+		
+		
+		
 		// 모델 객체 사용하여 조회 데이터 화면으로 포워딩
 		model.addAttribute("contactList", contactList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("orderTotalAmount", orderTotalAmount);
+		model.addAttribute("paymentTotalAmount", paymentTotalAmount);
+		model.addAttribute("orderTotalQuantity", orderTotalQuantity);
 		
 		return "admin/contact";
 	}

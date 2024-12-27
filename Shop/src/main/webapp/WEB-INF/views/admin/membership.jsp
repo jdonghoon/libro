@@ -46,11 +46,11 @@
                                                 <div class="col-md-4">
                                                     <select class="form-select" id="validationCustom04" name="searchType">
                                                         <option value="all" selected>전체</option>
-                                                        <option value="id">아이디</option>
-                                                        <option value="name">이름</option>
-                                                        <option value="phone">전화번호</option>
-                                                        <option value="email">이메일</option>
-                                                        <option value="note">기타사항</option>
+                                                        <option value="user_id">아이디</option>
+                                                        <option value="user_name">이름</option>
+                                                        <option value="user_phone">전화번호</option>
+                                                        <option value="user_email">이메일</option>
+                                                        <option value="user_note">기타사항</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -62,10 +62,10 @@
                                                 <label for="startDate">가입일</label>
                                                 <div class="row">
                                                 	<div class="col-md-5">
-                                                   		<input type="date" class="form-control" id="startDate" name="startDate">
+                                                   		<input type="date" class="form-control" id="startDate" name="user_created_at">
                                                 	</div>
                                                    	<div class="col-md-5">
-                                                   		<input type="date" class="form-control" id="endDate" name="endDate">
+                                                   		<input type="date" class="form-control" id="endDate" name="user_created_atEnd">
                                                 	</div>
                                                 </div>
                                             </div>
@@ -74,15 +74,15 @@
                                                 <label>회원상태</label>
                                                 <div class="col">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="all" checked>
+                                                        <input class="form-check-input" type="radio" name="user_status" id="inlineRadio1" value="all" checked>
                                                         <label class="form-check-label" for="inlineRadio1">전체</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="E">
+                                                        <input class="form-check-input" type="radio" name="user_status" id="inlineRadio2" value="E">
                                                         <label class="form-check-label" for="inlineRadio2">활성</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="status" id="inlineRadio3" value="D">
+                                                        <input class="form-check-input" type="radio" name="user_status" id="inlineRadio3" value="D">
                                                         <label class="form-check-label" for="inlineRadio3">비활성</label>
                                                     </div>
                                                 </div>
@@ -93,7 +93,7 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="button" class="btn btn-primary">검색</button>
+                                        <button type="submit" class="btn btn-primary">검색</button>
                                         <button type="reset" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>

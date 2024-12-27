@@ -31,6 +31,15 @@
 		SELECT *
 		  FROM user 
 		 WHERE user_type = 'U'
+		 <if test="searchType != 'all' and searchValue != null and searchValue != ''">
+       	   AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+	    </if>
+	    <if test="userCreatedAt != null and userCreatedAtEnd != null">
+           AND user_created_at BETWEEN #{userCreatedAt} AND #{userCreatedAtEnd}
+	    </if>
+	    <if test="userStatus != 'all' and userStatus != null">
+           AND user_status = #{userStatus}
+	    </if>
 	  ORDER BY user_created_at DESC
 		 LIMIT #{start} , #{perPage}
 	</select>
@@ -39,6 +48,15 @@
 	<select id="selectTotal" resultType="int">
 		SELECT count(*)
 		  FROM user
+		  <if test="searchType != 'all' and searchValue != null and searchValue != ''">
+       	   AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+	      </if>
+	      <if test="userCreatedAt != null and userCreatedAtEnd != null">
+           AND user_created_at BETWEEN #{userCreatedAt} AND #{userCreatedAtEnd}
+	      </if>
+	      <if test="userStatus != 'all' and userStatus != null">
+           AND user_status = #{userStatus}
+	      </if>
 	</select>
 	
 	<!-- 회원 정보 저장 (AJAX 요청 처리) -->
@@ -386,7 +404,7 @@
 	<!-- 매출관리 매출 합계 -->
 	<!-- 총 거래금액 -->
 	<select id="orderTotalAmount" resultType="OrderedDetailVO">
-		SELECT SUM(ordered_detail_total_price) AS total_transaction_amount
+		SELECT SUM(ordered_detail_unit_price) AS total_transaction_amount
     	  FROM ordered_detail
     	 WHERE YEAR(ordered_detail_create_at) = YEAR(CURRENT_DATE)
     	   AND MONTH(ordered_detail_create_at) = MONTH(CURRENT_DATE);
@@ -413,7 +431,7 @@
 		SELECT    p.product_name
 				, p.product_no
 		 		, p.product_price
-    			, SUM(od.ordered_detail_total_price) AS total_transaction_amount
+    			, SUM(od.ordered_detail_unit_price) AS total_transaction_amount
     			, SUM(pm.payment_price) AS total_payment_amount
     			, SUM(od.ordered_detail_total_price) + SUM(pm.payment_price) AS total_amount
     			, SUM(od.ordered_detail_quantity) AS total_sales_quantity
