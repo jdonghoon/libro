@@ -51,6 +51,12 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.selectTotal();
 	}
 
+	//회원 정보 저장 (AJAX 요청 처리)
+	@Override
+	public int saveUserReply(UserVO userVO) {
+		return adminDAO.saveUserReply(userVO);
+	}
+	
 	// 상품 등록
 	@Override
 	public int insertProduct(ProductVO productVO) {
@@ -213,6 +219,8 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int salesTotal() {
 		return adminDAO.salesTotal();
 	}
+
+	
 
 
 	

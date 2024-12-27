@@ -14,6 +14,22 @@ public class UserVO extends AddressBookVO {
 	private String user_type;       // 회원구분
 	private String user_update_at;  // 수정일
 	
+	private String user_create_id;
+	private String user_update_id;
+	
+	
+	public String getUser_create_id() {
+		return user_create_id;
+	}
+	public void setUser_create_id(String user_create_id) {
+		this.user_create_id = user_create_id;
+	}
+	public String getUser_update_id() {
+		return user_update_id;
+	}
+	public void setUser_update_id(String user_update_id) {
+		this.user_update_id = user_update_id;
+	}
 	public String getUser_no() {
 		return user_no;
 	}

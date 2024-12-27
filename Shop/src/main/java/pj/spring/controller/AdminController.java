@@ -75,7 +75,32 @@ public class AdminController {
 
 		return "admin/membership";
 	}
+	
+	//회원 정보 저장 (AJAX 요청 처리)
+	@ResponseBody
+    @RequestMapping(value = "/updateUser.do", method = RequestMethod.POST)
+    public Map<String, Object> saveUserReply(@RequestBody UserVO userVO) {
+        Map<String, Object> response = new HashMap<>();
 
+        try {
+            int result = adminService.saveUserReply(userVO);
+
+            if (result > 0) {
+                response.put("status", "success");
+                response.put("message", "저장되었습니다.");
+            } else {
+                response.put("status", "fail");
+                response.put("message", "저장에 실패했습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", "서버 오류가 발생했습니다.");
+        }
+
+        return response;
+    }
+	
 	// 상품 관리
 	@RequestMapping(value = "/product.do", method = RequestMethod.GET)
 	public String product(Model model,

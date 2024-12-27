@@ -47,6 +47,11 @@ public class AdminDAO {
 	public int selectTotal() {
 		return sqlSession.selectOne(namespace + ".selectTotal");
 	}
+	
+	//회원 정보 저장 (AJAX 요청 처리)
+	public int saveUserReply(UserVO userVO) {
+		return sqlSession.update(namespace + ".saveUserReply", userVO);
+	}
 
 	// 상품 등록
 	public int insertProduct(ProductVO productVO) {

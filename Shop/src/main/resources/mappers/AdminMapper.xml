@@ -41,6 +41,16 @@
 		  FROM user
 	</select>
 	
+	<!-- 회원 정보 저장 (AJAX 요청 처리) -->
+	<update id="saveUserReply" parameterType="UserVO">
+	    UPDATE user
+	    SET user_note = #{user_note}
+		  , user_status = #{user_status}	    
+	      , user_update_at = NOW()
+	      , user_update_id = #{user_id}
+	    WHERE user_id = #{user_id}
+	</update>
+	
 	
 	<!-- 상품 등록 -->
 	<insert id="insertProduct" parameterType="ProductVO">

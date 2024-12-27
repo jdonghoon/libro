@@ -118,40 +118,38 @@
 									    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
 									        <tr>
 									            <th>아이디</th>
-									            <td id="modalUserId" style="padding: 5px;">${vo.user_id}</td>
+									            <td id="modalUserId" style="padding: 5px;"></td>
 									            <th>이름</th>
-									            <td id="modalUserName" style="padding: 5px;">${vo.user_name}</td>
+									            <td id="modalUserName" style="padding: 5px;"></td>
 									        </tr>
 									        <tr>
 									            <th>휴대폰 번호</th>
-									            <td id="modalUserPhone" style="padding: 5px;">${fn:replace(vo.user_phone, ',', '-')}</td>
+									            <td id="modalUserPhone" style="padding: 5px;"></td>
 									            <th>이메일</th>
-									            <td id="modalUserEmail" style="padding: 5px;">${vo.user_email}</td>
+									            <td id="modalUserEmail" style="padding: 5px;"></td>
 									        </tr>
 									        <tr>
 									            <th>상태</th>
-									            <td id="modalUserStatus" style="padding: 5px;">${vo.user_status}</td>
+									            <td id="modalUserStatus" style="padding: 5px;"></td>
 									            <td colspan="2">
-									                <label><input type="radio" name="status" value="active" checked> 활성</label>
-									                <label style="margin-left: 10px;"><input type="radio" name="status" value="inactive"> 비활성</label>
+									                <label><input type="radio" name="status" id="statusModal" value="E"> 활성</label>
+									                <label style="margin-left: 10px;"><input type="radio" name="status" id="statusModal" value="D"> 비활성</label>
 									            </td>
 									        </tr>
 									        <tr>
 									            <th>가입일</th>
-									            <td id="modalUserCreatedAt" style="padding: 5px;">${vo.user_created_at}</td>
-									            <th>등록ID</th>
-									            <td id="modalUserRegisterId" style="padding: 5px;">${vo.user_create_id}</td>
+									            <td id="modalUserCreatedAt" style="padding: 5px;"></td>
 									        </tr>
 									        <tr>
 									            <th>수정일</th>
-									            <td id="modalUserUpdatedAt" style="padding: 5px;">${vo.user_update_at}</td>
+									            <td id="modalUserUpdatedAt" style="padding: 5px;"></td>
 									            <th>수정ID</th>
-									            <td id="modalUserUpdateId" style="padding: 5px;">${vo.user_update_id}</td>
+									            <td id="modalUserUpdatedBy" style="padding: 5px;"></td>
 									        </tr>
 									    </table>
 									    <div style="margin-top: 20px;">
 									        <h3 style="margin: 10px 0;">MEMO</h3>
-									        <textarea id="modalMemo" style="width: 100%; height: 100px; border: 1px solid #ccc; border-radius: 5px;">${vo.user_note}</textarea>
+									        <textarea id="modalMemo" style="width: 100%; height: 100px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
 									    </div>
 									    <div style="text-align: center; margin-top: 20px;">
 									        <button onclick="applyChanges()" style="padding: 10px 20px; margin-right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">적용</button>
@@ -171,11 +169,12 @@
                                                 <th>상태</th>
                                                 <th>가입일</th>
                                                 <th>수정일</th>
+                                                <th>수정ID</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 											<c:forEach items="${list}" var="vo">
-	                                            <tr onclick="showUserModal('${vo.user_id}', '${vo.user_name}', '${fn:replace(vo.user_phone, ',', '-')}', '${vo.user_email}', '${vo.user_note}', '${vo.user_status}', '${vo.user_created_at}', '${vo.user_update_at}')">
+	                                            <tr onclick="showUserModal('${vo.user_id}', '${vo.user_name}', '${fn:replace(vo.user_phone, ',', '-')}', '${vo.user_email}', '${vo.user_note}', '${vo.user_status}', '${vo.user_created_at}', '${vo.user_update_at}', '${vo.user_update_id}')">
 	                                                <td>${vo.user_id}</td>
 	                                                <td>${vo.user_name}</td>
 	                                                <td>${fn:replace(vo.user_phone, ',', '-')}</td>
@@ -187,6 +186,7 @@
 	                                                </td>
 	                                                <td>${vo.user_created_at}</td>
 	                                                <td>${vo.user_update_at}</td>
+													<td>${vo.user_update_id}</td>
 	                                            </tr>
                                             </c:forEach>
                                         </tbody>
@@ -231,40 +231,81 @@
         </main>
         
         <script>
-		 	// 모달 열기
-		    function openModal() {
-		        document.querySelector('#userModal').style.display = 'block';
-		    }
+	        // 모달창 열기
+	        function showUserModal(userId, userName, userPhone, userEmail, userMemo, userStatus, createdAt, updatedAt, updatedBy) {
+	        	// 사용자 정보
+	        	document.getElementById('modalUserId').innerText = userId;
+	            document.getElementById('modalUserName').innerText = userName;
+	            document.getElementById('modalUserPhone').innerText = userPhone;
+	            document.getElementById('modalUserEmail').innerText = userEmail;
+	            document.getElementById('modalMemo').value = userMemo;
 
-		    // 모달 닫기
-		    function closeModal() {
-		        document.querySelector('#userModal').style.display = 'none';
-		    }
-		    
-		 	// 적용 버튼 클릭 이벤트
-		    function applyChanges() {
-		        alert('변경 사항이 적용되었습니다.');
-		        closeModal();
-		    }
-
-		    // 특정 유저 정보를 모달에 세팅하고 열기
-		    function showUserModal(userId, userName, userPhone, userEmail, userNote, userStatus, userCreatedAt, userUpdatedAt) {
-		        document.querySelector('#modalUserId').innerText = userId;
-		        document.querySelector('#modalUserName').innerText = userName;
-		        document.querySelector('#modalUserPhone').innerText = userPhone;
-		        document.querySelector('#modalUserEmail').innerText = userEmail;
-		        document.querySelector('#modalMemo').value = userNote;
-
-		        // 상태 설정
-		        const statusElement = document.querySelector('#modalUserStatus');
-		        statusElement.innerText = userStatus === 'E' ? '활성' : '비활성';
-
-		        // 가입일 및 수정일
-		        document.querySelector('#modalUserCreatedAt').innerText = userCreatedAt;
-		        document.querySelector('#modalUserUpdatedAt').innerText = userUpdatedAt;
-
-		        openModal();
-		    }
+	         	// 사용자 상태 설정 (활성/비활성)
+	            var statusText = '';
+	            if (userStatus === 'E') {
+	                statusText = '활성';
+	                console.log(document.querySelector('input[name="status"][value="E"]'));
+	                document.querySelector('input[id="statusModal"][value="E"]').checked = true;
+	                document.querySelector('input[id="statusModal"][value="D"]').checked = false;
+	            } else if (userStatus === 'D') {
+	                statusText = '비활성';
+	                document.querySelector('input[id="statusModal"][value="D"]').checked = true;
+	                document.querySelector('input[id="statusModal"][value="E"]').checked = false;
+	            }
+	            document.getElementById('modalUserStatus').innerText = statusText;
+	
+	            // 가입일과 수정일, 수정ID
+	            document.getElementById('modalUserCreatedAt').innerText = createdAt;
+	            document.getElementById('modalUserUpdatedAt').innerText = updatedAt;
+	            document.getElementById('modalUserUpdatedBy').innerText = updatedBy;
+	
+	            // 모달 열기
+	            document.getElementById('userModal').style.display = 'block';
+	        }
+	
+	        // 모달창 닫기
+	        function closeModal() {
+	            document.getElementById('userModal').style.display = 'none';
+	        }
+	
+	        // 변경사항 적용
+	        function applyChanges() {
+	        	var userId = document.getElementById('modalUserId').innerText;
+	            var userUpdateId = document.getElementById('modalUserUpdatedBy').innerText;
+	            var userMemo = document.getElementById('modalMemo').value;
+	            var userStatus = document.querySelector('input[id="statusModal"]:checked').value;
+	
+	            var userVO = {
+            		user_id : userId,
+	            	user_update_id : userUpdateId,
+	                user_note: userMemo,
+	                user_status: userStatus
+	            };
+	            
+	            // AJAX 요청을 통해 서버로 데이터 전송
+	            var ajaxUrl = "<%= request.getContextPath() %>/admin/updateUser.do";
+	            
+	            $.ajax({
+	                url: ajaxUrl,
+	                type: 'POST',
+	                contentType: 'application/json',
+	                data: JSON.stringify(userVO),
+	                success: function(response) {
+	                    if (response.status === 'success') {
+	                    	console.log(userVO);
+	                        alert(response.message);
+	                        closeModal();  // 모달 닫기
+	                        // 데이터 갱신을 위해 페이지 새로고침 또는 부분 업데이트
+	                        location.reload(); // 페이지 새로고침
+	                    } else {
+	                        alert(response.message);
+	                    }
+	                },
+	                error: function(xhr, status, error) {
+	                    alert("서버 오류가 발생했습니다.");
+	                }
+	            });
+	        }
 		</script>
         
         

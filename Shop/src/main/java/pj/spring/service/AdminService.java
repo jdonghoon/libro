@@ -28,6 +28,9 @@ public interface AdminService {
 	// 회원 전체 수
 	public int selectTotal();
 	
+	//회원 정보 저장 (AJAX 요청 처리)
+	public int saveUserReply(UserVO userVO);
+	
 	// 상품 등록
 	public int insertProduct(ProductVO productVO);
 	
