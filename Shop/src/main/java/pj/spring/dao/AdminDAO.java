@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
@@ -150,6 +151,11 @@ public class AdminDAO {
 	// 문의 전체 수
 	public int contactTotal() {
 		return sqlSession.selectOne(namespace + ".reviewTotal");
+	}
+	
+	// 문의 답변 저장 (AJAX 요청 처리)
+	public int saveContactReply(ContactVO contactVO) {
+		return sqlSession.update(namespace+".saveContactReply", contactVO);
 	}
 
 	//매출관리 매출 합계

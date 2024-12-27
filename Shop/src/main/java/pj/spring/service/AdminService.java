@@ -3,6 +3,7 @@ package pj.spring.service;
 import java.util.List;
 import java.util.Map;
 
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
@@ -89,6 +90,9 @@ public interface AdminService {
 	
 	// 문의 전체 수
 	public int contactTotal();
+	
+	// 문의 답변 저장 (AJAX 요청 처리)
+	public int saveContactReply(ContactVO contactVO);
 	
 	//매출관리 매출 합계
 	//총 거래금액

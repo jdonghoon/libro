@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.AdminService;
 import pj.spring.util.PagingUtil;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
@@ -440,6 +441,23 @@ public class AdminController {
 		return "admin/review";
 	}
 
+	// review_status 상태 변경 ajax
+	@ResponseBody
+	@RequestMapping(value = "/reviewStatus.do", method = RequestMethod.POST)
+	public String reviewStatus(@RequestBody ReviewVO reviewVO) {
+		
+		// 주문 상태를 변경하는 서비스 호출
+		int result = adminService.reviewStatus(reviewVO);
+		
+		// 상태 변경 성공 여부에 따라 결과 반환
+		if(result > 0) {
+			return "success";  // 성공
+		} else {
+			return "failure";  // 실패
+		}
+		
+	}
+
 	// 문의 관리
 	@RequestMapping(value = "/contact.do", method = RequestMethod.GET)
 	public String contact(Model model,
@@ -463,22 +481,31 @@ public class AdminController {
 		return "admin/contact";
 	}
 	
-	// review_status 상태 변경 ajax
-	@ResponseBody
-	@RequestMapping(value = "/reviewStatus.do", method = RequestMethod.POST)
-	public String reviewStatus(@RequestBody ReviewVO reviewVO) {
-		
-		// 주문 상태를 변경하는 서비스 호출
-	    int result = adminService.reviewStatus(reviewVO);
-	    
-	    // 상태 변경 성공 여부에 따라 결과 반환
-	    if(result > 0) {
-	        return "success";  // 성공
-	    } else {
-	        return "failure";  // 실패
-	    }
-	
-	}
+	// 문의 답변 저장 (AJAX 요청 처리)
+    @ResponseBody
+    @RequestMapping(value = "/saveReply.do", method = RequestMethod.POST)
+    public Map<String, Object> saveContactReply(@RequestBody ContactVO contactVO) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // 문의 답변 저장
+            int result = adminService.saveContactReply(contactVO);
+
+            if (result > 0) {
+                response.put("status", "success");
+                response.put("message", "답변이 성공적으로 저장되었습니다.");
+            } else {
+                response.put("status", "fail");
+                response.put("message", "답변 저장에 실패했습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", "서버 오류가 발생했습니다.");
+        }
+
+        return response;
+    }
 	
 	
 	

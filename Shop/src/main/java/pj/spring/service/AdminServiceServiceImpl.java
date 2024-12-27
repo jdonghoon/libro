@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
+import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
 import pj.spring.vo.PaymentVO;
@@ -175,7 +176,13 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int contactTotal() {
 		return adminDAO.contactTotal();
 	}
-
+	
+	// 문의 답변 저장 (AJAX 요청 처리)
+	@Override
+	public int saveContactReply(ContactVO contactVO) {
+		return adminDAO.saveContactReply(contactVO);
+	}
+	
 	//매출관리 매출 합계
 	//총 거래금액
 	@Override
@@ -206,6 +213,7 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int salesTotal() {
 		return adminDAO.salesTotal();
 	}
+
 
 	
 
