@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pj.spring.dao.AdminDAO;
+import pj.spring.vo.ContactAlarmVO;
 import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
@@ -51,10 +52,16 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.selectTotal();
 	}
 
-	//회원 정보 저장 (AJAX 요청 처리)
+	// 회원 정보 저장 (AJAX 요청 처리)
 	@Override
 	public int saveUserReply(UserVO userVO) {
 		return adminDAO.saveUserReply(userVO);
+	}
+	
+	// 회원 관리 검색(AJAX)
+	@Override
+	public List<UserVO> searchMembers(Map<String, Object> searchParams) {
+		return adminDAO.searchMembers(searchParams);
 	}
 	
 	// 상품 등록
@@ -189,6 +196,18 @@ public class AdminServiceServiceImpl implements AdminService {
 		return adminDAO.saveContactReply(contactVO);
 	}
 	
+	// 알림 생성
+	/*
+	 * @Override public int insertContactAlarm(ContactAlarmVO contactAlarmVO) {
+	 * return adminDAO.insertContactAlarm(contactAlarmVO); }
+	 */
+	
+	// 관리자 알림 조회
+	/*
+	 * @Override public List<ContactAlarmVO> getUnreadNotifications(String user_id)
+	 * { return adminDAO.getUnreadNotifications(user_id); }
+	 */
+	
 	//매출관리 매출 합계
 	//총 거래금액
 	@Override
@@ -219,6 +238,10 @@ public class AdminServiceServiceImpl implements AdminService {
 	public int salesTotal() {
 		return adminDAO.salesTotal();
 	}
+
+	
+
+	
 
 	
 

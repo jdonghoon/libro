@@ -44,7 +44,7 @@
                                             <div class="row g-2">
                                                 <label for="validationCustom04">상세검색</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-select" id="validationCustom04" name="searchType">
+                                                    <select class="form-select" id="searchType" name="searchType">
                                                         <option value="all" selected>전체</option>
                                                         <option value="user_id">아이디</option>
                                                         <option value="user_name">이름</option>
@@ -93,7 +93,7 @@
                                     <!--end::Body-->
                                     <!--begin::Footer-->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">검색</button>
+                                        <button type="button" onclick="search()" class="btn btn-primary">검색</button>
                                         <button type="reset" class="btn float-end">취소</button>
                                     </div> <!--end::Footer-->
                                 </form>
@@ -158,7 +158,7 @@
 									</div>
 
                                 
-                                    <table>
+                                    <table id="memberTable">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -306,6 +306,79 @@
 	                }
 	            });
 	        }
+	        
+	        
+	        function search() {
+	            const searchType = document.getElementById("searchType").value;
+	            const searchValue = document.getElementById("inputDetail").value;
+	            const startDate = document.getElementById("startDate").value;
+	            const endDate = document.getElementById("endDate").value || new Date().toISOString().split('T')[0];  // 오늘 날짜
+	            const userStatus = document.querySelector('input[name="user_status"]:checked').value;
+
+	            // Create query parameters
+	            const queryParams = {
+	                searchType,
+	                searchValue,
+	                startDate,
+	                endDate,
+	                userStatus
+	            };
+
+	            // Send AJAX request
+	            fetch('search.do', {
+	                method: 'POST',
+	                headers: { 'Content-Type': 'application/json' },
+	                body: JSON.stringify(queryParams)
+	            })
+	            .then(response => response.json())
+	            .then(data => {
+	                // Update table with the search result
+	                updateTable(data);
+	            })
+	            .catch(error => {
+	                console.error('Error:', error);
+	            });
+	        }
+
+	        // Update table dynamically
+	        function updateTable(data) {
+	            const tableBody = document.querySelector('#memberTable tbody');
+	            tableBody.innerHTML = ''; // Clear existing rows
+
+	            if (data.length === 0) {
+	                tableBody.innerHTML = '<tr><td colspan="8">검색 결과가 없습니다.</td></tr>';
+	                return;
+	            }
+
+	            data.forEach(member => {
+	                const row = document.createElement('tr');
+	                row.innerHTML = `
+	                    <td>/${member.userId}</td>
+	                    <td>/${member.userName}</td>
+	                    <td>/${member.userPhone}</td>
+	                    <td>/${member.userEmail}</td>
+	                    <td>/${member.userNote}</td>
+	                    <td>
+		                    <c:choose>
+		                        <c:when test="/${vo.userStatus == 'E'}">
+		                            활성
+		                        </c:when>
+		                        <c:otherwise>
+		                            비활성
+		                        </c:otherwise>
+		                    </c:choose>
+	                </td>
+	                    <td>/${member.userCreatedAt}</td>
+	                    <td>/${member.userUpdatedAt}</td>
+	                `;
+	                tableBody.appendChild(row);
+	            });
+	        }
+
+
+
+	        
+	        
 		</script>
         
         

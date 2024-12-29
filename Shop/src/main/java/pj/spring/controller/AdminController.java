@@ -12,8 +12,10 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,19 +58,8 @@ public class AdminController {
 	// 회원 관리
 	@RequestMapping(value = "/membership.do", method = RequestMethod.GET)
 	public String membership(Model model,
-			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage,
-			@RequestParam(value = "searchType", required = false, defaultValue = "all") String searchType,
-	        @RequestParam(value = "searchValue", required = false, defaultValue = "") String searchValue,
-	        @RequestParam(value = "user_created_at", required = false) String userCreatedAt,
-	        @RequestParam(value = "user_status", required = false, defaultValue = "all") String userStatus) {
+			@RequestParam(value = "nowPage", required = false, defaultValue = "1") int nowPage) {
 
-		// 검색 조건에 따라 쿼리 필터를 설정하기 위해 Map 사용
-	    Map<String, Object> searchParams = new HashMap<>();
-	    searchParams.put("searchType", searchType);
-	    searchParams.put("searchValue", "%" + searchValue + "%");  // LIKE 검색을 위해 %를 추가
-	    searchParams.put("userCreatedAt", userCreatedAt);
-	    searchParams.put("userStatus", userStatus);
-		
 		int total = adminService.selectTotal();
 
 		PagingUtil paging = new PagingUtil(nowPage, total, 10);
@@ -83,7 +74,6 @@ public class AdminController {
 		// 모델 객체 사용하여 조회 데이터 화면으로 포워딩
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
-		model.addAttribute("searchParams", searchParams);
 
 		return "admin/membership";
 	}
@@ -111,6 +101,13 @@ public class AdminController {
         }
 
         return response;
+    }
+	
+	// 회원 관리 검색 (AJAX)
+	@PostMapping("/search.do")
+	public ResponseEntity<List<UserVO>> searchMembers(@RequestBody Map<String, Object> searchParams) {
+		 List<UserVO> members = adminService.searchMembers(searchParams);
+		    return ResponseEntity.ok(members);
     }
 	
 	// 상품 관리

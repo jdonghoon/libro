@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pj.spring.vo.ContactAlarmVO;
 import pj.spring.vo.ContactVO;
 import pj.spring.vo.OrderedDetailVO;
 import pj.spring.vo.OrderedVO;
@@ -48,9 +49,14 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace + ".selectTotal");
 	}
 	
-	//회원 정보 저장 (AJAX 요청 처리)
+	// 회원 정보 저장 (AJAX 요청 처리)
 	public int saveUserReply(UserVO userVO) {
 		return sqlSession.update(namespace + ".saveUserReply", userVO);
+	}
+	
+	// 회원 관리 검색(AJAX)
+	public List<UserVO> searchMembers(Map<String, Object> searchParams) {
+		return sqlSession.selectList(namespace + ".searchMembers", searchParams);
 	}
 
 	// 상품 등록
@@ -162,6 +168,18 @@ public class AdminDAO {
 	public int saveContactReply(ContactVO contactVO) {
 		return sqlSession.update(namespace+".saveContactReply", contactVO);
 	}
+	
+	// 알림 생성
+	/*
+	 * public int insertContactAlarm(ContactAlarmVO contactAlarmVO) { return
+	 * sqlSession.insert(namespace + ".insertContactAlarm", contactAlarmVO); }
+	 */
+	
+	// 관리자 알림 조회
+	/*
+	 * public List<ContactAlarmVO> getUnreadNotifications(String user_id) { return
+	 * sqlSession.selectList(namespace + ".getUnreadNotifications", user_id); }
+	 */
 
 	//매출관리 매출 합계
 	//총 거래금액

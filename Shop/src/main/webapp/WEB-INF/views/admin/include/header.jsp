@@ -28,19 +28,34 @@
 	                    <li class="nav-item d-none d-md-block"> <a href="<%=request.getContextPath()%>/admin/index.do" class="nav-link">Home</a> </li>
 	                </ul>
 	                <ul class="navbar-nav ms-auto">
-	                    <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span> </a>
+	                    <li class="nav-item dropdown"> 
+	                    	<a class="nav-link" data-bs-toggle="dropdown"> 
+	                    		<i class="bi bi-bell-fill"></i> 
+	                    		<span class="navbar-badge badge text-bg-warning">0</span> 
+	                    	</a>
 	                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 	                            <div class="dropdown-item dropdown-header">알림</div>
-	                            <div class="dropdown-divider"></div> <a class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 000님의 새 문의가 있습니다
-	                                <span class="float-end text-secondary fs-7">2024-12-02</span> </a>
-	                                <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 000님의 새 문의가 있습니다
-	                                    <span class="float-end text-secondary fs-7">2024-12-03</span> </a>
-	                                    <div class="dropdown-divider"></div> <a class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 000님의 새 문의가 있습니다
-	                                        <span class="float-end text-secondary fs-7">2024-12-04</span> </a>
-	                                        <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">전체 문의 보기</a>
+	                            <div class="dropdown-divider"></div> 
+	                            <a class="dropdown-item"> 
+	                            	<i class="bi bi-envelope me-2"></i> 000님의 새 문의가 있습니다
+	                                <span class="float-end text-secondary fs-7">2024-12-02</span> 
+                                </a>
+                                <div class="dropdown-divider"></div> 
+                                <a href="#" class="dropdown-item"> 
+                                	<i class="bi bi-envelope me-2"></i> 000님의 새 문의가 있습니다
+                                    <span class="float-end text-secondary fs-7">2024-12-03</span>
+                                </a>
+                                <div class="dropdown-divider"></div> 
+                                <a class="dropdown-item"> 
+                                	<i class="bi bi-envelope me-2"></i> 000님의 새 문의가 있습니다
+                                    <span class="float-end text-secondary fs-7">2024-12-04</span> 
+                                </a>
+                                <div class="dropdown-divider"></div> 
+                                <a href="<%=request.getContextPath()%>/admin/contact.do" class="dropdown-item dropdown-footer">전체 문의 보기</a>
 	                        </div>
 	                    </li>
 	                    <li class="user-body"><a href="<%=request.getContextPath()%>/logout.do" class="btn btn-default btn-flat float-end">Sign out</a></li>
+                    </ul>
 	            </div> 
 	        </nav> 
 	        

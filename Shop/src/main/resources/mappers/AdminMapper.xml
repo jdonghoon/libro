@@ -31,32 +31,12 @@
 		SELECT *
 		  FROM user 
 		 WHERE user_type = 'U'
-		 <if test="searchType != 'all' and searchValue != null and searchValue != ''">
-       	   AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
-	    </if>
-	    <if test="userCreatedAt != null and userCreatedAtEnd != null">
-           AND user_created_at BETWEEN #{userCreatedAt} AND #{userCreatedAtEnd}
-	    </if>
-	    <if test="userStatus != 'all' and userStatus != null">
-           AND user_status = #{userStatus}
-	    </if>
-	  ORDER BY user_created_at DESC
-		 LIMIT #{start} , #{perPage}
 	</select>
 	
 	<!-- 회원 전체 수 -->
 	<select id="selectTotal" resultType="int">
 		SELECT count(*)
 		  FROM user
-		  <if test="searchType != 'all' and searchValue != null and searchValue != ''">
-       	   AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
-	      </if>
-	      <if test="userCreatedAt != null and userCreatedAtEnd != null">
-           AND user_created_at BETWEEN #{userCreatedAt} AND #{userCreatedAtEnd}
-	      </if>
-	      <if test="userStatus != 'all' and userStatus != null">
-           AND user_status = #{userStatus}
-	      </if>
 	</select>
 	
 	<!-- 회원 정보 저장 (AJAX 요청 처리) -->
@@ -68,6 +48,28 @@
 	      , user_update_id = #{user_id}
 	    WHERE user_id = #{user_id}
 	</update>
+	
+	<!-- 회원 관리 검색 AJAX  -->
+	<select id="searchMembers" parameterType="java.util.Map" resultType="UserVO">
+	    SELECT *
+	    FROM user
+	    <where>
+	        <if test="searchType != null and searchType != 'all'">
+	            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+	        </if>
+	        <if test="startDate != null and startDate != ''">
+	            AND user_created_at >= #{startDate}
+	        </if>
+	        <if test="endDate != null and endDate != ''">
+	            AND user_created_at &lt;= #{endDate}
+	        </if>
+	        <if test="userStatus != null and userStatus != 'all'">
+	            AND user_status = #{userStatus}
+	        </if>
+	    </where>
+	    ORDER BY user_created_at DESC
+	</select>
+
 	
 	
 	<!-- 상품 등록 -->
@@ -400,6 +402,17 @@
 	        contact_comment_date = NOW()
 	    WHERE contact_no = #{contact_no}
 	</update>
+	
+	<!-- 알림 생성 -->
+    <!-- <insert id="insertContactAlarm" parameterType="CantactAlarmVO">
+        INSERT INTO contact_alarm (contact_no, user_id, contact_alarm_is_read, contact_alarm_date)
+        VALUES (#{contact_no}, #{user_id}, #{contact_alarm_is_read}, #{contact_alarm_date})
+    </insert> -->
+
+    <!-- 관리자 알림 조회 -->
+    <!-- <select id="getUnreadNotifications" parameterType="String" resultType="CantactAlarmVO">
+        SELECT * FROM contact_alarm WHERE user_id = #{user_id} AND contact_alarm_is_read = 'N'
+    </select> -->
 	
 	<!-- 매출관리 매출 합계 -->
 	<!-- 총 거래금액 -->

@@ -12,6 +12,16 @@ public class ContactAlarmVO {
 	private String contact_alarm_update_id;			// 수정id
 	private String contact_alarm_update_ip;			// 수정ip
 	
+	private String user_id;                         // 유저 id
+	
+	
+	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public String getContact_alarm_no() {
 		return contact_alarm_no;
 	}
