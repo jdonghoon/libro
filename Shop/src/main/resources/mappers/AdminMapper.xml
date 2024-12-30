@@ -198,25 +198,56 @@
 	    WHERE  product_no = #{product_no}
 	</update>
 	
+	<!-- 수정 전 첨부파일 이름 select -->
+	<select id="productAttachmentName" parameterType="int" resultType="ProductVO">
+		SELECT ad.attachment_detail_new_name, a.attachment_type 
+          FROM attachment_detail ad 
+          JOIN attachment a ON a.attachment_no = ad.attachment_no 
+          WHERE a.attachment_product_no = #{product_no}
+	</select>
+	
 	<!-- 상품 첨부파일 상세 수정 -->
 	<update id="updateProductAttachment" parameterType="ProductVO">
-	    <!-- 대표 이미지 수정 -->
-	    <if test="top_attachment_new_name != null">
+	     <!-- 대표 이미지 수정 -->
+	    <if test="attachment_type == 'PT'">
 	        UPDATE attachment_detail
-	        SET attachment_detail_new_name = #{top_attachment_new_name}
-	        WHERE attachment_no = #{top_attachment_no}
+	        SET 
+	            attachment_detail_new_name = #{attachment_detail_new_name},
+	            attachment_detail_name = #{attachment_detail_name},
+	            attachment_detail_update_id = #{attachment_detail_update_id}
+	        WHERE 
+	            attachment_no = (
+	                SELECT attachment_no 
+	                FROM attachment 
+	                WHERE attachment_product_no = #{product_no} 
+	                AND attachment_type = 'PT'
+	            );
 	    </if>
 	    
 	    <!-- 기타 이미지 수정 -->
-	    <if test="other_attachment_new_name != null">
+	    <if test="attachment_type == 'PD'">
 	        UPDATE attachment_detail
-	        SET attachment_detail_new_name = #{other_attachment_new_name}
-	        WHERE attachment_no IN 
-	        <foreach collection="other_attachment_no" item="attachment_no" open="(" separator="," close=")">
-	            #{attachment_no}
-	        </foreach>
+	        SET 
+	            attachment_detail_new_name = #{attachment_detail_new_name},
+	            attachment_detail_name = #{attachment_detail_name},
+	            attachment_detail_update_id = #{attachment_detail_update_id}
+	        WHERE 
+	            attachment_no = (
+	                SELECT attachment_no 
+	                FROM attachment 
+	                WHERE attachment_product_no = #{product_no} 
+	                AND attachment_type = 'PD'
+	            );
 	    </if>
 	</update>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="deleteAttachment" parameterType="int">
+	    DELETE FROM attachment_detail 
+	    WHERE attachment_no = #{attachment_no} 
+	    AND attachment_product_no = #{product_no}  <!-- 상품 번호 추가 -->
+	    AND attachment_type = #{attachment_type}  <!-- 파일 타입 추가 (대표, 기타) -->
+	</delete>
 	
 	<!-- 상품 삭제 -->
 	<update id="productDelete" parameterType="ProductVO">

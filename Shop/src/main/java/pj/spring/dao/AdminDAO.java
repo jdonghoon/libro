@@ -94,9 +94,19 @@ public class AdminDAO {
 		return sqlSession.update(namespace + ".productModifyUpdate", productVO);
 	}
 	
+	// 수정 전 첨부파일 이름 select
+	public List<ProductVO> productAttachmentName(int product_no) {
+		return sqlSession.selectList(namespace + ".productAttachmentName", product_no);
+	}
+	
 	// 상품 첨부파일 수정
 	public int updateProductAttachment(ProductVO productVO) {
 		return sqlSession.update(namespace+".updateProductAttachment", productVO);
+	}
+	
+	// 상품 첨부파일 삭제
+	public int deleteAttachment(int attachment_no) {
+		return sqlSession.delete(namespace + ".deleteAttachment", attachment_no);
 	}
 
 	// 상품 삭제 

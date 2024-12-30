@@ -56,8 +56,14 @@ public interface AdminService {
 	// 상품 수정
 	public int productModifyUpdate(ProductVO productVO);
 	
+	// 수정 전 첨부파일 이름 select
+	public List<ProductVO> productAttachmentName(int product_no);
+	
 	// 상품 첨부파일 수정
 	public int updateProductAttachment(ProductVO productVO);
+	
+	// 상품 첨부파일 삭제
+	public int deleteAttachment(int attachment_no);
 	
 	// 상품 삭제 
 	public int productDelete(ProductVO productVO);

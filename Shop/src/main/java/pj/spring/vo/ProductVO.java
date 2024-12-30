@@ -1,5 +1,7 @@
 package pj.spring.vo;
 
+import java.util.List;
+
 public class ProductVO extends AttachmentDetailVO {
 	private String product_no;					// 상품번호
 	private String product_name; 				// 상품명
@@ -24,10 +26,12 @@ public class ProductVO extends AttachmentDetailVO {
 	private String category_name;				// 카테고리 이름
 
 	private String attachment_no;               // 첨부파일 번호
+	private String attachment_product_no;       // 상품 번호
 	private String attachment_type; 			// 첨부파일 타입
 	private String attachment_detail_new_name;  // 첨부파일 이름
-	private String top_attachment_new_name;     // 상품 첨부파일 PT
-	private String other_attachment_new_name;   // 상품 첨부파일 PD
+	private List<Integer> other_attachment_no;  // 기타 이미지 번호 리스트
+	
+	
 	
 	private String review_starrating_avg;		// 별점 평균 (한 상품에 기준)
 	private String review_cnt;					// 리뷰 개수 (한 상품에 기준)
@@ -38,17 +42,19 @@ public class ProductVO extends AttachmentDetailVO {
 
 	
 	
-	public String getTop_attachment_new_name() {
-		return top_attachment_new_name;
+
+	
+	public String getAttachment_product_no() {
+		return attachment_product_no;
 	}
-	public void setTop_attachment_new_name(String top_attachment_new_name) {
-		this.top_attachment_new_name = top_attachment_new_name;
+	public void setAttachment_product_no(String attachment_product_no) {
+		this.attachment_product_no = attachment_product_no;
 	}
-	public String getOther_attachment_new_name() {
-		return other_attachment_new_name;
+	public List<Integer> getOther_attachment_no() {
+		return other_attachment_no;
 	}
-	public void setOther_attachment_new_name(String other_attachment_new_name) {
-		this.other_attachment_new_name = other_attachment_new_name;
+	public void setOther_attachment_no(List<Integer> other_attachment_no) {
+		this.other_attachment_no = other_attachment_no;
 	}
 	public int getCart_product_quantity() {
 		return cart_product_quantity;

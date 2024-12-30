@@ -3,7 +3,6 @@ package pj.spring.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -230,7 +229,19 @@ public class AdminController {
 	public String productModify(Model model, @RequestParam(value = "product_no") int product_no) {
 
 		ProductVO vo = adminService.productModify(product_no);
+		
+		List<ProductVO> attachmentInfoList  = adminService.productAttachmentName(product_no);
+		
+		// 첨부파일 정보가 있으면 첫 번째 첨부파일 정보 추가
+	    if (!attachmentInfoList .isEmpty()) {
+	        ProductVO attachmentInfo = attachmentInfoList.get(0);
+	        vo.setAttachment_detail_new_name(attachmentInfo.getAttachment_detail_new_name());
+	        vo.setAttachment_type(attachmentInfo.getAttachment_type());
+	    }
 
+		System.out.println("Attachment New Name: " + vo.getAttachment_detail_new_name());
+		System.out.println("Attachment Type: " + vo.getAttachment_type());
+		
 		model.addAttribute("vo", vo);
 
 		return "admin/productModify";
@@ -238,59 +249,89 @@ public class AdminController {
 
 	@RequestMapping(value = "/productModify.do", method = RequestMethod.POST)
 	public String productModify(ProductVO productVO, @RequestParam("topFile") MultipartFile topFile, 
-	                            @RequestParam("multiFile") MultipartFile[] multiFiles, 
+	                            @RequestParam("multiFile") MultipartFile[] multiFile, 
 	                            Principal principal, HttpServletRequest request) {
 	    String user_id = principal.getName();
 	    productVO.setProduct_update_id(user_id);
 
 	    // 파일 업로드 경로 설정
 	    String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+	    System.out.println("upload path -> " + path);
+	    
 	    File dir = new File(path);
+	    
 	    if (!dir.exists()) {
 	        dir.mkdirs();
 	    }
 
 	    // 대표 이미지 처리
-	    if (!topFile.isEmpty()) {
-	        String topImageName = saveFile(topFile, path);
-	        productVO.setTop_attachment_new_name(topImageName);
+	    if (!topFile.getOriginalFilename().isEmpty()) {
+	    	// 기존 대표 이미지 삭제
+	        if (productVO.getAttachment_no() != null && "PT".equals(productVO.getAttachment_type())) {
+	        	String oldFilePath = path + "/" + productVO.getAttachment_detail_new_name(); // 기존 파일 경로
+	            File oldFile = new File(oldFilePath);
+	            if (oldFile.exists()) {
+	                oldFile.delete(); // 파일 삭제
+	            }
+	        }
+	    	 
+	    	UUID uuid = UUID.randomUUID();
+	        String fileRealPath = uuid + topFile.getOriginalFilename();
+	        
+	        try {
+	            topFile.transferTo(new File(path, fileRealPath));  // 파일 저장
+	        } catch (IOException e) {
+	            e.printStackTrace();
+            }
+	        
+	        productVO.setAttachment_detail_name(topFile.getOriginalFilename());
+	        productVO.setAttachment_detail_new_name(fileRealPath);
+	        productVO.setAttachment_type("PT");
+	        productVO.setAttachment_detail_update_id(user_id);
+	        adminService.updateProductAttachment(productVO);
 	    }
 
 	    // 기타 이미지 처리
-	    if (multiFiles != null && multiFiles.length > 0) {
-	        List<String> otherImageNames = new ArrayList<>();
-	        for (MultipartFile file : multiFiles) {
-	            if (!file.isEmpty()) {
-	                String otherImageName = saveFile(file, path);
-	                otherImageNames.add(otherImageName);
+	    if (multiFile != null && multiFile.length > 0) {
+	    	// 기존 기타 이미지 삭제 (기존 이미지가 있으면 삭제)
+	        if (productVO.getOther_attachment_no() != null && !productVO.getOther_attachment_no().isEmpty()) {
+	            for (Integer attachment_no : productVO.getOther_attachment_no()) {
+	                String oldFilePath = path + "/" + attachment_no;  // 기존 파일 경로
+	                File oldFile = new File(oldFilePath);
+	                if (oldFile.exists()) {
+	                    oldFile.delete();  // 기존 파일 삭제
+	                }
 	            }
 	        }
-	        productVO.setOther_attachment_new_name(String.join(",", otherImageNames));
-	    }
+	        
+	        for (MultipartFile file : multiFile) {
+	        	if (!file.getOriginalFilename().isEmpty()) {
+	        		UUID uuid = UUID.randomUUID();
+	        		String fileRealName = uuid.toString() + file.getOriginalFilename();
+	        		
+	        		try {
+	                    file.transferTo(new File(path, fileRealName));  // 파일 저장
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	        		
+	        		productVO.setAttachment_detail_name(file.getOriginalFilename());
+	    	        productVO.setAttachment_detail_new_name(fileRealName);
+	    	        productVO.setAttachment_type("PD");
+	    	        productVO.setAttachment_detail_update_id(user_id);
+	    	        adminService.updateProductAttachment(productVO);
+		            }
+		        }
+		    }
 
-	    int result = adminService.productModifyUpdate(productVO);
-	    if (result > 0) {
-	        return "redirect:product.do";
-	    } else {
-	        return "redirect:productModify.do";
-	    }
-	}
-
-	// 파일 저장 메서드
-	private String saveFile(MultipartFile file, String path) {
-	    String originalFileName = file.getOriginalFilename();
-	    String fileName = System.currentTimeMillis() + "_" + originalFileName;
-	    try {
-	        // 파일을 저장할 경로
-	        File targetFile = new File(path, fileName);
-	        file.transferTo(targetFile);
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return fileName; // 업로드된 파일 이름 반환
-	}
-
-
+		    int result = adminService.productModifyUpdate(productVO);
+		    if (result > 0) {
+		        return "redirect:product.do";
+		    } else {
+		        return "redirect:productModify.do";
+		    }
+    
+    }
 
 	 // 상품 삭제
 	 @ResponseBody
