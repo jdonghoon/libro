@@ -158,14 +158,15 @@
 											    <div class="row">
 											        <div class="col-md-6">
 											            <!-- 대표 이미지 출력: attachment_type == 'PT' -->
-											            	<p>attachment_detail_new_name: ${vo.attachment_detail_new_name}</p>
-															<p>attachment_type: ${vo.attachment_type}</p>
-										                <c:if test="${not empty vo.attachment_detail_new_name and vo.attachment_type == 'PT'}">
-										                    	첨부파일 : ${vo.attachment_detail_new_name}
-										                </c:if>
-										                <c:if test="${empty vo.attachment_detail_new_name or vo.attachment_type != 'PT'}">
-										                   		첨부파일이 없습니다.
-										                </c:if>
+										                <c:forEach var="attachment" items="${attachmentInfoList}">
+											                <c:if test="${attachment.attachment_type == 'PT'}">
+											                    <p>대표상품사진: ${attachment.attachment_detail_new_name}</p>
+											                </c:if>
+											            </c:forEach>
+											            <!-- 첨부파일이 없다면 '첨부파일이 없습니다.' 메시지 출력 -->
+											            <c:if test="${empty attachmentInfoList || (attachmentInfoList[0].attachment_type != 'PT' || empty attachmentInfoList[0].attachment_detail_new_name)}">
+											                <p>첨부파일이 없습니다.</p>
+											            </c:if>
 										                <!-- 새로운 대표 이미지 파일 업로드 -->
 										                <input type="file" class="form-control" id="topfile" name="topFile">
 										                <input type="hidden" name="topFileType" value="PT">
@@ -178,14 +179,15 @@
 											    <div class="row">
 											        <div class="col-md-6">
 											            <!-- 기타 이미지 출력: attachment_type == 'PD' -->
-											            	<p>attachment_detail_new_name: ${vo.attachment_detail_new_name}</p>
-															<p>attachment_type: ${vo.attachment_type}</p>
-										                <c:if test="${not empty vo.attachment_detail_new_name and vo.attachment_type == 'PD'}">
-										                    	첨부파일 : ${vo.attachment_detail_new_name}
-										                </c:if>
-										                <c:if test="${empty vo.attachment_detail_new_name or vo.attachment_type == null or vo.attachment_type != 'PD'}">
-										                    	첨부파일이 없습니다.
-										                </c:if>
+										                <c:forEach var="attachment" items="${attachmentInfoList}">
+											                <c:if test="${attachment.attachment_type == 'PD'}">
+											                    <p>대표상품사진: ${attachment.attachment_detail_new_name}</p>
+											                </c:if>
+											            </c:forEach>
+											            <!-- 첨부파일이 없다면 '첨부파일이 없습니다.' 메시지 출력 -->
+											            <c:if test="${empty attachmentInfoList || (attachmentInfoList[1].attachment_type != 'PD' || empty attachmentInfoList[0].attachment_detail_new_name)}">
+											                <p>첨부파일이 없습니다.</p>
+											            </c:if>
 										                <!-- 새로운 기타 이미지 파일 업로드 -->
 										                <input type="file" class="form-control" id="files" name="multiFile" multiple>
 										                <input type="hidden" name="multiFileType" value="PD">

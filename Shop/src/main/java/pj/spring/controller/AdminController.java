@@ -232,17 +232,9 @@ public class AdminController {
 		
 		List<ProductVO> attachmentInfoList  = adminService.productAttachmentName(product_no);
 		
-		// 첨부파일 정보가 있으면 첫 번째 첨부파일 정보 추가
-	    if (!attachmentInfoList .isEmpty()) {
-	        ProductVO attachmentInfo = attachmentInfoList.get(0);
-	        vo.setAttachment_detail_new_name(attachmentInfo.getAttachment_detail_new_name());
-	        vo.setAttachment_type(attachmentInfo.getAttachment_type());
-	    }
-
-		System.out.println("Attachment New Name: " + vo.getAttachment_detail_new_name());
-		System.out.println("Attachment Type: " + vo.getAttachment_type());
 		
 		model.addAttribute("vo", vo);
+		model.addAttribute("attachmentInfoList", attachmentInfoList);
 
 		return "admin/productModify";
 	}
