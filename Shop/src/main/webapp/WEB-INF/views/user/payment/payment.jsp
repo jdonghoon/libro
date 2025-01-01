@@ -258,27 +258,24 @@
   	</form>	
   </div>	
   <script>
-  $(function() {
+	$(function() {
 	    $("#btn-pay-ready").click(function(e) {
 	        e.preventDefault();
-
+	
+	        // 결제 요청 데이터 설정
 	        let data = {
-	        	    name: $("#productName").text() || '상품 이름 없음',
-	        	    totalQuantity: $("#totalQuantity").text() || 0,
-	        	    totalPrice: $("#totalPrice").text() || 0
-	        	};
-	        
-	        
-	        
+	            itemName: $("#productName").text() || '상품 이름 없음',
+	            quantity: parseInt($("#totalQuantity").text()) || 0,
+	            amount: parseInt($("#totalPrice").text()) || 0,
+	        };
+	
+	        console.log("결제 요청 데이터:", data);
+	
+	        // AJAX 요청
 	        $.ajax({
 	            type: 'POST',
 	            url: "<%=request.getContextPath()%>/kakaoPay/ready",
-	            /* data: JSON.stringify(data), */
-	            data: JSON.stringify({
-			        itemName: "테스트 상품",
-			        quantity: 1,
-			        amount: 1000
-			    }),
+	            data: JSON.stringify(data),
 	            contentType: 'application/json; charset=utf-8',
 	            dataType: 'json',
 	            success: function(response) {
@@ -295,7 +292,8 @@
 	        });
 	    });
 	});
-  </script>
+	</script>
+
 </main>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

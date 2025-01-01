@@ -27,6 +27,4 @@ public class KakaoPayResponse { // API 응답 데이터
 	public void setNext_redirect_pc_url(String next_redirect_pc_url) {
 		this.next_redirect_pc_url = next_redirect_pc_url;
 	}
-    
-    
 }
