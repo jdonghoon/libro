@@ -178,7 +178,7 @@
             </div>
           </div>
           <div class="order-button">
-            <button>주문하기</button>
+            <button type="submit">주문하기</button>
           </div> 
         </div>
       </form>

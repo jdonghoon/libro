@@ -7,10 +7,12 @@ public class CartSummary {
     private String displayProductName;
 
     // »ý¼ºÀÚ
+    public CartSummary() {}
+    
     public CartSummary(int totalQuantity, int totalPrice, int shippingFee, String displayProductName) {
         this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
-        this.shippingFee = shippingFee;
+        this.shippingFee = 3000;
         this.displayProductName = displayProductName;
     }
 

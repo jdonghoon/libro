@@ -262,23 +262,41 @@
 	    $("#btn-pay-ready").click(function(e) {
 	        e.preventDefault();
 	
-	        // 결제 요청 데이터 설정
-	        let data = {
-	            itemName: $("#productName").text() || '상품 이름 없음',
-	            quantity: parseInt($("#totalQuantity").text()) || 0,
-	            amount: parseInt($("#totalPrice").text()) || 0,
-	        };
+	     // 사용자 입력 정보 수집
+            const customerInfo = {
+                userName: $(".orderer-info-content div:nth-child(1)").text().trim(),
+                userPhone: $(".orderer-info-content div:nth-child(2)").text().trim(),
+                userEmail: $(".orderer-info-content div:nth-child(3)").text().trim(),
+            };
+
+            const addressInfo = {
+                address: $("#sample6_address").val() || $(".address-book-info div:nth-child(3)").text().trim(),
+                detailAddress: $("#sample6_detailAddress").val(),
+                extraAddress: $("#sample6_extraAddress").val(),
+                memo: $(".address-memo-select select").val(),
+            };
+
+            const paymentData = {
+                itemName: $("#productName").text() || "상품 이름 없음",
+                quantity: parseInt($("#totalQuantity").text()) || 0,
+                amount: parseInt($("#totalPrice").text()) || 0,
+                customerInfo,
+                addressInfo,
+            };
 	
-	        console.log("결제 요청 데이터:", data);
+	        console.log("결제 요청 데이터:", paymentData);
 	
 	        // AJAX 요청
 	        $.ajax({
 	            type: 'POST',
 	            url: "<%=request.getContextPath()%>/kakaoPay/ready",
-	            data: JSON.stringify(data),
+	            data: JSON.stringify(paymentData),
 	            contentType: 'application/json; charset=utf-8',
 	            dataType: 'json',
 	            success: function(response) {
+	            	console.log("AJAX 요청 URL:", "<%=request.getContextPath()%>/kakaoPay/ready");
+	            	console.log("AJAX 요청 데이터:", paymentData);
+	            	
 	                if (response.next_redirect_pc_url) {
 	                    location.href = response.next_redirect_pc_url;
 	                } else {
@@ -286,9 +304,13 @@
 	                }
 	            },
 	            error: function(xhr, status, error) {
-	                console.error("카카오페이 요청 실패:", xhr.responseText);
+	            	console.error("카카오페이 요청 실패:", xhr.responseText);
+	                console.log("요청 URL:", "<%=request.getContextPath()%>/kakaoPay/ready");
+	                console.log("전송 데이터:", paymentData);
+	                console.log("에러 상태:", status);
+	                console.log("에러 메시지:", error);
 	                alert("결제 요청 중 오류가 발생했습니다.");
-	            }
+	            },
 	        });
 	    });
 	});
