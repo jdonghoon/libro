@@ -1,7 +1,9 @@
 package pj.spring.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +32,31 @@ public class PaymentCotroller {
 	@Autowired
 	public PaymentService paymentService;
 	    
+	@PostMapping("/directPurchase.do")
+	public String directPurchase(@RequestBody Map<String, Object> requestData, HttpSession session, Model model) {
+	    // 상품 데이터 추출
+	    int productNo = (int) requestData.get("productNo");
+	    String productName = (String) requestData.get("productName");
+	    int productPrice = (int) requestData.get("productPrice");
+	    int quantity = (int) requestData.get("quantity");
+
+	    // 구매 정보 생성
+	    Map<String, Object> purchaseInfo = new HashMap<>();
+	    purchaseInfo.put("product_no", productNo);
+	    purchaseInfo.put("product_name", productName);
+	    purchaseInfo.put("product_price", productPrice);
+	    purchaseInfo.put("quantity", quantity);
+	    purchaseInfo.put("total_price", productPrice * quantity);
+
+	    // 세션에 저장
+	    session.setAttribute("directPurchase", purchaseInfo);
+
+	    // payment.jsp로 리다이렉트
+	    return "redirect:/payment";
+	}
+
+
+	
 	@RequestMapping(value="payment.do", method = RequestMethod.GET)
 	public String goPayment(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

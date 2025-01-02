@@ -139,7 +139,40 @@
 	        <div class="book-sales">
 	            <div class="quantity" name="quantity"></div>
 	            <div class="button-area-list">
-	                <div class="payment"><button onclick="location.href='payment.do'">바로구매</button></div>
+	            <script>
+	            function buyNow(productNo, productName, productPrice) {
+	                console.log("buyNow 함수 실행됨");
+	                console.log("상품번호:", productNo, "상품명:", productName, "상품가격:", productPrice);
+	                const data = {
+	                    productNo: productNo,
+	                    productName: productName,
+	                    productPrice: productPrice,
+	                    quantity: 1 // 수량 고정
+	                };
+
+	                $.ajax({
+	                    type: "POST",
+	                    url: "directPurchase.do",
+	                    data: JSON.stringify(data),
+	                    contentType: "application/json; charset=utf-8",
+	                    success: function(response) {
+	                        console.log("AJAX 요청 성공:", response);
+	                        if (response.success) {
+	                            alert("결제 페이지로 이동합니다.");
+	                            window.location.href = "<%=request.getContextPath()%>/payment.do";
+	                        } else {
+	                            alert("구매 요청 실패: " + response.message);
+	                        }
+	                    },
+	                    error: function(error) {
+	                        console.error("AJAX 요청 실패:", error);
+	                        alert("에러 발생: " + error.responseText);
+	                    }
+	                });
+	            }
+
+				</script>
+	                <div class="payment"><button onclick="buyNow(`\${product.product_no}`, '\${product.product_name}', `\${product.product_price}`)">바로구매</button></div>
 	                <div class="cart"><button onclick="addToCart(${vo.product_no})">장바구니</button></div>
 	                <div class="wishlist"><button onclick="addToWishlist(${vo.product_no})">위시리스트</button></div>
 	            </div>
