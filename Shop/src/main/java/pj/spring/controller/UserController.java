@@ -508,13 +508,11 @@ public class UserController {
 	@RequestMapping(value="inquirydetail.do")
 	public String inquirydetail(String contact_no, Model model) {
 		
-//		System.out.println("contact_no " + contact_no);
-		
 		ContactVO vo = userService.selectcontact(contact_no);
-		
-//		System.out.println("컨택트 " + vo.getContact_no());
+		List<ContactVO> list = userService.selectContactAttachment(contact_no);
 		
 		model.addAttribute("vo", vo);
+		model.addAttribute("list", list);
 		
 		return "user/account/inquirydetail";
 	}
@@ -902,7 +900,7 @@ public class UserController {
 			if(result1 > 0) {
 				System.out.println("이미 카트에 있음");
 			}else {
-				int result2 = userService.insertCart(vo);
+				int result2 = userService.insertCart_(vo);
 				
 				if (result2 > 0) {
 					System.out.println("회원 카트 등록 완료");
@@ -935,7 +933,7 @@ public class UserController {
 				System.out.println("이미 카트에 있음");
 			}else {
 				vo.setUser_id(username);
-				int result2 = userService.insertCart(vo);
+				int result2 = userService.insertCart_(vo);
 				
 				if (result2 > 0) {
 					System.out.println("회원 카트 등록 완료");

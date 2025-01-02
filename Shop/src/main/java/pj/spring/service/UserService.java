@@ -67,6 +67,9 @@ public interface UserService {
 	// 문의하기 상세
 	public ContactVO selectcontact(String contact_no);
 
+	// 문의하기 상세
+	public List<ContactVO> selectContactAttachment(String contact_no);
+
 	// 문의하기 수정
 	public ContactVO updateContact(String contact_no);
 	
@@ -144,6 +147,9 @@ public interface UserService {
 
 	// 카트 등록
 	public int insertCart(CartVO cartVO);
+
+	// 카트 등록
+	public int insertCart_(CartVO cartVO);
 
 	// 위시리스트 중복 조회
 	public int selectDedupeWishlist(WishlistVO wishlistVO);

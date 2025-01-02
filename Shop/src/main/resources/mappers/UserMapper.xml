@@ -267,7 +267,7 @@
 
 	<!-- 문의하기 상세 -->
 	<select id="selectContact" parameterType="String" resultType="contactVO" >
-		SELECT
+		SELECT DISTINCT
 			a.attachment_no,
 			c.contact_no,
 			contact_type,
@@ -278,7 +278,7 @@
 			u.user_id,
 			u.user_name,
 			c.product_no,
-			GROUP_CONCAT(ad.attachment_detail_new_name SEPARATOR ', ') AS attachment_detail_new_name
+			attachment_detail_new_name
 		FROM contact c
 			LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
 			LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
@@ -286,9 +286,17 @@
 			LEFT JOIN product p ON c.product_no = p.product_no
 		WHERE (c.product_no = p.product_no OR c.product_no IS NULL)
 		AND c.contact_no = #{contact_no}
-		GROUP BY
-			c.contact_no, contact_type, contact_content, contact_password,
-			contact_create_at, contact_comment, u.user_id, u.user_name, c.product_no, a.attachment_no
+	</select>
+
+	<!-- 문의하기 상세 -->
+	<select id="selectContactAttachment" parameterType="String" resultType="contactVO" >
+        SELECT
+        	a.attachment_no, 
+			attachment_detail_new_name
+		FROM contact c
+		LEFT JOIN attachment a ON c.contact_no = a.attachment_contact_no
+		LEFT JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
+		WHERE c.contact_no = #{contact_no}
 	</select>
 	
 	<!-- 문의하기 수정 -->
@@ -767,7 +775,7 @@
 	
 	<!-- 비회원용 상품정보 -->
 	<select id="selectProductForGuest" parameterType="String" resultType="reviewVO">
-		SELECT 
+		SELECT DISTINCT
 			p.product_no, 
 			p.product_name,
 			p.product_author,
@@ -776,7 +784,8 @@
 			p.product_status,
 			p.product_status,
 			ad.attachment_detail_new_name,
-			r.review_starrating
+			FORMAT((SELECT AVG(review_starrating) FROM review r WHERE r.product_no = p.product_no), 1) as review_starrating_avg,
+			(SELECT COUNT(review_no) FROM review r WHERE r.product_no = p.product_no) as review_cnt
 		FROM 
 			product p 
 			LEFT JOIN review r ON p.product_no = r.product_no
@@ -797,6 +806,7 @@
 			 , product_price
 			 , product_created_at
 			 , category_name
+			 , product_status
 		FROM product p
 		JOIN attachment a
 		ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
@@ -804,8 +814,7 @@
 		ON a.attachment_no = d.attachment_no
 		JOIN category cg
 		ON p.category_no = cg.category_no
-		WHERE product_status = 'E'
-		AND
+		WHERE
 			p.product_no = #{product_no}
 	</select> 
 	
@@ -837,10 +846,27 @@
 			#{product_no}
 		);
 	</insert>
+
+	<!-- 카트 등록 -->
+	<insert id="insertCart_" parameterType="cartVO">
+		INSERT INTO cart (
+			cart_product_quantity,
+			cart_create_id,
+			cart_update_id,
+			user_id,
+			product_no
+		) VALUES (
+			1,
+			#{user_id},
+			#{user_id},
+			#{user_id},
+			#{product_no}
+		);
+	</insert>
 	
 	<!-- 위시리스트 조회 -->
 	<select id="selectWishlist" parameterType="String" resultType="wishlistVO">
-		SELECT 
+		SELECT DISTINCT
 			w.wishlist_no,
 			p.product_no, 
 			p.product_name,
@@ -849,7 +875,8 @@
 			p.product_status,
 			ad.attachment_detail_new_name,
 			p.product_price,
-			r.review_starrating
+			FORMAT((SELECT AVG(review_starrating) FROM review r WHERE r.product_no = p.product_no), 1) as review_starrating_avg,
+			(SELECT COUNT(review_no) FROM review r WHERE r.product_no = p.product_no) as review_cnt
 		FROM 
 			wishlist w
 			JOIN product p ON p.product_no = w.product_no
@@ -910,15 +937,17 @@
 
 	<!-- 최근본상품 조회 -->
 	<select id="selectRecentlyproduct" parameterType="String" resultType="recentlyproductVO">			
-		SELECT 
+		SELECT DISTINCT
 			rp.recentlyproduct_no,
 			p.product_no, 
 			p.product_name,
 			p.product_author,
 			p.product_publisher,
+			p.product_status,
 			ad.attachment_detail_new_name,
 			p.product_price,
-			r.review_starrating
+			FORMAT((SELECT AVG(review_starrating) FROM review r WHERE r.product_no = p.product_no), 1) as review_starrating_avg,
+			(SELECT COUNT(review_no) FROM review r WHERE r.product_no = p.product_no) as review_cnt
 		FROM 
 			recentlyproduct rp
 			JOIN product p ON p.product_no = rp.product_no
@@ -930,7 +959,7 @@
 		AND 
 			a.attachment_type = 'PT'
 		ORDER BY 
-			recentlyproduct_created_at DESC
+			rp.recentlyproduct_no DESC
 	</select>	
 	
 	<!-- 최근본상품 등록 -->

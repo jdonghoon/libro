@@ -106,6 +106,11 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace + ".selectContact", contact_no);
 	}
 
+	// 문의하기 상세
+	public List<ContactVO> selectContactAttachment(String contact_no) {
+		return sqlSession.selectList(namespace + ".selectContactAttachment", contact_no);
+	}
+
 	// 문의하기 수정
 	public ContactVO updatecontact(String contact_no) {
 		return sqlSession.selectOne(namespace + ".updateContact", contact_no);
@@ -229,6 +234,11 @@ public class UserDAO {
 	// 카트 등록
 	public int insertCart(CartVO cartVO) {
 		return sqlSession.insert(namespace + ".insertCart", cartVO);
+	}
+
+	// 카트 등록
+	public int insertCart_(CartVO cartVO) {
+		return sqlSession.insert(namespace + ".insertCart_", cartVO);
 	}
 	
 	// 위시리스트 조회

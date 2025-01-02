@@ -26,6 +26,7 @@
                     </div>
                     <div class="joinform-group">
                         <input type="text" id="name" name="user_name" placeholder="이름*">
+                        <div id="validationName"></div>
                     </div>
                     <div class="joinform-group">
                         <div style="display: flex; gap: 10px;">
@@ -40,9 +41,11 @@
                             <input type="text" id="phoneMiddle" name="user_phone" placeholder="휴대전화*" style="width: 35%;">
                             <input type="text" id="phoneLast" name="user_phone" style="width: 35%;">
                         </div>
+                        <div id="validationPhone"></div>
                     </div>
                     <div class="joinform-group">
                         <input type="email" id="email" name="user_email" placeholder="이메일*">
+                        <div id="validationEmail"></div>
                     </div>
         
                     <!-- 약관 동의 -->
@@ -97,7 +100,7 @@
         
                     <!-- 버튼 -->
                     <div class="joinform-footer">
-                        <button>회원가입</button>
+                        <button style="width: 100%;">회원가입</button>
                     </div>
                 </form>
             </div>
@@ -106,56 +109,118 @@
 
     <script>
 		 
-		function DojoinUp() {
-			
-			let id = document.querySelector("#user_id");
-			let password = document.querySelector("#user_password");
-            let passwordConfirm = document.querySelector("#password_Confirm");
+    function DojoinUp() {
+        const id = document.querySelector("#user_id").value.trim();
+        const password = document.querySelector("#user_password").value.trim();
+        const passwordConfirm = document.querySelector("#password_Confirm").value.trim();
+        const name = document.querySelector("#name").value.trim();
+        const phoneMiddle = document.querySelector("#phoneMiddle").value.trim();
+        const phoneLast = document.querySelector("#phoneLast").value.trim();
+        const email = document.querySelector("#email").value.trim();
+        
+        const requiredCheckboxes = document.querySelectorAll('.check-item');
+        const isFirstChecked = requiredCheckboxes[0].checked; // 첫 번째 [필수]
+        const isSecondChecked = requiredCheckboxes[1].checked; // 두 번째 [필수]
 
-            alert(id + ", " + password + ", " + passwordConfirm);
-			
-            let idPatten = /^[a-z0-9]{4,}$/;
-            if (id.trim() == "") {
-				$("#validationId").text("아이디를 입력해 주세요.");
-				$("#validationId").css("color", "red");
-				$("#user_id").focus();
-				return; 
-			}
-			if(!idPatten.test(id))
-			{
-				$("#validationId").text("아이디는 영문소문자 또는 숫자 4~16자로 입력해 주세요.");
-				$("#validationId").css("color", "red");
-				$("#user_id").focus();
-				return;
-			}
-			
-            let passwordPatten = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{6,}$/;
-            if(password.trim() == ""){
-				$("#validationPw").text("비밀번호를 입력해 주세요.");
-				$("#validationPw").css("color", "red");
-				password = "";
-				$("#user_password").focus();
-                return;
-            }
-			if(!passwordPatten.test(password)){
-				$("#validationPw").text("6자 이상 영문소문자, 숫자, 특수문자(!@#$%^&*())를 조합하여 입력하세요.");
-				$("#validationPw").css("color", "red");
-				password = "";
-				$("#user_password").focus();
-                return;
-            }
+        const idPattern = /^[a-z0-9]{4,16}$/;
+        if (!id) {
+            showError("#validationId", "아이디를 입력해 주세요.");
+            return false;
+        }
+        if (!idPattern.test(id)) {
+            showError("#validationId", "아이디는 영문 소문자/숫자 4~16자로 입력해 주세요.");
+            return false;
+        }
 
-            if(password != passwordConfirm){
-				$("#validationPw").text("비밀번호가 일치하지 않습니다.");
-				$("#validationPw").css("color", "red");
-				passwordConfirm = "";
-				 $("#password_Confirm").focus();
-                return;
+        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{4,8}$/;
+        if (!password) {
+            showError("#validationPw", "비밀번호를 입력해 주세요.");
+            return false;
+        }
+        if (!passwordPattern.test(password)) {
+            showError("#validationPw", "4~8자 영문 대소문자/숫자/특수문자를 조합하여 입력해 주세요.");
+            return false;
+        }
+        if (!passwordConfirm) {
+            showError("#validationPw", "비밀번호 확인을 입력해 주세요.");
+            return false;
+        }
+        if (password !== passwordConfirm) {
+            showError("#validationPw", "비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+        if (!name) {
+            showError("#validationName", "이름을 입력해 주세요.");
+            return false;
+        }
+        if (!phoneMiddle || !phoneLast) {
+            showError("#validationPhone", "휴대전화 번호를 입력해 주세요.");
+            return false;
+        }
+        if (!email) {
+            showError("#validationEmail", "이메일을 입력해 주세요.");
+            return false;
+        }
+        
+        if (!isFirstChecked || !isSecondChecked) {
+            alert("필수 약관 동의 항목에 모두 동의하셔야 회원가입이 가능합니다.");
+            return false;
+        }
+
+        return true; 
+    }
+
+    function showError(selector, message) {
+        const element = document.querySelector(selector);
+        element.textContent = message;
+        element.style.color = "red";
+    }
+
+    function addKeyupValidation() {
+        document.querySelector("#user_id").addEventListener("keyup", function () {
+            const id = this.value.trim();
+            const idPattern = /^[a-z0-9]{4,16}$/;
+
+            if (!idPattern.test(id)) {
+                showError("#validationId", "아이디는 영문 소문자/숫자 4~16자로 입력해 주세요.");
+            } else {
+                showError("#validationId", "");
             }
-            
-            return true;
-		}
-		
+        });
+
+        document.querySelector("#user_password").addEventListener("keyup", function () {
+            const password = this.value.trim();
+            const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{4,8}$/;
+
+            if (!passwordPattern.test(password)) {
+                showError("#validationPw", "4~8자 영문 대소문자/숫자/특수문자를 조합하여 입력해 주세요.");
+            } else {
+                showError("#validationPw", "");
+            }
+        });
+
+        document.querySelector("#password_Confirm").addEventListener("keyup", function () {
+            const password = document.querySelector("#user_password").value.trim();
+            const passwordConfirm = this.value.trim();
+
+            if (password !== passwordConfirm) {
+                showError("#validationPw", "비밀번호가 일치하지 않습니다.");
+            } else {
+                showError("#validationPw", "");
+            }
+        });
+    }
+
+    // DOMContentLoaded 이벤트로 keyup 이벤트 리스너 등록
+    document.addEventListener("DOMContentLoaded", addKeyupValidation);
+	
+/* 	    function showError(selector, message) {
+	        const element = document.querySelector(selector);
+	        element.textContent = message;
+	        element.style.color = "red";
+	        element.focus();
+	    } */
+
 		function checkID(){			
 			let id = $("#user_id").val();
 			

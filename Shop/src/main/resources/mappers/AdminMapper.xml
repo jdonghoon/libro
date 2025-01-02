@@ -380,6 +380,7 @@
 			       , p.product_name
 			       , ad.attachment_detail_new_name
 			       , od.ordered_detail_no
+			       , r.review_starrating
 			FROM  review r
 			JOIN  product p ON r.product_no = p.product_no
 	   LEFT JOIN  ordered_detail od ON r.ordered_detail_no = od.ordered_detail_no
@@ -403,11 +404,11 @@
 	</update> 
 	
 	<!-- 문의 관리 list -->
-	<select id="contactList" parameterType="java.util.Map" resultType="java.util.Map" >
+<!-- 	<select id="contactList" parameterType="java.util.Map" resultType="java.util.Map" >
 			SELECT   c.*
        			   , o.ordered_name
-       			   , CASE WHEN u.user_email IS NOT NULL THEN u.user_email  -- 회원 이메일이 있으면 회원 이메일 사용
-           				  ELSE g.guest_email END AS email                  -- 그렇지 않으면 비회원 이메일 사용 
+       			   , CASE WHEN u.user_email IS NOT NULL THEN u.user_email 회원 이메일이 있으면 회원 이메일 사용
+           				  ELSE g.guest_email END AS email                  그렇지 않으면 비회원 이메일 사용 
             	   , ad.attachment_detail_new_name
 			  FROM  contact c
 			  JOIN  ordered o ON c.ordered_no = o.ordered_no
@@ -417,6 +418,31 @@
 		 LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
 		  ORDER BY  c.contact_create_at DESC
 			 LIMIT  #{start}, #{perPage}
+
+	</select> -->
+	
+	<!-- 문의 관리 list -->
+	<select id="contactList" parameterType="java.util.Map" resultType="java.util.Map" >
+		SELECT
+			c.*,
+		    u.user_id,
+		    u.user_name,
+			CASE WHEN u.user_email IS NOT NULL THEN u.user_email
+			ELSE g.guest_email END AS email,
+		    ad.attachment_detail_new_name
+		FROM contact c
+		LEFT JOIN user u ON u.user_id = c.user_id
+        LEFT JOIN guest g ON c.guest_no = g.guest_no
+		LEFT JOIN product p ON c.product_no = p.product_no
+		LEFT JOIN ordered o ON c.ordered_no = o.ordered_no
+		LEFT JOIN  attachment a ON c.contact_no = a.attachment_contact_no
+		LEFT JOIN  attachment_detail ad ON a.attachment_no = ad.attachment_no
+		WHERE (u.user_id = c.user_id OR u.user_id IS NULL)
+		AND (c.guest_no = g.guest_no OR g.guest_no IS NULL)
+		AND (c.product_no = p.product_no OR c.product_no IS NULL)
+		AND (c.ordered_no = o.ordered_no OR c.ordered_no IS NULL)
+			ORDER BY  c.contact_create_at DESC
+		LIMIT  #{start}, #{perPage}
 
 	</select>
 	

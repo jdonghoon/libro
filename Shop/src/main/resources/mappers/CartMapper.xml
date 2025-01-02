@@ -13,6 +13,7 @@
 			 , product_created_at
 			 , category_name
 			 , cart_product_quantity
+			 , product_status
 		  FROM product p
 		  JOIN attachment a
 		    ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
@@ -22,9 +23,8 @@
 		    ON p.category_no = cg.category_no
 		  JOIN cart c
 		    ON p.product_no = c.product_no
-	 	 WHERE product_status = 'E'
 		<if test="user_id != null and user_id != ''">
- 		   AND c.user_id = #{user_id}
+ 		   WHERE c.user_id = #{user_id}
  		</if>
 	</select>
 	
@@ -59,8 +59,9 @@
          	   COALESCE(SUM(c.cart_product_quantity), 0) AS cart_product_quantity
     	  FROM product p
     	  JOIN cart c ON p.product_no = c.product_no
+ 		 WHERE p.product_status = 'E'
     	  <if test="user_id != null and user_id != ''">
- 		 WHERE c.user_id = #{user_id}
+ 		 AND c.user_id = #{user_id}
  		  </if>
 	</select>
 	

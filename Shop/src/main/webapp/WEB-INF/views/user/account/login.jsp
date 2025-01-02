@@ -46,27 +46,29 @@
         </main>
 
         <script>
-		    // 페이지가 로드될 때 세션에 저장된 아이디를 자동으로 입력
-		    window.onload = function() {
-		        const userId = sessionStorage.getItem('username');  // 세션에 저장된 아이디 가져오기
-		        console.log(userId);
-		        if (userId) {
-		            document.getElementById('user_id').value = userId;  // 세션에서 아이디 가져오기
-		            document.getElementById('id_save').checked = true;  // 체크박스 선택 상태
-		        }
-		    };
-		
-		    // 로그인 폼 제출 전 아이디 저장 여부 확인
-		    document.querySelector('form').addEventListener('submit', function(event) {
-		        const userId = document.getElementById('user_id').value;
-		        const rememberMe = document.getElementById('id_save').checked;
-		
-		        if (rememberMe) {
-		            sessionStorage.setItem('userId', userId);  // 세션에 아이디 저장
-		        } else {
-		            sessionStorage.removeItem('userId');  // 아이디 저장을 원하지 않으면 세션에서 삭제
-		        }
-		    });
+     	// 페이지 로드 시, 저장된 아이디가 있으면 입력창에 표시
+        window.addEventListener('load', function() {
+            const savedUserId = localStorage.getItem('user_id');
+            if (savedUserId) {
+                document.getElementById('user_id').value = savedUserId;
+                document.getElementById('id_save').checked = true;  // 아이디 저장 체크박스 체크
+            }
+        });
+
+        // 폼 제출 시 아이디 저장 여부 확인
+        document.querySelector('.form-container form').addEventListener('submit', function(event) {
+            const userId = document.getElementById('user_id').value;
+            const isSaveIdChecked = document.getElementById('id_save').checked;
+
+            if (isSaveIdChecked) {
+                // 체크되면 localStorage에 아이디 저장
+                localStorage.setItem('user_id', userId);
+            } else {
+                // 체크 해제되면 localStorage에서 아이디 삭제
+                localStorage.removeItem('user_id');
+            }
+        });
+
 		</script>
 
         <script>

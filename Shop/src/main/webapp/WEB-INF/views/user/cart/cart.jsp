@@ -17,6 +17,8 @@
 	      </c:if>
 	      <c:if test="${not empty cartList}">
 	      <c:forEach items="${cartList}" var="vo">
+	      <!-- 판매 -->
+	      <c:if test="${vo.product_status == 'E'}">
 	        <label class="checkbox-label">
 	          <input type="checkbox" name="book" value="${vo.product_no}" class="product-checkbox" checked />
 	          <div class="book-info-container-cart">
@@ -44,6 +46,76 @@
 	            </div>
 	          </div>
 	        </label>
+        </c:if>
+<%--         <!-- 판매 중단 -->
+	    <c:if test="${vo.product_status == 'D'}">
+	        <label class="checkbox-label">
+	          <input type="checkbox" name="book" value="${vo.product_no}" class="product-checkbox" checked />
+	          <div class="book-info-container-cart">
+	            <div class="book-image">
+	              <a href="product.do?product_no=${vo.product_no}">
+	                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px" height="300px">
+	              </a>
+	            </div>
+	            <div class="book-detail">
+                     <span style="display: flex; align-items: center; font-size: 24px;">
+						<img src="https://img.icons8.com/?size=100&id=pHtKLuytfhLc&format=png&color=000000" style="width: 30px;">더 이상 판매하지 않는 상품입니다.
+                     </span>
+	            </div>
+	          </div>
+	        </label>
+        </c:if>
+        <!-- 품절 -->
+	    <c:if test="${vo.product_status == 'S'}">
+	        <label class="checkbox-label">
+	          <input type="checkbox" name="book" value="${vo.product_no}" class="product-checkbox" checked />
+	          <div class="book-info-container-cart">
+	            <div class="book-image">
+	              <a href="product.do?product_no=${vo.product_no}">
+	                <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px" height="300px">
+	              </a>
+	            </div>
+	            <div class="book-detail">
+	              <div class="category" name="category">${vo.category_name}</div>
+	              <div class="title" name="title">${vo.product_name}</div>
+	              <div class="writer" name="writer">${vo.product_author}</div>
+	              <div class="price" name="price" id="price_${vo.product_no}">${vo.product_price}</div>
+	              <span style="display: flex; align-items: center; font-size: 25px; margin-top: 120px;">
+					<img src="https://img.icons8.com/?size=100&id=byIfrXdxUcJc&format=png&color=FF0000" style="width: 30px;">품절
+                  </span>
+	            </div>
+	          </div>
+	        </label>
+        </c:if> --%>
+        <c:if test="${vo.product_status == 'D' || vo.product_status == 'S'}">
+  <label class="checkbox-label">
+    <!-- 체크박스가 기본적으로 선택되지 않음 -->
+    <input type="checkbox" name="book" value="${vo.product_no}" class="product-checkbox" disabled />
+    <div class="book-info-container-cart">
+      <div class="book-image">
+        <a href="product.do?product_no=${vo.product_no}">
+          <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="200px" height="300px">
+        </a>
+      </div>
+      <div class="book-detail">
+        <!-- 상품 상태에 따른 메시지 표시 -->
+        <c:choose>
+          <c:when test="${vo.product_status == 'D'}">
+            <span style="display: flex; align-items: center; font-size: 24px;">
+              <img src="https://img.icons8.com/?size=100&id=pHtKLuytfhLc&format=png&color=000000" style="width: 30px;">더 이상 판매하지 않는 상품입니다.
+            </span>
+          </c:when>
+          <c:when test="${vo.product_status == 'S'}">
+            <span style="display: flex; align-items: center; font-size: 25px;">
+              <img src="https://img.icons8.com/?size=100&id=byIfrXdxUcJc&format=png&color=FF0000" style="width: 30px;">품절
+            </span>
+          </c:when>
+        </c:choose>
+      </div>
+    </div>
+  </label>
+</c:if>
+        
 	      </c:forEach>
         </c:if>
 

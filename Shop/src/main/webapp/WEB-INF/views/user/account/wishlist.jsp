@@ -19,9 +19,16 @@
 	                            <div>
 	                                <span>${vo.product_name}</span><br>
 	                                <span>${vo.product_author} 저 · ${vo.product_publisher}</span><br>
-	                                <span>
-	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">${vo.review_starrating}(1398)
-	                                </span><br><br><br><br>
+	                                <span style="display: flex; align-items: center;">
+	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
+                                    <c:if test="${empty vo.review_starrating_avg}">
+                                    	0
+                                    </c:if>
+                                    <c:if test="${not empty vo.review_starrating_avg}">
+	                                    ${vo.review_starrating_avg}
+                                    </c:if>
+                                    (${vo.review_cnt})
+	                                </span><br><br>
 	                                <span>${vo.product_price}원</span>
 	                            </div>
 	                            <div class="imgs">
@@ -52,16 +59,23 @@
 	                        <div>
 	                            <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" style="width: 100px;">
 	                        </div>
-	                        <div class="book-info"> 
+	                        <div class="book-info" style="color: gray;"> 
 	                            <div>
 	                                <span>${vo.product_name}</span><br>
 	                                <span>${vo.product_author} 저 · ${vo.product_publisher}</span><br>
-	                                <span>
-	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">${vo.review_starrating}(1398)
-	                                </span><br><br>
-	                                <span>
-										<img src="https://img.icons8.com/?size=100&id=pHtKLuytfhLc&format=png&color=000000" style="width: 20px;">품절
+	                                <span style="display: flex; align-items: center;">
+	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
+                                    <c:if test="${empty vo.review_starrating_avg}">
+                                    	0
+                                    </c:if>
+                                    <c:if test="${not empty vo.review_starrating_avg}">
+	                                    ${vo.review_starrating_avg}
+                                    </c:if>
+                                    (${vo.review_cnt})
 	                                </span><br>
+	                                <span style="display: flex; align-items: center;">
+										<img src="https://img.icons8.com/?size=100&id=pHtKLuytfhLc&format=png&color=FF0000" style="width: 20px;">품절
+	                                </span>
 	                                <span>${vo.product_price}원</span>
 	                            </div>
 	                            <div class="imgs">
@@ -86,22 +100,17 @@
 	                </div>
 	                </c:if>
 	                <!-- 판매 중단 -->
-	                <c:if test="${vo.product_status == 'N'}">
+	                <c:if test="${vo.product_status == 'D'}">
 	                <div class="wish-list">
 	                    <div class="wish-item">
 	                        <div>
 	                            <img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" style="width: 100px;">
 	                        </div>
-	                        <div class="book-info"> 
+	                        <div class="book-info" style="color: gray;"> 
 	                            <div>
-	                                <span>${vo.product_name}</span><br>
-	                                <span>${vo.product_author} 저 · ${vo.product_publisher}</span><br>
-	                                <span>
-	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">${vo.review_starrating}(1398)
-	                                </span><br><br>	                                <span>
+	                                <span style="display: flex; align-items: center;">
 										<img src="https://img.icons8.com/?size=100&id=pHtKLuytfhLc&format=png&color=000000" style="width: 20px;">더 이상 판매하지 않는 상품입니다.
-	                                </span><br>
-	                                <span>${vo.product_price}원</span>
+	                                </span>
 	                            </div>
 	                            <div class="imgs">
 	                                <!-- 로그인 X -->

@@ -60,10 +60,10 @@
                                                         <option value="시">시</option>
                                                         <option value="소설">소설</option>
                                                         <option value="자기계발서">자기계발서</option>
-                                                        <option value="만화">만화</option>
+                                                        <option value="외국어">외국어</option>
                                                         <option value="예술">예술</option>
                                                         <option value="자연/과학">자연/과학</option>
-                                                        <option value="학습">학습</option>
+                                                        <option value="컴퓨터/IT">컴퓨터/IT</option>
                                                         <option value="기술/공학">기술/공학</option>
                                                         <option value="수험서">수험서</option>
                                                     </select>

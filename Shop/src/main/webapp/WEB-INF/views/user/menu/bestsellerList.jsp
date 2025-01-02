@@ -12,12 +12,12 @@
       <a name="categoryType" href="#" data-category="자기계발서">자기계발서</a>
     </div>
     <div>
-      <a name="categoryType" href="#" data-category="만화">만화</a>
+      <a name="categoryType" href="#" data-category="외국어">외국어</a>
       <a name="categoryType" href="#" data-category="예술">예술</a>
       <a name="categoryType" href="#" data-category="자연/과학">자연/과학</a>
     </div>
     <div>
-      <a name="categoryType" href="#" data-category="학습">학습</a>
+      <a name="categoryType" href="#" data-category="컴퓨터/IT">컴퓨터/IT</a>
       <a name="categoryType" href="#" data-category="기술/공학">기술/공학</a>
       <a name="categoryType" href="#" data-category="수험서">수험서</a>
     </div>

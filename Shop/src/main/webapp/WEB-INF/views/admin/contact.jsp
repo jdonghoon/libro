@@ -159,11 +159,11 @@
 	                                                	<c:if test="${empty vo.contact_comment}"><span style="color:red;">미답변</span></c:if>
 	                                                </td>
 	                                                <td>${vo.contact_create_at}</td>
-	                                                <td>${vo.ordered_name}</td>
+	                                                <td>${vo.user_name}</td>
 	                                                <td>${vo.email}</td>
 	                                                <td>${vo.contact_type}</td>
 	                                                <td onclick="window.open('${pageContext.request.contextPath}/inquirydetail.do?contact_no=${vo.contact_no}', '_blank')">
-                                                		<span style="color:green; cursor: pointer;">${vo.contact_title}</span>
+                                                		<span style="color:green; cursor: pointer;">${vo.contact_type}</span>
                                                 	</td>
 	                                                <td>${vo.contact_content}</td>
 	                                                <td>

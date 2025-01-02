@@ -101,6 +101,7 @@ public class CartController {
 	    	List<cartPrice> cartPriceList = new ArrayList<cartPrice>();
 
 	    	for (CartVO cartVO : list) {
+	    		if("E".equals(cartVO.getProduct_status())) {
 	    	    String productPriceStr = cartVO.getProduct_price();
 	    	    int productPrice = 0;
 	    	    if (productPriceStr != null && !productPriceStr.isEmpty()) {
@@ -115,6 +116,7 @@ public class CartController {
 
 	    	    totalProductPrice += (productPrice * productQuantity);
 	    	    totalProductQuantity += productQuantity;
+	    		}
 	    	}
 	    	cartPriceList.add(new cartPrice(totalProductPrice, totalProductQuantity));
 

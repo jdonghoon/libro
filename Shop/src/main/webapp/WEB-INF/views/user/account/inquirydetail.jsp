@@ -44,8 +44,8 @@
 					<div class="inquirydetail-group">
 						<div class="inquirydetail-content">
 							<c:if test="${vo.attachment_detail_new_name != null}">
-								<c:forEach var="image" items="${fn:split(vo.attachment_detail_new_name, ',')}">
-									<img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment"/ style="width:350px; height: auto;"><br><br>
+								<c:forEach items="${list}" var="vo">
+									<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" alt="Attachment"/ style="width:350px; height: auto;"><br><br>
 								</c:forEach>
 							</c:if>
 								${vo.contact_content}<br><br><br>

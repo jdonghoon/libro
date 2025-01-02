@@ -142,6 +142,12 @@ public class UserServiceImpl implements UserService {
 		return userDAO.selectcontact(contact_no);
 	}
 
+	// 문의하기 상세
+	@Override
+	public List<ContactVO> selectContactAttachment(String contact_no) {
+		return userDAO.selectContactAttachment(contact_no);
+	}
+
 	// 문의하기 수정
 	@Override
 	public ContactVO updateContact(String contact_no) {
@@ -285,6 +291,12 @@ public class UserServiceImpl implements UserService {
 	public int insertCart(CartVO cartVO) {
 		return userDAO.insertCart(cartVO);
 	}
+
+	// 카트로 이동
+	@Override
+	public int insertCart_(CartVO cartVO) {
+		return userDAO.insertCart_(cartVO);
+	}
 	
 	// 카트 중복 조회
 	@Override
@@ -381,6 +393,8 @@ public class UserServiceImpl implements UserService {
 					vo.setProduct_author(product.getProduct_author());
 					vo.setProduct_publisher(product.getProduct_publisher());
 					vo.setProduct_price(product.getProduct_price());
+					vo.setReview_starrating_avg(product.getReview_starrating_avg());
+					vo.setReview_cnt(product.getReview_cnt());
 					vo.setReview_starrating(product.getReview_starrating());
 					vo.setProduct_status(product.getProduct_status());
 					vo.setAttachment_detail_new_name(product.getAttachment_detail_new_name());
@@ -500,7 +514,8 @@ public class UserServiceImpl implements UserService {
 					vo.setProduct_author(product.getProduct_author());
 					vo.setProduct_publisher(product.getProduct_publisher());
 					vo.setProduct_price(product.getProduct_price());
-					vo.setReview_starrating(product.getReview_starrating());
+					vo.setReview_starrating_avg(product.getReview_starrating_avg());
+					vo.setReview_cnt(product.getReview_cnt());
 					vo.setProduct_status(product.getProduct_status());
 					vo.setAttachment_detail_new_name(product.getAttachment_detail_new_name());
 					vo.setWishlist_no(cookie.getName().substring("wishlist_".length()));
@@ -728,6 +743,7 @@ public class UserServiceImpl implements UserService {
 	                        vo.setProduct_status(product.getProduct_status());
 	                        vo.setCategory_name(product.getCategory_name());
 	                        vo.setProduct_created_at(product.getProduct_created_at());
+	                        vo.setProduct_status(product.getProduct_status());
 	                        
 	                        // 수량이 없으면 기본값 1로 설정
 	                        System.out.println("quantity : " + quantity);
@@ -807,6 +823,8 @@ public class UserServiceImpl implements UserService {
 	                // 쿠키의 값은 상품 번호(product_no)
 	                String product_no = cookie.getValue();
 	                
+	               System.out.println("product_no" + product_no);
+	                
 	                WishlistVO wishlistVO = new WishlistVO();
 	                wishlistVO.setProduct_no(product_no);
 	                wishlistVO.setUser_id(username);
@@ -842,7 +860,7 @@ public class UserServiceImpl implements UserService {
 
             		if(result1 == 0)
             		{
-		                // DB에 저장할 위시리스트 객체 생성
+		                // DB에 저장할 최근본상품 객체 생성
 		                RecentlyproductVO vo = new RecentlyproductVO();
 		                vo.setProduct_no(product_no);
 		                vo.setUser_id(username);  // 로그인한 회원의 ID
@@ -875,7 +893,7 @@ public class UserServiceImpl implements UserService {
 				        	
 				        	if(result1 == 0)
 				        	{
-				        		// DB에 저장할 위시리스트 객체 생성
+				        		// DB에 저장할 카트 객체 생성
 				        		CartVO vo = new CartVO();
 				        		
 				        		System.out.println("Cart_product_quantity" + Cart_product_quantity);

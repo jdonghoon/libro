@@ -719,6 +719,7 @@ input[type="checkbox"]:checked + .checkmark::after {
 .book-info{
     width: 100%;
     margin-left: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between; 
 }
@@ -993,4 +994,32 @@ input[type="checkbox"]:checked + .checkmark::after {
 } */
 .pagination {
     margin-top: 20px;
+}
+
+/* =========================================================================================== */
+/* shoppingguide.jsp */
+/* =========================================================================================== */
+.ShoppingGuideMenu {
+    width: 20%;
+    padding: 20px;
+    font-size: 12px;
+}
+.ShoppingGuideMenu ul {
+    list-style: none;
+    padding: 0;
+}
+.ShoppingGuideMenu li {
+    margin-bottom: 5px;
+}
+.ShoppingGuideMenu li a {
+    text-decoration: none;
+    color: #333;
+}
+.ShoppingGuideContent {
+    width: 800px;
+    padding: 20px;
+}
+.ShoppingGuideSection {
+    margin-bottom: 20px;
+    font-size: 12px;
 }
