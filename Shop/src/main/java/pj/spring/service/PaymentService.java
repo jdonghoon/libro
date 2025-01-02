@@ -13,12 +13,12 @@ public interface PaymentService {
 	
 	public List<UserVO> selectAddressBook(String user_id);
 	
-	void insertPayment(PaymentVO payment);
+	public void insertPayment(PaymentVO paymentVO);
 
-    void insertOrder(OrderedVO order);
+    void insertOrder(OrderedVO orderedVO);
 
-    void insertOrderDetail(OrderedDetailVO orderDetail);
-
-    void processOrder(OrderedVO order, List<OrderedDetailVO> orderDetails, PaymentVO payment); // 트랜잭션 메서드 추가
+    void insertOrderDetail(OrderedDetailVO orderedDetailVO);
+    
+    
 
 }

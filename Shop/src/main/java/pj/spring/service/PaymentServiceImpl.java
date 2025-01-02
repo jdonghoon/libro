@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import pj.spring.dao.PaymentDAO;
 import pj.spring.vo.OrderedDetailVO;
@@ -31,33 +30,17 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-    public void insertPayment(PaymentVO payment) {
-        paymentDAO.insertPayment(payment); // DAO 호출
+	public void insertPayment(PaymentVO paymentVO) {
+		paymentDAO.insertPayment(paymentVO);
     }
 
-    @Override
-    public void insertOrder(OrderedVO order) {
-        paymentDAO.insertOrder(order); // DAO 호출
+	@Override
+    public void insertOrder(OrderedVO orderedVO) {
+		paymentDAO.insertOrder(orderedVO);
     }
 
-    @Override
-    public void insertOrderDetail(OrderedDetailVO orderDetail) {
-        paymentDAO.insertOrderDetail(orderDetail); // DAO 호출
-    }
-
-    @Transactional
-    @Override
-    public void processOrder(OrderedVO order, List<OrderedDetailVO> orderDetails, PaymentVO payment) {
-        // 결제 데이터 삽입
-        insertPayment(payment);
-
-        // 주문 데이터 삽입        
-        insertOrder(order);
-
-        // 주문 상세 데이터 삽입
-        for (OrderedDetailVO detail : orderDetails) {
-        	detail.setOrdered_no(order.getOrdered_no()); // 자동 설정된 ordered_no 사용
-            insertOrderDetail(detail);
-        }
+	@Override
+    public void insertOrderDetail(OrderedDetailVO orderedDetailVO) {
+		paymentDAO.insertOrderDetail(orderedDetailVO);
     }
 }

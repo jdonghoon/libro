@@ -1,5 +1,12 @@
 package pj.spring.vo;
 
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import pj.spring.controller.KakaoPayController;
+
 public class PaymentVO extends OrderedDetailVO {
 	private String payment_no;				// 결제번호
 	private String payment_price;			// 결제금액
@@ -27,8 +34,36 @@ public class PaymentVO extends OrderedDetailVO {
 	
 	private String ordered_detail_total_price;	// 주문 총금액
 	
+	private static final Logger log = LoggerFactory.getLogger(KakaoPayController.class);
 	
-	
+	public PaymentVO insertPaymentData(Map<String, Object> paymentData, String userId) {
+	    log.debug("Received paymentData: {}", paymentData);
+	    log.debug("Received userId: {}", userId);
+
+	    try {
+	        // 데이터 검증
+	        if (!paymentData.containsKey("amount") || paymentData.get("amount") == null) {
+	            log.error("Missing or null amount in paymentData");
+	            return null;
+	        }
+
+	        PaymentVO paymentVO = new PaymentVO();
+	        paymentVO.setPayment_price(paymentData.get("amount").toString()); // 총 결제 금액
+	        paymentVO.setPayment_refund_price("0"); // 환불 금액 기본값
+	        paymentVO.setPayment_balance_price("0"); // 잔액 기본값
+	        paymentVO.setPayment_service_fee("0"); // 서비스 수수료 기본값
+	        paymentVO.setPayment_create_id(userId); // 생성자 ID
+	        paymentVO.setUser_id(userId); // 사용자 ID
+	        // payment_type, payment_method, payment_date는 DB default 값에 의존
+
+	        log.debug("Created PaymentVO: {}", paymentVO);
+	        return paymentVO;
+	    } catch (Exception e) {
+	        log.error("Error while constructing PaymentVO: {}", e.getMessage(), e);
+	        return null;
+	    }
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}

@@ -29,15 +29,15 @@ public class PaymentDAO {
 		return sqlSession.selectList(namespace + ".selectAddressBook", user_id);
 	}
 
-	public void insertPayment(PaymentVO payment) {
-        sqlSession.insert(namespace + ".insertPayment", payment);
+	public void insertPayment(PaymentVO paymentVO) {
+        sqlSession.insert(namespace + ".insertPayment", paymentVO);
     }
 
-    public void insertOrder(OrderedVO order) {
-        sqlSession.insert(namespace + ".insertOrder", order);        
+    public void insertOrder(OrderedVO orderedVO) {
+        sqlSession.insert(namespace + ".insertOrder", orderedVO);        
     }
 
-    public void insertOrderDetail(OrderedDetailVO orderDetail) {
-        sqlSession.insert(namespace + ".insertOrderDetail", orderDetail);
+    public void insertOrderDetail(OrderedDetailVO orderedDetailVO) {
+        sqlSession.insert(namespace + ".insertOrderDetail", orderedDetailVO);
     }
 }

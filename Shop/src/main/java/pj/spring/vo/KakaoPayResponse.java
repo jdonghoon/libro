@@ -1,12 +1,14 @@
 package pj.spring.vo;
 
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
 public class KakaoPayResponse { // API 응답 데이터
 
     private String tid;                  // 결제 고유번호
-    private Amount amount;   // 금액 정보
+    private Map<String, Integer> amount; // JSON 응답의 amount 객체를 Map으로 처리
     private String item_name;
     private String next_redirect_pc_url; // 카카오톡으로 결제 요청 메시지(TMS)를 보내기 위한 사용자 정보 입력화면 Redirect URL (카카오 측 제공)
     private String created_at; // 결제 생성 시간
@@ -21,14 +23,11 @@ public class KakaoPayResponse { // API 응답 데이터
                 '}';
     }
 
-
-
-
-	public Amount getAmount() {
+	public Map<String, Integer> getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Amount amount) {
+	public void setAmount(Map<String, Integer> amount) {
 		this.amount = amount;
 	}
 
