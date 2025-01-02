@@ -6,10 +6,43 @@ import lombok.Data;
 public class KakaoPayResponse { // API 응답 데이터
 
     private String tid;                  // 결제 고유번호
+    private Amount amount;   // 금액 정보
+    private String item_name;
     private String next_redirect_pc_url; // 카카오톡으로 결제 요청 메시지(TMS)를 보내기 위한 사용자 정보 입력화면 Redirect URL (카카오 측 제공)
     private String created_at; // 결제 생성 시간
 	
-    public String getCreated_at() {
+    @Override
+    public String toString() {
+        return "KakaoPayResponse{" +
+                "tid='" + tid + '\'' +
+                ", amount=" + amount +
+                ", itemName='" + item_name + '\'' +
+                ", createdAt='" + created_at + '\'' +
+                '}';
+    }
+
+
+
+
+	public Amount getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Amount amount) {
+		this.amount = amount;
+	}
+
+	public String getItem_name() {
+		return item_name;
+	}
+
+
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
+
+
+	public String getCreated_at() {
 		return created_at;
 	}
 	public void setCreated_at(String created_at) {

@@ -32,7 +32,30 @@
   		   AND u.user_id = #{user_id};
 	</select>
 
-	<!-- <select id="selectKakaoData" parameterType="String" resultType="ProductVO">
-		SELECT 
-	</select> -->
+	<insert id="insertPayment" parameterType="PaymentVO">
+	    INSERT INTO payment (payment_price, payment_refund_price, payment_balance_price, 
+	                         payment_service_fee, payment_create_id, payment_create_ip, 
+	                         user_id)
+	    VALUES (#{payment_price}, #{payment_refund_price}, #{payment_balance_price}, 
+	            #{payment_service_fee}, #{payment_create_id}, #{payment_create_ip}, 
+	            #{user_id});
+	</insert>
+
+	<insert id="insertOrder" parameterType="OrderedVO" useGeneratedKeys="true" keyProperty="ordered_no">
+	    INSERT INTO ordered (ordered_address, ordered_name, ordered_phone, ordered_note, 
+	                         ordered_create_at, ordered_create_id, ordered_create_ip, 
+	                         user_id, payment_no)
+	    VALUES (#{ordered_address}, #{ordered_name}, #{ordered_phone}, #{ordered_note}, 
+	            NOW(), #{ordered_create_id}, #{ordered_create_ip}, 
+	            #{user_id}, #{payment_no});
+	</insert>
+	
+	<insert id="insertOrderDetail" parameterType="OrderedDetailVO">
+	    INSERT INTO ordered_detail (ordered_detail_quantity, ordered_detail_unit_price, 
+	                                ordered_detail_total_price, ordered_detail_create_id, 
+	                                ordered_detail_create_ip, ordered_no, product_no)
+	    VALUES (#{ordered_detail_quantity}, #{ordered_detail_unit_price}, 
+	            #{ordered_detail_total_price}, #{ordered_detail_create_id}, 
+	            #{ordered_detail_create_ip}, #{ordered_no}, #{product_no});
+	</insert>
 </mapper>

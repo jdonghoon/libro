@@ -3,6 +3,8 @@ package pj.spring.vo;
 public class CartVO extends ProductVO {
 	private String cart_no;					// 장바구니 번호
 	private int cart_product_quantity;		// 상품수량
+	private int cart_unit_price;
+    private int cart_total_price;
 	private String cart_create_at;			// 등록일
 	private String cart_create_id;			// 등록id
 	private String cart_create_ip;			// 등록ip
@@ -15,7 +17,19 @@ public class CartVO extends ProductVO {
 	private String product_no;				// 상품번호
 	
 	
-	
+
+	public int getCart_unit_price() {
+		return cart_unit_price;
+	}
+	public void setCart_unit_price(int cart_unit_price) {
+		this.cart_unit_price = cart_unit_price;
+	}
+	public int getCart_total_price() {
+		return cart_total_price;
+	}
+	public void setCart_total_price(int cart_total_price) {
+		this.cart_total_price = cart_total_price;
+	}
 	public int getCart_product_quantity() {
 		return cart_product_quantity;
 	}

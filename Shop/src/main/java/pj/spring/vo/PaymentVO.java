@@ -16,6 +16,10 @@ public class PaymentVO extends OrderedDetailVO {
 	private String payment_update_at;		// 수정일
 	private String payment_update_id;		// 수정id
 	private String payment_update_ip;		// 수정ip
+	private String user_id;
+	private String guest_no;
+	
+	
 	
 	private int cart_product_quantity;		// 카드 상품 수량
 	
@@ -25,6 +29,18 @@ public class PaymentVO extends OrderedDetailVO {
 	
 	
 	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getGuest_no() {
+		return guest_no;
+	}
+	public void setGuest_no(String guest_no) {
+		this.guest_no = guest_no;
+	}
 	public String getOrdered_detail_total_price() {
 		return ordered_detail_total_price;
 	}

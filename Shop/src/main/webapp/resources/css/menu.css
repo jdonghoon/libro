@@ -1336,3 +1336,91 @@ header {
     font-size: 14px;
     margin-bottom: 10px;
 }
+
+
+/* paymentError */
+.main-container-error {
+	text-align: center;	
+}
+
+/* paymentSuccess.css */
+.main-container-payment {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payment-success-container {
+    text-align: center;
+}
+
+.payment-success-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000; /* 검정색 글씨로 변경 */
+    margin-bottom: 20px;
+}
+
+.payment-success-message {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.order-info-title,
+.delivery-info-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000; /* 검정색 글씨로 변경 */
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.order-info-container,
+.delivery-info-container {
+    font-size: 1rem;
+    color: #666;
+    text-align: left;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.order-info-container p,
+.delivery-info-container p {
+    margin: 5px 0;
+    line-height: 1.6;
+}
+
+.payment-actions {
+    margin-top: 30px;
+}
+
+.payment-actions .btn {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #000; /* 검정 버튼 배경 */
+    color: #fff; /* 흰 글씨 */
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.payment-actions .btn:hover {
+    background-color: #333; /* hover 시 더 밝은 검정 */
+    transform: scale(1.05); /* 버튼 확대 효과 */
+}
+

@@ -19,8 +19,23 @@ public class OrderedVO extends PaymentVO {
 	private String ordered_update_ip;			// ¼öÁ¤ip
 	private String user_id;
 	private String user_name;
+	private String guest_no;
+	private String payment_no;
 	
 
+	
+	public String getGuest_no() {
+		return guest_no;
+	}
+	public void setGuest_no(String guest_no) {
+		this.guest_no = guest_no;
+	}
+	public String getPayment_no() {
+		return payment_no;
+	}
+	public void setPayment_no(String payment_no) {
+		this.payment_no = payment_no;
+	}
 	public String getOrdered_address_postcode() {
 		return ordered_address_postcode;
 	}

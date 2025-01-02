@@ -19,12 +19,12 @@
 
       <h3 class="delivery-info-title">배송 정보</h3>
       <div class="delivery-info-container">
-        <p><strong>배송지:</strong> ${deliveryInfo.address}, ${deliveryInfo.detailAddress}</p>
-        <p><strong>메모:</strong> ${deliveryInfo.memo}</p>
+        <p><strong>배송지:</strong> ${deliveryInfo.ordered_address}</p>
+        <p><strong>메모:</strong> ${deliveryInfo.ordered_note}</p>
       </div>
 
       <div class="payment-actions">
-        <a href="<%=request.getContextPath()%>/user/orders" class="btn btn-primary">주문 내역 보기</a>
+        <a href="<%=request.getContextPath()%>/user/account/orderhistory" class="btn btn-primary">주문 내역 보기</a>
         <a href="<%=request.getContextPath()%>/" class="btn btn-secondary">메인으로 이동</a>
       </div>
     </div>

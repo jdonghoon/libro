@@ -315,7 +315,6 @@
 	    });
 	});
 	</script>
-
 </main>
 
 <%@ include file="/WEB-INF/views/user/include/footer.jsp" %>	

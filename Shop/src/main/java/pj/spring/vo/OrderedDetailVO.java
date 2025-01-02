@@ -12,7 +12,23 @@ public class OrderedDetailVO extends ProductVO {
 	private String ordered_detail_update_at;				// 수정일
 	private String ordered_detail_update_id;				// 수정id
 	private String ordered_detail_update_ip;				// 수정ip
+	private String ordered_no;								// 주문번호
+	private String product_no;								// 상품 번호
 	
+	
+	
+	public String getProduct_no() {
+		return product_no;
+	}
+	public void setProduct_no(String product_no) {
+		this.product_no = product_no;
+	}
+	public String getOrdered_no() {
+		return ordered_no;
+	}
+	public void setOrdered_no(String ordered_no) {
+		this.ordered_no = ordered_no;
+	}
 	public  String getOrdered_detail_no() {
 		return ordered_detail_no;
 	}
