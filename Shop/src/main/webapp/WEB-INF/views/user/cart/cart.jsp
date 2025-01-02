@@ -195,7 +195,7 @@
 			
 			    // 상품명 처리 (첫 번째 상품명 + 외 n권)
 			    let displayProductName = selectedProductNames.length > 1
-			        ? `${selectedProductNames[0]} 외 ${selectedProductNames.length - 1}권`
+			        ? `\${selectedProductNames[0]} 외 \${selectedProductNames.length - 1}권`
 			        : selectedProductNames[0] || "선택된 상품 없음";
 			
 			    // 주문 합계 UI 업데이트

@@ -79,9 +79,9 @@
             <div class="address-memo-select">
               <select>
                 <option>부재 시 문앞에 놓고 가주세요.</option>
-                <option>멘트2</option>
-                <option>멘트3</option>
-                <option>멘트4</option>
+                <option>경비실에 맡겨주세요.</option>
+                <option>택배 보관함에 넣어주세요.</option>
+                <option>직접 전달 부탁드립니다.</option>
               </select>
             </div>
           </div>

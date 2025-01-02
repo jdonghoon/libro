@@ -52,11 +52,19 @@
 		    <div>
 		      <button type="button" class="wishlist" onclick="addToWishlist(${productDetail.product_no})">위시리스트</button>
 		      <button type="button" class="cart" onclick="addToCart(${productDetail.product_no})">장바구니</button>
-		      <button type="submit" class="purchase">바로 구매</button>
+		      <form action="<%=request.getContextPath()%>/directPurchase" method="post">
+			    <input type="hidden" name="product_no" value="${productDetail.product_no}">
+			    <input type="hidden" name="product_name" value="${productDetail.product_name}">
+			    <input type="hidden" name="product_price" value="${productDetail.product_price}">
+			    <input type="hidden" name="quantity" id="quantity" value="1">
+			    <button type="submit" class="purchase">바로 구매</button>
+			</form>
 		    </div>
 		  </div>
 		</form>
 		<script>
+			
+	    
 			function addToCart(product_no) {
 	      	    $.ajax({
 	      	        url: "addToCart.do",
@@ -100,9 +108,7 @@
 	  				}
 	  			});
 	  		}
-      	</script>
-		
-		<script>
+
 		  const pricePerUnit = ${productDetail.product_price}; // 제품 단가
 		
 		  function updateTotalPrice(count) {
@@ -127,6 +133,22 @@
 		      updateTotalPrice(count); // 총 가격 갱신
 		    }
 		  }
+		  
+		  const pricePerUnit = ${productDetail.product_price}; // 단가
+		    document.querySelector(".cnt-up").addEventListener("click", function () {
+		        const quantityElement = document.getElementById("quantity");
+		        const count = parseInt(quantityElement.value) + 1;
+		        quantityElement.value = count;
+		    });
+	
+		    document.querySelector(".cnt-down").addEventListener("click", function () {
+		        const quantityElement = document.getElementById("quantity");
+		        const count = parseInt(quantityElement.value);
+		        if (count > 1) {
+		            quantityElement.value = count - 1;
+		        }
+		    });
+		    
 		</script>
 
       </div>

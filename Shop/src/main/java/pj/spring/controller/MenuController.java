@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,6 +170,29 @@ public class MenuController {
 		
 		return "user/menu/productDetail";
 	}
+	
+	@PostMapping("/directPurchase")
+    public String directPurchase(
+        @RequestParam("product_no") int productNo,
+        @RequestParam("product_name") String productName,
+        @RequestParam("product_price") int productPrice,
+        @RequestParam("quantity") int quantity,
+        HttpSession session
+    ) {
+        // 구매할 상품 정보를 VO로 생성
+        Map<String, Object> purchaseInfo = new HashMap<>();
+        purchaseInfo.put("product_no", productNo);
+        purchaseInfo.put("product_name", productName);
+        purchaseInfo.put("product_price", productPrice);
+        purchaseInfo.put("quantity", quantity);
+        purchaseInfo.put("total_price", productPrice * quantity);
+
+        // 세션에 저장
+        session.setAttribute("directPurchase", purchaseInfo);
+
+        // payment.jsp로 리다이렉트
+        return "redirect:/payment";
+    }
 	
 	@ResponseBody
 	@RequestMapping(value = "/addToCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
