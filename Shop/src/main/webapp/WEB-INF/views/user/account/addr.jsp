@@ -12,6 +12,10 @@
                 	<img src="https://img.icons8.com/?size=100&id=Y0DIg4yKtAk6&format=png&color=000000" style="width:20px; height:20px;">
                 배송지는 최대 5개까지 등록하실 수 있습니다.
                 </span> 
+                <c:if test="${empty list}">
+                	<span>등록된 주소록이 없습니다.</span><br><br><br>
+                </c:if>
+                <c:if test="${not empty list}">
                 <c:forEach items="${list}" var="vo">
 	                <div class="addr-info">
 	                    <p style="display: flex;">${vo.address_book_addressname} (${vo.address_book_name}) 
@@ -25,6 +29,7 @@
 	                    </div>
 	                </div>
 				</c:forEach> 
+				</c:if>
 	
                 <button onclick="checkAddressBookCount()" class="dh-btn">등록</button>
             </div>

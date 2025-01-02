@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -137,6 +138,10 @@ public class MenuController {
 		String username = authentication.getName();
 
 		if ("anonymousUser".equals(username)) { 
+		    if (product_no <= 0) {
+		        System.out.println("잘못된 상품 번호: " + product_no);
+		        return "redirect:/errorPage";
+		    }
 			// 비회원: 쿠키에 최근 본 상품 추가
 			userService.addGuestRecentlyProductToCookies(vo.getProduct_no(), request, response);
 		} else { 
@@ -167,7 +172,7 @@ public class MenuController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/addToCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-	public Map<String, Object> addToCart(CartVO cartVO, @RequestParam("product_no") String product_no, HttpSession session) throws IllegalStateException, IOException {
+	public Map<String, Object> addToCart(CartVO cartVO, @RequestParam("product_no") String product_no, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
 
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String userId = authentication.getName();
@@ -177,9 +182,9 @@ public class MenuController {
 	    System.out.println("cart_create_id : " + cartCreateId);
 	    System.out.println("product_no : " + product_no);
 
-	    Map<String, Object> response = new HashMap<>();
+	    Map<String, Object> response1 = new HashMap<>();
 
-	    if (userId != null) {
+	    if (!userId.equals("anonymousUser")) {
 	        cartVO.setUser_id(userId);
 	        cartVO.setCart_create_id(cartCreateId);
 	        cartVO.setProduct_no(product_no);
@@ -187,28 +192,46 @@ public class MenuController {
 
 	        // 중복 확인
 	        if (menuService.checkCart(cartVO)) {
-	            response.put("success", false);
-	            response.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
+	            response1.put("success", false);
+	            response1.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
 	        } else {
 	            int result = menuService.addToCart(cartVO);
 	            if (result > 0) {
-	                response.put("success", true);
+	                response1.put("success", true);
 	                System.out.println("success result : 성공");
 	            } else {
-	                response.put("success", false);
-	                response.put("message", "장바구니 추가에 실패하였습니다."); // 삽입 실패 메시지
+	                response1.put("success", false);
+	                response1.put("message", "장바구니 추가에 실패하였습니다."); // 삽입 실패 메시지
 	            }
 	        }
 	    } else {
-	        response.put("success", false);
-	        response.put("message", "로그인이 필요합니다.");
+	        // 쿠키에서 중복 확인
+	        Cookie[] cookies = request.getCookies();
+	        boolean isDuplicate = false;
+	        if (cookies != null) {
+	            for (Cookie cookie : cookies) {
+	                if (cookie.getName().startsWith("cart_") && product_no.equals(cookie.getValue())) {
+	                    isDuplicate = true;
+	                    break;
+	                }
+	            }
+	        }
+	        
+	        if (isDuplicate) {
+	            response1.put("success", false);
+	            response1.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
+	        } else {
+	            // 중복이 아니라면 쿠키에 추가
+	            userService.addGuestCartToCookies(product_no, request, response);
+	            response1.put("success", true);
+	        }
 	    }
-	    return response;
+	    return response1;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/addToWishlist.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-	public Map<String, Object> addToWishlist(WishlistVO wishlistVO, @RequestParam("product_no") String product_no, HttpSession session) throws IllegalStateException, IOException {
+	public Map<String, Object> addToWishlist(WishlistVO wishlistVO, @RequestParam("product_no") String product_no, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId = authentication.getName();
@@ -218,9 +241,9 @@ public class MenuController {
 		System.out.println("wishlist_create_id : " + wishlistCreateId);
 		System.out.println("product_no : " + product_no);
 		
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response1 = new HashMap<>();
 		
-		if(userId != null) {
+		if(!userId.equals("anonymousUser")) {
 			
 	        wishlistVO.setUser_id(userId);
 	        wishlistVO.setWishlist_create_id(wishlistCreateId);
@@ -229,22 +252,40 @@ public class MenuController {
 
 	     // 중복 확인
 	        if (menuService.checkWishlist(wishlistVO)) {
-	            response.put("success", false);
-	            response.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
+	            response1.put("success", false);
+	            response1.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
 	        } else {
 	            int result = menuService.addToWishlist(wishlistVO);
 	            if (result > 0) {
-	                response.put("success", true);
+	                response1.put("success", true);
 	                System.out.println("success result : 성공");
 	            } else {
-	                response.put("success", false);
-	                response.put("message", "장바구니 추가에 실패하였습니다."); // 삽입 실패 메시지
+	                response1.put("success", false);
+	                response1.put("message", "장바구니 추가에 실패하였습니다."); // 삽입 실패 메시지
 	            }
 	        }
 	    } else {
-	        response.put("success", false);
-	        response.put("message", "로그인이 필요합니다.");
+	        // 쿠키에서 중복 확인
+	        Cookie[] cookies = request.getCookies();
+	        boolean isDuplicate = false;
+	        if (cookies != null) {
+	            for (Cookie cookie : cookies) {
+	                if (cookie.getName().startsWith("wishlist_") && product_no.equals(cookie.getValue())) {
+	                    isDuplicate = true;
+	                    break;
+	                }
+	            }
+	        }
+	        
+	        if (isDuplicate) {
+	            response1.put("success", false);
+	            response1.put("message", "이미 추가된 상품입니다."); // 중복 상품 메시지
+	        } else {
+	            // 중복이 아니라면 쿠키에 추가
+	            userService.addGuestWishlistToCookies(product_no, request, response);
+	            response1.put("success", true);
+	        }
 	    }
-	    return response;
+	    return response1;
 	}
 }

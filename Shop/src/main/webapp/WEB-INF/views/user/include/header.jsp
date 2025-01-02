@@ -120,9 +120,18 @@
 			      	            	</div>
 		      	            	</div>
 		      	            	<div>
+		      	            		/* 비회원 */
+		      	            		<sec:authorize access="isAnonymous()">
+		      	            		<a href="#" onclick="deleteCartList(\${item.product_no})">
+		      	            			<img src="https://img.icons8.com/?size=100&id=82771&format=png&color=000000" width="20px;">
+		      	            		</a>
+									</sec:authorize>
+									/* 회원 */
+									<sec:authorize access="isAuthenticated()">
 		      	            		<a href="#" onclick="deleteCartList(\${item.cart_no})">
 		      	            			<img src="https://img.icons8.com/?size=100&id=82771&format=png&color=000000" width="20px;">
 		      	            		</a>
+									</sec:authorize>
 		      	            	</div>
 	      	            	</div>
 		                    `;

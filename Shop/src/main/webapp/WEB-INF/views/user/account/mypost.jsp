@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mypage.css">
 
@@ -19,14 +20,18 @@
 	                            <a href="javascript:void(0);" onclick="setDates('6months')">6개월</a>
 	                    	</div>
 	                    	<div class="dh">
-	                            <input type="date">&nbsp;~&nbsp;<input type="date">
-	                            <button onclick="location.href='addrmodify.do'" class="dh-btn">조회</button>
+	                            <input type="date" id="startDate">&nbsp;~&nbsp;<input type="date" id="endDate">
+	                            <button onclick="filterTable(document.getElementById('startDate').value, document.getElementById('endDate').value)" class="dh-btn">조회</button>
 	                    	</div> 
                         </div>
                     </div>
 
                     <div class="ask">
                         <h3>1:1 문의내역</h3>
+                        <c:if test="${empty contactlist}">
+                        	<span>등록된 문의글이 없습니다.</span>
+                        </c:if>
+                        <c:if test="${not empty contactlist}">
                         <table class="ask-list">
                             <thead>
                                 <tr>
@@ -37,25 +42,14 @@
                                     <th style="width: 70px;">작성일</th>
                                 </tr>
                             </thead>
-                            <tbody>
-<!--                                 <tr>
-                                    <td>2</td>
-                                    <td>상품문의</td>
-                                    <td>
-                                        <img src="http://img0001.echosting.cafe24.com/front/type_b/image/common/icon_re.gif" alt="답변" class="ec-common-rwd-image">
-                                        <img src="http://img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif" alt="비밀글" class="ec-common-rwd-image">
-                                        <img src="https://img.icons8.com/?size=100&id=5hmx7LpaoQeJ&format=png&color=000000"> 답변완료
-                                    </td>
-                                    <td>홍길동</td>
-                                    <td>2024.12.03</td>
-                                </tr> -->
+                            <tbody id="contactTableBody">
                                 <c:forEach items="${contactlist}" var="vo">
                                 <tr>
-                                    <td>${vo.contact_no}</td>
+                                    <td>${vo.contact_seq}</td>
                                     <td>${vo.contact_type}</td>
                                     <td>
                                     	<a href="inquirydetail.do?contact_no=${vo.contact_no}">
-                                        	<img src="https://img.icons8.com/?size=100&id=5hmx7LpaoQeJ&format=png&color=000000"> [${vo.contact_type}]
+                                        	<img src="https://img.icons8.com/?size=100&id=5hmx7LpaoQeJ&format=png&color=000000"> [${vo.contact_type}] <c:if test="${not empty vo.contact_comment}">답변 완료</c:if>
                                         </a>
                                     </td>
                                     <td>${vo.user_name}</td>
@@ -64,16 +58,23 @@
                                 </c:forEach> 
                             </tbody>
                         </table>
+                        </c:if>
                     </div>
                     
                     <div class="review">
                         <h3>리뷰내역</h3>
                         <div class="order-type">
-                            <button class="review-type-button" id="review-possible" onclick="toggleActiveButton('review-possible')">작성 가능한 리뷰(0)</button>
-                            <button class="review-type-button" id="review-list" onclick="toggleActiveButton('review-list')">내가 작성한 리뷰(0)</button>
+                            <button class="review-type-button" id="review-possible" onclick="toggleActiveButton('review-possible')">작성 가능한 리뷰(<c:out value="${fn:length(reviewpossiblelist)}" />)</button>
+                            <button class="review-type-button" id="review-list" onclick="toggleActiveButton('review-list')">내가 작성한 리뷰(<c:out value="${fn:length(reviewlist)}" />)</button>
+<%--                             <button class="review-type-button" id="review-possible" onclick="toggleActiveButton('review-possible')">작성 가능한 리뷰(<c:out value="${fn:length(reviewpossiblelist)}" />)</button>
+                            <button class="review-type-button" id="review-list" onclick="toggleActiveButton('review-list')">내가 작성한 리뷰(<c:out value="${fn:length(reviewlist)}" />)</button> --%>
                         </div>
 
                         <div class="form-container" id="review-possible-form">
+						<c:if test="${empty reviewpossiblelist}">
+							<span>작성 가능한 리뷰가 없습니다.</span>
+						</c:if>
+						<c:if test="${not empty reviewpossiblelist}">
                             <c:forEach items="${reviewpossiblelist}" var="vo">
 	                            <div class="review-possible-form" >
 	                                <div style="display: flex;">
@@ -96,9 +97,16 @@
 	                                </div>
 	                            </div>
                             </c:forEach>
+                        </c:if>
                         </div>
-
+                        
                         <table class="review-list-form form-container" id="review-list-form">
+						<c:if test="${empty reviewlist}">
+							<tr>
+								<td style="border: none; width: 900px; padding: 0;">내가 작성한 리뷰가 없습니다.</td>
+							</tr>
+						</c:if>
+						<c:if test="${not empty reviewlist}">
                             <thead>
                                 <tr>
                                     <th style="width: 35.27px;">번호</th>
@@ -127,8 +135,8 @@
 	                                </tr>
                                 </c:forEach>
                             </tbody>
+						</c:if>
                         </table>
-
                     </div>
                 </div>
 
@@ -147,12 +155,14 @@
         window.onload = function() {
 
             // 로컬 스토리지에서 저장된 활성화된 버튼을 불러와서 해당 버튼 활성화
-            var activeButtonId = localStorage.getItem('activeButtonId');
+/*             var activeButtonId = localStorage.getItem('activeButtonId');
             if (activeButtonId) {
                 toggleActiveButton(activeButtonId);
             } else {
                 toggleActiveButton('review-possible');  // 기본 값으로 '주문 목록' 버튼 활성화
-            }
+            } */
+            
+            setDates('3months');
 
             // 오늘 날짜를 구하기
             var today = new Date();
@@ -170,8 +180,8 @@
 
         function toggleActiveButton(buttonId) {
 
-            // 로컬 스토리지에 클릭된 버튼 ID 저장
-            localStorage.setItem('activeButtonId', buttonId);
+/*             // 로컬 스토리지에 클릭된 버튼 ID 저장
+            localStorage.setItem('activeButtonId', buttonId); */
 
             // 모든 버튼에서 button-active 클래스 제거
             document.querySelectorAll(".review-type-button").forEach(button => {
@@ -195,8 +205,8 @@
         }
     
         // 초기 상태에서 기존 회원 폼을 표시
-        document.getElementById('review-list').classList.add('pbutton-active');
-        document.getElementById('review-list-form').classList.add('active');
+        document.getElementById('review-possible').classList.add('pbutton-active');
+        document.getElementById('review-possible-form').classList.add('active');
 
 
         function setDates(range) {
@@ -236,11 +246,38 @@
             endDate = todayString;
         }
 
-        // 첫 번째 date input에 시작 날짜 설정
+        // 시작 날짜와 종료 날짜를 input 필드에 설정
         document.querySelectorAll('input[type="date"]')[0].value = startDate;
-        // 두 번째 date input에 종료 날짜 설정
         document.querySelectorAll('input[type="date"]')[1].value = endDate;
+
+        // 필터링 실행
+        filterTable(startDate, endDate);
     }
+        
+	function filterTable(startDate, endDate) {
+	    // 테이블의 행 가져오기
+	    const tableRows = document.querySelectorAll("#contactTableBody tr");
+	
+	    // 각 행 검사
+	    tableRows.forEach(row => {
+	        const dateCell = row.cells[4].innerText; // 작성일 열 (0부터 시작, 4번째 열)
+	        const rowDate = new Date(dateCell);
+	
+	        // 시간 정보를 제거한 날짜로 변환
+	        const start = new Date(startDate);
+	        start.setHours(0, 0, 0, 0); // 시간 초기화
+	        const end = new Date(endDate);
+	        end.setHours(23, 59, 59, 999); // 하루의 마지막 시간으로 설정
+	        rowDate.setHours(0, 0, 0, 0); // 시간 초기화
+
+	        // 행 표시/숨김 결정
+	        if (rowDate >= start && rowDate <= end) {
+	            row.style.display = ""; // 조건에 맞으면 표시
+	        } else {
+	            row.style.display = "none"; // 조건에 맞지 않으면 숨김
+	        }
+	    });
+	}
         
 	const rating_input = document.querySelector('.rating input');
 	const rating_star = document.querySelector('.rating_star');

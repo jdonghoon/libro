@@ -1,11 +1,13 @@
 package pj.spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pj.spring.service.HomeService;
+import pj.spring.service.UserService;
 import pj.spring.util.PagingUtil;
 import pj.spring.vo.ProductVO;
 import pj.spring.vo.SearchVO;
@@ -32,6 +35,9 @@ public class HomeController {
 	
 	@Autowired
 	public HomeService homeService;
+	
+	@Autowired
+	public UserService userService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) { // 화면에 뿌려주기 위한 model 선언
@@ -72,11 +78,13 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/selectCart.do", produces = "application/json; charset=UTF-8")
-	public List<ProductVO> selectCart(HttpSession session) {
+	public List<ProductVO> selectCart(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String user_id = authentication.getName();
 		System.out.println("user_id : " + user_id);
-
+		
+		Cookie[] cookies = request.getCookies();
+		
         // 로그인한 사용자라면 user_id 가져오기 (확인하기)
         if (authentication != null) {
             Object principal = authentication.getPrincipal();
@@ -86,26 +94,51 @@ public class HomeController {
             	user_id = principal.toString();
             }
         }
+        
+        if (user_id.equals("anonymousUser")) { 
+        	Map<String, Object> params = new HashMap<>();
+        	List<String> productNos = new ArrayList<>();
 
-        // 비회원일 경우 세션에서 guest_no 가져오기
-        String guest_no = (String) session.getAttribute("guest_no");
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().startsWith("cart_")) {
+                        String product_no = cookie.getValue();
+                        productNos.add(product_no);
+                    }
+                }
+            }
 
-        // 필요한 로직 처리
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_id", user_id);
-        params.put("guest_no", guest_no);
+            // 여러 상품 번호를 파라미터로 넘김
+            params.put("productNos", productNos);
 
-        // DB 쿼리 호출 (Mapper를 통해 데이터 가져오기)
-        return homeService.selectCart(params);
+        	return userService.selectCart(params, request);
+        	
+        }else {
+        	// 필요한 로직 처리
+        	Map<String, Object> params = new HashMap<>();
+        	params.put("user_id", user_id);
+        	
+        	// DB 쿼리 호출 (Mapper를 통해 데이터 가져오기)
+        	return homeService.selectCart(params);
+        }
+
     }
 	
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteCart.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-	public int deleteCart(@RequestParam("cart_no") String cart_no) {
-	    
-	    int result = homeService.deleteCart(cart_no);
-	    	
-	    return result;
+	public int deleteCart(@RequestParam("cart_no") String cart_no, HttpServletRequest request, HttpServletResponse response) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String user_id = authentication.getName();
+		
+        if (user_id.equals("anonymousUser")) { 
+        	int result = userService.removeGuestCartFromCookies(cart_no, request, response);
+        	return result;
+        } else {
+        	int result = homeService.deleteCart(cart_no);
+        	return result;
+        }
+        
 	}
 }

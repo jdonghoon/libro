@@ -155,6 +155,8 @@
     </div>
 
     <!-- 결제 내역 -->
+    <!-- 회원 -->
+    <sec:authorize access="isAuthenticated()">
     <div class="payment-container">
       <form action="payment.do">
         <div class="payment-title">주문 합계</div>
@@ -183,6 +185,40 @@
         </div>
       </form>
     </div>
+    </sec:authorize>
+	<!-- 비회원 -->
+	    <sec:authorize access="isAnonymous()">
+    <div class="payment-container">
+      <form action="payment.do">
+        <div class="payment-title">주문 합계</div>
+        <div class="payment-display">
+          <div>
+    		<c:forEach items="${cartPrice}" var="vo">
+            <div class="payment-info">
+              <div>총 수량</div>
+              <div class="payment-price" id="total-quantity" >${vo.totalProductQuantity}</div>
+            </div>
+            <div class="payment-info">	
+              <div>상품금액</div>
+              <div class="payment-price" id="product-price">${vo.totalProductPrice}</div>
+            </div>
+    		</c:forEach>
+            <div class="payment-info">
+              <div>배송비</div>
+              <div class="payment-price" id="shipping-price">3,000</div>
+            </div>
+            <div class="payment-total-info">
+              <div>총 주문금액</div>
+              <div class="payment-total-price" id="total-price">${cartPrice[0].totalProductPrice + 3000}</div>
+            </div>
+          </div>
+          <div class="order-button">
+            <button type="submit">주문하기</button>
+          </div> 
+        </div>
+      </form>
+    </div>
+    </sec:authorize>
   </div>
 </main>
 

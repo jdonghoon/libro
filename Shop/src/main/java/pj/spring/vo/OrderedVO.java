@@ -5,6 +5,9 @@ public class OrderedVO extends PaymentVO {
 	private String ordered_date;				// 주문일
 	private String ordered_status;			// 주문상태
 	private String ordered_address;			// 주소
+	private String ordered_address_postcode;
+	private String ordered_address_address; 
+	private String ordered_address_detailaddress;
 	private String ordered_name;				// 주문자명
 	private String ordered_phone;				// 주문자휴대폰번호
 	private String ordered_note;				// 배송메모
@@ -17,6 +20,25 @@ public class OrderedVO extends PaymentVO {
 	private String user_id;
 	private String user_name;
 	
+
+	public String getOrdered_address_postcode() {
+		return ordered_address_postcode;
+	}
+	public void setOrdered_address_postcode(String ordered_address_postcode) {
+		this.ordered_address_postcode = ordered_address_postcode;
+	}
+	public String getOrdered_address_address() {
+		return ordered_address_address;
+	}
+	public void setOrdered_address_address(String ordered_address_address) {
+		this.ordered_address_address = ordered_address_address;
+	}
+	public String getOrdered_address_detailaddress() {
+		return ordered_address_detailaddress;
+	}
+	public void setOrdered_address_detailaddress(String ordered_address_detailaddress) {
+		this.ordered_address_detailaddress = ordered_address_detailaddress;
+	}
 	public String getUser_name() {
 		return user_name;
 	}

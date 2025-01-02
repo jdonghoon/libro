@@ -1,9 +1,11 @@
 package pj.spring.vo;
 
-public class GuestVO {
+public class GuestVO extends OrderedVO {
 	private String guest_no;				// 비회원번호
 	private String guest_email;				// 이메일
 	private String guest_phone;				// 휴대폰번호
+	private String guest_name;				// 이름
+	private String guest_password;			// 비밀번호
 	private String guest_ordered_at;		// 주문일
 	private String guest_create_at;			// 등록일
 	private String guest_create_id;			// 등록id
@@ -12,6 +14,20 @@ public class GuestVO {
 	private String guest_update_id;			// 수정id
 	private String guest_update_ip;			// 수정ip
 	
+	
+	
+	public String getGuest_name() {
+		return guest_name;
+	}
+	public void setGuest_name(String guest_name) {
+		this.guest_name = guest_name;
+	}
+	public String getGuest_password() {
+		return guest_password;
+	}
+	public void setGuest_password(String guest_password) {
+		this.guest_password = guest_password;
+	}
 	public String getGuest_no() {
 		return guest_no;
 	}

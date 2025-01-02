@@ -17,7 +17,7 @@
                     <!-- 로그인 -->
                     <div class="form-container" id="existing-member-form">
                         <form action="loginOk.do" method="post">
-                            <input type="text" name="user_id" placeholder="아이디" required>
+                            <input type="text" name="user_id" id="user_id" placeholder="아이디" required>
                             <input type="password" name="user_password" placeholder="비밀번호" required>
                             <div class="id-save">
                                 <input type="checkbox" id="id_save">
@@ -29,10 +29,10 @@
                  
                     <!-- 비회원 배송조회 -->
                     <div class="form-container" id="non-member-form">
-                        <form>
-                            <input type="text" placeholder="주문자명" required>
-                            <input type="text" placeholder="주문번호" required>
-                            <input type="password" placeholder="비회원주문 비밀번호" required>
+                        <form action="loginOkGuest.do" method="post">
+                            <input type="text" placeholder="주문자명" name="guest_name" required>
+                            <input type="text" placeholder="주문번호" name="ordered_no" required>
+                            <input type="password" placeholder="비회원주문 비밀번호" name="guest_password" required>
                             <button type="submit" class="login-btn">비회원 배송조회</button>
                         </form>
                     </div>
@@ -46,8 +46,32 @@
         </main>
 
         <script>
+		    // 페이지가 로드될 때 세션에 저장된 아이디를 자동으로 입력
+		    window.onload = function() {
+		        const userId = sessionStorage.getItem('username');  // 세션에 저장된 아이디 가져오기
+		        console.log(userId);
+		        if (userId) {
+		            document.getElementById('user_id').value = userId;  // 세션에서 아이디 가져오기
+		            document.getElementById('id_save').checked = true;  // 체크박스 선택 상태
+		        }
+		    };
+		
+		    // 로그인 폼 제출 전 아이디 저장 여부 확인
+		    document.querySelector('form').addEventListener('submit', function(event) {
+		        const userId = document.getElementById('user_id').value;
+		        const rememberMe = document.getElementById('id_save').checked;
+		
+		        if (rememberMe) {
+		            sessionStorage.setItem('userId', userId);  // 세션에 아이디 저장
+		        } else {
+		            sessionStorage.removeItem('userId');  // 아이디 저장을 원하지 않으면 세션에서 삭제
+		        }
+		    });
+		</script>
+
+        <script>
             // 페이지 로드 시 자동으로 기존 회원 로그인 폼이 활성화되도록 설정
-            window.onload = function() {
+/*             window.onload = function() {
 
             // 로컬 스토리지에서 저장된 활성화된 버튼을 불러와서 해당 버튼 활성화
             var activeButtonId = localStorage.getItem('activeButtonId');
@@ -56,12 +80,12 @@
             } else {
                 toggleActiveButton('order-list');  // 기본 값으로 '주문 목록' 버튼 활성화
             }
-            };
+            }; */
 
             function toggleActiveButton(buttonId) {
 
-                // 로컬 스토리지에 클릭된 버튼 ID 저장
-                localStorage.setItem('activeButtonId', buttonId);
+/*                 // 로컬 스토리지에 클릭된 버튼 ID 저장
+                localStorage.setItem('activeButtonId', buttonId); */
 
                 // 모든 버튼에서 button-active 클래스 제거
                 document.querySelectorAll(".text-button").forEach(button => {

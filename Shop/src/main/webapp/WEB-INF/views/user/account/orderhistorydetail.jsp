@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="/WEB-INF/views/user/include/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mypage.css">
 
@@ -22,11 +23,16 @@
                         </tr>
                         <tr>
                             <th>주문자</th>
-                            <td>${vo.user_name}</td>
+                            <td>${vo.ordered_name}</td>
                         </tr>
                         <tr>
                             <th>주문처리상태</th>
-                            <td>${vo.ordered_status}</td>
+                            <td>
+                           		<c:if test="${vo.ordered_status eq 'O' && vo.payment_type eq 'PC'}">상품 준비중</c:if>
+                           		<c:if test="${vo.ordered_status eq 'D' && vo.payment_type eq 'PC'}">배송중</c:if>
+                            	<c:if test="${vo.ordered_status eq 'CW' && vo.payment_type eq 'RW'}">취소 처리중</c:if>
+                            	<c:if test="${vo.ordered_status eq 'CC' && vo.payment_type eq 'RC'}">취소 완료</c:if>
+                           	</td>
                         </tr>
                     </tbody>
                 </table>
@@ -64,7 +70,7 @@
                         </tr>
                         <tr>
                             <th>상품구매금액</th>
-                            <td>${vo.ordered_detail_total_price}원</td>
+                            <td>${vo.ordered_detail_total_price - 3000}원</td>
                         </tr>
                         <tr>
                             <th>배송비</th>
@@ -73,7 +79,7 @@
 									무료
 								</c:if>
 								<c:if test="${vo.ordered_detail_total_price < 50000}">
-									2,500원
+									3,000원
 								</c:if>
                             </td>
                         </tr>
@@ -93,7 +99,7 @@
                         </tr>
                         <tr>
                             <th>휴대폰 번호</th>
-                            <td>${vo.ordered_phone}</td>
+                            <td>${fn:replace(vo.ordered_phone, ",", "-")}</td>
                         </tr>
                         <tr>
                             <th>배송지 메모</th>
@@ -101,6 +107,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <button class="dh-btn" onclick="location.href='orderhistory.do'" style="margin: 20px 0;">목록</button>
             </div>
         </section>
     </main>

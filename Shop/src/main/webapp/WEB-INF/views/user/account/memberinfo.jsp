@@ -36,10 +36,13 @@
                         <input type="text" id="user_id" name="user_id" value="${vo.user_id}" readonly>
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="password" id="user_password" name="user_password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
+                        <input type="password" id="user_password" name="user_password" placeholder="현재비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="password" id="password_Confirm" name="password_Confirm" placeholder="비밀번호 확인*">
+                        <input type="password" id="new_password" name="new_password" placeholder="새비밀번호 (영문 대소문자/숫자/특수문자 조합, 8~16자)">
+                    </div>
+                    <div class="memberinfoform-group">
+                        <input type="password" id="password_Confirm" name="password_Confirm" placeholder="새비밀번호 확인">
                     </div>
                     <div class="memberinfoform-group">
                         <input type="text" id="name" name="user_name" value="${vo.user_name}">
@@ -100,6 +103,66 @@
 			});
 		}
 	</script>
+	
+	<script>
+		document.getElementById("memberInfoForm").addEventListener("submit", function (event) {
+		    // 첫 번째, 두 번째, 세 번째 입력 값을 가져오기
+		    const userPasswordField = document.getElementById("user_password");
+		    const newPasswordField = document.getElementById("new_password");
+		    const passwordConfirmField = document.getElementById("password_Confirm");
+		
+		    const userPassword = userPasswordField.value.trim();
+		    const newPassword = newPasswordField.value.trim();
+		    const passwordConfirm = passwordConfirmField.value.trim();
+		
+		    // 1. 현재 비밀번호가 비어있는지 확인
+		    if (!userPassword) {
+		        event.preventDefault();  // 폼 제출을 막음
+		        alert("현재 비밀번호를 입력해주세요.");
+		        return;  // 현재 비밀번호가 비어있으면 중단
+		    }
+		    
+		    // 2. 기존 비밀번호와 새 비밀번호가 동일한지 확인
+		    if (userPassword === newPassword) {
+		        event.preventDefault();  // 폼 제출을 막음
+		        alert("기존 비밀번호와 새 비밀번호는 동일할 수 없습니다.");
+		        return;  // 기존 비밀번호와 새 비밀번호가 같으면 중단
+		    }
+		
+		    // 3. 새 비밀번호와 비밀번호 확인이 일치하는지 확인
+		    if (newPassword && passwordConfirm) {
+		        if (newPassword !== passwordConfirm) {
+		            event.preventDefault();  // 폼 제출을 막음
+		            alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+		            return;  // 일치하지 않으면 추가 작업을 중단
+		        }
+		        userPasswordField.value = newPassword;  // 새 비밀번호를 user_password로 설정
+		    } else if (newPassword || passwordConfirm) {
+		        // 두 번째와 세 번째 비밀번호가 일부만 입력된 경우
+		        event.preventDefault();  // 폼 제출을 막음
+		        alert("새 비밀번호와 새 비밀번호 확인을 모두 입력해주세요.");
+		        return;  // 양쪽 모두 입력되었는지 체크
+		    }
+		
+		    // 각 입력 필드의 입력을 감지하는 함수
+		    function updateFieldNames() {
+		        // 두 번째와 세 번째 값이 비어있지 않으면 첫 번째 필드의 name을 무효화하고 두 번째 필드의 name을 활성화
+		        if (newPassword && passwordConfirm) {
+		            userPasswordField.name = "";  // 첫 번째 필드의 name 속성 비우기
+		            newPasswordField.name = "user_password";  // 두 번째 필드의 name을 user_password로 설정
+		        } else {
+		            // 두 번째나 세 번째 값이 비어 있으면 두 번째 필드의 name을 비워주고 첫 번째 필드의 name을 활성화
+		            userPasswordField.name = "user_password";
+		            newPasswordField.name = "new_password";
+		        }
+		    }
+		
+		    // 이벤트 리스너 추가하여 각 필드의 값이 변경될 때마다 updateFieldNames 호출
+		    newPasswordField.addEventListener("input", updateFieldNames);
+		    passwordConfirmField.addEventListener("input", updateFieldNames);
+		});
+	</script>
+
 
 	<script>
 	    // vo.user_phone 값 (서버에서 전달되는 값)

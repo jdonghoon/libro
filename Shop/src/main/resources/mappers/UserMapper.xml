@@ -33,7 +33,7 @@
 			user_id = #{user_id}
 	</update>
 	
-	<!-- 로그인 -->
+	<!-- 회원 로그인 -->
 	<select id="selectOneById" parameterType="String" resultType="userVO">
 		SELECT user_id 
 			, user_password
@@ -42,6 +42,22 @@
 		 FROM user
 		WHERE user_id = #{user_id}
 		AND user_status = 'E'
+	</select>
+	
+	<!-- 비회원 로그인 -->
+	<select id="selectGuestLogin" parameterType="guestVO" resultType="guestVO">
+		SELECT 
+			g.guest_no, guest_phone, guest_name, ordered_no 
+		FROM 
+			guest g, ordered o 
+		WHERE 
+			g.guest_no = o.guest_no
+		AND 
+			guest_name = #{guest_name}
+		AND 
+			guest_password = #{guest_password}
+		AND
+			ordered_no = #{ordered_no}
 	</select>
 	 
 	<!-- 아이디 중복 체크 -->
@@ -231,10 +247,12 @@
 	<!-- 문의하기 목록 -->
 	<select id="selectContactList" parameterType="String" resultType="contactVO" >
 		SELECT
+			ROW_NUMBER() OVER (ORDER BY c.contact_no) AS contact_seq,
 		    c.contact_no,
 		    contact_type,
 		    contact_content,
 		    contact_password,
+		    contact_comment,
 		    DATE_FORMAT(contact_create_at, '%Y.%m.%d') AS contact_create_at,
 		    u.user_id,
 		    u.user_name,
@@ -250,11 +268,13 @@
 	<!-- 문의하기 상세 -->
 	<select id="selectContact" parameterType="String" resultType="contactVO" >
 		SELECT
+			a.attachment_no,
 			c.contact_no,
 			contact_type,
 			contact_content,
 			contact_password,
 			contact_create_at,
+			contact_comment,
 			u.user_id,
 			u.user_name,
 			c.product_no,
@@ -266,6 +286,9 @@
 			LEFT JOIN product p ON c.product_no = p.product_no
 		WHERE (c.product_no = p.product_no OR c.product_no IS NULL)
 		AND c.contact_no = #{contact_no}
+		GROUP BY
+			c.contact_no, contact_type, contact_content, contact_password,
+			contact_create_at, contact_comment, u.user_id, u.user_name, c.product_no, a.attachment_no
 	</select>
 	
 	<!-- 문의하기 수정 -->
@@ -346,8 +369,9 @@
 	</select>
 	
 	<!-- 주문내역 목록 -->
-	<select id="selectOrderhistory" parameterType="String" resultType="orderedVO" >
+	<select id="selectOrderhistory" parameterType="String" resultType="orderedVO">
 		SELECT
+			pm.payment_no,
 			o.ordered_no, 
 			DATE(o.ordered_date) AS ordered_date, 
 			o.ordered_status,
@@ -358,10 +382,13 @@
 			ad.attachment_detail_new_name,
 			category_name,
 			ordered_detail_quantity,
-			ordered_detail_unit_price
+			ordered_detail_unit_price,
+			payment_type
 		FROM 
-			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c 
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c, payment pm 
 		WHERE
+			o.payment_no = pm.payment_no
+		AND			
 			o.ordered_no = od.ordered_no
 		AND
 			od.product_no = p.product_no
@@ -376,12 +403,13 @@
 		AND
 			o.user_id = #{user_id}
 		ORDER BY 
-			o.ordered_no DESC
+			o.ordered_no DESC;
 	</select>
-
-	<!-- 취소내역 목록 -->
-	<select id="selectOrderhistoryCancel" parameterType="String" resultType="orderedVO" >
+	
+	<!-- 비회원 주문내역 목록 -->
+	<select id="selectOrderhistoryGuest" parameterType="String" resultType="orderedVO">
 		SELECT
+			pm.payment_no,
 			o.ordered_no, 
 			DATE(o.ordered_date) AS ordered_date, 
 			o.ordered_status,
@@ -392,10 +420,89 @@
 			ad.attachment_detail_new_name,
 			category_name,
 			ordered_detail_quantity,
-			ordered_detail_unit_price
+			ordered_detail_unit_price,
+			payment_type
 		FROM 
-			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c 
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c, payment pm 
 		WHERE
+			o.payment_no = pm.payment_no
+		AND			
+			o.ordered_no = od.ordered_no
+		AND
+			od.product_no = p.product_no
+		AND
+			c.category_no = p.category_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND 
+			a.attachment_type = 'PT'
+		AND
+			o.guest_no = #{guest_no}
+		ORDER BY 
+			o.ordered_no DESC;
+	</select>
+	
+	<!-- 취소 신청 -->
+	<update id="updateOrderstatus1" parameterType="String">
+		UPDATE ordered SET ordered_status = 'CW' WHERE ordered_no = #{ordered_no}
+	</update>
+
+	<update id="updateOrderstatus2" parameterType="String">
+		UPDATE payment SET payment_type = 'RW' WHERE payment_no = #{payment_no}
+	</update>
+	
+	<!-- 배송지 변경 -->
+	<select id="selectAddr" parameterType="String" resultType="orderedVO">
+		SELECT 		
+			ordered_no,
+			ordered_address_postcode,
+			ordered_address_address,
+			ordered_address_detailaddress,
+			ordered_name, 
+			ordered_phone, 
+			ordered_note
+		FROM 
+			ordered
+		WHERE 
+			ordered_no = #{ordered_no}
+	</select>
+	
+	<update id="updateAddr" parameterType="orderedVO">
+		UPDATE ordered 
+			SET 
+		ordered_name                    = #{ordered_name} 
+		, ordered_address_postcode      = #{ordered_address_postcode} 
+		, ordered_address_address       = #{ordered_address_address} 
+		, ordered_address_detailaddress = #{ordered_address_detailaddress} 
+		, ordered_phone                 = #{ordered_phone} 
+		, ordered_note                  = #{ordered_note}
+		, ordered_address               = CONCAT('[', #{ordered_address_postcode}, ']', ' ', #{ordered_address_address}, ' ', #{ordered_address_detailaddress})
+		WHERE ordered_no =  #{ordered_no}
+	</update>
+
+	<!-- 취소내역 목록 -->
+	<select id="selectOrderhistoryCancel" parameterType="String" resultType="orderedVO" >
+		SELECT
+			pm.payment_no,
+			o.ordered_no, 
+			DATE(o.ordered_date) AS ordered_date, 
+			o.ordered_status,
+			p.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			category_name,
+			ordered_detail_quantity,
+			ordered_detail_unit_price,
+			payment_type
+		FROM 
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c, payment pm  
+		WHERE
+			o.payment_no = pm.payment_no
+		AND	
 			o.ordered_no = od.ordered_no
 		AND
 			od.product_no = p.product_no
@@ -415,6 +522,46 @@
 			o.ordered_no DESC;
 	</select>
 	
+	<!-- 비회원 취소내역 목록 -->
+	<select id="selectOrderhistoryCancelGuest" parameterType="String" resultType="orderedVO" >
+		SELECT
+			pm.payment_no,
+			o.ordered_no, 
+			DATE(o.ordered_date) AS ordered_date, 
+			o.ordered_status,
+			p.product_no, 
+			p.product_name,
+			p.product_author,
+			p.product_publisher,
+			ad.attachment_detail_new_name,
+			category_name,
+			ordered_detail_quantity,
+			ordered_detail_unit_price,
+			payment_type
+		FROM 
+			ordered o, ordered_detail od, product p, attachment a, attachment_detail ad, category c, payment pm  
+		WHERE
+			o.payment_no = pm.payment_no
+		AND	
+			o.ordered_no = od.ordered_no
+		AND
+			od.product_no = p.product_no
+		AND
+			c.category_no = p.category_no
+		AND
+			p.product_no = a.attachment_product_no 
+		AND 
+			a.attachment_no = ad.attachment_no
+		AND 
+			a.attachment_type = 'PT'
+		AND
+			o.guest_no = #{guest_no}
+		AND
+			( o.ordered_status = 'CW' OR o.ordered_status = 'CC' )
+		ORDER BY 
+			o.ordered_no DESC;
+	</select>
+	
 	<!-- 주문내역 상세 -->
 	<select id="selectOrderhistorydetail" parameterType="String" resultType="orderedVO" >
 		SELECT DISTINCT
@@ -426,11 +573,14 @@
 			o.ordered_phone,
 			o.ordered_note,
 		    od.ordered_detail_total_price,
-			pm.payment_method
+			pm.payment_method,
+			payment_type
 		FROM 
 			ordered o, ordered_detail od, payment pm 
 		WHERE
 			o.ordered_no = od.ordered_no
+		AND
+			pm.payment_no = o.payment_no
 		AND
 			pm.payment_price = od.ordered_detail_total_price    
 		AND
@@ -618,26 +768,46 @@
 	<!-- 비회원용 상품정보 -->
 	<select id="selectProductForGuest" parameterType="String" resultType="reviewVO">
 		SELECT 
-			r.product_no, 
+			p.product_no, 
 			p.product_name,
 			p.product_author,
 			p.product_publisher,
-			ad.attachment_detail_new_name,
 			p.product_price,
+			p.product_status,
+			p.product_status,
+			ad.attachment_detail_new_name,
 			r.review_starrating
 		FROM 
-			product p, review r, attachment a, attachment_detail ad
-		WHERE
-			p.product_no = r.product_no
-		AND
-			p.product_no = a.attachment_product_no 
-		AND 
-			a.attachment_no = ad.attachment_no
+			product p 
+			LEFT JOIN review r ON p.product_no = r.product_no
+			JOIN attachment a ON p.product_no = a.attachment_product_no
+			JOIN attachment_detail ad ON a.attachment_no = ad.attachment_no
 		AND
 			p.product_no = #{product_no}
 		AND 
 			a.attachment_type = 'PT'
 	</select>
+	
+	<!-- 비회원용 장바구니 조회 -->
+ 	<select id="selectCartListGuest" parameterType="String" resultType="ProductVO">
+		SELECT attachment_detail_new_name
+			 , p.product_no
+			 , product_name
+			 , product_author
+			 , product_price
+			 , product_created_at
+			 , category_name
+		FROM product p
+		JOIN attachment a
+		ON p.product_no = a.attachment_product_no AND a.attachment_type ='PT'
+		JOIN attachment_detail d
+		ON a.attachment_no = d.attachment_no
+		JOIN category cg
+		ON p.category_no = cg.category_no
+		WHERE product_status = 'E'
+		AND
+			p.product_no = #{product_no}
+	</select> 
 	
 	<!-- 카트 중복 조회 -->
 	<select id="selectDedupeCart" parameterType="CartVO" resultType="int">
@@ -660,7 +830,7 @@
 			user_id,
 			product_no
 		) VALUES (
-			1,
+			#{cart_product_quantity},
 			#{user_id},
 			#{user_id},
 			#{user_id},
@@ -690,6 +860,8 @@
 			w.user_id = #{user_id}
 		AND 
 			a.attachment_type = 'PT'
+		ORDER BY
+			wishlist_no DESC
 	</select>	
 	
 	<!-- 위시리스트 중복 조회 -->

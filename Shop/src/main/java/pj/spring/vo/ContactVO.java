@@ -22,10 +22,17 @@ public class ContactVO extends AttachmentVO {
 	private String product_no;			// 상품번호
 	
 	private String user_name;           //
+	private String contact_seq;           //
 	
 	
 	
 	
+	public String getContact_seq() {
+		return contact_seq;
+	}
+	public void setContact_seq(String contact_seq) {
+		this.contact_seq = contact_seq;
+	}
 	public String getOrdered_no() {
 		return ordered_no;
 	}

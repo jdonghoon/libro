@@ -20,29 +20,23 @@
                                 <span>
                                     평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">${vo.review_starrating}(1398)
                                 </span><br><br><br><br>
-                                <span>${vo.product_price}</span>
+                                <span>${vo.product_price}원</span>
                             </div>
                             <div class="imgs"> 
+                                <a href="wishlistinsert.do?product_no=${vo.product_no}">
+                                	<img src="https://img.icons8.com/?size=100&id=XjcL8Du609Vi&format=png&color=000000">
+                                </a>
+                                <a href="retocartinsert.do?product_no=${vo.product_no}">
+                                	<img src="https://img.icons8.com/?size=100&id=TgHJI44zOCgU&format=png&color=000000">
+                                </a>
                                 <!-- 로그인 X -->
                         		<sec:authorize access="isAnonymous()">
-	                                <a href="wishlistinsert.do?product_no=${vo.product_no}">
-	                                	<img src="https://img.icons8.com/?size=100&id=XjcL8Du609Vi&format=png&color=000000">
-	                                </a>
-	                                <a href="#">
-	                                	<img src="https://img.icons8.com/?size=100&id=TgHJI44zOCgU&format=png&color=000000">
-	                                </a>
 	                                <a href="recentlyproductdelete.do?recentlyproduct_no=${vo.product_no}">
 		                                <img src="https://img.icons8.com/?size=100&id=HjmbF5xvIBpl&format=png&color=000000">
 	                                </a>
 								</sec:authorize>
 								<!-- 로그인 O -->
 								<sec:authorize access="isAuthenticated()">
-	                                <a href="wishlistinsert.do?product_no=${vo.product_no}">
-		                                <img src="https://img.icons8.com/?size=100&id=XjcL8Du609Vi&format=png&color=000000">
-	                                </a>
-	                                <a href="retocartinsert.do?product_no=${vo.product_no}">
-		                                <img src="https://img.icons8.com/?size=100&id=TgHJI44zOCgU&format=png&color=000000">
-	                                </a>
 	                                <a href="recentlyproductdelete.do?recentlyproduct_no=${vo.recentlyproduct_no}">
 		                                <img src="https://img.icons8.com/?size=100&id=HjmbF5xvIBpl&format=png&color=000000">
 	                                </a>

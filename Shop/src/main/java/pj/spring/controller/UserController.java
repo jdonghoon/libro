@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
-import java.util.UUID; 
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,22 +25,53 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import pj.spring.service.UserService;
-import pj.spring.vo.*;
+import pj.spring.vo.AddressBookVO;
+import pj.spring.vo.CartVO;
+import pj.spring.vo.ContactVO;
+import pj.spring.vo.GuestVO;
+import pj.spring.vo.OrderedVO;
+import pj.spring.vo.ProductVO;
+import pj.spring.vo.RecentlyproductVO;
+import pj.spring.vo.ReviewVO;
+import pj.spring.vo.UserVO;
+import pj.spring.vo.WishlistVO;
 
 @Controller
 public class UserController {
 	
 	@Autowired
+	SqlSession sqlSession;
+	
+	@Autowired
 	public UserService userService;
 
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	@RequestMapping(value="/login.do", method = RequestMethod.GET)
 	public String login() {
 		
 		return "user/account/login";
 	}
+
+	// ë¹„íšŒì› ë¡œê·¸ì¸
+	@RequestMapping(value="/loginOkGuest.do")
+	public String login(GuestVO vo, HttpServletRequest request) {
+		
+		vo = userService.selectGuestLogin(vo);
+
+		if(vo == null) {
+			
+			return "redirect:login.do";
+		}else {
+			
+			// ì„¸ì…˜ì— ë¡œê·¸ì¸ ì •ë³´ ë„£ê¸°
+			HttpSession session = request.getSession();
+			session.setAttribute("guestUser", vo);
+			
+			return "redirect:/";
+		}
+	}
 	
-	//	È¸¿ø°¡ÀÔ
+	//	íšŒì›ê°€ì…
 	@RequestMapping(value = "/join.do", method = RequestMethod.GET)
 	public String join() {
 		
@@ -54,22 +87,22 @@ public class UserController {
 		System.out.println("user_email : " + userVO.getUser_email());
 		System.out.println("user_phone : " + userVO.getUser_phone());
 		
-		BCryptPasswordEncoder epwe = new BCryptPasswordEncoder(); // º¹È£È­°¡ ¾ÈµÇ´Â 
+		BCryptPasswordEncoder epwe = new BCryptPasswordEncoder(); // ë³µí˜¸í™”ê°€ ì•ˆë˜ëŠ” 
 		
 		userVO.setUser_password(epwe.encode(userVO.getUser_password()));
 		
 		int result = userService.insert(userVO);
 		
 		if(result > 0) {
-			System.out.println("µî·Ï¿Ï·á");
+			System.out.println("ë“±ë¡ì™„ë£Œ");
 		}else {
-			System.out.println("µî·Ï½ÇÆĞ");
+			System.out.println("ë“±ë¡ì‹¤íŒ¨");
 		}
 		
 		return "redirect:/";
 	}
 	
-	// ¾ÆÀÌµğ Áßº¹ Ã¼Å©
+	// ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
 	@ResponseBody
 	@RequestMapping(value = "/ajax/checkID.do", method = RequestMethod.GET)
 	public String checkID(String user_id) {
@@ -79,16 +112,16 @@ public class UserController {
 		int isId = userService.selectCntByUid(user_id);
 		
 		/*
-			ajax ¿äÃ»½Ã ÄÁÆ®·Ñ·¯¿¡¼­´Â response ¹®ÀÚ¼ÂÀ» ÁöÁ¤ÇÒ ¼ö ¾øÀ¸¹Ç·Î ÁÖ·Î ÀÀ´ä°ªÀº ¿µ¹®À¸·Î ÀÛ¼ºÇÏ¿© 
-			È­¸é¿¡¼­ Á¦¾îÇÕ´Ï´Ù.
+			ajax ìš”ì²­ì‹œ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œëŠ” response ë¬¸ìì…‹ì„ ì§€ì •í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ ì£¼ë¡œ ì‘ë‹µê°’ì€ ì˜ë¬¸ìœ¼ë¡œ ì‘ì„±í•˜ì—¬ 
+			í™”ë©´ì—ì„œ ì œì–´í•©ë‹ˆë‹¤.
 		*/
 		
 		if(isId > 0){
-			// ID Áßº¹
+			// ID ì¤‘ë³µ
 			
 			msg = "fail";
 		}else {
-			// ID Áßº¹ X
+			// ID ì¤‘ë³µ X
 			
 			msg = "success";
 		}
@@ -96,96 +129,114 @@ public class UserController {
 		return msg;
 	}
 	
-	// ºñ¹Ğ¹øÈ£ È®ÀÎ
+	// ë¹„ë°€ë²ˆí˜¸ í™•ì¸
 	@ResponseBody
 	@RequestMapping(value = "/ajax/checkPassword.do")
-	public String checkPassword(HttpServletRequest request, UserSecurityVO vo) {
+	public String checkPassword(HttpServletRequest request) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+
+		UserVO vo = sqlSession.selectOne("pj.spring.mapper.userMapper.selectOneById", username);
+		if (vo == null) {
+			return "userNotFound";
+		}
+
+		String DBPassword = vo.getUser_password(); 
+		String inputPassword = request.getParameter("password"); 
+
+		if (DBPassword == null || inputPassword == null) {
+			return "invalidPassword"; // ì ì ˆí•œ ì˜¤ë¥˜ ë©”ì‹œì§€ ë°˜í™˜
+		}
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		boolean isMatch = encoder.matches(inputPassword, DBPassword);
 		
-//        String inputPassword = request.getParameter("password");
-//        String DBPassword = vo.getUser_password();
-//        
-//        System.out.println(inputPassword);
-//        System.out.println(DBPassword);
-//
-//        // ºñ¹Ğ¹øÈ£ ºñ±³
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        boolean isMatch = encoder.matches(inputPassword, DBPassword);
-//		
-//        // ºñ¹Ğ¹øÈ£ ÀÏÄ¡ ¿©ºÎ¿¡ µû¸¥ ¸Ş½ÃÁö ¹İÈ¯
-//        if (isMatch) {
-//            return "isMatch";  // ºñ¹Ğ¹øÈ£ ÀÏÄ¡
-//        } else {
-//            return "isNotMatch";  // ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡
-//        }
-		return "";
+		if (isMatch) {
+			return "isMatch";  // ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜
+		} else {
+			return "isNotMatch";  // ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜
+		}
 	}
 	
-	// È¸¿ø Á¤º¸
+	// íšŒì› ì •ë³´
 	@RequestMapping(value="memberinfo.do", method=RequestMethod.GET)
 	public String memberinfo(Model model) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		UserVO vo = userService.memberinfoselect(username);
+		if (username.equals("anonymousUser")) {
+			
+			return "user/account/login";
+		} else {
+			
+			UserVO vo = userService.memberinfoselect(username);
+			
+			model.addAttribute("vo", vo);
+			
+			return "user/account/memberinfo";
+		}
 		
-		model.addAttribute("vo", vo);
-		
-		return "user/account/memberinfo";
 	}
 	
 	@RequestMapping(value="memberinfoOk.do", method=RequestMethod.POST)
 	public String memberinfo(UserVO vo, HttpServletRequest request) {
 		
-		BCryptPasswordEncoder epwe = new BCryptPasswordEncoder(); // º¹È£È­°¡ ¾ÈµÇ´Â 
+		BCryptPasswordEncoder epwe = new BCryptPasswordEncoder(); // ë³µí˜¸í™”ê°€ ì•ˆë˜ëŠ” 
 		
 		vo.setUser_password(epwe.encode(vo.getUser_password()));
 		
 		int result = userService.memberinfomodify(vo);
 		
 		if(result > 0) {
-			System.out.println("¼öÁ¤ ¿Ï·á");
+			System.out.println("ìˆ˜ì • ì™„ë£Œ");
 		}else {
-			System.out.println("¼öÁ¤ ½ÇÆĞ");
+			System.out.println("ìˆ˜ì • ì‹¤íŒ¨");
 		}
 
 		return "redirect:memberinfo.do";
 	}
 
-	// È¸¿øÅ»Åğ
+	// íšŒì›íƒˆí‡´
 	@RequestMapping(value="deleteAccount.do")
 	public String deleteAccount(Principal principal) {
 		
 		int result = userService.deleteAccount(principal.getName());
 		
 		if(result > 0) {
-			System.out.println("Å»Åğ ¿Ï·á");
+			System.out.println("íƒˆí‡´ ì™„ë£Œ");
 		}else {
-			System.out.println("Å»Åğ ½ÇÆĞ");
+			System.out.println("íƒˆí‡´ ì‹¤íŒ¨");
 		}
 		
 		return "redirect:/";
 	}
 	
-	// ÁÖ¼Ò·Ï ¸ñ·Ï
+	// ì£¼ì†Œë¡ ëª©ë¡
 	@RequestMapping(value="/addr.do", method = RequestMethod.GET)
 	public String addr(Model model) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		List<AddressBookVO> list = userService.list(username);
+		if (username.equals("anonymousUser")) {
+			
+			return "user/account/login";
+			
+		} else {
 		
-		System.out.println("ÁÖ¼Ò·Ï °¹¼ö : " + list.size());
-		
-		model.addAttribute("list", list);
-		
-		return "user/account/addr";
+			List<AddressBookVO> list = userService.list(username);
+			
+			System.out.println("ì£¼ì†Œë¡ ê°¯ìˆ˜ : " + list.size());
+			
+			model.addAttribute("list", list);
+			
+			return "user/account/addr";
+		}
 	}
 
-	// ÁÖ¼Ò·Ï µî·Ï
+	// ì£¼ì†Œë¡ ë“±ë¡
 	@RequestMapping(value="/addrregister.do", method = RequestMethod.GET)
 	public String addrregister() {
 		
@@ -195,7 +246,7 @@ public class UserController {
 	@RequestMapping(value="/addrregisterOk.do", method = RequestMethod.POST)
 	public String addrregister(AddressBookVO vo, Principal principal) {
 		
-		System.out.println("±âº» : " + vo.getAddress_book_top());
+		System.out.println("ê¸°ë³¸ : " + vo.getAddress_book_top());
 		System.out.println(principal.getName());
 		
 		vo.setUser_id(principal.getName());
@@ -203,36 +254,36 @@ public class UserController {
 		if("Y".equals(vo.getAddress_book_top()))
 		{
 			int result1 = userService.updateAddrTop(principal.getName());
-			System.out.println("±âº» »èÁ¦");
+			System.out.println("ê¸°ë³¸ ì‚­ì œ");
 		}
 		
 		int result = userService.addrinsert(vo);
 		
 		if(result > 0) {
-			System.out.println("µî·Ï ¿Ï·á");
+			System.out.println("ë“±ë¡ ì™„ë£Œ");
 		}else {
-			System.out.println("µî·Ï ½ÇÆĞ");
+			System.out.println("ë“±ë¡ ì‹¤íŒ¨");
 		}
 
 		return "redirect:/addr.do";
 	}
 	
-	// ÁÖ¼Ò·Ï »èÁ¦
+	// ì£¼ì†Œë¡ ì‚­ì œ
 	@RequestMapping(value="/addrdelete.do")
 	public String addrdelete(String address_book_no) {
 		
 		int result = userService.addrdelete(address_book_no);
 		
 		if(result > 0) {
-			System.out.println("»èÁ¦ ¿Ï·á");
+			System.out.println("ì‚­ì œ ì™„ë£Œ");
 		}else {
-			System.out.println("»èÁ¦ ½ÇÆĞ");
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨");
 		}
 		
 		return "redirect:/addr.do";
 	}
 	
-	// ÁÖ¼Ò·Ï ¼öÁ¤
+	// ì£¼ì†Œë¡ ìˆ˜ì •
 	@RequestMapping(value="addrmodify.do", method=RequestMethod.GET)
 	public String addrmodify(String address_book_no, Model model) {
 		
@@ -248,50 +299,57 @@ public class UserController {
 	@RequestMapping(value="addrmodifyOk.do", method=RequestMethod.POST)
 	public String addrmodify(AddressBookVO vo, Principal principal) {
 		
-		System.out.println("±âº» : " + vo.getAddress_book_top());
+		System.out.println("ê¸°ë³¸ : " + vo.getAddress_book_top());
 		System.out.println(principal.getName());
 		
 		if("Y".equals(vo.getAddress_book_top()))
 		{
 			int result1 = userService.updateAddrTop(principal.getName());
-			System.out.println("±âº» »èÁ¦");
+			System.out.println("ê¸°ë³¸ ì‚­ì œ");
 		}
 		int result = userService.addrmodifyOk(vo);
 		
 		if(result > 0) {
-			System.out.println("¼öÁ¤ ¿Ï·á");
+			System.out.println("ìˆ˜ì • ì™„ë£Œ");
 
 			return "redirect:/addr.do";
 		}else {
-			System.out.println("¼öÁ¤ ½ÇÆĞ");
+			System.out.println("ìˆ˜ì • ì‹¤íŒ¨");
 			
 			return "redirect:addrmodify.do?address_book_no=" + vo.getAddress_book_no();
 		}
 	}
 	
-	// ³» °Ô½Ã¹°
+	// ë‚´ ê²Œì‹œë¬¼
 	@RequestMapping(value="mypost.do", method=RequestMethod.GET)
 	public String myposting(Model model) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
+		String username = authentication.getName();		
 		
-		List<ContactVO> contactlist = userService.selectcontactlist(username);
-		List<ReviewVO> reviewpossiblelist = userService.selectReviewPossibleList(username);
-		List<ReviewVO> reviewlist = userService.selectReviewList(username);
+		if (username.equals("anonymousUser")) {
+			
+			return "user/account/login";
+			
+		} else {
 		
-		System.out.println("ÁÖ¼Ò·Ï °¹¼ö : " + contactlist.size());
-		System.out.println("ÁÖ¼Ò·Ï °¹¼ö : " + reviewpossiblelist.size());
-		System.out.println("ÁÖ¼Ò·Ï °¹¼ö : " + reviewlist.size());
-		
-		model.addAttribute("contactlist", contactlist);
-		model.addAttribute("reviewpossiblelist", reviewpossiblelist);
-		model.addAttribute("reviewlist", reviewlist);
-		
-		return "user/account/mypost";
+			List<ContactVO> contactlist = userService.selectcontactlist(username);
+			List<ReviewVO> reviewpossiblelist = userService.selectReviewPossibleList(username);
+			List<ReviewVO> reviewlist = userService.selectReviewList(username);
+			
+			System.out.println("ì£¼ì†Œë¡ ê°¯ìˆ˜ : " + contactlist.size());
+			System.out.println("ì£¼ì†Œë¡ ê°¯ìˆ˜ : " + reviewpossiblelist.size());
+			System.out.println("ì£¼ì†Œë¡ ê°¯ìˆ˜ : " + reviewlist.size());
+			
+			model.addAttribute("contactlist", contactlist);
+			model.addAttribute("reviewpossiblelist", reviewpossiblelist);
+			model.addAttribute("reviewlist", reviewlist);
+			
+			return "user/account/mypost";
+		}
 	}
 	
-	// ¹®ÀÇÇÏ±â
+	// ë¬¸ì˜í•˜ê¸°
 	@RequestMapping(value="inquiry.do", method=RequestMethod.GET)
 	public String inquiry() {
 		
@@ -306,7 +364,7 @@ public class UserController {
 		
 		System.out.println("username" + username);
 		vo.setUser_id(username);
-		System.out.println("username ¼º°ø");
+		System.out.println("username ì„±ê³µ");
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 		System.out.println("upload path : " + path);
@@ -318,6 +376,7 @@ public class UserController {
 		}
 		
 	    try {
+	    	vo.setContact_content((String)request.getAttribute("contact_content"));
 	    	userService.insertcontact(vo);
 	    	
 	    	if (multiFile != null && !multiFile.isEmpty()) {
@@ -331,34 +390,34 @@ public class UserController {
 					
 					file.transferTo(new File(path, newFileName ));
 					
-	                userService.insertattachment(vo); // Ã·ºÎÆÄÀÏ Á¤º¸ ÀúÀå (PK »ı¼º)
+	                userService.insertattachment(vo); // ì²¨ë¶€íŒŒì¼ ì •ë³´ ì €ì¥ (PK ìƒì„±)
 					
-	             // Ã·ºÎÆÄÀÏ »ó¼¼ Á¤º¸ ÀúÀå
-					vo.setAttachment_detail_name(originalFileName); // ¿øº» ÆÄÀÏ¸í
-					vo.setAttachment_detail_new_name(newFileName); // »õ ÆÄÀÏ¸í
-					vo.setAttachment_detail_path(path); // °æ·Î
-					vo.setAttachment_no(vo.getAttachment_no()); // Ã·ºÎÆÄÀÏ ¹øÈ£
-					vo.setAttachment_detail_create_id(username); // »ı¼ºÀÚ ID
-					vo.setAttachment_detail_update_id(username); // ¼öÁ¤ÀÚ ID
+	             // ì²¨ë¶€íŒŒì¼ ìƒì„¸ ì •ë³´ ì €ì¥
+					vo.setAttachment_detail_name(originalFileName); // ì›ë³¸ íŒŒì¼ëª…
+					vo.setAttachment_detail_new_name(newFileName); // ìƒˆ íŒŒì¼ëª…
+					vo.setAttachment_detail_path(path); // ê²½ë¡œ
+					vo.setAttachment_no(vo.getAttachment_no()); // ì²¨ë¶€íŒŒì¼ ë²ˆí˜¸
+					vo.setAttachment_detail_create_id(username); // ìƒì„±ì ID
+					vo.setAttachment_detail_update_id(username); // ìˆ˜ì •ì ID
 					
 					System.out.println("newFileName" + vo.getAttachment_detail_new_name());
 					System.out.println("path" + vo.getAttachment_detail_path());
-	                userService.insertattachmentdetail(vo); // Ã·ºÎÆÄÀÏ »ó¼¼ ÀúÀå
+	                userService.insertattachmentdetail(vo); // ì²¨ë¶€íŒŒì¼ ìƒì„¸ ì €ì¥
 					}
 				}
 	    	}
-	        // ¼º°ø
-	        System.out.println("µî·Ï ¼º°ø");
+	        // ì„±ê³µ
+	        System.out.println("ë“±ë¡ ì„±ê³µ");
 	        return "redirect:inquirydetail.do?contact_no=" + vo.getContact_no();
 
 	    } catch (Exception e) {
-	        // ½ÇÆĞ Ã³¸®
-	        System.err.println("µî·Ï ½ÇÆĞ: " + e.getMessage());
+	        // ì‹¤íŒ¨ ì²˜ë¦¬
+	        System.err.println("ë“±ë¡ ì‹¤íŒ¨: " + e.getMessage());
 	        return "redirect:inquiry.do";
 	    }
 	}
 	
-	// ¹®ÀÇÇÏ±â ¼öÁ¤
+	// ë¬¸ì˜í•˜ê¸° ìˆ˜ì •
 	@RequestMapping(value="inquirymodify.do", method=RequestMethod.GET)
 	public String inquirymodify(String contact_no, Model model) {
 			
@@ -372,7 +431,7 @@ public class UserController {
 	@RequestMapping(value="inquirymodifyOk.do", method=RequestMethod.POST)
 	public String inquirymodify(ContactVO vo, @RequestParam(value = "multiFile")List<MultipartFile> multiFile, HttpServletRequest request) throws IllegalStateException, IOException {
 		
-		System.out.println("¼öÁ¤Áß");
+		System.out.println("ìˆ˜ì •ì¤‘");
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -392,7 +451,7 @@ public class UserController {
 			
 			userService.updateokcontact(vo);
 			
-			System.out.println("updateokcontact ½ÇÇà");
+			System.out.println("updateokcontact ì‹¤í–‰");
 			
 	    	if (multiFile != null && !multiFile.isEmpty()) {
 	    		
@@ -402,7 +461,7 @@ public class UserController {
 		    			userService.deletetattachmentdetail(attachment.getAttachment_no());
 		    			userService.deletetattachment(attachment.getAttachment_no());
 		    		}
-		    		System.out.println("»èÁ¦ ¿Ï·á");
+		    		System.out.println("ì‚­ì œ ì™„ë£Œ");
 	    		}
 	    		for(MultipartFile file : multiFile) {
 	    			
@@ -413,39 +472,39 @@ public class UserController {
 						
 						file.transferTo(new File(path, newFileName ));
 						
-		                userService.insertattachment(vo); // Ã·ºÎÆÄÀÏ Á¤º¸ ÀúÀå (PK »ı¼º)
-		                System.out.println("1¹ø ¿Ï·á");
+		                userService.insertattachment(vo); // ì²¨ë¶€íŒŒì¼ ì •ë³´ ì €ì¥ (PK ìƒì„±)
+		                System.out.println("1ë²ˆ ì™„ë£Œ");
 						System.out.println(username);
 		                
-		             // Ã·ºÎÆÄÀÏ »ó¼¼ Á¤º¸ ÀúÀå
-						vo.setAttachment_detail_name(originalFileName); // ¿øº» ÆÄÀÏ¸í
-						vo.setAttachment_detail_new_name(newFileName); // »õ ÆÄÀÏ¸í
-						vo.setAttachment_detail_path(path); // °æ·Î
-						vo.setAttachment_no(vo.getAttachment_no()); // Ã·ºÎÆÄÀÏ ¹øÈ£
-						vo.setAttachment_detail_create_id(username); // »ı¼ºÀÚ ID
-						vo.setAttachment_detail_update_id(username); // ¼öÁ¤ÀÚ ID
+		             // ì²¨ë¶€íŒŒì¼ ìƒì„¸ ì •ë³´ ì €ì¥
+						vo.setAttachment_detail_name(originalFileName); // ì›ë³¸ íŒŒì¼ëª…
+						vo.setAttachment_detail_new_name(newFileName); // ìƒˆ íŒŒì¼ëª…
+						vo.setAttachment_detail_path(path); // ê²½ë¡œ
+						vo.setAttachment_no(vo.getAttachment_no()); // ì²¨ë¶€íŒŒì¼ ë²ˆí˜¸
+						vo.setAttachment_detail_create_id(username); // ìƒì„±ì ID
+						vo.setAttachment_detail_update_id(username); // ìˆ˜ì •ì ID
 						
 						System.out.println("newFileName" + vo.getAttachment_detail_new_name());
 						System.out.println("path" + vo.getAttachment_detail_path());
-		                userService.insertattachmentdetail(vo); // Ã·ºÎÆÄÀÏ »ó¼¼ ÀúÀå
-		                System.out.println("2¹ø ¿Ï·á");
+		                userService.insertattachmentdetail(vo); // ì²¨ë¶€íŒŒì¼ ìƒì„¸ ì €ì¥
+		                System.out.println("2ë²ˆ ì™„ë£Œ");
 					}
 					
-		    		System.out.println("»çÁø µî·Ï ¿Ï·á");
+		    		System.out.println("ì‚¬ì§„ ë“±ë¡ ì™„ë£Œ");
 	    		}
 	    	}
 	    	
-			System.out.println("¼öÁ¤ ¼º°ø");
+			System.out.println("ìˆ˜ì • ì„±ê³µ");
 			return "redirect:inquirydetail.do?contact_no=" + vo.getContact_no();
 
 		} catch (Exception e) {
-			// ½ÇÆĞ Ã³¸®
-			System.err.println("¼öÁ¤ ½ÇÆĞ: " + e.getMessage());
+			// ì‹¤íŒ¨ ì²˜ë¦¬
+			System.err.println("ìˆ˜ì • ì‹¤íŒ¨: " + e.getMessage());
 			return "redirect:inquiry.do";
 		}
 	}
 
-	// ¹®ÀÇÇÏ±â »ó¼¼
+	// ë¬¸ì˜í•˜ê¸° ìƒì„¸
 	@RequestMapping(value="inquirydetail.do")
 	public String inquirydetail(String contact_no, Model model) {
 		
@@ -453,29 +512,45 @@ public class UserController {
 		
 		ContactVO vo = userService.selectcontact(contact_no);
 		
-//		System.out.println("ÄÁÅÃÆ® " + vo.getContact_no());
+//		System.out.println("ì»¨íƒíŠ¸ " + vo.getContact_no());
 		
 		model.addAttribute("vo", vo);
 		
 		return "user/account/inquirydetail";
 	}
 	
-	// ¹®ÀÇÇÏ±â »èÁ¦
+	// ë¬¸ì˜í•˜ê¸° ì‚­ì œ
 	@RequestMapping(value="contactdelete.do")
-	public String deletecontact(String contact_no) {
+	public String deletecontact(String contact_no, String attachment_no) {
 		
+		System.out.println("attachment_no" + attachment_no);
+		
+		int result1 = userService.deletetattachmentdetail(attachment_no);
+		
+		if(result1 > 0) {
+			System.out.println("ì‚­ì œ ì™„ë£Œ");
+		}else {
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨");
+		}
+		int result2 = userService.deletetattachment(attachment_no);
+		
+		if(result2 > 0) {
+			System.out.println("ì‚­ì œ ì™„ë£Œ");
+		}else {
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨");
+		}
 		int result = userService.deletetcontact(contact_no);
 		
 		if(result > 0) {
-			System.out.println("»èÁ¦ ¿Ï·á");
+			System.out.println("ì‚­ì œ ì™„ë£Œ");
 		}else {
-			System.out.println("»èÁ¦ ½ÇÆĞ");
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨");
 		}
 		
 		return "redirect:/mypost.do";
 	}
 	
-	// ¸®ºä µî·Ï
+	// ë¦¬ë·° ë“±ë¡
 	@RequestMapping(value="reviewregister.do", method = RequestMethod.GET)
 	public String reviewregister(String product_no, Model model) {
 		
@@ -497,15 +572,15 @@ public class UserController {
 		int result = userService.insertReview(vo);
 		
 		if(result > 0) {
-			System.out.println("µî·Ï ¿Ï·á");
+			System.out.println("ë“±ë¡ ì™„ë£Œ");
 		}else {
-			System.out.println("µî·Ï ½ÇÆĞ");
+			System.out.println("ë“±ë¡ ì‹¤íŒ¨");
 		}
 
 		return "redirect:/mypost.do";
 	}
 	
-	// ¸®ºä ¼öÁ¤
+	// ë¦¬ë·° ìˆ˜ì •
 	@RequestMapping(value="reviewupdate.do", method = RequestMethod.GET)
 	public String reviewupdate(String product_no, String review_no, Model model) {
 		
@@ -524,58 +599,134 @@ public class UserController {
 		int result = userService.updateReview(vo);
 
 		if(result > 0) {
-			System.out.println("¼öÁ¤ ¿Ï·á");
+			System.out.println("ìˆ˜ì • ì™„ë£Œ");
 
 			return "redirect:/mypost.do";
 		}else {
-			System.out.println("¼öÁ¤ ½ÇÆĞ");
+			System.out.println("ìˆ˜ì • ì‹¤íŒ¨");
 			
 			return "redirect:reviewupdate.do?review_no=" + vo.getReview_no();
 		}
 	}
 
-	// ¸®ºä »èÁ¦
+	// ë¦¬ë·° ì‚­ì œ
 	@RequestMapping(value="reviewdelete.do")
 	public String reviewdelete(String review_no) {
 		
 		int result = userService.deleteReview(review_no);
 		
 		if(result > 0) {
-			System.out.println("»èÁ¦ ¿Ï·á");
+			System.out.println("ì‚­ì œ ì™„ë£Œ");
 		}else {
-			System.out.println("»èÁ¦ ½ÇÆĞ");
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨");
 		}
 
 		return "redirect:/mypost.do";
 	}
 
-	// °øÁö»çÇ×
+	// ê³µì§€ì‚¬í•­
 	@RequestMapping(value="notice.do", method=RequestMethod.GET)
 	public String notice() {
 		
 		return "user/account/notice";
 	}
+	
+	// ì‡¼í•‘ê°€ì´ë“œ
+	@RequestMapping(value="Shipping.do", method=RequestMethod.GET)
+	public String Shipping() {
+		
+		return "user/account/Shipping";
+	}
+	
+	@RequestMapping(value="ExchangesRefunds.do", method=RequestMethod.GET)
+	public String ExchangesRefunds() {
+		
+		return "user/account/ExchangesRefunds";
+	}
+	
+	@RequestMapping(value="FaultMisdelivery.do", method=RequestMethod.GET)
+	public String FaultMisdelivery() {
+		
+		return "user/account/FaultMisdelivery";
+	}
+	
+	@RequestMapping(value="CancelChange.do", method=RequestMethod.GET)
+	public String CancelChange() {
+		
+		return "user/account/CancelChange";
+	}
 
-	// ÁÖ¹®(+Ãë¼Ò)³»¿ª ¸ñ·Ï
+	// ì£¼ë¬¸(+ì·¨ì†Œ)ë‚´ì—­ ëª©ë¡
 	@RequestMapping(value="orderhistory.do", method=RequestMethod.GET)
-	public String orderhistory(Model model) {
+	public String orderhistory(Model model, HttpServletRequest request) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		List<OrderedVO> list = userService.selectorderhistory(username);
-		List<OrderedVO> cancellist = userService.selectorderhistorycancel(username);
+		HttpSession session = request.getSession();
+		GuestVO guestUser = (GuestVO) session.getAttribute("guestUser");
 		
-		System.out.println("ÁÖ¹®³»¿ª °¹¼ö : " + list.size());
-		System.out.println("Ãë¼Ò³»¿ª °¹¼ö : " + cancellist.size());
-		
-		model.addAttribute("list", list);
-		model.addAttribute("cancellist", cancellist);
-		
-		return "user/account/orderhistory";
+		if (username.equals("anonymousUser")) {
+			
+			if(guestUser != null) {
+				
+				String guest_no = guestUser.getGuest_no();
+				System.out.println("guest_no: " + guest_no);
+
+				List<OrderedVO> listguest = userService.selectOrderhistoryGuest(guest_no);
+				List<OrderedVO> cancellistguest = userService.selectOrderhistoryCancelGuest(guest_no);
+				
+				System.out.println("ì£¼ë¬¸ë‚´ì—­ ê°¯ìˆ˜ : " + listguest.size());
+				System.out.println("ì·¨ì†Œë‚´ì—­ ê°¯ìˆ˜ : " + cancellistguest.size());
+				
+				model.addAttribute("listguest", listguest);
+				model.addAttribute("cancellistguest", cancellistguest);
+				
+				return "user/account/orderhistory";
+			}else {
+				return "user/account/login";
+			}
+			
+		} else {
+			
+			List<OrderedVO> list = userService.selectorderhistory(username);
+			List<OrderedVO> cancellist = userService.selectorderhistorycancel(username);
+			
+			System.out.println("ì£¼ë¬¸ë‚´ì—­ ê°¯ìˆ˜ : " + list.size());
+			System.out.println("ì·¨ì†Œë‚´ì—­ ê°¯ìˆ˜ : " + cancellist.size());
+			
+			model.addAttribute("list", list);
+			model.addAttribute("cancellist", cancellist);
+			
+			return "user/account/orderhistory";
+		}
 	}
 	
-	// ÁÖ¹®³»¿ª »ó¼¼
+	// ì£¼ë¬¸ ì·¨ì†Œ
+	@ResponseBody
+	@RequestMapping(value = "/ajax/orderhistorycancel.do")
+	public String orderhistorycancel(String ordered_no, String payment_no) {
+		
+		System.out.println("ordered_no" + ordered_no);
+		
+		String msg = "";
+		
+		int isCancel1 = userService.updateOrderstatus1(ordered_no);
+		
+		if(isCancel1 > 0){
+			int isCancel2 = userService.updateOrderstatus2(payment_no);
+			
+			if(isCancel2 > 0){
+				msg = "success";
+			}
+		}else {
+			msg = "fail";
+		}
+		
+		return msg;
+	}
+	
+	// ì£¼ë¬¸ë‚´ì—­ ìƒì„¸
 	@RequestMapping(value="orderhistorydetail.do")
 	public String orderhistorydetail(String ordered_no, Model model) {
 		
@@ -590,64 +741,106 @@ public class UserController {
 		return "user/account/orderhistorydetail";
 	}
 	
-	// ¹è¼ÛÁö º¯°æ
+	// ë°°ì†¡ì§€ ë³€ê²½
 	@RequestMapping(value="addrmodify_modal.do")
 	public String addrmodify_modal(String ordered_no, Model model) {
 		
-		OrderedVO vo = userService.selectorderhistorydetail(ordered_no);
+		System.out.println("ordered_no" + ordered_no);
+		
+		OrderedVO vo = userService.selectAddr(ordered_no);
 		
 		model.addAttribute("vo", vo);
 		
 		return "user/account/addrmodify_modal";
 	}
 
-	// À§½Ã¸®½ºÆ® Á¶È¸
+	// ë°°ì†¡ì§€ ë³€ê²½
+	@RequestMapping(value="addrmodify_modalOk.do")
+	public String addrmodify_modal(OrderedVO vo) {
+		
+		int result = userService.updateAddr(vo);
+		
+		if(result > 0) {
+			System.out.println("ë°°ì†¡ì§€ ë³€ê²½ ì™„ë£Œ");
+		}else {
+			System.out.println("ë°°ì†¡ì§€ ë³€ê²½ ì‹¤íŒ¨");
+		}
+		
+		return "redirect:/addrmodify_modal.do?ordered_no=" + vo.getOrdered_no();
+	}
+
+	// ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
 	@RequestMapping(value="wishlist.do")
 	public String wishlist(Model model, HttpServletRequest request) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		// ºñÈ¸¿ø
+		// ì¿ í‚¤ ê°€ì ¸ì˜¤ê¸°
+	    Cookie[] cookies = request.getCookies();
+	    
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            // ì¿ í‚¤ ì´ë¦„ê³¼ ê°’ì„ ì¶œë ¥
+	            System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
+	        }
+	    } else {
+	        System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+	    }
+		
+		// ë¹„íšŒì›
 		if (username.equals("anonymousUser")) { 
 			List<WishlistVO> list = userService.getGuestWishlistFromCookies(request);
+			System.out.println("ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ê°¯ìˆ˜ : " + list.size());
 			model.addAttribute("list", list);
-		// È¸¿ø
+		// íšŒì›
 		} else { 
 			List<WishlistVO> list = userService.selectWishlist(username);
-			System.out.println("À§½Ã¸®½ºÆ® °¹¼ö : " + list.size());
+			System.out.println("ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ê°¯ìˆ˜ : " + list.size());
 			model.addAttribute("list", list);
 		}
 		
 		return "user/account/wishlist";
 	}
 	
-	// À§½Ã¸®½ºÆ® µî·Ï
+	// ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ë“±ë¡
 	@RequestMapping(value="wishlistinsert.do")
 	public String wishlistinsert(WishlistVO vo, HttpServletRequest request, HttpServletResponse response) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		// ºñÈ¸¿ø
+		// ì¿ í‚¤ ê°€ì ¸ì˜¤ê¸°
+	    Cookie[] cookies = request.getCookies();
+	    
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            // ì¿ í‚¤ ì´ë¦„ê³¼ ê°’ì„ ì¶œë ¥
+	            System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
+	        }
+	    } else {
+	        System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+	    }
+		
+		// ë¹„íšŒì›
 		if (username.equals("anonymousUser")) { 
 			userService.addGuestWishlistToCookies(vo.getProduct_no(), request, response);
 			
-		// È¸¿ø
+		// íšŒì›
 		} else { 
 			vo.setProduct_no(vo.getProduct_no());
 			vo.setUser_id(username);
 			int result1 = userService.selectDedupeWishlist(vo);
-			System.out.println("À§½Ã?" + result1);
+			System.out.println("ìœ„ì‹œ?" + result1);
 			if(result1 > 0) {
-				System.out.println("ÀÌ¹Ì À§½Ã¿¡ ÀÖÀ½");
+				System.out.println("ì´ë¯¸ ìœ„ì‹œì— ìˆìŒ");
 			}else {
 				int result2 = userService.insertWishlist(vo);
 				
 				if (result2 > 0) {
-					System.out.println("È¸¿ø À§½Ã¸®½ºÆ® µî·Ï ¿Ï·á");
+					System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ë“±ë¡ ì™„ë£Œ");
 				} else {
-					System.out.println("È¸¿ø À§½Ã¸®½ºÆ® µî·Ï ½ÇÆĞ");
+					System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ë“±ë¡ ì‹¤íŒ¨");
 				}
 			}
 		}
@@ -655,72 +848,66 @@ public class UserController {
 		return "redirect:/recentlyproducts.do";
 	}
 	
-	// À§½Ã¸®½ºÆ® »èÁ¦
+	// ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ì‚­ì œ
 	@RequestMapping(value="wishlistdelete.do")
 	public String wishlistdelete(String wishlist_no, HttpServletRequest request, HttpServletResponse response) {
 		
-		   // ÄíÅ° °¡Á®¿À±â
+		   // ì¿ í‚¤ ê°€ì ¸ì˜¤ê¸°
 //	    Cookie[] cookies = request.getCookies();
 //	    
 //	    if (cookies != null) {
 //	        for (Cookie cookie : cookies) {
-//	            // ÄíÅ° ÀÌ¸§°ú °ªÀ» Ãâ·Â
-//	            System.out.println("ÄíÅ° ÀÌ¸§: " + cookie.getName() + ", ÄíÅ° °ª: " + cookie.getValue());
+//	            // ì¿ í‚¤ ì´ë¦„ê³¼ ê°’ì„ ì¶œë ¥
+//	            System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
 //	        }
 //	    } else {
-//	        System.out.println("ÄíÅ°°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+//	        System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 //	    }
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		// ºñÈ¸¿ø
+		// ë¹„íšŒì›
 		if (username.equals("anonymousUser")) { 
 			userService.removeGuestWishlistFromCookies(wishlist_no, request, response);
-		// È¸¿ø
+		// íšŒì›
 		} else { 
 			int result = userService.deleteWishlist(wishlist_no);
 		
 			if (result > 0) {
-				System.out.println("È¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ¿Ï·á");
+				System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ì‚­ì œ ì™„ë£Œ");
 			} else {
-				System.out.println("È¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ½ÇÆĞ");
+				System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ì‚­ì œ ì‹¤íŒ¨");
 			}
 		}
 		
 		return "redirect:/wishlist.do";
 	}
 
-	// Ä«Æ® µî·Ï(ÃÖ±Ù)
+	// ì¹´íŠ¸ ë“±ë¡(ìµœê·¼)
 	@RequestMapping(value="retocartinsert.do")
-	public String cartinsert(CartVO vo, HttpServletRequest request, HttpServletResponse response) {
+	public String cartinsert(CartVO vo, String product_no, HttpServletRequest request, HttpServletResponse response) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		if (username.equals("anonymousUser")) { // ºñÈ¸¿ø
-//			// ºñÈ¸¿øÀº ÄíÅ°¿¡¼­ Á¦°Å ÈÄ Ä«Æ® ÄíÅ°·Î ÀÌµ¿
-//			String productNo = userService.removeGuestWishlistFromCookies(wishlist_no, request, response);
-//			if (productNo != null) {
-//				userService.addGuestCartToCookies(productNo, request, response);
-//				System.out.println("ºñÈ¸¿ø Ä«Æ® µî·Ï ¿Ï·á");
-//			} else {
-//				System.out.println("ºñÈ¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ½ÇÆĞ");
-//			}
-		} else { // È¸¿ø
+		if (username.equals("anonymousUser")) { // ë¹„íšŒì›
+			System.out.println("product_no" + product_no);
+			userService.addGuestCartToCookies(product_no, request, response);
+		} else { // íšŒì›
 			vo.setProduct_no(vo.getProduct_no());
 			vo.setUser_id(username);
 			int result1 = userService.selectDedupeCart(vo);
-			System.out.println("Ä«Æ®?" + result1);
+			System.out.println("ì¹´íŠ¸?" + result1);
 			if(result1 > 0) {
-				System.out.println("ÀÌ¹Ì Ä«Æ®¿¡ ÀÖÀ½");
+				System.out.println("ì´ë¯¸ ì¹´íŠ¸ì— ìˆìŒ");
 			}else {
 				int result2 = userService.insertCart(vo);
 				
 				if (result2 > 0) {
-					System.out.println("È¸¿ø Ä«Æ® µî·Ï ¿Ï·á");
+					System.out.println("íšŒì› ì¹´íŠ¸ ë“±ë¡ ì™„ë£Œ");
 				} else {
-					System.out.println("È¸¿ø Ä«Æ® µî·Ï ½ÇÆĞ");
+					System.out.println("íšŒì› ì¹´íŠ¸ ë“±ë¡ ì‹¤íŒ¨");
 				}
 			}
 		}
@@ -728,42 +915,32 @@ public class UserController {
 		return "redirect:/recentlyproducts.do";
 	}
 	
-	// Ä«Æ® µî·Ï(À§½Ã)
+	// ì¹´íŠ¸ ë“±ë¡(ìœ„ì‹œ)
 	@RequestMapping(value="witocartinsert.do")
-	public String cartinsert(String wishlist_no, CartVO vo, HttpServletRequest request, HttpServletResponse response) {
+	public String cartinsert(String product_no, CartVO vo, HttpServletRequest request, HttpServletResponse response) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		if (username.equals("anonymousUser")) { // ºñÈ¸¿ø
-//			// ºñÈ¸¿øÀº ÄíÅ°¿¡¼­ Á¦°Å ÈÄ Ä«Æ® ÄíÅ°·Î ÀÌµ¿
-//			String productNo = userService.removeGuestWishlistFromCookies(wishlist_no, request, response);
-//			if (productNo != null) {
-//				userService.addGuestCartToCookies(productNo, request, response);
-//				System.out.println("ºñÈ¸¿ø Ä«Æ® µî·Ï ¿Ï·á");
-//			} else {
-//				System.out.println("ºñÈ¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ½ÇÆĞ");
-//			}
-		} else { // È¸¿ø
+		if (username.equals("anonymousUser")) { // ë¹„íšŒì›
+			// ë¹„íšŒì›ì€ ì¿ í‚¤ì—ì„œ ì œê±° í›„ ì¹´íŠ¸ ì¿ í‚¤ë¡œ ì´ë™
+			userService.addGuestCartToCookies(product_no, request, response);
+			System.out.println("ë¹„íšŒì› ì¹´íŠ¸ ë“±ë¡ ì™„ë£Œ");
+		} else { // íšŒì›
 			vo.setProduct_no(vo.getProduct_no());
 			vo.setUser_id(username);
 			int result1 = userService.selectDedupeCart(vo);
-			System.out.println("Ä«Æ®?" + result1);
+			System.out.println("ì¹´íŠ¸?" + result1);
 			if(result1 > 0) {
-				System.out.println("ÀÌ¹Ì Ä«Æ®¿¡ ÀÖÀ½");
+				System.out.println("ì´ë¯¸ ì¹´íŠ¸ì— ìˆìŒ");
 			}else {
-				int result2 = userService.deleteWishlist(wishlist_no);
+				vo.setUser_id(username);
+				int result2 = userService.insertCart(vo);
+				
 				if (result2 > 0) {
-					vo.setUser_id(username);
-					int result3 = userService.insertCart(vo);
-					
-					if (result3 > 0) {
-						System.out.println("È¸¿ø Ä«Æ® µî·Ï ¿Ï·á");
-					} else {
-						System.out.println("È¸¿ø Ä«Æ® µî·Ï ½ÇÆĞ");
-					}
+					System.out.println("íšŒì› ì¹´íŠ¸ ë“±ë¡ ì™„ë£Œ");
 				} else {
-					System.out.println("È¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ½ÇÆĞ");
+					System.out.println("íšŒì› ì¹´íŠ¸ ë“±ë¡ ì‹¤íŒ¨");
 				}
 			}
 		}
@@ -771,21 +948,22 @@ public class UserController {
 		return "redirect:/wishlist.do";
 	}
 	
-	// ·Î±×ÀÎ ÈÄ È£ÃâµÇ´Â ¸Ş¼­µå¿¡¼­ ºñÈ¸¿ø À§½Ã¸®½ºÆ® DB·Î ÀÌµ¿
+	// ë¡œê·¸ì¸ í›„ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œì—ì„œ ë¹„íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ DBë¡œ ì´ë™
 	@RequestMapping(value = "cookietodb.do")
 	public String loginUser(String username, HttpServletRequest request, HttpServletResponse response) {
-	    
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		username = authentication.getName();
 		
 	    Cookie[] cookies = request.getCookies();
 	    boolean foundRecentlyProductCookie = false;
 	    boolean foundWishlistCookie = false;
+	    boolean foundCartCookie = false;
 	    
 	    if (cookies != null) {
 	        
 	        for (Cookie cookie : cookies) {
-	        	System.out.println("ÄíÅ° ÀÌ¸§: " + cookie.getName() + ", ÄíÅ° °ª: " + cookie.getValue());
+	        	System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
 	        	
 	        	if (cookie.getName().startsWith("recentlyproduct_")) {
 	        		foundRecentlyProductCookie = true;
@@ -793,140 +971,165 @@ public class UserController {
 	        	if (cookie.getName().startsWith("wishlist_")) {
 	        		foundWishlistCookie = true;
 	        	}
+	        	if (cookie.getName().startsWith("cart_")) {
+	        		foundCartCookie = true;
+	        	}
 	        }
 
-	        // wishlist_ ÄíÅ°°¡ ¹ß°ßµÇ¾úÀ» °æ¿ì DB·Î ÀÌµ¿ Ã³¸®
-	        if (foundRecentlyProductCookie || foundWishlistCookie) {
-	            userService.migrateGuestWishlistToDB(request, username, response);
+	        // wishlist_ ì¿ í‚¤ê°€ ë°œê²¬ë˜ì—ˆì„ ê²½ìš° DBë¡œ ì´ë™ ì²˜ë¦¬
+	        if (foundRecentlyProductCookie || foundWishlistCookie || foundCartCookie) {
+	            userService.migrateGuestDataToDB(request, username, response);
 	        }
 	    } else {
-	        System.out.println("ÄíÅ°°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+	        System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	    }
 
-	    return "redirect:/"; // ¸®´ÙÀÌ·º¼Ç Ã³¸®
+	    return "redirect:/"; // ë¦¬ë‹¤ì´ë ‰ì…˜ ì²˜ë¦¬
 	}
 	
 
-	// ÃÖ±Ù º» »óÇ° Á¶È¸
+	// ìµœê·¼ ë³¸ ìƒí’ˆ ì¡°íšŒ
 	@RequestMapping(value="recentlyproducts.do")
 	public String recentlyproducts(Model model, HttpServletRequest request) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		// ºñÈ¸¿ø
+//		// ì¿ í‚¤ ê°€ì ¸ì˜¤ê¸°
+//	    Cookie[] cookies = request.getCookies();
+//	    
+//	    if (cookies != null) {
+//	        for (Cookie cookie : cookies) {
+//	            // ì¿ í‚¤ ì´ë¦„ê³¼ ê°’ì„ ì¶œë ¥
+//	            System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
+//	        }
+//	    } else {
+//	        System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+//	    }
+		
+		// ë¹„íšŒì›
 		if (username.equals("anonymousUser")) { 
 			List<RecentlyproductVO> list = userService.getGuestRecentlyProductFromCookies(request);
-			model.addAttribute("list", list);
-			// È¸¿ø
+	        if (list == null || list.isEmpty()) {
+	            model.addAttribute("message", "ìµœê·¼ ë³¸ ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.");
+	        } else {
+	            model.addAttribute("list", list);
+	        }
+			// íšŒì›
 		} else { 
 			List<RecentlyproductVO> list = userService.selectRecentlyproduct(username);
-			System.out.println("ÃÖ±Ù º» »óÇ° °¹¼ö : " + list.size());
-			model.addAttribute("list", list);
+	        if (list == null || list.isEmpty()) {
+	            model.addAttribute("message", "ìµœê·¼ ë³¸ ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.");
+	        } else {
+	            System.out.println("ìµœê·¼ ë³¸ ìƒí’ˆ ê°¯ìˆ˜ : " + list.size());
+	            model.addAttribute("list", list);
+	        }
 		}
 		
 		return "user/account/recentlyproducts";
 	}
 	
-	// ÃÖ±Ù º» »óÇ° µî·Ï
-	@RequestMapping(value="recentlyproductinsert.do")
-	public String recentlyproductinsert(RecentlyproductVO vo, HttpServletRequest request, HttpServletResponse response) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		
-		// ºñÈ¸¿ø
-		if (username.equals("anonymousUser")) { 
-			userService.addGuestRecentlyProductToCookies(vo.getProduct_no(), request, response);
-		// È¸¿ø
-		} else { 
-			vo.setUser_id(username);
-			int result = userService.insertRecentlyproduct(vo);
-			
-			if (result > 0) {
-				System.out.println("È¸¿ø À§½Ã¸®½ºÆ® µî·Ï ¿Ï·á");
-			} else {
-				System.out.println("È¸¿ø À§½Ã¸®½ºÆ® µî·Ï ½ÇÆĞ");
-			}
-		}
-		
-		return "redirect:/recentlyproducts.do";
-	}
+//	// ìµœê·¼ ë³¸ ìƒí’ˆ ë“±ë¡
+//	@RequestMapping(value="recentlyproductinsert.do")
+//	public String recentlyproductinsert(RecentlyproductVO vo, HttpServletRequest request, HttpServletResponse response) {
+//		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String username = authentication.getName();
+//		
+//		// ë¹„íšŒì›
+//		if (username.equals("anonymousUser")) { 
+//			userService.addGuestRecentlyProductToCookies(vo.getProduct_no(), request, response);
+//		// íšŒì›
+//		} else { 
+//			vo.setUser_id(username);
+//			int result = userService.insertRecentlyproduct(vo);
+//			
+//			if (result > 0) {
+//				System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ë“±ë¡ ì™„ë£Œ");
+//			} else {
+//				System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ë“±ë¡ ì‹¤íŒ¨");
+//			}
+//		}
+//		
+//		return "redirect:/recentlyproducts.do";
+//	}
 	
-	// ÃÖ±Ù º» »óÇ° »èÁ¦
+	// ìµœê·¼ ë³¸ ìƒí’ˆ ì‚­ì œ
 	@RequestMapping(value="recentlyproductdelete.do")
 	public String recentlyproductdelete(String recentlyproduct_no, HttpServletRequest request, HttpServletResponse response) {
 		
-		// ÄíÅ° °¡Á®¿À±â
-//	    Cookie[] cookies = request.getCookies();
-//	    
-//	    if (cookies != null) {
-//	        for (Cookie cookie : cookies) {
-//	            // ÄíÅ° ÀÌ¸§°ú °ªÀ» Ãâ·Â
-//	            System.out.println("ÄíÅ° ÀÌ¸§: " + cookie.getName() + ", ÄíÅ° °ª: " + cookie.getValue());
-//	        }
-//	    } else {
-//	        System.out.println("ÄíÅ°°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
-//	    }
+		// ì¿ í‚¤ ê°€ì ¸ì˜¤ê¸°
+	    Cookie[] cookies = request.getCookies();
+	    
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            // ì¿ í‚¤ ì´ë¦„ê³¼ ê°’ì„ ì¶œë ¥
+	            System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
+	        }
+	    } else {
+	        System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+	    }
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		// ºñÈ¸¿ø
+		System.out.println("recentlyproduct_no" + recentlyproduct_no);
+		
+		// ë¹„íšŒì›
 		if (username.equals("anonymousUser")) { 
 			userService.removeGuestRecentlyProductFromCookies(recentlyproduct_no, request, response);
-			// È¸¿ø
+			// íšŒì›
 		} else { 
 			
 			System.out.println("recentlyproduct_no : " + recentlyproduct_no);
 			int result = userService.deleteRecentlyproduct_(recentlyproduct_no);
 			
 			if (result > 0) {
-				System.out.println("È¸¿ø ÃÖ±Ùº»»óÇ° »èÁ¦ ¿Ï·á");
+				System.out.println("íšŒì› ìµœê·¼ë³¸ìƒí’ˆ ì‚­ì œ ì™„ë£Œ");
 			} else {
-				System.out.println("È¸¿ø ÃÖ±Ùº»»óÇ° »èÁ¦ ½ÇÆĞ");
+				System.out.println("íšŒì› ìµœê·¼ë³¸ìƒí’ˆ ì‚­ì œ ì‹¤íŒ¨");
 			}
 		}
 		
 		return "redirect:/recentlyproducts.do";
 	}
 	
-//	// Ä«Æ®·Î ÀÌµ¿
+//	// ì¹´íŠ¸ë¡œ ì´ë™
 //	@RequestMapping(value="cartinsert.do")
 //	public String cartinsert(String wishlist_no, CartVO vo, HttpServletRequest request, HttpServletResponse response) {
 //		
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		String username = authentication.getName();
 //		
-//		if (username.equals("anonymousUser")) { // ºñÈ¸¿ø
-////			// ºñÈ¸¿øÀº ÄíÅ°¿¡¼­ Á¦°Å ÈÄ Ä«Æ® ÄíÅ°·Î ÀÌµ¿
+//		if (username.equals("anonymousUser")) { // ë¹„íšŒì›
+////			// ë¹„íšŒì›ì€ ì¿ í‚¤ì—ì„œ ì œê±° í›„ ì¹´íŠ¸ ì¿ í‚¤ë¡œ ì´ë™
 ////			String productNo = userService.removeGuestWishlistFromCookies(wishlist_no, request, response);
 ////			if (productNo != null) {
 ////				userService.addGuestCartToCookies(productNo, request, response);
-////				System.out.println("ºñÈ¸¿ø Ä«Æ® µî·Ï ¿Ï·á");
+////				System.out.println("ë¹„íšŒì› ì¹´íŠ¸ ë“±ë¡ ì™„ë£Œ");
 ////			} else {
-////				System.out.println("ºñÈ¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ½ÇÆĞ");
+////				System.out.println("ë¹„íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ì‚­ì œ ì‹¤íŒ¨");
 ////			}
-//		} else { // È¸¿ø
+//		} else { // íšŒì›
 //			int result = userService.deleteWishlist(wishlist_no);
 //			if (result > 0) {
 //				vo.setUser_id(username);
 //				int result1 = userService.insertCart(vo);
 //				
 //				if (result1 > 0) {
-//					System.out.println("È¸¿ø Ä«Æ® µî·Ï ¿Ï·á");
+//					System.out.println("íšŒì› ì¹´íŠ¸ ë“±ë¡ ì™„ë£Œ");
 //				} else {
-//					System.out.println("È¸¿ø Ä«Æ® µî·Ï ½ÇÆĞ");
+//					System.out.println("íšŒì› ì¹´íŠ¸ ë“±ë¡ ì‹¤íŒ¨");
 //				}
 //			} else {
-//				System.out.println("È¸¿ø À§½Ã¸®½ºÆ® »èÁ¦ ½ÇÆĞ");
+//				System.out.println("íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ ì‚­ì œ ì‹¤íŒ¨");
 //			}
 //		}
 //		
 //		return "redirect:/wishlist.do";
 //	}
 //	
-//	// ·Î±×ÀÎ ÈÄ È£ÃâµÇ´Â ¸Ş¼­µå¿¡¼­ ºñÈ¸¿ø À§½Ã¸®½ºÆ® DB·Î ÀÌµ¿
+//	// ë¡œê·¸ì¸ í›„ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œì—ì„œ ë¹„íšŒì› ìœ„ì‹œë¦¬ìŠ¤íŠ¸ DBë¡œ ì´ë™
 //	@RequestMapping(value = "cookietodb.do")
 //	public String loginUser(String username, HttpServletRequest request, HttpServletResponse response) {
 //		
@@ -936,26 +1139,26 @@ public class UserController {
 //		Cookie[] cookies = request.getCookies();
 //		
 //		if (cookies != null) {
-//			boolean foundWishlistCookie = false;  // wishlist_ ÄíÅ°°¡ Á¸ÀçÇÏ´ÂÁö ¿©ºÎ¸¦ ÃßÀûÇÏ´Â º¯¼ö
+//			boolean foundWishlistCookie = false;  // wishlist_ ì¿ í‚¤ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ ì¶”ì í•˜ëŠ” ë³€ìˆ˜
 //			
 //			for (Cookie cookie : cookies) {
-//				System.out.println("ÄíÅ° ÀÌ¸§: " + cookie.getName() + ", ÄíÅ° °ª: " + cookie.getValue());
+//				System.out.println("ì¿ í‚¤ ì´ë¦„: " + cookie.getName() + ", ì¿ í‚¤ ê°’: " + cookie.getValue());
 //				
-//				// ÄíÅ° ÀÌ¸§ÀÌ wishlist_·Î ½ÃÀÛÇÏ¸é
+//				// ì¿ í‚¤ ì´ë¦„ì´ wishlist_ë¡œ ì‹œì‘í•˜ë©´
 //				if (cookie.getName().startsWith("wishlist_")) {
 //					foundWishlistCookie = true;
-//					break;  // wishlist_ ÄíÅ°¸¦ Ã£À¸¸é ¹İº¹¹® Á¾·á
+//					break;  // wishlist_ ì¿ í‚¤ë¥¼ ì°¾ìœ¼ë©´ ë°˜ë³µë¬¸ ì¢…ë£Œ
 //				}
 //			}
 //			
-//			// wishlist_ ÄíÅ°°¡ ¹ß°ßµÇ¾úÀ» °æ¿ì DB·Î ÀÌµ¿ Ã³¸®
+//			// wishlist_ ì¿ í‚¤ê°€ ë°œê²¬ë˜ì—ˆì„ ê²½ìš° DBë¡œ ì´ë™ ì²˜ë¦¬
 //			if (foundWishlistCookie) {
 //				userService.migrateGuestWishlistToDB(request, username, response);
 //			}
 //		} else {
-//			System.out.println("ÄíÅ°°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+//			System.out.println("ì¿ í‚¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 //		}
 //		
-//		return "redirect:/"; // ¸®´ÙÀÌ·º¼Ç Ã³¸®
+//		return "redirect:/"; // ë¦¬ë‹¤ì´ë ‰ì…˜ ì²˜ë¦¬
 //	}
 }

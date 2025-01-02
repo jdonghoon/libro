@@ -45,10 +45,13 @@
 						<div class="inquirydetail-content">
 							<c:if test="${vo.attachment_detail_new_name != null}">
 								<c:forEach var="image" items="${fn:split(vo.attachment_detail_new_name, ',')}">
-									<img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment"/ style="width:350px; height: 350px;">
+									<img src="<%=request.getContextPath()%>/upload/${image}" alt="Attachment"/ style="width:350px; height: auto;"><br><br>
 								</c:forEach>
 							</c:if>
-								<br><br>${vo.contact_content}
+								${vo.contact_content}<br><br><br>
+								<c:if test="${not empty vo.contact_comment}">
+								[ 답변 ]<br><br>${vo.contact_comment}
+								</c:if>
 						</div>
 					</div>
 
@@ -57,9 +60,9 @@
 					</div>
 					
                     <div class="inquirydetail-footer">
-                        <button class="left-button">등록</button>
+                        <button class="left-button" onclick="location.href='mypost.do'">목록</button>
                         <div class="right-buttons">
-	                        <button onclick="location.href='contactdelete.do?contact_no=${vo.contact_no}'">삭제</button>
+	                        <button onclick="location.href='contactdelete.do?contact_no=${vo.contact_no}&attachment_no=${vo.attachment_no}'">삭제</button>
 	                        <button onclick="location.href='inquirymodify.do?contact_no=${vo.contact_no}'">수정</button>
                         </div>
                     </div>

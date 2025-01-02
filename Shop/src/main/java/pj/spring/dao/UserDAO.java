@@ -31,9 +31,14 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace + ".selectCntByUid", user_id);
 	}
 
-	// 로그인
-	public UserVO selectLogin(String username) {
-		return sqlSession.selectOne(namespace + ".selectUserByLogin", username);
+//	// 회원 로그인
+//	public UserVO selectLogin(String username) {
+//		return sqlSession.selectOne(namespace + ".selectUserByLogin", username);
+//	}
+
+	// 비회원 로그인
+	public GuestVO selectGuestLogin(GuestVO guestVO) {
+		return sqlSession.selectOne(namespace + ".selectGuestLogin", guestVO);
 	}
 	
 	// 주소록 목록
@@ -135,10 +140,40 @@ public class UserDAO {
 	public List<OrderedVO> selectorderhistory(String user_id) {
 		return sqlSession.selectList(namespace + ".selectOrderhistory", user_id);
 	}
+	
+	// 비회원 주문내역 목록
+	public List<OrderedVO> selectOrderhistoryGuest(String guest_no) {
+		return sqlSession.selectList(namespace + ".selectOrderhistoryGuest", guest_no);
+	}
+	
+	// 취소 신청
+	public int updateOrderstatus1(String ordered_no) {
+		return sqlSession.update(namespace + ".updateOrderstatus1", ordered_no);
+	}
+
+	// 취소 신청
+	public int updateOrderstatus2(String payment_no) {
+		return sqlSession.update(namespace + ".updateOrderstatus2", payment_no);
+	}
+	
+	// 배송지 변경
+	public OrderedVO selectAddr(String ordered_no) {
+		return sqlSession.selectOne(namespace + ".selectAddr", ordered_no);
+	}
+	
+	// 배송지 변경
+	public int updateAddr(OrderedVO orderedVO) {
+		return sqlSession.update(namespace + ".updateAddr", orderedVO);
+	}
 
 	// 취소내역 목록
 	public List<OrderedVO> selectorderhistorycancel(String user_id) {
 		return sqlSession.selectList(namespace + ".selectOrderhistoryCancel", user_id);
+	}
+
+	// 비회원 취소내역 목록
+	public List<OrderedVO> selectOrderhistoryCancelGuest(String guest_no) {
+		return sqlSession.selectList(namespace + ".selectOrderhistoryCancelGuest", guest_no);
 	}
 	
 	// 주문내역 상세
@@ -244,6 +279,11 @@ public class UserDAO {
 	// 비회원용 상품정보
 	public ReviewVO selectProductForGuest(String product_no) {
 		return sqlSession.selectOne(namespace + ".selectProductForGuest", product_no);
+	}
+	
+	// 비회원용 상품정보
+	public ProductVO selectCartListGuest(String product_no) {
+		return sqlSession.selectOne(namespace + ".selectCartListGuest", product_no);
 	}
 
 }

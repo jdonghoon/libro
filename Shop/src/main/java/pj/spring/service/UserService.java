@@ -1,6 +1,7 @@
 package pj.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +19,11 @@ public interface UserService {
 	// 회원탈퇴
 	public int deleteAccount(String user_id); 
 
-	// 로그인
-	public UserVO selectLogin(String username);
+//	// 로그인
+//	public UserVO selectLogin(String username);
+	
+	// 비회원 로그인
+	public GuestVO selectGuestLogin(GuestVO guestVO);
 
 	// 아이디 중복 체크
 	public int selectCntByUid(String user_id);
@@ -83,9 +87,27 @@ public interface UserService {
 	
 	// 주문내역 목록
 	public List<OrderedVO> selectorderhistory(String user_id);
+	
+	// 비회원 주문내역 목록
+	public List<OrderedVO> selectOrderhistoryGuest(String guest_no);
+	
+	// 취소 신청
+	public int updateOrderstatus1(String ordered_no);
+
+	// 취소 신청
+	public int updateOrderstatus2(String payment_no);
+	
+	// 배송지 변경
+	public OrderedVO selectAddr(String ordered_no);
+	
+	// 배송지 변경
+	public int updateAddr(OrderedVO orderedVO);
 
 	// 취소내역 목록
 	public List<OrderedVO> selectorderhistorycancel(String user_id);
+	
+	// 비회원 취소내역 목록
+	public List<OrderedVO> selectOrderhistoryCancelGuest(String guest_no);
 
 	// 주문내역 상세
 	public OrderedVO selectorderhistorydetail(String ordered_no);
@@ -150,21 +172,6 @@ public interface UserService {
 	//-------------------------------------------------------------------------------------------------------------------------------	
 	// 비회원
 	
-	// 위시리스트 조회
-	public List<WishlistVO> getGuestWishlistFromCookies(HttpServletRequest request);
-
-	// 위시리스트 등록
-	public void addGuestWishlistToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
-
-	// 위시리스트 삭제
-	public void removeGuestWishlistFromCookies(String wishlist_no, HttpServletRequest request, HttpServletResponse response);
-
-	// 카트로 이동
-	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
-	
-	// 로그인 후 비회원 위시리스트 DB로 이동
-	public void migrateGuestWishlistToDB(HttpServletRequest request, String username, HttpServletResponse response);
-	
 	// 최근 본 상품 조회
 	public List<RecentlyproductVO> getGuestRecentlyProductFromCookies(HttpServletRequest request);
 	
@@ -173,11 +180,32 @@ public interface UserService {
 	
 	// 최근 본 상품 삭제
 	public void removeGuestRecentlyProductFromCookies(String recentlyproduct_no, HttpServletRequest request, HttpServletResponse response);
+
+	// 위시리스트 조회
+	public List<WishlistVO> getGuestWishlistFromCookies(HttpServletRequest request);
+
+	// 위시리스트 등록
+	public void addGuestWishlistToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
+
+	// 위시리스트 삭제
+	public void removeGuestWishlistFromCookies(String wishlist_no, HttpServletRequest request, HttpServletResponse response);
 	
-//	// 위시리스트로 이동
-//	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
-//
-//	// 카트로 이동
-//	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
+	// 사이드 카트 조회
+	public List<ProductVO> selectCart(Map<String, Object> params, HttpServletRequest request);
+
+	// 카트 수량 업데이트
+	public void updateCartForGuest(String product_no, int quantity, HttpServletRequest request, HttpServletResponse response);
+
+	// 카트 조회
+	public List<CartVO> getGuestCartFromCookies(HttpServletRequest request);
+	
+	// 카트 등록
+	public void addGuestCartToCookies(String product_no, HttpServletRequest request, HttpServletResponse response);
+	
+	// 카트 삭제
+	public int removeGuestCartFromCookies(String cart_no, HttpServletRequest request, HttpServletResponse response);
+
+	// 로그인 후 비회원 위시리스트 DB로 이동
+	public void migrateGuestDataToDB(HttpServletRequest request, String username, HttpServletResponse response);
 
 }
