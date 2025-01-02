@@ -163,7 +163,7 @@
 			                labels: labels,
 			                datasets: [
 			                    {
-			                        label: '일별 매출액',
+			                        label: '일별 주문액',
 			                        data: salesData,
 			                        borderColor: 'rgba(75, 192, 192, 1)',
 			                        borderWidth: 2,
