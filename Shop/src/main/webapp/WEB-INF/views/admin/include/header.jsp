@@ -35,7 +35,7 @@
 	                <ul class="navbar-nav ms-auto">
 	                    <li class="nav-item dropdown"> 
 	                    	<a class="nav-link" data-bs-toggle="dropdown"> 
-	                    		<i class="bi bi-bell-fill"></i> 
+	                    		<img width="33" height="33" src="https://img.icons8.com/?size=100&id=32058&format=png&color=343A40" alt="bell--v1"/>
 	                    		<span class="navbar-badge badge text-bg-warning">0</span> 
 	                    	</a>
 	                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
