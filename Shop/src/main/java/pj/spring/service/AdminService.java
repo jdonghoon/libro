@@ -23,6 +23,9 @@ public interface AdminService {
 	// 대시보드 리뷰/문의 관리  건 수
 	public Map<String, Object> contentCount();
 	
+	// 통합 통계 메서드
+    public Map<String, Object> getSalesStatistics(Map<String, Object> params);
+	
 	// 회원 관리 list
 	public List<UserVO> userList(Map<String,Integer> pagingParam);
 	

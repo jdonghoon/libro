@@ -39,6 +39,12 @@ public class AdminServiceServiceImpl implements AdminService {
 	public Map<String, Object> contentCount() {
 		return adminDAO.contentCount();
 	}
+	
+	// 통합 통계 메서드
+	@Override
+    public Map<String, Object> getSalesStatistics(Map<String, Object> params) {
+		return adminDAO.getSalesStatistics(params);
+	}
 
 	// 회원 관리 list
 	@Override

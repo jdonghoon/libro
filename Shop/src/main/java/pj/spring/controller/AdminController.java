@@ -41,18 +41,31 @@ public class AdminController {
 
 	// 대시보드
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model,
+			@RequestParam(required = false) String startDate, 
+            @RequestParam(required = false) String endDate) {
 
 		Map<String, Object> orderCount = adminService.orderCount();
-		Map<String, Object> cancelCount = adminService.cancelCount();
-		Map<String, Object> contentCount = adminService.contentCount();
-
 		model.addAttribute("orderCount", orderCount);
+		
+		Map<String, Object> cancelCount = adminService.cancelCount();
 		model.addAttribute("cancelCount", cancelCount);
+
+		Map<String, Object> contentCount = adminService.contentCount();
 		model.addAttribute("contentCount", contentCount);
+
+		Map<String, Object> params = new HashMap<>();
+        params.put("startDate", startDate);
+        params.put("endDate", endDate);
+
+        Map<String, Object> statistics = adminService.getSalesStatistics(params);
+
+        model.addAttribute("statistics", statistics);
 
 		return "admin/index";
 	}
+	
+	
 
 	// 회원 관리
 	@RequestMapping(value = "/membership.do", method = RequestMethod.GET)

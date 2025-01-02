@@ -25,7 +25,31 @@
       		  ,(select count(*) from contact where contact_type = '상품문의' and contact_create_at = CURRENT_DATE) AS contactP_cnt
       		  ,(select count(*) from contact where contact_type = '기타문의' and contact_create_at = CURRENT_DATE) AS contactM_cnt
 	</select>
-	 
+	
+	<!-- 대시보드 통계 -->
+	<!-- 총 매출 및 총 주문 수 -->
+	<select id="salesStatistics" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT 
+        SUM(ordered_detail_total_price) AS totalSales,
+        COUNT(DISTINCT ordered_detail.ordered_no) AS totalOrders
+    	FROM ordered_detail
+    	JOIN ordered ON ordered_detail.ordered_no = ordered.ordered_no
+    	WHERE ordered.ordered_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<!-- 날짜별 매출 및 주문 수 -->
+	<select id="salesStatisticsByDate" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT 
+        DATE(ordered.ordered_date) AS orderDate,   <!-- 테이블 이름 명시 -->
+        SUM(ordered_detail.ordered_detail_total_price) AS dailySales,  <!-- 테이블 이름 명시 -->
+        COUNT(DISTINCT ordered_detail.ordered_no) AS dailyOrders  <!-- 테이블 이름 명시 -->
+    	FROM ordered_detail
+    	JOIN ordered ON ordered_detail.ordered_no = ordered.ordered_no
+    	WHERE ordered.ordered_date BETWEEN #{startDate} AND #{endDate}  <!-- 테이블 이름 명시 -->
+    	GROUP BY DATE(ordered.ordered_date)  <!-- 테이블 이름 명시 -->
+    	ORDER BY orderDate ASC
+	</select>
+
 	<!-- 회원 관리 list -->
 	<select id="userList" parameterType="java.util.Map" resultType="userVO" >
 		SELECT *

@@ -38,6 +38,19 @@ public class AdminDAO {
 	public Map<String, Object> contentCount() {
 		return sqlSession.selectOne(namespace + ".contentCount");
 	}
+	
+	// 통합 통계 메서드
+    public Map<String, Object> getSalesStatistics(Map<String, Object> params) {
+        // 1. 총 매출 및 총 주문 수 가져오기
+        Map<String, Object> summary = sqlSession.selectOne(namespace + ".salesStatistics", params);
+
+        // 2. 날짜별 매출 및 주문 수 가져오기
+        List<Map<String, Object>> dailyData = sqlSession.selectList(namespace + ".salesStatisticsByDate", params);
+
+        // 3. 통합 결과 생성
+        summary.put("dailyData", dailyData);
+        return summary;
+    }
 
 	// 회원 관리 list
 	public List<UserVO> userList(Map<String, Integer> pagingParam) {
