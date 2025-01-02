@@ -67,6 +67,14 @@
 		                            <div class="writer">\${product.product_author}</div>
 		                            <div class="price">\${product.product_price}</div>
 		                        </div>
+		                        <div class="book-sales">
+			        	            <div class="quantity" name="quantity"></div>
+			        	            <div class="button-area-list">
+			        	                <div class="payment"><button onclick="location.href='payment.do'">바로구매</button></div>
+			        	                <div class="cart"><button onclick="addToCart(${vo.product_no})">장바구니</button></div>
+			        	                <div class="wishlist"><button onclick="addToWishlist(${vo.product_no})">위시리스트</button></div>
+			        	            </div>
+			        	        </div>
 		                    </div>`;
 		            });
 		            $('#category-content').html(productHtml);

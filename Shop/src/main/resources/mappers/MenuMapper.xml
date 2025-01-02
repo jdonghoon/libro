@@ -20,10 +20,10 @@
 		  JOIN category c
 		    ON p.category_no = c.category_no
  		 WHERE product_created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+ 		   AND product_status = 'E'
  		 <if test="categoryType != null and categoryType != ''">
  		   AND TRIM(category_name) = TRIM(#{categoryType})
  		 </if>
- 		   AND product_status = 'E'
    	  ORDER BY product_created_at DESC
    	  	 LIMIT #{start}, #{perPage};
    	</select>
@@ -35,10 +35,10 @@
    		  JOIN category c
    		    ON p.category_no = c.category_no
    		 WHERE product_created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+ 		   AND product_status = 'E'
    		 <if test="categoryType != null and categoryType != ''">
  		   AND TRIM(category_name) = TRIM(#{categoryType});
  		 </if>
- 		   AND product_status = 'E'
    	</select>
 	
 	<!-- bestsellerlist 가장 많이 팔린 책 -->
@@ -60,10 +60,10 @@
 		    ON p.category_no = c.category_no
 	      JOIN ordered_detail od
     		ON p.product_no = od.product_no
+    	 WHERE product_status = 'E'
 		 <if test="categoryType != null and categoryType != ''">
-		   WHERE TRIM(category_name) = TRIM(#{categoryType})
+		   AND TRIM(category_name) = TRIM(#{categoryType})
 		 </if>
-		   AND product_status = 'E'
    	  GROUP BY od.product_no, d.attachment_detail_new_name, p.product_name, p.product_author, product_price, product_created_at 
    	  ORDER BY order_count DESC
    	  	 LIMIT #{start}, #{perPage};
@@ -85,10 +85,10 @@
 			ON a.attachment_no = d.attachment_no
   		  JOIN category c
 			ON p.category_no = c.category_no
+		 WHERE product_status = 'E'
 		<if test="categoryType != null and categoryType != ''">
-		 WHERE TRIM(category_name) = TRIM(#{categoryType})
+		   AND TRIM(category_name) = TRIM(#{categoryType})
 		</if>
-		  AND product_status = 'E'
    	  	 ORDER BY product_created_at DESC
    	  	 LIMIT #{start}, #{perPage};
    	</select>
