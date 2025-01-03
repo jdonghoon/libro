@@ -52,13 +52,7 @@
 		    <div>
 		      <button type="button" class="wishlist" onclick="addToWishlist(${productDetail.product_no})">위시리스트</button>
 		      <button type="button" class="cart" onclick="addToCart(${productDetail.product_no})">장바구니</button>
-		      <form action="<%=request.getContextPath()%>/directPurchase" method="post">
-			    <input type="hidden" name="product_no" value="${productDetail.product_no}">
-			    <input type="hidden" name="product_name" value="${productDetail.product_name}">
-			    <input type="hidden" name="product_price" value="${productDetail.product_price}">
-			    <input type="hidden" name="quantity" id="quantity" value="1">
-			    <button type="submit" class="purchase">바로 구매</button>
-			</form>
+			  <button type="submit" class="purchase">바로 구매</button>
 		    </div>
 		  </div>
 		</form>

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class KakaoPayController {
      */
     @PostMapping("/ready")
     @ResponseBody
-    public ResponseEntity<?> kakaoPayReady(@RequestBody Map<String, Object> paymentData, HttpSession session) {
+    public ResponseEntity<?> kakaoPayReady(@RequestBody Map<String, Object> paymentData, HttpServletRequest req) {
         try {
             log.info("카카오페이 요청 데이터: {}", paymentData);
 
@@ -74,8 +75,8 @@ public class KakaoPayController {
             KakaoPayResponse response = kakaoPayService.kakaoPayReady(kakaoPayRequest);
 
             // 세션에 TID 및 주문 번호 저장
-            session.setAttribute("tid", response.getTid());
-            session.setAttribute("partner_order_id", partnerOrderId);
+            req.getSession().setAttribute("tid", response.getTid());
+            req.getSession().setAttribute("partner_order_id", partnerOrderId);
 
             return ResponseEntity.ok(response); // 성공 응답 반환
         } catch (Exception e) {
@@ -93,11 +94,11 @@ public class KakaoPayController {
      * @return 결제 성공 또는 오류 페이지
      */
     @GetMapping("/success")
-    public String paymentSuccess(@RequestParam("pg_token") String pgToken, HttpSession session, Model model) {
+    public String paymentSuccess(@RequestParam("pg_token") String pgToken, HttpServletRequest req, Model model) {
         try {
             // 세션에서 TID와 주문 번호 조회
-            String tid = (String) session.getAttribute("tid");
-            String partnerOrderId = (String) session.getAttribute("partner_order_id");
+            String tid = (String) req.getSession().getAttribute("tid");
+            String partnerOrderId = (String) req.getSession().getAttribute("partner_order_id");
 
             // 세션 데이터 유효성 검증
             validateSessionData(tid, partnerOrderId);

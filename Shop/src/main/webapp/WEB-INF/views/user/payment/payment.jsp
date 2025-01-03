@@ -310,8 +310,7 @@
   <script>
 	$(function() {
 	    $("#btn-pay-ready").click(function(e) {
-	        e.preventDefault();
-	
+	    	alert(1);
 	     // 사용자 입력 정보 수집
             const customerInfo = {
                 userName: $(".orderer-info-content div:nth-child(1)").text().trim(),
@@ -335,7 +334,7 @@
             };
 	
 	        console.log("결제 요청 데이터:", paymentData);
-	
+		
 	        // AJAX 요청
 	        $.ajax({
 	            type: 'POST',
