@@ -95,52 +95,55 @@
             </div>
 
             <!-- 매출 통계 -->
-            <div class="container">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">매출 통계</h5>
-                    </div>
-                    <div class="card-body">
-                        <!-- 기간 설정 -->
-                        <div class="row mb-4">
-                            <div class="col-md-5">
-                                <label for="startDate" class="form-label">시작일</label>
-                                <input type="date" id="startDate" class="form-control" />
-                            </div>
-                            <div class="col-md-5">
-                                <label for="endDate" class="form-label">종료일</label>
-                                <input type="date" id="endDate" class="form-control" />
-                            </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button id="filterBtn" class="btn btn-primary w-100">조회</button>
-                            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">매출 통계</h5>
                         </div>
+                        <div class="card-body">
+                            <!-- 기간 설정 -->
+                            <div class="row mb-4">
+                                <div class="col-md-5">
+                                    <label for="startDate" class="form-label">시작일</label>
+                                    <input type="date" id="startDate" class="form-control" />
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="endDate" class="form-label">종료일</label>
+                                    <input type="date" id="endDate" class="form-control" />
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button id="filterBtn" class="btn btn-primary w-100">조회</button>
+                                </div>
+                            </div>
 
-                        <!-- 매출 요약 -->
-                        <div class="row text-center mb-4">
-                            <div class="col-md-6">
-                                <div class="card border-primary">
-                                    <div class="card-body">
-                                        <h6>총 주문 금액</h6>
-                                        <h4 id="totalSales" class="text-primary">${statistics.totalSales != null ? statistics.totalSales : 0}원</h4>
+                            <!-- 매출 요약 -->
+                            <div class="row text-center mb-4">
+                                <div class="col-md-6">
+                                    <div class="card border-primary">
+                                        <div class="card-body">
+                                            <h6>총 주문 금액</h6>
+                                            <h4 id="totalSales" class="text-primary">${statistics.totalSales != null ? statistics.totalSales : 0}원</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card border-success">
+                                        <div class="card-body">
+                                            <h6>총 주문 수</h6>
+                                            <h4 id="totalOrders" class="text-success">${statistics.totalOrders != null ? statistics.totalOrders : 0}건</h4>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="card border-success">
-                                    <div class="card-body">
-                                        <h6>총 주문 수</h6>
-                                        <h4 id="totalOrders" class="text-success">${statistics.totalOrders != null ? statistics.totalOrders : 0}건</h4>
-                                    </div>
-                                </div>
+
+                            <!-- 그래프 -->
+                            <div>
+                                <canvas id="salesChart" height="100"></canvas>
                             </div>
                         </div>
-
-                        <!-- 그래프 -->
-                        <canvas id="salesChart" height="100"></canvas>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </main>
