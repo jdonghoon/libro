@@ -9,10 +9,10 @@
 
         <div class="ShoppingGuideMenu">
             <ul>
-                <li><a href="Shipping.do" style="text-decoration: underline;">배송</a></li>
+                <li><a href="Shipping.do">배송</a></li>
                 <li><a href="CancelChange.do">취소/변경</a></li>
                 <li><a href="ExchangesRefunds.do">교환 및 반품</a></li>
-                <li><a href="FaultMisdelivery.do">불량/오배송 안내</a></li>
+                <li><a href="FaultMisdelivery.do" style="text-decoration: underline;">불량/오배송 안내</a></li>
                 <!-- <li><a href="#">멤버십 혜택 안내</a></li>
                 <li><a href="#">리뷰 적립금 안내</a></li>
                 <li><a href="#">쿠폰</a></li>

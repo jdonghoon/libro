@@ -45,7 +45,7 @@
 							<div class="content-item">
 							<a href="product.do?product_no=${vo.product_no}">
 								<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="250px;" height="350px;">
-								<div class="title" name="title">${vo.product_name}</div>
+								<div class="title" name="title" style="width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vo.product_name}</div>
 								<div class="writer" name="writer">${vo.product_author}</div>
 							</a>
 						</div>
@@ -71,7 +71,7 @@
 						<div class="content-item">
 							<a href="product.do?product_no=${vo.product_no}">
 								<img src="<%=request.getContextPath()%>/upload/${vo.attachment_detail_new_name}" width="250px;" height="350px;">
-								<div class="title" name="title">${vo.product_name}</div>
+								<div class="title" name="title" style="width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vo.product_name}</div>
 								<div class="writer" name="writer">${vo.product_author}</div>
 							</a>
 						</div>

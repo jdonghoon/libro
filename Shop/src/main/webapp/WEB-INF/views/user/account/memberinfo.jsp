@@ -36,10 +36,10 @@
                         <input type="text" id="user_id" name="user_id" value="${vo.user_id}" readonly>
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="password" id="user_password" name="user_password" placeholder="현재비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
+                        <input type="password" id="user_password" name="user_password" placeholder="현재비밀번호* (영문 대소문자/숫자/특수문자 조합, 4~8자)">
                     </div>
                     <div class="memberinfoform-group">
-                        <input type="password" id="new_password" name="new_password" placeholder="새비밀번호 (영문 대소문자/숫자/특수문자 조합, 8~16자)">
+                        <input type="password" id="new_password" name="new_password" placeholder="새비밀번호 (영문 대소문자/숫자/특수문자 조합, 4~8자)">
                     </div>
                     <div class="memberinfoform-group">
                         <input type="password" id="password_Confirm" name="password_Confirm" placeholder="새비밀번호 확인">

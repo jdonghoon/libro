@@ -55,9 +55,9 @@
 						</div>
 					</div>
 
-					<div class="inquirydetail-group" style="border: none;">
+<!-- 					<div class="inquirydetail-group" style="border: none;">
 						<input type="password" name="user_password" placeholder="비밀번호">
-					</div>
+					</div> -->
 					
                     <div class="inquirydetail-footer">
                         <button class="left-button" onclick="location.href='mypost.do'">목록</button>

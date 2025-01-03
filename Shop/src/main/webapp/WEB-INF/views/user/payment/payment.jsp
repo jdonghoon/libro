@@ -310,7 +310,6 @@
   <script>
 	$(function() {
 	    $("#btn-pay-ready").click(function(e) {
-	    	alert(1);
 	     // 사용자 입력 정보 수집
             const customerInfo = {
                 userName: $(".orderer-info-content div:nth-child(1)").text().trim(),

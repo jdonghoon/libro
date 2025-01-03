@@ -18,7 +18,7 @@
                         <div id="validationId"></div>
                     </div>
                     <div class="joinform-group">
-                        <input type="password" id="user_password" name="user_password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 8~16자)">
+                        <input type="password" id="user_password" name="user_password" placeholder="비밀번호* (영문 대소문자/숫자/특수문자 조합, 4~8자)">
                     </div>
                     <div class="joinform-group">
                         <input type="password" id="password_Confirm" name="password_Confirm" placeholder="비밀번호 확인*">

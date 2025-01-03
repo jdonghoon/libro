@@ -19,7 +19,7 @@
 	                            <div>
 	                                <span>${vo.product_name}</span><br>
 	                                <span>${vo.product_author} 저 · ${vo.product_publisher}</span><br>
-	                                <span>
+	                                <span style="display: flex; align-items: center;">
 	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
 	                                    <c:if test="${empty vo.review_starrating_avg}">
 	                                    	0
@@ -28,7 +28,7 @@
 		                                    ${vo.review_starrating_avg}
 	                                    </c:if>
 	                                    (${vo.review_cnt})
-	                                </span><br><br><br><br>
+	                                </span><br><br>
 	                                <span>${vo.product_price}원</span>
 	                            </div>
 	                            <div class="imgs"> 
@@ -66,7 +66,7 @@
 	                            <div>
 	                                <span>${vo.product_name}</span><br>
 	                                <span>${vo.product_author} 저 · ${vo.product_publisher}</span><br>
-	                                <span>
+	                                <span style="display: flex; align-items: center;">
 	                                    평균 <img src="https://img.icons8.com/?size=100&id=G4zH9X90bt1j&format=png&color=FFAA00" style="width: 20px;">
 	                                    <c:if test="${empty vo.review_starrating_avg}">
 	                                    	0

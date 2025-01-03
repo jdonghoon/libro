@@ -196,9 +196,9 @@ public class KakaoPayController {
         kakaoPayRequest.put("total_amount", paymentData.get("amount"));
         kakaoPayRequest.put("vat_amount", 0);
         kakaoPayRequest.put("tax_free_amount", 0);
-        kakaoPayRequest.put("approval_url", "http://192.168.0.64:8080/controller/success");
-        kakaoPayRequest.put("cancel_url", "http://192.168.0.64:8080/controller/cancel");
-        kakaoPayRequest.put("fail_url", "http://192.168.0.64:8080/controller/fail");
+        kakaoPayRequest.put("approval_url", "http://192.168.0.64:8080/controller/kakaoPay/success");
+        kakaoPayRequest.put("cancel_url", "http://192.168.0.64:8080/controller/kakaoPay/cancel");
+        kakaoPayRequest.put("fail_url", "http://192.168.0.64:8080/controller/kakaoPay/fail");
         return kakaoPayRequest;
     }
 

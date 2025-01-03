@@ -210,7 +210,7 @@ public class UserController {
 			System.out.println("탈퇴 실패");
 		}
 		
-		return "redirect:/";
+		return "redirect:/logout.do";
 	}
 	
 	// 주소록 목록

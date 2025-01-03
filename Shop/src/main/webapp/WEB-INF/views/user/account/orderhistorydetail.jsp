@@ -70,17 +70,24 @@
                         </tr>
                         <tr>
                             <th>상품구매금액</th>
-                            <td>${vo.ordered_detail_total_price - 3000}원</td>
+<%-- 							<c:if test="${vo.ordered_detail_total_price >= 50000}">
+	                            <td>${vo.ordered_detail_total_price}원</td>
+							</c:if>
+							<c:if test="${vo.ordered_detail_total_price < 50000}">
+	                            <td>${vo.ordered_detail_total_price - 3000}원</td>
+							</c:if> --%>
+	                        <td>${vo.ordered_detail_total_price - 3000}원</td>
                         </tr>
                         <tr>
                             <th>배송비</th>
                             <td>
-								<c:if test="${vo.ordered_detail_total_price >= 50000}">
+<%-- 								<c:if test="${vo.ordered_detail_total_price >= 50000}">
 									무료
 								</c:if>
 								<c:if test="${vo.ordered_detail_total_price < 50000}">
 									3,000원
-								</c:if>
+								</c:if> --%>
+								3,000원
                             </td>
                         </tr>
                     </tbody>
