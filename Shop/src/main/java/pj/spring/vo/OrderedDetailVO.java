@@ -15,8 +15,24 @@ public class OrderedDetailVO extends ProductVO {
 	private String ordered_no;								// 주문번호
 	private String product_no;								// 상품 번호
 	
+	private String orderTotalAmount;
+	private String orderTotalQuantity;
 	
 	
+	
+	
+	public String getOrderTotalAmount() {
+		return orderTotalAmount;
+	}
+	public void setOrderTotalAmount(String orderTotalAmount) {
+		this.orderTotalAmount = orderTotalAmount;
+	}
+	public String getOrderTotalQuantity() {
+		return orderTotalQuantity;
+	}
+	public void setOrderTotalQuantity(String orderTotalQuantity) {
+		this.orderTotalQuantity = orderTotalQuantity;
+	}
 	public String getProduct_no() {
 		return product_no;
 	}

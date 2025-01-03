@@ -91,10 +91,10 @@
                                                             <p>
 															    <c:choose>
 															        <c:when test="${empty orderTotalQuantity.orderTotalQuantity}">
-															            0원
+															            0건
 															        </c:when>
 															        <c:otherwise>
-															            ${orderTotalQuantity.orderTotalQuantity}원
+															            ${orderTotalQuantity.orderTotalQuantity}건
 															        </c:otherwise>
 															    </c:choose>
 															</p>

@@ -27,6 +27,9 @@ public class PaymentVO extends OrderedDetailVO {
 	private String guest_no;
 	
 	
+	private String paymentTotalAmount;
+	
+	
 	
 	private int cart_product_quantity;		// 카드 상품 수량
 	
@@ -64,6 +67,16 @@ public class PaymentVO extends OrderedDetailVO {
 	    }
 	}
 
+	
+	
+	
+	
+	public String getPaymentTotalAmount() {
+		return paymentTotalAmount;
+	}
+	public void setPaymentTotalAmount(String paymentTotalAmount) {
+		this.paymentTotalAmount = paymentTotalAmount;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
