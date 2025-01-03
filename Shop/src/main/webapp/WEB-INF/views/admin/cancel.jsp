@@ -208,33 +208,35 @@
                                     
                                     <!--begin::Pagination-->
                                     <div aria-label="Page navigation example">
-                                        <ul class="pagination">
-                                            <li class="page-item">
-                                             	<c:if test="${paging.startPage > 1 }">
-	                                            	<a class="page-link" href="cancel.do?nowPage=${paging.startPage-1}" aria-label="Previous">
-	                                            		<span aria-hidden="true">&laquo;</span>
-	                                            	</a>
-                                            	</c:if>
-                                           	</li>
-                                            <li class="page-item">
-                                            	<c:forEach begin="${paging.startPage }" end="${paging.endPage}" var="cnt">
-													<c:if test="${paging.nowPage eq cnt }">
-														<b>${cnt}</b>
-													</c:if>
-													<c:if test="${paging.nowPage ne cnt }">
-                                            			<a class="page-link" href="cancel.do?nowPage=${cnt}">${cnt}</a>
-													</c:if>
-												</c:forEach>
-                                           	</li>
-                                            <li class="page-item">
-                                            	<c:if test="${paging.endPage < paging.lastPage }">
-		                                            <a class="page-link" href="cancel.do?nowPage=${paging.endPage+1}" aria-label="Next">
-		                                            	<span aria-hidden="true">&raquo;</span>
-		                                            </a>
-	                                            </c:if>
-                                            </li>
-                                        </ul>
-                                    </div>
+									    <ul class="pagination justify-content-center">
+									        <!-- Previous 버튼 -->
+									        <c:if test="${paging.startPage > 1}">
+									            <li class="page-item">
+									                <a class="page-link" href="cancel.do?nowPage=${paging.startPage-1}" aria-label="Previous">
+									                    <span aria-hidden="true">&laquo;</span>
+									                </a>
+									            </li>
+									        </c:if>
+									
+									        <!-- 페이지 번호 -->
+									        <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="cnt">
+									            <li class="page-item <c:if test='${paging.nowPage eq cnt}'>active</c:if>">
+									                <a class="page-link" href="cancel.do?nowPage=${cnt}">
+									                    ${cnt}
+									                </a>
+									            </li>
+									        </c:forEach>
+									
+									        <!-- Next 버튼 -->
+									        <c:if test="${paging.endPage < paging.lastPage}">
+									            <li class="page-item">
+									                <a class="page-link" href="cancel.do?nowPage=${paging.endPage+1}" aria-label="Next">
+									                    <span aria-hidden="true">&raquo;</span>
+									                </a>
+									            </li>
+									        </c:if>
+									    </ul>
+									</div>
                                     <!--end::Pagination-->
                                 </div>
                             </div>
